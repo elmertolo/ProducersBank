@@ -82,12 +82,15 @@
     <Compile Include="RecentBatch.Designer.cs">
       <DependentUpon>RecentBatch.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="SalesInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SalesInvoice.Designer.cs">
       <DependentUpon>SalesInvoice.cs</DependentUpon>
     </Compile>
+=======
+>>>>>>> 215b4ad78ba9e02ea371e69e0431e34622880407
     <Compile Include="Services\ProcessServices.cs" />
     <Compile Include="ViewReports.cs">
       <SubType>Form</SubType>
