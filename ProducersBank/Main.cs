@@ -30,5 +30,12 @@ namespace ProducersBank
             rb.Show();
             this.Hide();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frmSalesInvoice si = new frmSalesInvoice();
+            si.Show();
+            this.Hide();
+        }
     }
 }

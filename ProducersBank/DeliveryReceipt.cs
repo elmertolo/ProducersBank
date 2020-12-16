@@ -8,12 +8,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace ProducersBank {
+  
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
     using CrystalDecisions.ReportSource;
     using CrystalDecisions.CrystalReports.Engine;
+   
     
     
     public class DeliveryReceipt : ReportClass {

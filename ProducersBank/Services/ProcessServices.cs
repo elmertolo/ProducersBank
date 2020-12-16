@@ -42,7 +42,6 @@ namespace ProducersBank.Services
 
                 //}
 
-
                 myConnect = new MySqlConnection(DBConnection);
 
                 myConnect.Open();
@@ -71,7 +70,6 @@ namespace ProducersBank.Services
             foreach (string brstn in listofBRSTN)
             {
     
-
                 var _list = _orderList.Where(r => r.BRSTN == brstn);
                 foreach (var check in _list)
                 {
@@ -80,9 +78,6 @@ namespace ProducersBank.Services
                    "','" + check.ChkType + "','" + check.ChequeName + "','" + check.StartingSerial + "','" + check.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd") + "','" + _username + "','" + check.Batch.TrimEnd() + "','" + _packNumber + "');";
                     MySqlCommand cmd = new MySqlCommand(Sql, myConnect);
                     cmd.ExecuteNonQuery();
-
-                    
-                   
                 }
 
                 counter++;
@@ -91,13 +86,7 @@ namespace ProducersBank.Services
                     _DrNumber++;
                     counter = 0;
                 }
-                
-                
             }
-
-           
-
-
 
             DBClosed();
             return _orderList;
