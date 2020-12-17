@@ -149,33 +149,24 @@ namespace ProducersBank.Services
             DBClosed();
             return _batch;
         }
-        //public List<TempModel> SearchBatch(List<TempModel> _orders )
-        //{
-        //    Sql = "SELECT DRNumber, PackNumber, BRSTN, ChkType, BranchName, COUNT(BRSTN)," +
-        //        "MIN(StartingSerial), MAX(EndingSerial),ChequeName, Batch FROM " + databaseName + ".producers_history WHERE  Batch = '" + _batch + "'" +
-        //         "GROUP BY DRNumber, BRSTN, ChkType, BranchName,ChequeName ,Batch ORDER BY DRNumber, PackNumber;";
-        //    MySqlCommand cmd = new MySqlCommand(Sql, myConnect);
-        //    MySqlDataReader myReader = cmd.ExecuteReader();
-        //    while (myReader.Read())
-        //    {
-        //        TempModel order = new TempModel();
-        //        order.DrNumber = myReader.GetString(0);
-        //        order.PackNumber = myReader.GetString(1);
-        //        order.BRSTN = myReader.GetString(2);
-        //        order.ChkType = myReader.GetString(3);
-        //        order.BranchName = myReader.GetString(4);
-        //        order.Qty = myReader.GetInt32(5);
-        //        order.StartingSerial = myReader.GetString(6);
-        //        order.EndingSerial = myReader.GetString(7);
-        //        order.ChequeName = myReader.GetString(8);
-        //        order.Batch = myReader.GetString(9);
+      public string GetDrMaxNumber(string _DrNumber)
+      {
+            int counter = 0;
+            List<string> db = new List<string>();
+            Sql = "Select Distinct(DatabaseName) from Clients";
+            DBConnect();
+            MySqlCommand cmd = new MySqlCommand(Sql, myConnect);
+            MySqlDataReader myReader = cmd.ExecuteReader();
+            
+            while(myReader.Read())
+            {
+                db[counter] = myReader.GetString(0);
+                counter++;
+            }
 
-        //        list.Add(order);
-        //    }
-        //    DBClosed();
+           
 
-
-        //    return _orders;
-        //}
+            return _DrNumber; 
+      }
     }
 }
