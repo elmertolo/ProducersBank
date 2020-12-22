@@ -29,12 +29,14 @@ namespace ProducersBank
         {
 
             DeliveryReceipt crystalReport = new DeliveryReceipt();
+
             //   Customers dsCustomers = GetData();
             //    crystalReport.SetDataSource(dsCustomers);
             
             
             this.crystalReportViewer1.ReportSource = crystalReport;
             this.crystalReportViewer1.RefreshReport();
+           
 
         }
     }

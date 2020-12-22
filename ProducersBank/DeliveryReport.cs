@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProducersBank.Models;
 using ProducersBank.Services;
+using CrystalDecisions.Shared;
+
 
 namespace ProducersBank
 {
@@ -20,9 +22,15 @@ namespace ProducersBank
 
         List<OrderModel> orderList = new List<OrderModel>();
         ProcessServices proc = new ProcessServices();
-        List<TempModel> temp = new List<TempModel>();
+        List<TempModel> tempDr = new List<TempModel>();
+        List<TempModel> tempSticker = new List<TempModel>();
         public DateTime deliveryDate;
         DateTime dateTime;
+        List<Int64> DrNumbers = new List<long>();
+        List<Int32> PNumbers = new List<Int32>();
+        Int32 pNumber = 0;
+        Int64 _dr = 0;
+
         public DeliveryReport()
         {
             InitializeComponent();
@@ -40,7 +48,8 @@ namespace ProducersBank
             {
                 proc.GenerateData(orderList, int.Parse(txtDrNumber.Text),deliveryDate,"Elmer",int.Parse(txtPackNumber.Text));
 
-                proc.GetDRDetails(orderList[0].Batch,temp);
+                proc.GetDRDetails(orderList[0].Batch,tempDr);
+                proc.GetStickerDetails(tempSticker,orderList[0].Batch);
                 //CrystalReport1 cr = new CrystalReport1();
                 //cr.Load(Application.StartupPath + "\\DeliveryReceipt.rpt");
          
@@ -137,7 +146,47 @@ namespace ProducersBank
         private void DeliveryReport_Load(object sender, EventArgs e)
         {
             ChequeName();
-          //  BankName();
+            //  BankName();
+        
+            GetDR();
+            GetPack();
+         
+        }
+        private void GetPack()
+        {
+            PNumbers = proc.GetMaxPackNumber();
+
+            for (int a = 0; a < PNumbers.Count; a++)
+            {
+
+                if (pNumber > PNumbers[a])
+                {
+                    // MessageBox.Show("Lah");
+                }
+                else
+                    pNumber = PNumbers[a];
+                    
+            }
+            txtPackNumber.Text = pNumber.ToString();
+        }
+        private void GetDR()
+        {
+            proc.GetMaxDr(DrNumbers);
+
+            // Int64.Parse(txtDrNumber.Text)
+            for (int i = 0; i < DrNumbers.Count; i++)
+            {
+                if (_dr > DrNumbers[i])
+                {
+
+                }
+                else
+                    _dr = DrNumbers[i];
+                    
+            }
+            txtDrNumber.Text = _dr.ToString();
+            return;
+
         }
 
         private void mainMenuToolStripMenuItem_Click(object sender, EventArgs e)
@@ -152,6 +201,17 @@ namespace ProducersBank
             RecentBatch rb = new RecentBatch();
             rb.Show();
             this.Hide();
+        }
+
+        private void btnDr_Click(object sender, EventArgs e)
+        {
+            GetDR();
+            MessageBox.Show("Generate Delivery Receipt Number done!");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
