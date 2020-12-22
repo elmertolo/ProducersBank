@@ -138,7 +138,7 @@ namespace ProducersBank
 
             BindingSource checkBind = new BindingSource();
             checkBind.DataSource = orderList;
-            dataGridView1.DataSource = checkBind;
+            dgvDRList.DataSource = checkBind;
         }
 
        

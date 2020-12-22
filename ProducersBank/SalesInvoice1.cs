@@ -16,14 +16,14 @@ namespace ProducersBank {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class Sticker : ReportClass {
+    public class SalesInvoice : ReportClass {
         
-        public Sticker() {
+        public SalesInvoice() {
         }
         
         public override string ResourceName {
             get {
-                return "Sticker.rpt";
+                return "SalesInvoice.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace ProducersBank {
         
         public override string FullResourceName {
             get {
-                return "ProducersBank.Sticker.rpt";
+                return "ProducersBank.SalesInvoice.rpt";
             }
             set {
                 // Do nothing
@@ -87,20 +87,12 @@ namespace ProducersBank {
                 return this.ReportDefinition.Sections[4];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_batchName {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedSticker : Component, ICachedReport {
+    public class CachedSalesInvoice : Component, ICachedReport {
         
-        public CachedSticker() {
+        public CachedSalesInvoice() {
         }
         
         [Browsable(false)]
@@ -137,7 +129,7 @@ namespace ProducersBank {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            Sticker rpt = new Sticker();
+            SalesInvoice rpt = new SalesInvoice();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -29,7 +29,7 @@ namespace ProducersBank
             proc.GetDRDetails(txtRecentBatch.Text, tempRecent);
             BindingSource checkBind = new BindingSource();
             checkBind.DataSource = tempRecent;
-            dataGridView1.DataSource = checkBind;
+            dgvDRList.DataSource = checkBind;
         }
 
         private void deliveryReceiptToolStripMenuItem_Click(object sender, EventArgs e)
