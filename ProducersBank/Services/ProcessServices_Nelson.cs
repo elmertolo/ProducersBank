@@ -48,9 +48,12 @@ namespace ProducersBank.Services
 
         public bool LoadInitialData(ref DataTable dt)
         {
+
+
             try
             {
-                string sql = "select batch, chequename, ChkType, deliverydate from producers_history where salesinvoice is null group by batch, chequename, ChkType";
+                string sql = "select batch, chequename, ChkType, deliverydate, count(batch) as Quantity from producers_history where salesinvoice is null group by batch, chequename, ChkType";
+                //string sql = "select count(*) as count from producers_history";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
                 cmd.ExecuteNonQuery();

@@ -35,11 +35,11 @@ namespace ProducersBank
             this.deliveryReceiptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stickersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvDRList = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtRecentBatch = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -94,13 +94,13 @@ namespace ProducersBank
             this.mainMenuToolStripMenuItem.Text = " Main Menu";
             this.mainMenuToolStripMenuItem.Click += new System.EventHandler(this.mainMenuToolStripMenuItem_Click);
             // 
-            // dataGridView1
+            // dgvDRList
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 73);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(718, 256);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDRList.Location = new System.Drawing.Point(13, 73);
+            this.dgvDRList.Name = "dgvDRList";
+            this.dgvDRList.Size = new System.Drawing.Size(718, 256);
+            this.dgvDRList.TabIndex = 1;
             // 
             // label1
             // 
@@ -127,7 +127,7 @@ namespace ProducersBank
             this.ClientSize = new System.Drawing.Size(741, 343);
             this.Controls.Add(this.txtRecentBatch);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvDRList);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RecentBatch";
@@ -135,7 +135,7 @@ namespace ProducersBank
             this.Text = "Recent Batch";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,7 +145,7 @@ namespace ProducersBank
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvDRList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtRecentBatch;
         private System.Windows.Forms.ToolStripMenuItem printDRToolStripMenuItem;
