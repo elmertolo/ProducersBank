@@ -52,7 +52,7 @@ namespace ProducersBank.Services
 
             try
             {
-                string sql = "select batch, chequename, ChkType, deliverydate, count(batch) as Quantity from producers_history where salesinvoice is null group by batch, chequename, ChkType";
+                string sql = "select primarykey, batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history where salesinvoice is null group by batch, chequename, ChkType";
                 //string sql = "select count(*) as count from producers_history";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
@@ -66,6 +66,35 @@ namespace ProducersBank.Services
                 return false;
             }
         }
+
+        public string GetDRList(string batch, string checktype, DateTime deliveryDate)
+        {
+            
+            try
+            {
+                
+                DataTable dt = new DataTable();
+
+                string sql = "select group_concat(distinct(drnumber) separator ', ') from producers_history " +
+                "WHERE salesinvoice is null " +
+                "and batch = '" + batch + "' " +
+                "and chktype = '" + checktype + "';";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                return dt.Rows[0].Field<string>(0).ToString();
+               
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return null;
+               
+            }
+        }
+
 
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProducersBank.Services;
+using ProducersBank.Models;
 
 namespace ProducersBank
 {
@@ -109,16 +110,16 @@ namespace ProducersBank
             dgvListToProcess.Columns[0].DataPropertyName = "Batch"; //this must be the actual table name in sql
 
             dgvListToProcess.Columns[1].Name = "DR LIST";
-            dgvListToProcess.Columns[1].Width = 180;
-            dgvListToProcess.Columns[1].DataPropertyName = "deliveryNo";
+            dgvListToProcess.Columns[1].Width = 400;
+            dgvListToProcess.Columns[1].DataPropertyName = "drlist";
 
             dgvListToProcess.Columns[2].Name = "CHECK NAME";
             dgvListToProcess.Columns[2].Width = 180;
-            dgvListToProcess.Columns[2].DataPropertyName = "chequename";
+            dgvListToProcess.Columns[2].DataPropertyName = "checkname";
 
             dgvListToProcess.Columns[3].Name = "CHECK TYPE";
             dgvListToProcess.Columns[3].Width = 50;
-            dgvListToProcess.Columns[3].DataPropertyName = "ChkType";
+            dgvListToProcess.Columns[3].DataPropertyName = "checktype";
 
             dgvListToProcess.Columns[4].Name = "DELIVERY DATE";
             dgvListToProcess.Columns[4].Width = 100;
@@ -145,11 +146,63 @@ namespace ProducersBank
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnViewSelected_Click(object sender, EventArgs e)
         {
-            int[] primaryKey;
-            
+
+
+            pProcessSelectedOnDRList();
+
         }
+
+        private void pProcessSelectedOnDRList()
+        {
+
+            if (dgvDRList.SelectedRows != null && dgvDRList.SelectedRows.Count > 0)
+            {
+                List<SalesInvoiceModel> siList = new List<SalesInvoiceModel>();
+                SalesInvoiceModel line = new SalesInvoiceModel();
+
+                foreach (DataGridViewRow row in dgvDRList.SelectedRows)
+                {
+                    line.batch = row.Cells["batch"].Value.ToString();
+                    line.checkName = row.Cells["check name"].Value.ToString();
+                    line.checkType = row.Cells["check type"].Value.ToString();
+                    line.deliveryDate = DateTime.Parse(row.Cells["delivery Date"].Value.ToString());
+                    line.quantity = int.Parse(row.Cells["quantity"].Value.ToString());
+
+                    ProcessServices_Nelson proc = new ProcessServices_Nelson();
+                    if (!proc.OpenDB())
+                    {
+                        MessageBox.Show("Unable to connect to server.");
+                    }
+                    else
+                    {
+                        line.drList = proc.GetDRList(line.batch, line.checkType, line.deliveryDate);
+                    }
+
+                    siList.Add(line);
+                    
+
+                }
+                dgvListToProcess.DataSource = siList;
+                dgvListToProcess.ClearSelection();
+
+            }
+        }
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
     }
 
     
