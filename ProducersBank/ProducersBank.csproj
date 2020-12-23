@@ -213,6 +213,12 @@
       <DependentUpon>Sticker.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Stickers.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Stickers.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ViewReports.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SalesInvoice1.cs</LastGenOutput>
       <!-->>>>>>> 2405cacc370ee963f6ca542fd435f300be93b8a2-->
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stickers.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Stickers.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewReports.resx">
       <DependentUpon>ViewReports.cs</DependentUpon>

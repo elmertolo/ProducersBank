@@ -49,9 +49,10 @@ namespace ProducersBank
                 proc.GenerateData(orderList, int.Parse(txtDrNumber.Text),deliveryDate,"Elmer",int.Parse(txtPackNumber.Text));
 
                 proc.GetDRDetails(orderList[0].Batch,tempDr);
-                proc.GetStickerDetails(tempSticker,orderList[0].Batch);
+              //  proc.GetStickerDetails(tempSticker,orderList[0].Batch);
                 //CrystalReport1 cr = new CrystalReport1();
                 //cr.Load(Application.StartupPath + "\\DeliveryReceipt.rpt");
+                
          
                 MessageBox.Show("Data has been process!!!");
                 ViewReports vp = new ViewReports();
@@ -145,12 +146,13 @@ namespace ProducersBank
 
         private void DeliveryReport_Load(object sender, EventArgs e)
         {
+            
             ChequeName();
             //  BankName();
         
             GetDR();
             GetPack();
-         
+            MessageBox.Show(proc.myConnect.ConnectionString);
         }
         private void GetPack()
         {

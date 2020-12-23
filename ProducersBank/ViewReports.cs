@@ -29,7 +29,7 @@ namespace ProducersBank
         {
 
             DeliveryReceipt crystalReport = new DeliveryReceipt();
-
+            Stickers stickerReport = new Stickers();
             //   Customers dsCustomers = GetData();
             //    crystalReport.SetDataSource(dsCustomers);
             

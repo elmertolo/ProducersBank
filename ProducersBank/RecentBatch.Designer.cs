@@ -72,6 +72,7 @@ namespace ProducersBank
             this.printDRToolStripMenuItem.Name = "printDRToolStripMenuItem";
             this.printDRToolStripMenuItem.Size = new System.Drawing.Size(110, 24);
             this.printDRToolStripMenuItem.Text = "Print Reports";
+            this.printDRToolStripMenuItem.Click += new System.EventHandler(this.printDRToolStripMenuItem_Click);
             // 
             // deliveryReceiptToolStripMenuItem
             // 
@@ -85,6 +86,7 @@ namespace ProducersBank
             this.stickersToolStripMenuItem.Name = "stickersToolStripMenuItem";
             this.stickersToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.stickersToolStripMenuItem.Text = "Stickers";
+            this.stickersToolStripMenuItem.Click += new System.EventHandler(this.stickersToolStripMenuItem_Click);
             // 
             // mainMenuToolStripMenuItem
             // 

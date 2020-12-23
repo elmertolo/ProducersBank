@@ -68,14 +68,15 @@ namespace ProducersBank.Services
         public List<OrderModel> GenerateData(List<OrderModel> _orderList, int _DrNumber,DateTime _deliveryDate,string _username,int _packNumber)
         {
             DBConnect();
-         
+
             var listofBRSTN = _orderList.Select(e => e.BRSTN).Distinct().ToList();
-            
+            //var LChkType = _orderList.Select(e => e.ChkType).Distinct().ToList();
             int counter = 0;
             foreach (string brstn in listofBRSTN)
             {
     
-                var _list = _orderList.Where(r => r.BRSTN == brstn);
+                var _list = _orderList.Where(r => r.BRSTN == brstn  && r.ChkType == "A");
+                //_list.OrderBy(a => a.ChkType);
                 foreach (var check in _list)
                 {
                     Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial,DRNumber,DeliveryDate,username,batch,PackNumber )"
@@ -83,14 +84,41 @@ namespace ProducersBank.Services
                    "','" + check.ChkType + "','" + check.ChequeName + "','" + check.StartingSerial + "','" + check.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd") + "','" + _username + "','" + check.Batch.TrimEnd() + "','" + _packNumber + "');";
                      cmd = new MySqlCommand(Sql, myConnect);
                     cmd.ExecuteNonQuery();
+
+                   
+                }
+
+                 counter++;
+                    if (counter == 10)
+                    {
+                        _DrNumber++;
+                        counter = 0;
+                    }
+                
+            }
+            foreach (string brstn in listofBRSTN)
+            {
+
+                var _list = _orderList.Where(r => r.BRSTN == brstn && r.ChkType == "B");
+                //_list.OrderBy(a => a.ChkType);
+                foreach (var check in _list)
+                {
+                    Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial,DRNumber,DeliveryDate,username,batch,PackNumber )"
+                   + "VALUES('" + check.BRSTN + "','" + check.BranchName + "','" + check.AccountNo + "','" + check.AccountNoWithHypen + "','" + check.Name1 + "','" + check.Name2 +
+                   "','" + check.ChkType + "','" + check.ChequeName + "','" + check.StartingSerial + "','" + check.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd") + "','" + _username + "','" + check.Batch.TrimEnd() + "','" + _packNumber + "');";
+                    cmd = new MySqlCommand(Sql, myConnect);
+                    cmd.ExecuteNonQuery();
+
+
                 }
 
                 counter++;
-                if(counter == 10)
+                if (counter == 10)
                 {
                     _DrNumber++;
                     counter = 0;
                 }
+
             }
 
             DBClosed();
@@ -285,6 +313,22 @@ namespace ProducersBank.Services
                     
                 };
                 _temp.Add(t);
+            }
+            string sqldel = "Delete from  " + databaseName + ".producers_tempdatadr;";
+            MySqlCommand comdel = new MySqlCommand(sqldel, myConnect);
+            comdel.ExecuteNonQuery();
+
+            DBClosed();
+            DBConnect();
+            for (int i = 0; i < _temp.Count; i++)
+            {
+
+
+                string sql2 = "Insert into " + databaseName + ".producers_tempdatadr (DRNumber,PackNumber,BRSTN, ChkType, BranchName,Qty,StartingSerial,EndingSerial,ChequeName,Batch)" +
+                                " Values('" + _temp[i].DrNumber + "','" + _temp[i].PackNumber + "','" + _temp[i].BRSTN + "','" + _temp[i].ChkType + "','" + _temp[i].BranchName + "'," + _temp[i].Qty
+                                + ",'" + _temp[i].StartingSerial + "','" + _temp[i].EndingSerial + "','" + _temp[i].ChequeName + "','" + _temp[i].Batch + "');";
+                MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
+                cmd2.ExecuteNonQuery();
             }
             DBClosed();
             return _temp;
