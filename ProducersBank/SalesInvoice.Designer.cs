@@ -75,7 +75,6 @@ namespace ProducersBank
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(16, 130);
             this.textBox1.Name = "textBox1";
@@ -84,7 +83,6 @@ namespace ProducersBank
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 108);
@@ -128,15 +126,15 @@ namespace ProducersBank
             this.dgvListToProcess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvListToProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListToProcess.Location = new System.Drawing.Point(8, 460);
+            this.dgvListToProcess.Location = new System.Drawing.Point(8, 448);
             this.dgvListToProcess.Name = "dgvListToProcess";
-            this.dgvListToProcess.Size = new System.Drawing.Size(988, 189);
+            this.dgvListToProcess.Size = new System.Drawing.Size(988, 201);
             this.dgvListToProcess.TabIndex = 8;
             // 
             // btnViewSelected
             // 
-            this.btnViewSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnViewSelected.Location = new System.Drawing.Point(813, 379);
+            this.btnViewSelected.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnViewSelected.Location = new System.Drawing.Point(813, 387);
             this.btnViewSelected.Name = "btnViewSelected";
             this.btnViewSelected.Size = new System.Drawing.Size(183, 50);
             this.btnViewSelected.TabIndex = 9;

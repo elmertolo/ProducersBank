@@ -149,7 +149,7 @@ namespace ProducersBank
         private void btnViewSelected_Click(object sender, EventArgs e)
         {
 
-
+          
             pProcessSelectedOnDRList();
 
         }
@@ -160,10 +160,12 @@ namespace ProducersBank
             if (dgvDRList.SelectedRows != null && dgvDRList.SelectedRows.Count > 0)
             {
                 List<SalesInvoiceModel> siList = new List<SalesInvoiceModel>();
-                SalesInvoiceModel line = new SalesInvoiceModel();
+                
 
                 foreach (DataGridViewRow row in dgvDRList.SelectedRows)
                 {
+                    SalesInvoiceModel line = new SalesInvoiceModel();
+
                     line.batch = row.Cells["batch"].Value.ToString();
                     line.checkName = row.Cells["check name"].Value.ToString();
                     line.checkType = row.Cells["check type"].Value.ToString();
@@ -182,12 +184,17 @@ namespace ProducersBank
 
                     siList.Add(line);
                     
-
                 }
+
                 dgvListToProcess.DataSource = siList;
                 dgvListToProcess.ClearSelection();
 
             }
+            else
+            {
+                MessageBox.Show("Please select at least one record");
+            }
+
         }
 
 
