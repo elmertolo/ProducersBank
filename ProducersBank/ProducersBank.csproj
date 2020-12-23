@@ -184,6 +184,7 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\SalesInvoiceModel.cs" />
     <Compile Include="Models\TempModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

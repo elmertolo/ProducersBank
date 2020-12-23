@@ -39,7 +39,7 @@ namespace ProducersBank
             this.lblSearchBatchNo = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.dgvListToProcess = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnViewSelected = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).BeginInit();
             this.SuspendLayout();
@@ -133,23 +133,23 @@ namespace ProducersBank
             this.dgvListToProcess.Size = new System.Drawing.Size(988, 189);
             this.dgvListToProcess.TabIndex = 8;
             // 
-            // button2
+            // btnViewSelected
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(813, 390);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(183, 50);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "VIEW SELECTED BATCH";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnViewSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnViewSelected.Location = new System.Drawing.Point(813, 379);
+            this.btnViewSelected.Name = "btnViewSelected";
+            this.btnViewSelected.Size = new System.Drawing.Size(183, 50);
+            this.btnViewSelected.TabIndex = 9;
+            this.btnViewSelected.Text = "VIEW SELECTED BATCH";
+            this.btnViewSelected.UseVisualStyleBackColor = true;
+            this.btnViewSelected.Click += new System.EventHandler(this.btnViewSelected_Click);
             // 
             // frmSalesInvoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnViewSelected);
             this.Controls.Add(this.dgvListToProcess);
             this.Controls.Add(this.lblSearchBatchNo);
             this.Controls.Add(this.textBox2);
@@ -164,7 +164,6 @@ namespace ProducersBank
             this.Name = "frmSalesInvoice";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sales Invoice";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSalesInvoice_FormClosing);
             this.Load += new System.EventHandler(this.frmSalesInvoice_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
@@ -185,6 +184,6 @@ namespace ProducersBank
         private System.Windows.Forms.Label lblSearchBatchNo;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.DataGridView dgvListToProcess;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnViewSelected;
     }
 }

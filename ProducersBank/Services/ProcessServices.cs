@@ -72,6 +72,7 @@ namespace ProducersBank.Services
             var listofBRSTN = _orderList.Select(e => e.BRSTN).Distinct().ToList();
             //var LChkType = _orderList.Select(e => e.ChkType).Distinct().ToList();
             int counter = 0;
+            
             foreach (string brstn in listofBRSTN)
             {
     
