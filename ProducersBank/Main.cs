@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ProducersBank.GlobalVariables;
 
 namespace ProducersBank
 {
@@ -15,6 +16,8 @@ namespace ProducersBank
         public Main()
         {
             InitializeComponent();
+            
+
         }
 
         private void btnDR_Click(object sender, EventArgs e)
@@ -37,5 +40,7 @@ namespace ProducersBank
             si.Show();
             this.Hide();
         }
+
+        
     }
 }

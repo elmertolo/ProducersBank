@@ -35,13 +35,13 @@ namespace ProducersBank
             this.lblDRList = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.lblSearchBatchNo = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.dgvListToProcess = new System.Windows.Forms.DataGridView();
+            this.dgvDRListToProcess = new System.Windows.Forms.DataGridView();
             this.btnViewSelected = new System.Windows.Forms.Button();
+            this.btnPrintSalesInvoice = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDRListToProcess)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvDRList
@@ -91,17 +91,6 @@ namespace ProducersBank
             this.label1.TabIndex = 4;
             this.label1.Text = "Sales Invoice Number:";
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(813, 667);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(183, 50);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "PRINT SALES INVOICE";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // lblSearchBatchNo
             // 
             this.lblSearchBatchNo.AutoSize = true;
@@ -111,7 +100,6 @@ namespace ProducersBank
             this.lblSearchBatchNo.Size = new System.Drawing.Size(102, 19);
             this.lblSearchBatchNo.TabIndex = 7;
             this.lblSearchBatchNo.Text = "Search Batch:";
-            this.lblSearchBatchNo.Click += new System.EventHandler(this.lblSearchBatchNo_Click);
             // 
             // textBox2
             // 
@@ -121,15 +109,15 @@ namespace ProducersBank
             this.textBox2.Size = new System.Drawing.Size(204, 27);
             this.textBox2.TabIndex = 6;
             // 
-            // dgvListToProcess
+            // dgvDRListToProcess
             // 
-            this.dgvListToProcess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvDRListToProcess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvListToProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListToProcess.Location = new System.Drawing.Point(8, 448);
-            this.dgvListToProcess.Name = "dgvListToProcess";
-            this.dgvListToProcess.Size = new System.Drawing.Size(988, 201);
-            this.dgvListToProcess.TabIndex = 8;
+            this.dgvDRListToProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDRListToProcess.Location = new System.Drawing.Point(8, 448);
+            this.dgvDRListToProcess.Name = "dgvDRListToProcess";
+            this.dgvDRListToProcess.Size = new System.Drawing.Size(988, 201);
+            this.dgvDRListToProcess.TabIndex = 8;
             // 
             // btnViewSelected
             // 
@@ -142,16 +130,27 @@ namespace ProducersBank
             this.btnViewSelected.UseVisualStyleBackColor = true;
             this.btnViewSelected.Click += new System.EventHandler(this.btnViewSelected_Click);
             // 
+            // btnPrintSalesInvoice
+            // 
+            this.btnPrintSalesInvoice.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnPrintSalesInvoice.Location = new System.Drawing.Point(813, 667);
+            this.btnPrintSalesInvoice.Name = "btnPrintSalesInvoice";
+            this.btnPrintSalesInvoice.Size = new System.Drawing.Size(183, 50);
+            this.btnPrintSalesInvoice.TabIndex = 10;
+            this.btnPrintSalesInvoice.Text = "GENERATE / PRINT SALES INVOICE";
+            this.btnPrintSalesInvoice.UseVisualStyleBackColor = true;
+            this.btnPrintSalesInvoice.Click += new System.EventHandler(this.btnPrintSalesInvoice_Click);
+            // 
             // frmSalesInvoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.btnPrintSalesInvoice);
             this.Controls.Add(this.btnViewSelected);
-            this.Controls.Add(this.dgvListToProcess);
+            this.Controls.Add(this.dgvDRListToProcess);
             this.Controls.Add(this.lblSearchBatchNo);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dateTimePicker1);
@@ -165,7 +164,7 @@ namespace ProducersBank
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSalesInvoice_FormClosing);
             this.Load += new System.EventHandler(this.frmSalesInvoice_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDRListToProcess)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,10 +177,10 @@ namespace ProducersBank
         private System.Windows.Forms.Label lblDRList;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblSearchBatchNo;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.DataGridView dgvListToProcess;
+        private System.Windows.Forms.DataGridView dgvDRListToProcess;
         private System.Windows.Forms.Button btnViewSelected;
+        private System.Windows.Forms.Button btnPrintSalesInvoice;
     }
 }

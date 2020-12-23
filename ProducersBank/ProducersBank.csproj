@@ -177,6 +177,13 @@
     <Compile Include="DeliveryReport.Designer.cs">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmReportViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReportViewer.Designer.cs">
+      <DependentUpon>frmReportViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalVariables.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,11 +201,11 @@
     <Compile Include="RecentBatch.Designer.cs">
       <DependentUpon>RecentBatch.cs</DependentUpon>
     </Compile>
-    <Compile Include="SalesInvoice.cs">
+    <Compile Include="frmSalesInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SalesInvoice.Designer.cs">
-      <DependentUpon>SalesInvoice.cs</DependentUpon>
+    <Compile Include="frmSalesInvoice.Designer.cs">
+      <DependentUpon>frmSalesInvoice.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesInvoice1.cs">
       <AutoGen>True</AutoGen>
@@ -227,6 +234,9 @@
     <EmbeddedResource Include="DeliveryReport.resx">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmReportViewer.resx">
+      <DependentUpon>frmReportViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -243,8 +253,8 @@
     <EmbeddedResource Include="RecentBatch.resx">
       <DependentUpon>RecentBatch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SalesInvoice.resx">
-      <DependentUpon>SalesInvoice.cs</DependentUpon>
+    <EmbeddedResource Include="frmSalesInvoice.resx">
+      <DependentUpon>frmSalesInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <!--<<<<<<< HEAD-->
     <EmbeddedResource Include="Sticker.rpt">
