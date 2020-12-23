@@ -44,12 +44,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
-<<<<<<< HEAD
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
-=======
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
->>>>>>> 2405cacc370ee963f6ca542fd435f300be93b8a2
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -83,19 +78,11 @@
             // 
             // dgvDRList
             // 
-<<<<<<< HEAD
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(322, 39);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 121);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(820, 326);
+            this.dataGridView1.Size = new System.Drawing.Size(652, 265);
             this.dataGridView1.TabIndex = 2;
-=======
-            this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDRList.Location = new System.Drawing.Point(12, 121);
-            this.dgvDRList.Name = "dgvDRList";
-            this.dgvDRList.Size = new System.Drawing.Size(652, 265);
-            this.dgvDRList.TabIndex = 2;
->>>>>>> 2405cacc370ee963f6ca542fd435f300be93b8a2
             // 
             // btnBrowse
             // 
@@ -213,15 +200,11 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDrNumber);
             this.Controls.Add(this.label3);
-<<<<<<< HEAD
-            this.Controls.Add(this.dataGridView1);
-=======
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.dgvDRList);
->>>>>>> 2405cacc370ee963f6ca542fd435f300be93b8a2
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
@@ -232,13 +215,7 @@
             this.Load += new System.EventHandler(this.DeliveryReport_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-<<<<<<< HEAD
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-=======
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
->>>>>>> 2405cacc370ee963f6ca542fd435f300be93b8a2
             this.ResumeLayout(false);
             this.PerformLayout();
 
