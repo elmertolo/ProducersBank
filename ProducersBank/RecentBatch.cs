@@ -45,6 +45,15 @@ namespace ProducersBank
             m.Show();
         }
 
-       
+        private void printDRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void stickersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewReports vp = new ViewReports();
+            vp.Show();
+        }
     }
 }
