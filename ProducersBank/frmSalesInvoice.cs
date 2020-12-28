@@ -91,43 +91,43 @@ namespace ProducersBank
 
             //GRID 2
             //dgvDRList.AutoGenerateColumns = true;
-            dgvListToProcess.AllowUserToAddRows = false;
-            dgvListToProcess.AllowUserToResizeColumns = false;
-            dgvListToProcess.AllowUserToDeleteRows = false;
-            dgvListToProcess.AllowUserToOrderColumns = false;
-            dgvListToProcess.AllowUserToResizeRows = false;
-            dgvListToProcess.AllowUserToAddRows = false;
-            dgvListToProcess.ScrollBars = ScrollBars.Vertical;
-            dgvListToProcess.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvDRListToProcess.AllowUserToAddRows = false;
+            dgvDRListToProcess.AllowUserToResizeColumns = false;
+            dgvDRListToProcess.AllowUserToDeleteRows = false;
+            dgvDRListToProcess.AllowUserToOrderColumns = false;
+            dgvDRListToProcess.AllowUserToResizeRows = false;
+            dgvDRListToProcess.AllowUserToAddRows = false;
+            dgvDRListToProcess.ScrollBars = ScrollBars.Vertical;
+            dgvDRListToProcess.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             //Rename datagrid columns programmatically
-            dgvListToProcess.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgvListToProcess.ColumnCount = 6; //COUNT OF COLUMNS THAT WILL DISPLAY IN GRID
+            dgvDRListToProcess.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgvDRListToProcess.ColumnCount = 6; //COUNT OF COLUMNS THAT WILL DISPLAY IN GRID
 
             //Column names and width setup
-            dgvListToProcess.Columns[0].Name = "BATCH";
-            dgvListToProcess.Columns[0].Width = 100;
-            dgvListToProcess.Columns[0].DataPropertyName = "Batch"; //this must be the actual table name in sql
+            dgvDRListToProcess.Columns[0].Name = "BATCH";
+            dgvDRListToProcess.Columns[0].Width = 100;
+            dgvDRListToProcess.Columns[0].DataPropertyName = "Batch"; //this must be the actual table name in sql
 
-            dgvListToProcess.Columns[1].Name = "DR LIST";
-            dgvListToProcess.Columns[1].Width = 400;
-            dgvListToProcess.Columns[1].DataPropertyName = "drlist";
+            dgvDRListToProcess.Columns[1].Name = "DR LIST";
+            dgvDRListToProcess.Columns[1].Width = 400;
+            dgvDRListToProcess.Columns[1].DataPropertyName = "drlist";
 
-            dgvListToProcess.Columns[2].Name = "CHECK NAME";
-            dgvListToProcess.Columns[2].Width = 180;
-            dgvListToProcess.Columns[2].DataPropertyName = "checkname";
+            dgvDRListToProcess.Columns[2].Name = "CHECK NAME";
+            dgvDRListToProcess.Columns[2].Width = 180;
+            dgvDRListToProcess.Columns[2].DataPropertyName = "checkname";
 
-            dgvListToProcess.Columns[3].Name = "CHECK TYPE";
-            dgvListToProcess.Columns[3].Width = 50;
-            dgvListToProcess.Columns[3].DataPropertyName = "checktype";
+            dgvDRListToProcess.Columns[3].Name = "CHECK TYPE";
+            dgvDRListToProcess.Columns[3].Width = 50;
+            dgvDRListToProcess.Columns[3].DataPropertyName = "checktype";
 
-            dgvListToProcess.Columns[4].Name = "DELIVERY DATE";
-            dgvListToProcess.Columns[4].Width = 100;
-            dgvListToProcess.Columns[4].DataPropertyName = "deliverydate";
+            dgvDRListToProcess.Columns[4].Name = "DELIVERY DATE";
+            dgvDRListToProcess.Columns[4].Width = 100;
+            dgvDRListToProcess.Columns[4].DataPropertyName = "deliverydate";
 
-            dgvListToProcess.Columns[5].Name = "QUANTITY";
-            dgvListToProcess.Columns[5].Width = 1000;
-            dgvListToProcess.Columns[5].DataPropertyName = "Quantity";
+            dgvDRListToProcess.Columns[5].Name = "QUANTITY";
+            dgvDRListToProcess.Columns[5].Width = 1000;
+            dgvDRListToProcess.Columns[5].DataPropertyName = "Quantity";
 
         }
 
@@ -136,20 +136,11 @@ namespace ProducersBank
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblSearchBatchNo_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnViewSelected_Click(object sender, EventArgs e)
         {
 
-
+          
             pProcessSelectedOnDRList();
 
         }
@@ -160,10 +151,12 @@ namespace ProducersBank
             if (dgvDRList.SelectedRows != null && dgvDRList.SelectedRows.Count > 0)
             {
                 List<SalesInvoiceModel> siList = new List<SalesInvoiceModel>();
-                SalesInvoiceModel line = new SalesInvoiceModel();
+                
 
                 foreach (DataGridViewRow row in dgvDRList.SelectedRows)
                 {
+                    SalesInvoiceModel line = new SalesInvoiceModel();
+
                     line.batch = row.Cells["batch"].Value.ToString();
                     line.checkName = row.Cells["check name"].Value.ToString();
                     line.checkType = row.Cells["check type"].Value.ToString();
@@ -182,27 +175,25 @@ namespace ProducersBank
 
                     siList.Add(line);
                     
-
                 }
-                dgvListToProcess.DataSource = siList;
-                dgvListToProcess.ClearSelection();
+
+                dgvDRListToProcess.DataSource = siList;
+                dgvDRListToProcess.ClearSelection();
 
             }
+            else
+            {
+                MessageBox.Show("Please select at least one record");
+            }
+
         }
 
-
-       
-
-
-
-
-
-
-
-
-
-
-
+        private void btnPrintSalesInvoice_Click(object sender, EventArgs e)
+        {
+            frmReportViewer crForm = new frmReportViewer();
+            crForm.Show();
+            this.Hide();
+        }
     }
 
     

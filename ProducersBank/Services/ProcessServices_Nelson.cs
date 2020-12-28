@@ -78,14 +78,16 @@ namespace ProducersBank.Services
                 string sql = "select group_concat(distinct(drnumber) separator ', ') from producers_history " +
                 "WHERE salesinvoice is null " +
                 "and batch = '" + batch + "' " +
-                "and chktype = '" + checktype + "';";
+                "and chktype = '" + checktype + "' " +
+                "and deliverydate = '" + deliveryDate.ToString("yyyy=MM-dd") + "';";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
                 cmd.ExecuteNonQuery();
                 da.Fill(dt);
-                return dt.Rows[0].Field<string>(0).ToString();
-               
+                string drList = dt.Rows[0].Field<string>(0).ToString(); // get concatenated delivery number list 
+                return drList is null ? "" : drList; // return concatenated delivery number list if not null
+
             }
             catch (Exception ex)
             {
