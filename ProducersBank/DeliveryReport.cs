@@ -30,6 +30,8 @@ namespace ProducersBank
         List<Int32> PNumbers = new List<Int32>();
         Int32 pNumber = 0;
         Int64 _dr = 0;
+       // public int dnumber = 0;
+      //  public int pnumber = 0;
 
         public DeliveryReport()
         {
@@ -46,8 +48,13 @@ namespace ProducersBank
             }
             else
             {
-                proc.GenerateData(orderList, int.Parse(txtDrNumber.Text),deliveryDate,"Elmer",int.Parse(txtPackNumber.Text));
 
+
+                //dnumber = int.Parse(txtDrNumber.Text);
+                //pnumber = int.Parse(txtPackNumber.Text);
+                proc.GenerateData(orderList, int.Parse(txtDrNumber.Text),deliveryDate,"ELMER", int.Parse(txtPackNumber.Text));
+
+            
                 proc.GetDRDetails(orderList[0].Batch,tempDr);
               //  proc.GetStickerDetails(tempSticker,orderList[0].Batch);
                 //CrystalReport1 cr = new CrystalReport1();
@@ -137,9 +144,9 @@ namespace ProducersBank
 
             }
 
-            BindingSource checkBind = new BindingSource();
-            checkBind.DataSource = orderList;
-            dgvDRList.DataSource = checkBind;
+           // BindingSource checkBind = new BindingSource();
+           // checkBind.DataSource = orderList;
+            dgvDRList.DataSource = orderList;
 
         }
 

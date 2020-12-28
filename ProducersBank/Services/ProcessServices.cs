@@ -64,43 +64,104 @@ namespace ProducersBank.Services
             myConnect.Close();
         }
         // end of function
+        public List<OrderModel> Process(List<OrderModel> _orders, DeliveryReport _main,int DrNumber,int packNumber)
+        {
+            TypeofCheckModel checkType = new TypeofCheckModel();
+            int counter = 0;
+            checkType.Regular_Personal = new List<OrderModel>();
+            checkType.Regular_Commercial = new List<OrderModel>();
 
-        public List<OrderModel> GenerateData(List<OrderModel> _orderList, int _DrNumber,DateTime _deliveryDate,string _username,int _packNumber)
+            
+            _orders.ForEach(a =>
+            { 
+                if(a.ChkType == "A")
+                {
+                    
+                 //   GenerateData(a, DrNumber, _main.deliveryDate, "ELMER", packNumber);
+                    counter++;
+                    checkType.Regular_Personal.Add(a);
+                    if (counter == 10  )
+                    {
+                        DrNumber++;
+                        counter = 0;
+                    }
+
+                }
+
+              if(a.ChkType == "B")
+                {
+                    checkType.Regular_Commercial.Add(a);
+                //    GenerateData(a, DrNumber, _main.deliveryDate, "ELMER", packNumber);
+                    counter++;
+                    if (counter == 10)
+                    {
+                        DrNumber++;
+                        counter = 0;
+                    }
+                }
+            });
+
+            
+            return _orders;
+        }
+        public void GenerateData(List<OrderModel> _orderList, int _DrNumber, DateTime _deliveryDate, string _username, int _packNumber)
         {
             DBConnect();
 
-            var listofBRSTN = _orderList.Select(e => e.BRSTN).Distinct().ToList();
+                        var listofBRSTN = _orderList.Select(e => e.BRSTN).Distinct().ToList();
+
             //var LChkType = _orderList.Select(e => e.ChkType).Distinct().ToList();
+
+            //Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
+            //               "DRNumber,DeliveryDate,username,batch,PackNumber )"
+            //             + "VALUES('" + _orderList.BRSTN + "','" + _orderList.BranchName + "','" + _orderList.AccountNo + "','" + _orderList.AccountNoWithHypen + "','" + _orderList.Name1 + "','" + _orderList.Name2 +
+            //             "','" + _orderList.ChkType + "','" + _orderList.ChequeName + "','" + _orderList.StartingSerial + "','" + _orderList.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd")
+            //             + "','" + _username + "','" + _orderList.Batch.TrimEnd() + "','" + _packNumber + "');";
+            //cmd = new MySqlCommand(Sql, myConnect);
+            //cmd.ExecuteNonQuery();
             int counter = 0;
-            
             foreach (string brstn in listofBRSTN)
             {
-    
-                var _list = _orderList.Where(r => r.BRSTN == brstn  && r.ChkType == "A");
+                //if (_orderList.Regular_Personal.Count > 0)
+                //{
+                //var _list = _orderList.Where(r => r.BRSTN == brstn ).ToList() ;
+
+                //_list.OrderBy(a => a.ChkType);
+                //foreach (var check in _list)
+                //{
+                //_orderList.Regular_Personal.ForEach(r => {
+                //    Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
+                //            "DRNumber,DeliveryDate,username,batch,PackNumber )"
+                //          + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
+                //          "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd")
+                //          + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "');";
+                //    cmd = new MySqlCommand(Sql, myConnect);
+                //    cmd.ExecuteNonQuery();
+                //});
+
+                //}
+
+
+                //}
+
+                var _list = _orderList.Where(r => r.BRSTN == brstn && r.ChkType == "A");
                 //_list.OrderBy(a => a.ChkType);
                 foreach (var check in _list)
                 {
                     Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial,DRNumber,DeliveryDate,username,batch,PackNumber )"
                    + "VALUES('" + check.BRSTN + "','" + check.BranchName + "','" + check.AccountNo + "','" + check.AccountNoWithHypen + "','" + check.Name1 + "','" + check.Name2 +
                    "','" + check.ChkType + "','" + check.ChequeName + "','" + check.StartingSerial + "','" + check.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd") + "','" + _username + "','" + check.Batch.TrimEnd() + "','" + _packNumber + "');";
-                     cmd = new MySqlCommand(Sql, myConnect);
+                    cmd = new MySqlCommand(Sql, myConnect);
                     cmd.ExecuteNonQuery();
 
-                   
-                }
 
-                 counter++;
-                    if (counter == 10)
-                    {
-                        _DrNumber++;
-                        counter = 0;
-                    }
-                
+                }
             }
-            foreach (string brstn in listofBRSTN)
+            foreach (var brstn in listofBRSTN)
             {
 
-                var _list = _orderList.Where(r => r.BRSTN == brstn && r.ChkType == "B");
+            
+                 var _list = _orderList.Where(r => r.BRSTN == brstn && r.ChkType == "B");
                 //_list.OrderBy(a => a.ChkType);
                 foreach (var check in _list)
                 {
@@ -113,17 +174,35 @@ namespace ProducersBank.Services
 
                 }
 
+                //}
+                //if (_orderList.Regular_Commercial.Count > 0)
+                //{
+                //    _orderList.Regular_Commercial.ForEach(r =>
+                //    {
+                //        Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,"
+                //            + "Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial,DRNumber,DeliveryDate,username,batch,PackNumber )"
+                //             + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
+                //             "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','"
+                //             + _deliveryDate.ToString("yyyy-MM-dd") + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "');";
+                //        cmd = new MySqlCommand(Sql, myConnect);
+                //        cmd.ExecuteNonQuery();
+                //    });
+
+
+
+
+                //}
+
                 counter++;
                 if (counter == 10)
                 {
                     _DrNumber++;
                     counter = 0;
                 }
-
             }
 
             DBClosed();
-            return _orderList;
+            return;
             
         }
         public string GetDRDetails(string _batch, List<TempModel> list )
