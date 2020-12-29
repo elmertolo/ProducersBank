@@ -50,13 +50,12 @@ namespace ProducersBank
             {
 
 
-                //dnumber = int.Parse(txtDrNumber.Text);
-                //pnumber = int.Parse(txtPackNumber.Text);
-                proc.GenerateData(orderList, int.Parse(txtDrNumber.Text),deliveryDate,"ELMER", int.Parse(txtPackNumber.Text));
+                
+                proc.Process(orderList, this,int.Parse(txtDrNumber.Text), int.Parse(txtPackNumber.Text));
 
             
                 proc.GetDRDetails(orderList[0].Batch,tempDr);
-              //  proc.GetStickerDetails(tempSticker,orderList[0].Batch);
+               proc.GetStickerDetails(tempSticker,orderList[0].Batch);
                 //CrystalReport1 cr = new CrystalReport1();
                 //cr.Load(Application.StartupPath + "\\DeliveryReceipt.rpt");
                 
@@ -71,6 +70,7 @@ namespace ProducersBank
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             GetData();
+            generateToolStripMenuItem.Enabled = true;
 
         }
         private void ChequeName()
@@ -150,8 +150,6 @@ namespace ProducersBank
 
         }
 
-       
-
         private void DeliveryReport_Load(object sender, EventArgs e)
         {
             
@@ -160,7 +158,7 @@ namespace ProducersBank
         
             GetDR();
             GetPack();
-            MessageBox.Show(proc.myConnect.ConnectionString);
+           // MessageBox.Show(proc.myConnect.ConnectionString);
         }
         private void GetPack()
         {

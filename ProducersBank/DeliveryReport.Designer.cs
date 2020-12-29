@@ -56,12 +56,13 @@
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1171, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1055, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // generateToolStripMenuItem
             // 
+            this.generateToolStripMenuItem.Enabled = false;
             this.generateToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
             this.generateToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
@@ -181,18 +182,17 @@
             // dgvDRList
             // 
             this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDRList.Location = new System.Drawing.Point(316, 39);
+            this.dgvDRList.Location = new System.Drawing.Point(322, 40);
             this.dgvDRList.Name = "dgvDRList";
-            this.dgvDRList.Size = new System.Drawing.Size(843, 326);
-            this.dgvDRList.TabIndex = 12;
+            this.dgvDRList.Size = new System.Drawing.Size(720, 325);
+            this.dgvDRList.TabIndex = 2;
             // 
             // DeliveryReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1171, 395);
+            this.ClientSize = new System.Drawing.Size(1055, 395);
             this.ControlBox = false;
-            this.Controls.Add(this.dgvDRList);
             this.Controls.Add(this.txtPackNumber);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDrNumber);
