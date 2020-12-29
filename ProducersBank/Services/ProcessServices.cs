@@ -67,7 +67,7 @@ namespace ProducersBank.Services
         public List<OrderModel> Process(List<OrderModel> _orders, DeliveryReport _main, int DrNumber, int packNumber)
         {
             TypeofCheckModel checkType = new TypeofCheckModel();
-            int counter = 0;
+            //int counter = 0;
             checkType.Regular_Personal = new List<OrderModel>();
             checkType.Regular_Commercial = new List<OrderModel>();
 
@@ -84,9 +84,8 @@ namespace ProducersBank.Services
                 }
                 if (_check.ChkType == "B")
                 {
-                    checkType.Regular_Personal.Add(_check);
-                    
-                    
+                    checkType.Regular_Commercial.Add(_check);
+                       
                    
                 }
             }
@@ -138,7 +137,12 @@ namespace ProducersBank.Services
             if (_checks.Regular_Commercial.Count > 0)
             {
                 var _List = _checks.Regular_Commercial.Select(r => r.BRSTN).Distinct().ToList();
-
+                //if(counter == 0)
+                //{
+                //    //counter = 0;
+                //    _DrNumber++;
+                //}
+                
                 foreach (string Brstn in _List)
                 {
                     var _model = _checks.Regular_Commercial.Where(a => a.BRSTN == Brstn);
