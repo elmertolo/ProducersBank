@@ -32,10 +32,6 @@
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-<<<<<<< HEAD
-            this.dgvDRList = new System.Windows.Forms.DataGridView();
-=======
->>>>>>> d4d0a3b16422836afcf6041e1190eb72079bfc63
             this.btnBrowse = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -60,12 +56,13 @@
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1171, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1055, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // generateToolStripMenuItem
             // 
+            this.generateToolStripMenuItem.Enabled = false;
             this.generateToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
             this.generateToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
@@ -81,29 +78,12 @@
             this.mainMenuToolStripMenuItem.Click += new System.EventHandler(this.mainMenuToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
-<<<<<<< HEAD
             // 
             this.exitToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // dgvDRList
-            // 
-            this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDRList.Location = new System.Drawing.Point(322, 40);
-            this.dgvDRList.Name = "dgvDRList";
-            this.dgvDRList.Size = new System.Drawing.Size(720, 325);
-            this.dgvDRList.TabIndex = 2;
-=======
-            // 
-            this.exitToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
->>>>>>> d4d0a3b16422836afcf6041e1190eb72079bfc63
             // 
             // btnBrowse
             // 
@@ -202,18 +182,17 @@
             // dgvDRList
             // 
             this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDRList.Location = new System.Drawing.Point(316, 39);
+            this.dgvDRList.Location = new System.Drawing.Point(322, 40);
             this.dgvDRList.Name = "dgvDRList";
-            this.dgvDRList.Size = new System.Drawing.Size(843, 326);
-            this.dgvDRList.TabIndex = 12;
+            this.dgvDRList.Size = new System.Drawing.Size(720, 325);
+            this.dgvDRList.TabIndex = 2;
             // 
             // DeliveryReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1171, 395);
+            this.ClientSize = new System.Drawing.Size(1055, 395);
             this.ControlBox = false;
-            this.Controls.Add(this.dgvDRList);
             this.Controls.Add(this.txtPackNumber);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDrNumber);
@@ -222,10 +201,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.comboBox1);
-<<<<<<< HEAD
             this.Controls.Add(this.dgvDRList);
-=======
->>>>>>> d4d0a3b16422836afcf6041e1190eb72079bfc63
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);

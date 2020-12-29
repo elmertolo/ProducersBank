@@ -216,12 +216,6 @@
     </Compile>
     <Compile Include="Services\ProcessServices.cs" />
     <Compile Include="Services\ProcessServices_Nelson.cs" />
-    <Compile Include="Sticker.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Sticker.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Stickers.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -264,10 +258,6 @@
       <DependentUpon>frmSalesInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <!--<<<<<<< HEAD-->
-    <EmbeddedResource Include="Sticker.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Sticker.cs</LastGenOutput>
-    </EmbeddedResource>
     <!--=======-->
     <EmbeddedResource Include="SalesInvoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
