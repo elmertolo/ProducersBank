@@ -103,9 +103,18 @@ namespace ProducersBank.Services
 
             if (_checks.Regular_Personal.Count > 0)
             {
-                counter++;
-                _checks.Regular_Personal.ForEach(r =>
+                //counter++;
+                //_checks.Regular_Personal.ForEach(r =>
+                //{
+                var _list = _checks.Regular_Personal.Select(r => r.BRSTN).Distinct().ToList();
+                foreach (string Brstn in _list)
                 {
+                    var _model = _checks.Regular_Personal.Where(t => t.BRSTN == Brstn);
+
+                    foreach (var r in _model)
+                    {
+
+
                         Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
                                 "DRNumber,DeliveryDate,username,batch,PackNumber )"
                               + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
@@ -113,33 +122,47 @@ namespace ProducersBank.Services
                               + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "');";
                         cmd = new MySqlCommand(Sql, myConnect);
                         cmd.ExecuteNonQuery();
-                });
+                    }
+                    counter++;
+                    if (counter == 10)
+                    {
+                        _DrNumber++;
+                        counter = 0;
+                    }
 
-                if (counter == 10)
-                {
-                    _DrNumber++;
-                    counter = 0;
+
                 }
 
             }
             counter = 0;
             if (_checks.Regular_Commercial.Count > 0)
             {
+                var _List = _checks.Regular_Commercial.Select(r => r.BRSTN).Distinct().ToList();
 
-                _checks.Regular_Commercial.ForEach(r =>
+                foreach (string Brstn in _List)
                 {
-                    Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
-                            "DRNumber,DeliveryDate,username,batch,PackNumber )"
-                          + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
-                          "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd")
-                          + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "');";
-                    cmd = new MySqlCommand(Sql, myConnect);
-                    cmd.ExecuteNonQuery();
-                });
-                if (counter == 10)
-                {
-                    _DrNumber++;
-                    counter = 0;
+                    var _model = _checks.Regular_Commercial.Where(a => a.BRSTN == Brstn);
+
+                    foreach (var r in _model)
+                    {
+
+
+                        Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
+                                "DRNumber,DeliveryDate,username,batch,PackNumber )"
+                              + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
+                              "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd")
+                              + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "');";
+                        cmd = new MySqlCommand(Sql, myConnect);
+                        cmd.ExecuteNonQuery();
+                        
+                        //});
+                    }
+                    counter++;
+                    if (counter == 10)
+                    {
+                        _DrNumber++;
+                        counter = 0;
+                    }
                 }
             }
             DBClosed();
