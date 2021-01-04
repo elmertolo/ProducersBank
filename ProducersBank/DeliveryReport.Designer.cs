@@ -181,7 +181,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.dgvDRList);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);

@@ -31,7 +31,7 @@ namespace ProducersBank
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSalesInvoice));
             this.dgvDRList = new System.Windows.Forms.DataGridView();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpInvoiceDate = new System.Windows.Forms.DateTimePicker();
             this.lblDRList = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -55,13 +55,13 @@ namespace ProducersBank
             this.dgvDRList.TabIndex = 0;
             this.dgvDRList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDRList_CellContentClick);
             // 
-            // dateTimePicker1
+            // dtpInvoiceDate
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(16, 66);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(223, 26);
-            this.dateTimePicker1.TabIndex = 2;
+            this.dtpInvoiceDate.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpInvoiceDate.Location = new System.Drawing.Point(16, 66);
+            this.dtpInvoiceDate.Name = "dtpInvoiceDate";
+            this.dtpInvoiceDate.Size = new System.Drawing.Size(223, 26);
+            this.dtpInvoiceDate.TabIndex = 2;
             // 
             // lblDRList
             // 
@@ -122,7 +122,7 @@ namespace ProducersBank
             // btnViewSelected
             // 
             this.btnViewSelected.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnViewSelected.Location = new System.Drawing.Point(813, 387);
+            this.btnViewSelected.Location = new System.Drawing.Point(813, 385);
             this.btnViewSelected.Name = "btnViewSelected";
             this.btnViewSelected.Size = new System.Drawing.Size(183, 50);
             this.btnViewSelected.TabIndex = 9;
@@ -153,7 +153,7 @@ namespace ProducersBank
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpInvoiceDate);
             this.Controls.Add(this.lblDRList);
             this.Controls.Add(this.dgvDRList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -161,6 +161,7 @@ namespace ProducersBank
             this.Name = "frmSalesInvoice";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sales Invoice";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSalesInvoice_FormClosing);
             this.Load += new System.EventHandler(this.frmSalesInvoice_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
@@ -173,7 +174,7 @@ namespace ProducersBank
         #endregion
 
         private System.Windows.Forms.DataGridView dgvDRList;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpInvoiceDate;
         private System.Windows.Forms.Label lblDRList;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;

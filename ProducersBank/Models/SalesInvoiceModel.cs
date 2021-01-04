@@ -8,11 +8,17 @@ namespace ProducersBank.Models
 {
     public class SalesInvoiceModel
     {
-        public string batch { get; set; }
+        public string batchName { get; set; }
+        public double salesInvoiceNumber { get; set; }
+        public int orderQuantity { get; set; }
         public string checkName { get; set; }
         public string drList { get; set; }
-        public string checkType { get; set; }
+        public DateTime salesInvoiceDate { get; set; }
         public DateTime deliveryDate { get; set; }
-        public int quantity { get; set; }
+        public string checkType { get; set; }
+        public double unitPrice { get; set; }
+        public string preparedBy { get; set; }
+        public string checkedBy { get; set; }
+        public string approvedBy { get; set; }
     }
 }
