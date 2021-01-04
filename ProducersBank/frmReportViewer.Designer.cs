@@ -52,7 +52,8 @@ namespace ProducersBank
             this.Controls.Add(this.crViewer);
             this.Name = "frmReportViewer";
             this.Text = "REPORT VIEWER";
-
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmReportViewer_FormClosing);
+            this.Load += new System.EventHandler(this.frmReportViewer_Load);
             this.ResumeLayout(false);
 
         }

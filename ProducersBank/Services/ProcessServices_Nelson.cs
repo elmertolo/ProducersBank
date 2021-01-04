@@ -11,7 +11,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using static ProducersBank.GlobalVariables;
 using System.IO;
-
+using System.Diagnostics;
 
 namespace ProducersBank.Services
 {
@@ -44,7 +44,6 @@ namespace ProducersBank.Services
             }
         }
 
-
         private bool OpenDB()
         {
             try
@@ -62,8 +61,6 @@ namespace ProducersBank.Services
 
         public bool LoadInitialData(ref DataTable dt)
         {
-
-
             try
             {
                 string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history where salesinvoice is null group by batch, chequename, ChkType";
@@ -79,6 +76,7 @@ namespace ProducersBank.Services
                 _errorMessage = ex.Message;
                 return false;
             }
+
         }
 
         public string GetDRList(string batch, string checktype, DateTime deliveryDate)
@@ -111,8 +109,7 @@ namespace ProducersBank.Services
             }
         }
 
-
-        public bool pUpdateTempTable(List<SalesInvoiceModel> SalesInvoiceList)
+        public bool UpdateTempTable(List<SalesInvoiceModel> SalesInvoiceList)
         {
             try
             {
@@ -162,44 +159,66 @@ namespace ProducersBank.Services
 
         public void FillCRReportParameters(ref ReportDocument crystalDocument)
         {
-
-            //string reportPath = Directory.GetCurrentDirectory().ToString() + @"\SalesInvoice.rpt" ;
-            //Abang lang muna itong path na ito
-            string reportPath = @"C:\Users\Bon Bon\source\repos\Producers Bank Main\ProducersBank\ProducersBank\SalesInvoice.rpt";
+            
+            //Determine path when running through IDE or not
+            string reportPath;
+            if (Debugger.IsAttached)
+            {
+                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\SalesInvoice.rpt";
+            }
+            else
+            {
+                reportPath = Directory.GetCurrentDirectory().ToString() + @"\SalesInvoice.rpt";
+            }
+           
 
             if (!File.Exists(reportPath))
             {
                 throw (new Exception("Unable to locate report file: \r\n" + reportPath));
             }
 
-
             crystalDocument.Load(reportPath);
             crystalDocument.SetDataSource(gReportDT);
 
-
-            if (gHeaderReportTitle != null)
+            if (gSIheaderReportTitle != null)
             {
-                crystalDocument.SetParameterValue("prHeaderReportTitle", gHeaderReportTitle);
+                crystalDocument.SetParameterValue("prHeaderReportTitle", gSIheaderReportTitle);
             }
-            if (gHeaderReportAddress1 != null)
+            if (gSIHeaderReportAddress1 != null)
             {
-                crystalDocument.SetParameterValue("prHeaderReportAddress1", gHeaderReportAddress1);
+                crystalDocument.SetParameterValue("prHeaderReportAddress1", gSIHeaderReportAddress1);
             }
-            if (gHeaderReportAddress2 != null)
+            if (gSIHeaderReportAddress2 != null)
             {
-                crystalDocument.SetParameterValue("prHeaderReportAddress2", gHeaderReportAddress2);
+                crystalDocument.SetParameterValue("prHeaderReportAddress2", gSIHeaderReportAddress2);
             }
-            if (gHeaderReportAddress3 != null)
+            if (gSIHeaderReportAddress3 != null)
             {
-                crystalDocument.SetParameterValue("prHeaderReportAddress3", gHeaderReportAddress3);
+                crystalDocument.SetParameterValue("prHeaderReportAddress3", gSIHeaderReportAddress3);
             }
-            if (gHeaderReportCompanyName != null)
+            if (gSIHeaderReportCompanyName != null)
             {
-                crystalDocument.SetParameterValue("prHeaderCompanyName", gHeaderReportCompanyName);
+                crystalDocument.SetParameterValue("prHeaderCompanyName", gSIHeaderReportCompanyName);
             }
             if (gSalesInvoiceDate != null)
             {
-                crystalDocument.SetParameterValue("prSalesInvoicedate", gSalesInvoiceDate.ToString("MMMMM dd, yyyy"));
+                crystalDocument.SetParameterValue("prSalesInvoiceDate", gSalesInvoiceDate.ToString("MMMMM dd, yyyy"));
+            }
+            if (gSalesInvoiceNumber != 0)
+            {
+                crystalDocument.SetParameterValue("prSalesInvoiceNumber", gSalesInvoiceNumber.ToString());
+            }
+            if (gPreparedBy != null)
+            {
+                crystalDocument.SetParameterValue("prPreparedBy", gPreparedBy.ToString());
+            }
+            if (gCheckedBy != null)
+            {
+                crystalDocument.SetParameterValue("prCheckedBy", gCheckedBy.ToString());
+            }
+            if (gApprovedBy != null)
+            {
+                crystalDocument.SetParameterValue("prApprovedBy", gApprovedBy.ToString());
             }
 
         }
@@ -210,10 +229,57 @@ namespace ProducersBank.Services
             MySqlCommand cmd = new MySqlCommand("select unitprice as UnitPrice from producers_pricelist where chequename = '" + checkName + "'", con);
             var result = (double)cmd.ExecuteScalar();
             return result;
-           
+
+        }
+
+        public bool UpdateSalesInvoiceFields(List<SalesInvoiceModel> siList)
+        {
+            try
+            {
+                
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool ComputeVatDetails(double totalAmount)
+        {
+            try
+            {
+                double vat;
+                double netOfvat;
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                _errorMessage = ex.Message;
+                return false;
+            }
+
+            
 
 
         }
+
+        public bool ValidateInputFields(string salesInvoiceNumber, string preparedBy, string checkedBy, string approvedBy)
+        {
+            if (salesInvoiceNumber == "" || preparedBy == "" || checkedBy == "" || approvedBy == "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            } 
+           
+        }
+
+        //public void 
 
     }
 }
