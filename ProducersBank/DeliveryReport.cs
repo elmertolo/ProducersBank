@@ -20,6 +20,7 @@ namespace ProducersBank
     public partial class DeliveryReport : Form
     {
 
+        public static string report= "DR";
         List<OrderModel> orderList = new List<OrderModel>();
         ProcessServices proc = new ProcessServices();
         List<TempModel> tempDr = new List<TempModel>();
@@ -220,6 +221,13 @@ namespace ProducersBank
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void DeliveryReport_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            Form  f = new Main();
+            f.Show();
         }
     }
 }

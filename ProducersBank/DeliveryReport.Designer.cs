@@ -30,8 +30,6 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -51,9 +49,7 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generateToolStripMenuItem,
-            this.mainMenuToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.generateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1055, 28);
@@ -68,22 +64,6 @@
             this.generateToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.generateToolStripMenuItem.Text = "Generate";
             this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
-            // 
-            // mainMenuToolStripMenuItem
-            // 
-            this.mainMenuToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainMenuToolStripMenuItem.Name = "mainMenuToolStripMenuItem";
-            this.mainMenuToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
-            this.mainMenuToolStripMenuItem.Text = "Main Menu";
-            this.mainMenuToolStripMenuItem.Click += new System.EventHandler(this.mainMenuToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btnBrowse
             // 
@@ -209,6 +189,7 @@
             this.Name = "DeliveryReport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DeliveryReport";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DeliveryReport_FormClosing);
             this.Load += new System.EventHandler(this.DeliveryReport_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -222,7 +203,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mainMenuToolStripMenuItem;
        // private System.Windows.Forms.DataGridView dgvDRList;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -233,7 +213,6 @@
         private System.Windows.Forms.TextBox txtDrNumber;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtPackNumber;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvDRList;
     }
