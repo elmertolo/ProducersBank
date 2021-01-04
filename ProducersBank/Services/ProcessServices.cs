@@ -67,7 +67,7 @@ namespace ProducersBank.Services
         public List<OrderModel> Process(List<OrderModel> _orders, DeliveryReport _main, int DrNumber, int packNumber)
         {
             TypeofCheckModel checkType = new TypeofCheckModel();
-            int counter = 0;
+            //int counter = 0;
             checkType.Regular_Personal = new List<OrderModel>();
             checkType.Regular_Commercial = new List<OrderModel>();
 
@@ -84,9 +84,8 @@ namespace ProducersBank.Services
                 }
                 if (_check.ChkType == "B")
                 {
-                    checkType.Regular_Personal.Add(_check);
-                    
-                    
+                    checkType.Regular_Commercial.Add(_check);
+                       
                    
                 }
             }
@@ -138,7 +137,12 @@ namespace ProducersBank.Services
             if (_checks.Regular_Commercial.Count > 0)
             {
                 var _List = _checks.Regular_Commercial.Select(r => r.BRSTN).Distinct().ToList();
-
+                //if(counter == 0)
+                //{
+                //    //counter = 0;
+                //    _DrNumber++;
+                //}
+                
                 foreach (string Brstn in _List)
                 {
                     var _model = _checks.Regular_Commercial.Where(a => a.BRSTN == Brstn);
@@ -500,52 +504,92 @@ namespace ProducersBank.Services
                 DBClosed();
                 DBConnect();
 
-                int dataCount = 0;
+               // int dataCount = 0;
                 string Type = "";
                 int licnt = 1;
-                for (int z = 0; z < _temp.Count; z++)
+               
+                for (int r = 0; r < _temp.Count; r++)
                 {
-                    
-                    if (licnt == 3)
-                    { 
-                    //if ((z % 3) == 0)
-                    //{
-                        
-                        if (_temp[z + dataCount].ChkType == "A")
-                            Type = "PERSONAL";
-                        else
-                            Type = "COMMERCIAL";
 
-                        string sql2 = "Insert into producers_sticker (Batch,BRSTN,BranchName,Qty,ChkType,ChequeName,StartingSerial,EndingSerial,BRSTN2,"
-                               + "BranchName2,Qty2,ChkType2,ChequeName2,StartingSerial2,EndingSerial2,BRSTN3,BranchName3,Qty3,ChkType3,ChequeName3,StartingSerial3,EndingSerial3)"
-                               + "Values('" + _temp[z].Batch + "','" + _temp[z].BRSTN + "','" + _temp[z].BranchName + "'," + _temp[z].Qty
-                               + ",'" + _temp[z].ChkType + "'," + "'" + Type + "','" + _temp[z].StartingSerial + "','" + _temp[z].EndingSerial
-                               + "','" + _temp[z + 1].BRSTN + "','" + _temp[z + 1].BranchName + "'," + _temp[z + 1].Qty + ",'" + _temp[z + 1].ChkType + "','" + Type
-                               + "','" + _temp[z + 1].StartingSerial + "','" + _temp[z + 1].EndingSerial + "','" + _temp[z + 2].BRSTN + "','" + _temp[z + 2].BranchName + "',"
-                               + _temp[z + 2].Qty + ",'" + _temp[z + 2].ChkType + "','" + Type + "','" + _temp[z + 2].StartingSerial + "','" + _temp[z + 2].EndingSerial + "');";
+                    if(licnt == 1)
+                    {
+                        string sql2 = "Insert into producers_sticker (Batch,BRSTN,BranchName,Qty,ChkType,ChequeName,StartingSerial,EndingSerial)" +
+                                      "values('" + _batch + "','" + _temp[r].BRSTN + "','" + _temp[r].BranchName + "'," + _temp[r].Qty + ",'" + _temp[r].ChkType +
+                                      "','" + Type + "','" + _temp[r].StartingSerial + "','" + _temp[r].EndingSerial + "');";
 
-                       
+
                         MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                         cmd2.ExecuteNonQuery();
-
-                    
-                        if (licnt == 3) licnt = 1;
-                    }
-                    else
-                    {
                         licnt++;
-                       // string sql2 = "Insert into producers_sticker (Batch,BRSTN,BranchName,Qty,ChkType,ChequeName,StartingSerial,EndingSerial,BRSTN2,"
-                        //    + "BranchName2,Qty2,ChkType2,ChequeName2,StartingSerial2,EndingSerial2,BRSTN3,BranchName3,Qty3,ChkType3,ChequeName3,StartingSerial3,EndingSerial3)"
-                        //    + "Values('" + _temp[z].Batch + "','" + _temp[z].BRSTN + "','" + _temp[z].BranchName + "'," + _temp[z].Qty
-                        //    + ",'" + _temp[z].ChkType + "'," + "'" + Type + "','" + _temp[z].StartingSerial + "','" + _temp[z].EndingSerial
-                        //    + "','" + _temp[z + 1].BRSTN + "','" + _temp[z + 1].BranchName + "'," + _temp[z + 1].Qty + ",'" + _temp[z + 1].ChkType + "','" + Type
-                        //    + "','" + _temp[z + 1].StartingSerial + "','" + _temp[z + 1].EndingSerial + "','" + _temp[z + 2].BRSTN + "','" + _temp[z + 2].BranchName + "',"
-                        //    + _temp[z + 2].Qty + ",'" + _temp[z + 2].ChkType + "','" + Type + "','" + _temp[z + 2].StartingSerial + "','" + _temp[z + 2].EndingSerial + "');";
-                        //MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
-                        //cmd2.ExecuteNonQuery();
+                    }
+                    else if (licnt == 2)
+                    {
+                        string sql2 = "Update producers_sticker set BRSTN2 = '" + _temp[r].BRSTN + "',BranchName2 = '" + _temp[r].BranchName + "',Qty2 = " + _temp[r].Qty +
+                                      ",ChkType2 = '" + _temp[r].ChkType + "',ChequeName2 = '" + Type + "',StartingSerial2 = '" + _temp[r].StartingSerial +
+                                      "',EndingSerial2 = '" + _temp[r].EndingSerial + "' where BRSTN = '" + _temp[r - 1].BRSTN + "';";
+                        MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
+                        cmd2.ExecuteNonQuery();
+                        licnt++;
+                    }
+                    else if (licnt == 3)
+                    {
+                        string sql2 = "Update producers_sticker set BRSTN3 = '" + _temp[r].BRSTN + "',BranchName3 = '" + _temp[r].BranchName + "',Qty3 = " + _temp[r].Qty +
+                                      ",ChkType3 = '" + _temp[r].ChkType + "',ChequeName3 = '" + Type + "',StartingSerial3 = '" + _temp[r].StartingSerial +
+                                      "',EndingSerial3 = '" + _temp[r].EndingSerial + "' where BRSTN2 = '" + _temp[r - 1].BRSTN + "';";
+                        MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
+                        cmd2.ExecuteNonQuery();
+                        licnt = 1;
                     }
 
                 }
+                //for (int z = 0; z < _temp.Count; z++)
+                //{
+
+                //    if (licnt == 3)
+                //    {
+                //        //if ((z % 3) == 0)
+                //        //{
+
+                //        if (_temp[z + dataCount].ChkType == "A")
+                //            Type = "PERSONAL";
+                //        else
+                //            Type = "COMMERCIAL";
+
+                //        string sql2 = "Insert into producers_sticker (Batch,BRSTN,BranchName,Qty,ChkType,ChequeName,StartingSerial,EndingSerial,BRSTN2,"
+                //               + "BranchName2,Qty2,ChkType2,ChequeName2,StartingSerial2,EndingSerial2,BRSTN3,BranchName3,Qty3,ChkType3,ChequeName3,StartingSerial3,EndingSerial3)"
+                //               + "Values('" + _temp[z].Batch + "','" + _temp[z].BRSTN + "','" + _temp[z].BranchName + "'," + _temp[z].Qty
+                //               + ",'" + _temp[z].ChkType + "'," + "'" + Type + "','" + _temp[z].StartingSerial + "','" + _temp[z].EndingSerial
+                //               + "','" + _temp[z + 1].BRSTN + "','" + _temp[z + 1].BranchName + "'," + _temp[z + 1].Qty + ",'" + _temp[z + 1].ChkType + "','" + Type
+                //               + "','" + _temp[z + 1].StartingSerial + "','" + _temp[z + 1].EndingSerial + "','" + _temp[z + 2].BRSTN + "','" + _temp[z + 2].BranchName + "',"
+                //               + _temp[z + 2].Qty + ",'" + _temp[z + 2].ChkType + "','" + Type + "','" + _temp[z + 2].StartingSerial + "','" + _temp[z + 2].EndingSerial + "');";
+
+
+                //        MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
+                //        cmd2.ExecuteNonQuery();
+
+
+                //        if (licnt == 3) licnt = 1;
+                //    }
+                //    else
+                //    {
+                //        licnt++;
+
+                //        //if (z == _temp.Count)
+                //        //{
+                //        //    string sql2 = "Insert into producers_sticker (Batch,BRSTN,BranchName,Qty,ChkType,ChequeName,StartingSerial,EndingSerial,BRSTN2,"
+                //        //       + "BranchName2,Qty2,ChkType2,ChequeName2,StartingSerial2,EndingSerial2,BRSTN3,BranchName3,Qty3,ChkType3,ChequeName3,StartingSerial3,EndingSerial3)"
+                //        //       + "Values('" + _temp[z].Batch + "','" + _temp[z].BRSTN + "','" + _temp[z].BranchName + "'," + _temp[z].Qty
+                //        //       + ",'" + _temp[z].ChkType + "'," + "'" + Type + "','" + _temp[z].StartingSerial + "','" + _temp[z].EndingSerial
+                //        //       + "','" + _temp[z + 1].BRSTN + "','" + _temp[z + 1].BranchName + "'," + _temp[z + 1].Qty + ",'" + _temp[z + 1].ChkType + "','" + Type
+                //        //       + "','" + _temp[z + 1].StartingSerial + "','" + _temp[z + 1].EndingSerial + "','" + _temp[z + 2].BRSTN + "','" + _temp[z + 2].BranchName + "',"
+                //        //       + _temp[z + 2].Qty + ",'" + _temp[z + 2].ChkType + "','" + Type + "','" + _temp[z + 2].StartingSerial + "','" + _temp[z + 2].EndingSerial + "');";
+                //        //    MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
+                //        //    cmd2.ExecuteNonQuery();
+                //        //}
+                //    }
+
+
+                //}
 
                 DBClosed();
             }
@@ -556,5 +600,31 @@ namespace ProducersBank.Services
             return _temp;
         }
       
+        //public List<TempModel> GetPackingReport(List<TempModel>  _temp, string _batch)
+        //{
+        //    Sql = "SELECT BranchName, BRSTN, ChkType,MIN(StartingSerial), MAX(EndingSerial), Count(ChkType) " +
+        //              "FROM producers_history WHERE Batch = '" + _batch + "'" +
+        //               "GROUP BY BranchName, BRSTN, ChkType, ChequeName ORDER BY BranchName";
+        //    DBConnect();
+        //    cmd = new MySqlCommand(Sql, myConnect);
+        //    MySqlDataReader reader = cmd.ExecuteReader();
+
+        //    while(reader.Read())
+        //    {
+        //        TempModel t = new TempModel
+        //        {
+        //            BranchName = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+        //            BRSTN = !reader.IsDBNull(1) ? reader.GetString(1) : "",
+        //            ChkType = !reader.IsDBNull(2) ? reader.GetString(2) : "",
+        //            StartingSerial = !reader.IsDBNull(3) ? reader.GetString(3) : "",
+        //            EndingSerial = !reader.IsDBNull(4) ? reader.GetString(4) : "",
+        //            Qty = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0
+        //        };
+        //        _temp.Add(t);
+        //    }
+        //    reader.Close();
+        //    DBClosed();
+        //    return _temp;
+        //}
     }
 }

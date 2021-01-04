@@ -34,10 +34,11 @@ namespace ProducersBank
             this.printDRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deliveryReceiptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stickersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvDRList = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtRecentBatch = new System.Windows.Forms.TextBox();
+            this.packingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             this.SuspendLayout();
@@ -47,8 +48,7 @@ namespace ProducersBank
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.searchToolStripMenuItem,
-            this.printDRToolStripMenuItem,
-            this.mainMenuToolStripMenuItem});
+            this.printDRToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(741, 28);
@@ -67,7 +67,10 @@ namespace ProducersBank
             // 
             this.printDRToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deliveryReceiptToolStripMenuItem,
-            this.stickersToolStripMenuItem});
+            this.stickersToolStripMenuItem,
+            this.packingToolStripMenuItem,
+            this.salesInvoiceToolStripMenuItem});
+            this.printDRToolStripMenuItem.Enabled = false;
             this.printDRToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.printDRToolStripMenuItem.Name = "printDRToolStripMenuItem";
             this.printDRToolStripMenuItem.Size = new System.Drawing.Size(110, 24);
@@ -87,14 +90,6 @@ namespace ProducersBank
             this.stickersToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.stickersToolStripMenuItem.Text = "Stickers";
             this.stickersToolStripMenuItem.Click += new System.EventHandler(this.stickersToolStripMenuItem_Click);
-            // 
-            // mainMenuToolStripMenuItem
-            // 
-            this.mainMenuToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainMenuToolStripMenuItem.Name = "mainMenuToolStripMenuItem";
-            this.mainMenuToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
-            this.mainMenuToolStripMenuItem.Text = " Main Menu";
-            this.mainMenuToolStripMenuItem.Click += new System.EventHandler(this.mainMenuToolStripMenuItem_Click);
             // 
             // dgvDRList
             // 
@@ -122,6 +117,20 @@ namespace ProducersBank
             this.txtRecentBatch.Size = new System.Drawing.Size(122, 22);
             this.txtRecentBatch.TabIndex = 3;
             // 
+            // packingToolStripMenuItem
+            // 
+            this.packingToolStripMenuItem.Name = "packingToolStripMenuItem";
+            this.packingToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.packingToolStripMenuItem.Text = "Packing";
+            this.packingToolStripMenuItem.Click += new System.EventHandler(this.packingToolStripMenuItem_Click);
+            // 
+            // salesInvoiceToolStripMenuItem
+            // 
+            this.salesInvoiceToolStripMenuItem.Name = "salesInvoiceToolStripMenuItem";
+            this.salesInvoiceToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.salesInvoiceToolStripMenuItem.Text = "Sales Invoice";
+            this.salesInvoiceToolStripMenuItem.Click += new System.EventHandler(this.salesInvoiceToolStripMenuItem_Click);
+            // 
             // RecentBatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,6 +144,7 @@ namespace ProducersBank
             this.Name = "RecentBatch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recent Batch";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecentBatch_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
@@ -153,6 +163,7 @@ namespace ProducersBank
         private System.Windows.Forms.ToolStripMenuItem printDRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deliveryReceiptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stickersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mainMenuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem packingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salesInvoiceToolStripMenuItem;
     }
 }

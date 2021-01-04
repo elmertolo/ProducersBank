@@ -194,7 +194,16 @@
     <Compile Include="Models\SalesInvoiceModel.cs" />
     <Compile Include="Models\TempModel.cs" />
     <Compile Include="Models\TypeofCheckModel.cs" />
+<<<<<<< HEAD
     <Compile Include="Procedures\Nelson_Procedures.cs" />
+=======
+    <Compile Include="PackingReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackingReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+>>>>>>> 218e469df2e8c8d8b833bb035d3eff0ef9a7a2be
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecentBatch.cs">
@@ -241,6 +250,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackingReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackingReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

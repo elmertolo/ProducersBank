@@ -16,6 +16,7 @@ namespace ProducersBank
 {
     public partial class RecentBatch : Form
     {
+        public static string report = "";
         ProcessServices proc = new ProcessServices();
          List<TempModel> tempRecent = new List<TempModel>();
         public RecentBatch()
@@ -34,6 +35,7 @@ namespace ProducersBank
 
         private void deliveryReceiptToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            report = "DR";
             ViewReports vp = new ViewReports();
             vp.Show();
         }
@@ -52,8 +54,30 @@ namespace ProducersBank
 
         private void stickersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            report = "STICKER";
             ViewReports vp = new ViewReports();
             vp.Show();
+        }
+
+        private void packingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            report = "Packing";
+            ViewReports vp = new ViewReports();
+            vp.Show();
+        }
+
+        private void salesInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            report = "SalesInvoice";
+            ViewReports vp = new ViewReports();
+            vp.Show();
+        }
+
+        private void RecentBatch_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            Form f = new Main();
+            f.Show();
         }
     }
 }
