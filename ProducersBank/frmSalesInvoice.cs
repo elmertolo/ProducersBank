@@ -204,7 +204,7 @@ namespace ProducersBank
 
         private void btnPrintSalesInvoice_Click(object sender, EventArgs e)
         {
-            ProcessServices_Nelson p = new ProcessServices_Nelson();
+            
             if (!p.ValidateInputFields(txtSalesInvoiceNumber.Text.ToString(), cbPreparedBy.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
             {
                 MessageBox.Show("Please supply values in blank field(s)");
@@ -218,11 +218,11 @@ namespace ProducersBank
                 gApprovedBy = cbApprovedBy.Text.ToString();
                 gSalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
 
-                if (!p.UpdateSalesInvoiceFields())
-                {
-                    MessageBox.Show("Error upon updating to server. " + p.errorMessage);
-                    return;
-                }
+                //if (!p.UpdateSalesInvoiceFields())
+                //{
+                //    MessageBox.Show("Error upon updating to server. " + p.errorMessage);
+                //    return;
+                //}
 
                 frmReportViewer crForm = new frmReportViewer();
                 crForm.Show();
@@ -238,8 +238,8 @@ namespace ProducersBank
 
         private void txtSalesInvoiceNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Nelson_Procedures p = new Nelson_Procedures();
-            if (p.IsNumeric( ref sender, ref e))
+            
+            if (p.IsKeyPressedNumeric( ref sender, ref e))
             {
                 e.Handled = true;
             }

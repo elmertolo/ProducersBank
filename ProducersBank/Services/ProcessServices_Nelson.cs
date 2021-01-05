@@ -232,19 +232,7 @@ namespace ProducersBank.Services
 
         }
 
-        public bool UpdateSalesInvoiceFields(List<SalesInvoiceModel> siList)
-        {
-            try
-            {
-                
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
+       
 
         public bool ComputeVatDetails(double totalAmount)
         {
@@ -266,18 +254,7 @@ namespace ProducersBank.Services
 
         }
 
-        public bool ValidateInputFields(string salesInvoiceNumber, string preparedBy, string checkedBy, string approvedBy)
-        {
-            if (salesInvoiceNumber == "" || preparedBy == "" || checkedBy == "" || approvedBy == "")
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            } 
-           
-        }
+        
 
         //public void 
 
