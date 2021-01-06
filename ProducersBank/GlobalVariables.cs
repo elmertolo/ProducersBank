@@ -24,6 +24,9 @@ namespace ProducersBank
         //resettable variables
         public static double gSalesInvoiceNumber;
         public static DateTime gSalesInvoiceDate;
+        public static double gSubtotalAmount;
+        public static double gVatAmount;
+        public static double gNetOfVatAmount;
         public static string gPreparedBy;
         public static string gCheckedBy;
         public static string gApprovedBy;

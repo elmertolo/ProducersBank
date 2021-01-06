@@ -35,7 +35,6 @@ namespace ProducersBank
             crViewer.ShowRefreshButton = false;
             crViewer.ShowCloseButton = false;
             crViewer.ShowGroupTreeButton = false;
-
             
 
             p.FillCRReportParameters(ref crystalDocument);
@@ -60,10 +59,9 @@ namespace ProducersBank
 
         private void frmReportViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ProcessServices_Nelson p = new ProcessServices_Nelson();
-            //p.ComputeVatDetails();
-            //p.UpdateSalesInvoiceFields();
-
+            frmSalesInvoice si = new frmSalesInvoice();
+            si.Show();
+            
         }
     }
 

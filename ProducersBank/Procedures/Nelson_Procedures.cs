@@ -37,19 +37,16 @@ namespace ProducersBank.Procedures
 
         }
 
-        public static bool UpdateSalesInvoiceFields(List<SalesInvoiceModel> siList)
+       public static double GetVatAmount(double subTotal)
         {
-            try
-            {
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                errorMessage = ex.Message;
-                return false;
-            }
+            return Math.Round(subTotal / 1.12 * .12);
         }
+
+        public static double GetNetOfVatAmount(double subTotal)
+        {
+            return Math.Round(subTotal / 1.12);
+        }
+
 
     }
 }
