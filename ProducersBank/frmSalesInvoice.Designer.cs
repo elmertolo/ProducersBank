@@ -129,8 +129,7 @@ namespace ProducersBank
             // 
             // btnViewSelected
             // 
-            this.btnViewSelected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnViewSelected.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnViewSelected.Location = new System.Drawing.Point(813, 385);
             this.btnViewSelected.Name = "btnViewSelected";
             this.btnViewSelected.Size = new System.Drawing.Size(183, 50);

@@ -11,6 +11,7 @@ namespace ProducersBank.Models
         public string batchName { get; set; }
         public double salesInvoiceNumber { get; set; }
         public int orderQuantity { get; set; }
+        public double lineTotalAmount { get; set; }
         public string checkName { get; set; }
         public string drList { get; set; }
         public DateTime salesInvoiceDate { get; set; }

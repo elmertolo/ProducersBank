@@ -17,6 +17,10 @@ namespace ProducersBank.Services
 {
     public class ProcessServices_Nelson
     {
+
+        
+        
+      
         private string _errorMessage;
         MySqlConnection con;
         MySqlDataAdapter da;
@@ -105,7 +109,6 @@ namespace ProducersBank.Services
             {
                 _errorMessage = ex.Message;
                 return null;
-               
             }
         }
 
@@ -176,6 +179,7 @@ namespace ProducersBank.Services
             {
                 throw (new Exception("Unable to locate report file: \r\n" + reportPath));
             }
+            
 
             crystalDocument.Load(reportPath);
             crystalDocument.SetDataSource(gReportDT);
@@ -220,6 +224,18 @@ namespace ProducersBank.Services
             {
                 crystalDocument.SetParameterValue("prApprovedBy", gApprovedBy.ToString());
             }
+            if (gSubtotalAmount != 0)
+            {
+                crystalDocument.SetParameterValue("prSubtotalAmount", gSubtotalAmount.ToString());
+            }
+            if (gVatAmount != 0)
+            {
+                crystalDocument.SetParameterValue("prVatAmount", gVatAmount.ToString());
+            }
+            if (gNetOfVatAmount != 0)
+            {
+                crystalDocument.SetParameterValue("prNetOfVatAmount", gNetOfVatAmount.ToString());
+            }
 
         }
 
@@ -232,30 +248,54 @@ namespace ProducersBank.Services
 
         }
 
-       
 
-        public bool ComputeVatDetails(double totalAmount)
+        ////VAT COMPUTATION
+        //private double vatAmount;
+        //public double VatAmount
+        //{
+        //    get { return vatAmount; }
+        //    set { vatAmount = value; }
+        //}
+
+        //private double netOfVatAmount;
+        //public double NetOfVatAmount
+        //{
+        //    get { return netOfVatAmount; }
+        //    set { netOfVatAmount = value; }
+        //}
+        //public bool ComputeVatDetails(double totalAmount)
+        //{
+        //    try
+        //    {
+                
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        _errorMessage = ex.Message;
+        //        return false;
+        //    }
+
+        //}
+        /// <summary>
+        /// END OF VAT COMPUTATION
+        /// </summary>
+
+        
+        public bool UpdateSalesInvoiceHistory(List<SalesInvoiceModel> siList)
         {
             try
             {
-                double vat;
-                double netOfvat;
+
                 return true;
             }
             catch (Exception ex)
             {
-
                 _errorMessage = ex.Message;
                 return false;
             }
-
-            
-
-
         }
-
-        
-
         //public void 
 
     }

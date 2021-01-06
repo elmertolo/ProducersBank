@@ -132,12 +132,14 @@ namespace ProducersBank
             dgvListToProcess.Columns[5].DataPropertyName = "SalesInvoiceDate";
 
             dgvListToProcess.Columns[6].Name = "UNIT PRICE";
+            dgvListToProcess.Columns[6].DefaultCellStyle.Format = "#,0.00##";
             dgvListToProcess.Columns[6].Width = 100;
             dgvListToProcess.Columns[6].DataPropertyName = "UnitPrice";
 
             dgvListToProcess.Columns[7].Name = "AMOUNT";
+            dgvListToProcess.Columns[7].DefaultCellStyle.Format = "#,0.00##";
             dgvListToProcess.Columns[7].Width = 500;
-            dgvListToProcess.Columns[7].DataPropertyName = "Amount";
+            dgvListToProcess.Columns[7].DataPropertyName = "LineTotalAmount";
 
         }
 
@@ -172,7 +174,8 @@ namespace ProducersBank
                     line.deliveryDate = DateTime.Parse(row.Cells["Delivery Date"].Value.ToString());
                     line.orderQuantity = int.Parse(row.Cells["Quantity"].Value.ToString());
                     line.drList = proc.GetDRList(line.batchName, line.checkType, line.deliveryDate);
-                    line.unitPrice = proc.GetUnitPrice(line.checkName);
+                    line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
+                    line.lineTotalAmount = Math.Round(line.orderQuantity * line.unitPrice, 2);
 
                     SalesInvoiceList.Add(line);
                     
@@ -181,7 +184,7 @@ namespace ProducersBank
                 //created list variable for column sorting
                 var sortedList = SalesInvoiceList
                     .Select
-                    (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice })
+                    (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
                     .ToList();
 
                 dgvListToProcess.DataSource = sortedList;
@@ -192,6 +195,7 @@ namespace ProducersBank
                 if (!proc1.UpdateTempTable(SalesInvoiceList))
                 {
                     MessageBox.Show("Unable to connect to server. \r\n" + proc1.errorMessage);
+                    return;
                 }
 
             }
@@ -205,28 +209,40 @@ namespace ProducersBank
         private void btnPrintSalesInvoice_Click(object sender, EventArgs e)
         {
             
+
             if (!p.ValidateInputFields(txtSalesInvoiceNumber.Text.ToString(), cbPreparedBy.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
             {
                 MessageBox.Show("Please supply values in blank field(s)");
             }
             else
             {
-                gReportDT = SalesInvoiceList;
-                gSalesInvoiceDate = dtpInvoiceDate.Value;
-                gPreparedBy = cbPreparedBy.Text.ToString();
-                gCheckedBy = cbCheckedBy.Text.ToString();
-                gApprovedBy = cbApprovedBy.Text.ToString();
-                gSalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
 
-                //if (!p.UpdateSalesInvoiceFields())
-                //{
-                //    MessageBox.Show("Error upon updating to server. " + p.errorMessage);
-                //    return;
-                //}
+                DialogResult result = MessageBox.Show("This will process Sales Invoice on selected DR's. \r\n Select ok to proceed.", "Confirmation", MessageBoxButtons.YesNo);
+                
+                if (result == DialogResult.Yes)
+                {
+                    gReportDT = SalesInvoiceList;
+                    gSalesInvoiceDate = dtpInvoiceDate.Value;
+                    gPreparedBy = cbPreparedBy.Text.ToString();
+                    gCheckedBy = cbCheckedBy.Text.ToString();
+                    gApprovedBy = cbApprovedBy.Text.ToString();
+                    gSalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
+                    gSubtotalAmount = double.Parse(SalesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
+                    gVatAmount = p.GetVatAmount(gSubtotalAmount);
+                    gNetOfVatAmount = p.GetNetOfVatAmount(gSubtotalAmount);
+                    
 
-                frmReportViewer crForm = new frmReportViewer();
-                crForm.Show();
-                this.Hide();
+                    //if (!p.UpdateSalesInvoiceFields())
+                    //{
+                    //    MessageBox.Show("Error upon updating to server. " + p.errorMessage);
+                    //    return;
+                    //}
+
+                    frmReportViewer crForm = new frmReportViewer();
+                    crForm.Show();
+                    this.Hide();
+                }
+
             }
 
         }
@@ -243,7 +259,6 @@ namespace ProducersBank
             {
                 e.Handled = true;
             }
-            
 
         }
     }
