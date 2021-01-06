@@ -31,6 +31,7 @@ namespace ProducersBank
             BindingSource checkBind = new BindingSource();
             checkBind.DataSource = tempRecent;
             dgvDRList.DataSource = checkBind;
+            printDRToolStripMenuItem.Enabled = true;
         }
 
         private void deliveryReceiptToolStripMenuItem_Click(object sender, EventArgs e)
