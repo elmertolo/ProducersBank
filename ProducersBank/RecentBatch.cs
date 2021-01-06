@@ -28,6 +28,7 @@ namespace ProducersBank
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             proc.GetDRDetails(txtRecentBatch.Text, tempRecent);
+            proc.GetStickerDetails(tempRecent, txtRecentBatch.Text);
             BindingSource checkBind = new BindingSource();
             checkBind.DataSource = tempRecent;
             dgvDRList.DataSource = checkBind;
@@ -79,6 +80,11 @@ namespace ProducersBank
             this.Hide();
             Form f = new Main();
             f.Show();
+        }
+
+        private void RecentBatch_Load(object sender, EventArgs e)
+        {
+            txtRecentBatch.Focus();
         }
     }
 }

@@ -56,15 +56,13 @@ namespace ProducersBank
 
             
                 proc.GetDRDetails(orderList[0].Batch,tempDr);
-               proc.GetStickerDetails(tempSticker,orderList[0].Batch);
-                //CrystalReport1 cr = new CrystalReport1();
-                //cr.Load(Application.StartupPath + "\\DeliveryReceipt.rpt");
-                
+               proc.GetStickerDetails(tempSticker,orderList[0].Batch);       
          
                 MessageBox.Show("Data has been process!!!");
                 ViewReports vp = new ViewReports();
                // vp.MdiParent = this;
                 vp.Show();
+                reportsToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -228,6 +226,20 @@ namespace ProducersBank
             this.Hide();
             Form  f = new Main();
             f.Show();
+        }
+
+        private void stickerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            report = "STICKER";
+            ViewReports vp = new ViewReports();
+            vp.Show();
+        }
+
+        private void packingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            report = "Packing";
+            ViewReports vp = new ViewReports();
+            vp.Show();
         }
     }
 }
