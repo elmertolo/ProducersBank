@@ -384,7 +384,7 @@ namespace ProducersBank.Services
 
 
 
-                Sql = "Select Max(DrNumber) from captive_accounting." + item;
+                Sql = "Select Max(DrNumber) from " + item + " where Date >= '2020-12-01'";
                 cmd = new MySqlCommand(Sql, myConnect);
                 MySqlDataReader read = cmd.ExecuteReader();
 
@@ -448,7 +448,7 @@ namespace ProducersBank.Services
             {
 
 
-                Sql = "Select Max(PackNumber) from captive_accounting." + item;
+                Sql = "Select Max(PackNumber) from " + item + " where Date >= '2020-12-01'";
 
                cmd = new MySqlCommand(Sql, myConnect);
                 MySqlDataReader read = cmd.ExecuteReader();
@@ -595,7 +595,7 @@ namespace ProducersBank.Services
             }
             catch(Exception e)
             {
-
+                MessageBox.Show(e.Message);
             }
             return _temp;
         }

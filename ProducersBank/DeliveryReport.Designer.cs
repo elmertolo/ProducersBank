@@ -40,9 +40,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtPackNumber = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dgvDRList = new System.Windows.Forms.DataGridView();
+          //  this.dgvDRList = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
+          //  ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -161,11 +163,19 @@
             // 
             // dgvDRList
             // 
-            this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDRList.Location = new System.Drawing.Point(322, 40);
-            this.dgvDRList.Name = "dgvDRList";
-            this.dgvDRList.Size = new System.Drawing.Size(720, 325);
-            this.dgvDRList.TabIndex = 2;
+            //this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            //this.dgvDRList.Location = new System.Drawing.Point(322, 40);
+            //this.dgvDRList.Name = "dgvDRList";
+            //this.dgvDRList.Size = new System.Drawing.Size(720, 325);
+            //this.dgvDRList.TabIndex = 2;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(311, 40);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(732, 325);
+            this.dataGridView1.TabIndex = 12;
             // 
             // DeliveryReport
             // 
@@ -173,6 +183,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 395);
             this.ControlBox = false;
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.txtPackNumber);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDrNumber);
@@ -192,7 +203,8 @@
             this.Load += new System.EventHandler(this.DeliveryReport_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
+          //  ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,6 +225,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtPackNumber;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dgvDRList;
+        //private System.Windows.Forms.DataGridView dgvDRList;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
