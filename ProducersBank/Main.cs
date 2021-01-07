@@ -35,9 +35,11 @@ namespace ProducersBank
 
         private void button2_Click(object sender, EventArgs e)
         {
+
             //frmSalesInvoice si = new frmSalesInvoice();
             //si.Show();
             //this.Hide();
+
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -62,6 +64,12 @@ namespace ProducersBank
         private void recentBatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form frm = new RecentBatch(this);
+            frm.ShowDialog();
+        }
+
+        private void salesInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form frm = new frmSalesInvoice(this);
             frm.ShowDialog();
         }
     }

@@ -19,7 +19,7 @@ namespace ProducersBank
 {
     public partial class frmReportViewer : Form
     {
-        List<SalesInvoiceModel> siList = new List<SalesInvoiceModel>();
+        //List<SalesInvoiceModel> siList = new List<SalesInvoiceModel>();
         ReportDocument crystalDocument = new ReportDocument();
         ProcessServices_Nelson p = new ProcessServices_Nelson();
         
@@ -59,8 +59,8 @@ namespace ProducersBank
 
         private void frmReportViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            frmSalesInvoice si = new frmSalesInvoice();
-            si.Show();
+         //   frmSalesInvoice si = new frmSalesInvoice();
+           // si.Show();
             
         }
     }

@@ -31,10 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deliveryReceiptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +60,20 @@
             this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
             this.transactionsToolStripMenuItem.Text = "Transactions";
             // 
+            // deliveryReceiptToolStripMenuItem
+            // 
+            this.deliveryReceiptToolStripMenuItem.Name = "deliveryReceiptToolStripMenuItem";
+            this.deliveryReceiptToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.deliveryReceiptToolStripMenuItem.Text = "Delivery Receipt";
+            this.deliveryReceiptToolStripMenuItem.Click += new System.EventHandler(this.deliveryReceiptToolStripMenuItem_Click);
+            // 
+            // salesInvoiceToolStripMenuItem
+            // 
+            this.salesInvoiceToolStripMenuItem.Name = "salesInvoiceToolStripMenuItem";
+            this.salesInvoiceToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.salesInvoiceToolStripMenuItem.Text = "Sales Invoice";
+            this.salesInvoiceToolStripMenuItem.Click += new System.EventHandler(this.salesInvoiceToolStripMenuItem_Click);
+            // 
             // recentBatchToolStripMenuItem
             // 
             this.recentBatchToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -75,25 +89,12 @@
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // deliveryReceiptToolStripMenuItem
-            // 
-            this.deliveryReceiptToolStripMenuItem.Name = "deliveryReceiptToolStripMenuItem";
-            this.deliveryReceiptToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
-            this.deliveryReceiptToolStripMenuItem.Text = "Delivery Receipt";
-            this.deliveryReceiptToolStripMenuItem.Click += new System.EventHandler(this.deliveryReceiptToolStripMenuItem_Click);
-            // 
-            // salesInvoiceToolStripMenuItem
-            // 
-            this.salesInvoiceToolStripMenuItem.Name = "salesInvoiceToolStripMenuItem";
-            this.salesInvoiceToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
-            this.salesInvoiceToolStripMenuItem.Text = "Sales Invoice";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1304, 750);
+            this.ClientSize = new System.Drawing.Size(1304, 749);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;

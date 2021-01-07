@@ -215,6 +215,14 @@ namespace ProducersBank {
                 return this.DataDefinition.ParameterFields[13];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_prCustomerCode {
+            get {
+                return this.DataDefinition.ParameterFields[14];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]

@@ -19,11 +19,13 @@ namespace ProducersBank
 
         List<SalesInvoiceModel> SalesInvoiceList = new List<SalesInvoiceModel>();
         ProcessServices_Nelson proc = new ProcessServices_Nelson();
-        public frmSalesInvoice()
+        Main frm;
+        public frmSalesInvoice(Main frm1)
         {
             InitializeComponent();
             ConfigureGrids();
             SalesInvoiceList.Clear();
+            this.frm = frm1;
         }
 
         private void frmSalesInvoice_Load(object sender, EventArgs e)
@@ -228,7 +230,7 @@ namespace ProducersBank
                     gVatAmount = p.GetVatAmount(gSubtotalAmount);
                     gNetOfVatAmount = p.GetNetOfVatAmount(gSubtotalAmount);
 
-                    if (!proc.UpdateSalesInvoiceFields(SalesInvoiceList))
+                    if (!proc.UpdateSalesInvoiceHistory(SalesInvoiceList))
                     {
                         MessageBox.Show("Error upon updating to server. " + proc.errorMessage);
                         return;
