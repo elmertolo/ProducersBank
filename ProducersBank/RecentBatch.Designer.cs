@@ -29,6 +29,8 @@ namespace ProducersBank
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printDRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +53,7 @@ namespace ProducersBank
             this.printDRToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(741, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(720, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -59,8 +61,8 @@ namespace ProducersBank
             // 
             this.searchToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
-            this.searchToolStripMenuItem.Text = "Search";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            this.searchToolStripMenuItem.Text = "Generate";
             this.searchToolStripMenuItem.Click += new System.EventHandler(this.searchToolStripMenuItem_Click);
             // 
             // printDRToolStripMenuItem
@@ -107,10 +109,30 @@ namespace ProducersBank
             // 
             // dgvDRList
             // 
+            this.dgvDRList.AllowUserToAddRows = false;
+            this.dgvDRList.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDRList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDRList.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvDRList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvDRList.Location = new System.Drawing.Point(13, 73);
             this.dgvDRList.Name = "dgvDRList";
-            this.dgvDRList.Size = new System.Drawing.Size(718, 256);
+            this.dgvDRList.ReadOnly = true;
+            this.dgvDRList.Size = new System.Drawing.Size(693, 160);
             this.dgvDRList.TabIndex = 1;
             // 
             // label1
@@ -129,13 +151,14 @@ namespace ProducersBank
             this.txtRecentBatch.Location = new System.Drawing.Point(75, 36);
             this.txtRecentBatch.Name = "txtRecentBatch";
             this.txtRecentBatch.Size = new System.Drawing.Size(122, 22);
-            this.txtRecentBatch.TabIndex = 3;
+            this.txtRecentBatch.TabIndex = 1;
+            this.txtRecentBatch.TextChanged += new System.EventHandler(this.txtRecentBatch_TextChanged);
             // 
             // RecentBatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 343);
+            this.ClientSize = new System.Drawing.Size(720, 267);
             this.Controls.Add(this.txtRecentBatch);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvDRList);

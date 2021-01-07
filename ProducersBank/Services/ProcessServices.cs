@@ -354,7 +354,7 @@ namespace ProducersBank.Services
             DBClosed();
             return _batch;
         }
-      public void GetBankTables()
+        public void GetBankTables()
       {
         //    int counter = 0;
          
@@ -622,6 +622,31 @@ namespace ProducersBank.Services
             }
 
             return reportPath;
+        }
+
+        public string DisplayAllBatches(string _batch,List<TempModel> _temp)
+        {
+            DBConnect();
+            Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history " +
+                    "where DrNumber is not null  and Batch Like '%"+ _batch+ "' group by batch, chequename, ChkType";
+            cmd = new MySqlCommand(Sql, myConnect);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                TempModel t = new TempModel
+                {
+                    Batch = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+                    ChequeName = !reader.IsDBNull(1) ? reader.GetString(1) : "",
+                    ChkType = !reader.IsDBNull(2) ? reader.GetString(2) : "",
+                    DeliveryDate = !reader.IsDBNull(3) ? reader.GetDateTime(3) : DateTime.Now,
+                    Qty = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0
+                };
+                _temp.Add(t);
+            }
+            reader.Close();
+            DBClosed();
+
+            return _batch;
         }
     }
 }

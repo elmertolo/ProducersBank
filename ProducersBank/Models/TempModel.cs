@@ -23,5 +23,6 @@ namespace ProducersBank.Models
         public string PackNumber { get; set; }
         public int Qty { get; set; }
         public string username { get; set; }
+        public DateTime DeliveryDate { get; set; }
     }
 }

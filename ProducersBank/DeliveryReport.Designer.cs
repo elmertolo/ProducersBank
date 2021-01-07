@@ -45,8 +45,19 @@
             this.txtPackNumber = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblTotalA = new System.Windows.Forms.Label();
+            this.lblTotalB = new System.Windows.Forms.Label();
+            this.lblTotalChecks = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -110,7 +121,7 @@
             // 
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(23, 226);
+            this.comboBox1.Location = new System.Drawing.Point(23, 223);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(202, 24);
             this.comboBox1.TabIndex = 3;
@@ -181,10 +192,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblTotalA);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 31);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(292, 334);
+            this.groupBox1.Size = new System.Drawing.Size(292, 352);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input Data";
@@ -196,6 +212,98 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(732, 325);
             this.dataGridView1.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(49, 269);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 16);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Personal :";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(47, 291);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(102, 16);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Commercial : ";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(45, 313);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(117, 16);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Total Cheques :";
+            // 
+            // lblTotalA
+            // 
+            this.lblTotalA.AutoSize = true;
+            this.lblTotalA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalA.Location = new System.Drawing.Point(194, 267);
+            this.lblTotalA.Name = "lblTotalA";
+            this.lblTotalA.Size = new System.Drawing.Size(16, 16);
+            this.lblTotalA.TabIndex = 10;
+            this.lblTotalA.Text = "0";
+            // 
+            // lblTotalB
+            // 
+            this.lblTotalB.AutoSize = true;
+            this.lblTotalB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalB.Location = new System.Drawing.Point(174, 68);
+            this.lblTotalB.Name = "lblTotalB";
+            this.lblTotalB.Size = new System.Drawing.Size(16, 16);
+            this.lblTotalB.TabIndex = 11;
+            this.lblTotalB.Text = "0";
+            // 
+            // lblTotalChecks
+            // 
+            this.lblTotalChecks.AutoSize = true;
+            this.lblTotalChecks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalChecks.Location = new System.Drawing.Point(174, 89);
+            this.lblTotalChecks.Name = "lblTotalChecks";
+            this.lblTotalChecks.Size = new System.Drawing.Size(16, 16);
+            this.lblTotalChecks.TabIndex = 12;
+            this.lblTotalChecks.Text = "0";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblTotalChecks);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.lblTotalB);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Location = new System.Drawing.Point(20, 223);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(246, 120);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(12, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(114, 16);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "Cheque Names";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(163, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(44, 16);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "Total";
             // 
             // DeliveryReport
             // 
@@ -223,7 +331,11 @@
             this.Load += new System.EventHandler(this.DeliveryReport_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,5 +361,14 @@
         private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stickerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem packingToolStripMenuItem;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblTotalChecks;
+        private System.Windows.Forms.Label lblTotalB;
+        private System.Windows.Forms.Label lblTotalA;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }
