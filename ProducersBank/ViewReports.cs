@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using CrystalDecisions.CrystalReports.Engine;
-
+using ProducersBank.Services;
+using MySql.Data.MySqlClient;
 
 namespace ProducersBank
 {
@@ -20,7 +21,8 @@ namespace ProducersBank
         {
             InitializeComponent();
         }
-
+        ProcessServices process = new ProcessServices();
+        
         private void crystalReportViewer1_Load(object sender, EventArgs e)
         {
 
@@ -28,20 +30,43 @@ namespace ProducersBank
 
         private void ViewReports_Load(object sender, EventArgs e)
         {
+          
             if (RecentBatch.report == "DR")
             {
-                DeliveryReceipt crystalReport = new DeliveryReceipt();
-                this.crystalReportViewer1.ReportSource = crystalReport;
-                this.crystalReportViewer1.RefreshReport();
+                DataSet ds = new DataSet();
+                process.DBConnect();
 
+                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_tempdatadr", process.myConnect);
+
+                adp.Fill(ds);
+
+                ReportDocument cryRpt = new ReportDocument();
+                cryRpt.Load(process.FillCRReportParameters());
+                cryRpt.SetDataSource(ds.Tables[0]);
+                process.DBClosed();
+               
+                this.crystalReportViewer1.ReportSource = cryRpt;
+                this.crystalReportViewer1.RefreshReport();
+                 
             }
-            else if (RecentBatch.report == "STICKER")
+            else if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
             {
-                Stickers stickerReport = new Stickers();
-                this.crystalReportViewer1.ReportSource = stickerReport;
+                DataSet ds = new DataSet();
+                process.DBConnect();
+
+                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_sticker", process.myConnect);
+
+                adp.Fill(ds);
+
+                ReportDocument cryRpt = new ReportDocument();
+                cryRpt.Load(process.FillCRReportParameters());
+                cryRpt.SetDataSource(ds.Tables[0]);
+                process.DBClosed();
+           
+                this.crystalReportViewer1.ReportSource =cryRpt;
                 this.crystalReportViewer1.RefreshReport();
             }
-            else if (RecentBatch.report == "Packing")
+            else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
             {
                 PackingReport crystalReport = new PackingReport();
                 this.crystalReportViewer1.ReportSource = crystalReport;
@@ -55,8 +80,19 @@ namespace ProducersBank
             }
             else if (DeliveryReport.report == "DR")
             {
-                DeliveryReceipt crystalReport = new DeliveryReceipt();
-                this.crystalReportViewer1.ReportSource = crystalReport;
+                DataSet ds = new DataSet();
+                process.DBConnect();
+
+                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_tempdatadr", process.myConnect);
+
+                adp.Fill(ds);
+
+                ReportDocument cryRpt = new ReportDocument();
+                cryRpt.Load(process.FillCRReportParameters());
+                cryRpt.SetDataSource(ds.Tables[0]);
+                process.DBClosed();
+              //  DeliveryReceipt crystalReport = new DeliveryReceipt();
+                this.crystalReportViewer1.ReportSource = cryRpt;
                 this.crystalReportViewer1.RefreshReport();
             }
 

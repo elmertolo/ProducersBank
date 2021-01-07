@@ -12,6 +12,8 @@ using System.Collections.Concurrent;
 using System.Net.Http.Headers;
 using System.IO;
 using System.Configuration;
+using System.Diagnostics;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace ProducersBank.Services
 {
@@ -308,8 +310,10 @@ namespace ProducersBank.Services
             
             DBConnect();
             Sql = "SELECT DRNumber, PackNumber, BRSTN, ChkType, BranchName, COUNT(BRSTN),"+ 
-            "MIN(StartingSerial), MAX(EndingSerial),ChequeName, Batch FROM "+databaseName+".producers_history WHERE  Batch = '"+_batch+"' "+
-             "GROUP BY DRNumber, BRSTN, ChkType, BranchName,ChequeName ,Batch ORDER BY DRNumber, PackNumber;";
+
+            "MIN(StartingSerial), MAX(EndingSerial),ChequeName, Batch,username FROM producers_history WHERE  Batch = '"+_batch+"'"+
+             " GROUP BY DRNumber, BRSTN, ChkType, BranchName,ChequeName ,Batch ORDER BY DRNumber, PackNumber;";
+
              cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader myReader = cmd.ExecuteReader();
             while (myReader.Read())
@@ -325,12 +329,13 @@ namespace ProducersBank.Services
                 order.EndingSerial = myReader.GetString(7);
                 order.ChequeName = myReader.GetString(8);
                 order.Batch = myReader.GetString(9);
+                order.username = myReader.GetString(10);
 
                 list.Add(order);
             }
             DBClosed();
             DBConnect();
-            string sqldel = "Delete from  "+databaseName +".producers_tempdatadr;";
+            string sqldel = "Delete from producers_tempdatadr;";
             MySqlCommand comdel = new MySqlCommand(sqldel, myConnect);
             comdel.ExecuteNonQuery();
 
@@ -339,9 +344,9 @@ namespace ProducersBank.Services
             for (int i = 0; i < list.Count; i++)
             {
 
-                string sql2 = "Insert into "+databaseName+".producers_tempdatadr (DRNumber,PackNumber,BRSTN, ChkType, BranchName,Qty,StartingSerial,EndingSerial,ChequeName,Batch)" +
+                string sql2 = "Insert into "+databaseName+".producers_tempdatadr (DRNumber,PackNumber,BRSTN, ChkType, BranchName,Qty,StartingSerial,EndingSerial,ChequeName,Batch,username)" +
                                 " Values('" + list[i].DrNumber + "','" + list[i].PackNumber + "','" + list[i].BRSTN + "','" + list[i].ChkType + "','" + list[i].BranchName + "'," + list[i].Qty
-                                +",'"+list[i].StartingSerial +"','"+list[i].EndingSerial +"','"+list[i].ChequeName+"','"+list[i].Batch+"');";
+                                +",'"+list[i].StartingSerial +"','"+list[i].EndingSerial +"','"+list[i].ChequeName+"','"+list[i].Batch+"','" + list[i].username +"');";
             MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                 cmd2.ExecuteNonQuery();
             }
@@ -597,32 +602,26 @@ namespace ProducersBank.Services
             }
             return _temp;
         }
-      
-        //public List<TempModel> GetPackingReport(List<TempModel>  _temp, string _batch)
-        //{
-        //    Sql = "SELECT BranchName, BRSTN, ChkType,MIN(StartingSerial), MAX(EndingSerial), Count(ChkType) " +
-        //              "FROM producers_history WHERE Batch = '" + _batch + "'" +
-        //               "GROUP BY BranchName, BRSTN, ChkType, ChequeName ORDER BY BranchName";
-        //    DBConnect();
-        //    cmd = new MySqlCommand(Sql, myConnect);
-        //    MySqlDataReader reader = cmd.ExecuteReader();
+        public string FillCRReportParameters()
+        {
+            string reportPath ="";
+            if (Debugger.IsAttached)
+            {
+                if(RecentBatch.report == "DR" || DeliveryReport.report == "DR")
 
-        //    while(reader.Read())
-        //    {
-        //        TempModel t = new TempModel
-        //        {
-        //            BranchName = !reader.IsDBNull(0) ? reader.GetString(0) : "",
-        //            BRSTN = !reader.IsDBNull(1) ? reader.GetString(1) : "",
-        //            ChkType = !reader.IsDBNull(2) ? reader.GetString(2) : "",
-        //            StartingSerial = !reader.IsDBNull(3) ? reader.GetString(3) : "",
-        //            EndingSerial = !reader.IsDBNull(4) ? reader.GetString(4) : "",
-        //            Qty = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0
-        //        };
-        //        _temp.Add(t);
-        //    }
-        //    reader.Close();
-        //    DBClosed();
-        //    return _temp;
-        //}
+                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\DeliveryReceipt.rpt";
+                else if(RecentBatch.report == "STICKER" || DeliveryReport.report =="STICKER")
+                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
+            }
+            else
+            {
+                if(RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                reportPath = Directory.GetCurrentDirectory().ToString() + @"\DeliveryReceipt.rpt";
+                else if(RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                    reportPath = Directory.GetCurrentDirectory().ToString() + @"\Stickers.rpt";
+            }
+
+            return reportPath;
+        }
     }
 }

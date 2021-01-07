@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeliveryReport));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -40,10 +41,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtPackNumber = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-          //  this.dgvDRList = new System.Windows.Forms.DataGridView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stickerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.packingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
-          //  ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,7 +53,8 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generateToolStripMenuItem});
+            this.generateToolStripMenuItem,
+            this.reportsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1055, 28);
@@ -161,14 +164,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input Data";
             // 
-            // dgvDRList
-            // 
-            //this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            //this.dgvDRList.Location = new System.Drawing.Point(322, 40);
-            //this.dgvDRList.Name = "dgvDRList";
-            //this.dgvDRList.Size = new System.Drawing.Size(720, 325);
-            //this.dgvDRList.TabIndex = 2;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -177,12 +172,36 @@
             this.dataGridView1.Size = new System.Drawing.Size(732, 325);
             this.dataGridView1.TabIndex = 12;
             // 
+            // reportsToolStripMenuItem
+            // 
+            this.reportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stickerToolStripMenuItem,
+            this.packingToolStripMenuItem});
+            this.reportsToolStripMenuItem.Enabled = false;
+            this.reportsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.reportsToolStripMenuItem.Text = "Reports";
+            // 
+            // stickerToolStripMenuItem
+            // 
+            this.stickerToolStripMenuItem.Name = "stickerToolStripMenuItem";
+            this.stickerToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.stickerToolStripMenuItem.Text = "Sticker";
+            this.stickerToolStripMenuItem.Click += new System.EventHandler(this.stickerToolStripMenuItem_Click);
+            // 
+            // packingToolStripMenuItem
+            // 
+            this.packingToolStripMenuItem.Name = "packingToolStripMenuItem";
+            this.packingToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.packingToolStripMenuItem.Text = "Packing";
+            this.packingToolStripMenuItem.Click += new System.EventHandler(this.packingToolStripMenuItem_Click);
+            // 
             // DeliveryReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 395);
-            this.ControlBox = false;
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.txtPackNumber);
             this.Controls.Add(this.label4);
@@ -195,6 +214,7 @@
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "DeliveryReport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -203,7 +223,6 @@
             this.Load += new System.EventHandler(this.DeliveryReport_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-          //  ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -227,5 +246,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         //private System.Windows.Forms.DataGridView dgvDRList;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stickerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem packingToolStripMenuItem;
     }
 }

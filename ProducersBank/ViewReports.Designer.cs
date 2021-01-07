@@ -30,6 +30,7 @@ namespace ProducersBank
         private void InitializeComponent()
         {
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.deliveryReceipt1 = new ProducersBank.DeliveryReceipt();
             this.SuspendLayout();
             // 
             // crystalReportViewer1
@@ -62,5 +63,6 @@ namespace ProducersBank
         #endregion
 
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
+        private DeliveryReceipt deliveryReceipt1;
     }
 }

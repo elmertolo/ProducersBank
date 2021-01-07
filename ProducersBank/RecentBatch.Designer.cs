@@ -34,11 +34,11 @@ namespace ProducersBank
             this.printDRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deliveryReceiptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stickersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.packingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvDRList = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtRecentBatch = new System.Windows.Forms.TextBox();
-            this.packingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             this.SuspendLayout();
@@ -91,6 +91,20 @@ namespace ProducersBank
             this.stickersToolStripMenuItem.Text = "Stickers";
             this.stickersToolStripMenuItem.Click += new System.EventHandler(this.stickersToolStripMenuItem_Click);
             // 
+            // packingToolStripMenuItem
+            // 
+            this.packingToolStripMenuItem.Name = "packingToolStripMenuItem";
+            this.packingToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.packingToolStripMenuItem.Text = "Packing";
+            this.packingToolStripMenuItem.Click += new System.EventHandler(this.packingToolStripMenuItem_Click);
+            // 
+            // salesInvoiceToolStripMenuItem
+            // 
+            this.salesInvoiceToolStripMenuItem.Name = "salesInvoiceToolStripMenuItem";
+            this.salesInvoiceToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.salesInvoiceToolStripMenuItem.Text = "Sales Invoice";
+            this.salesInvoiceToolStripMenuItem.Click += new System.EventHandler(this.salesInvoiceToolStripMenuItem_Click);
+            // 
             // dgvDRList
             // 
             this.dgvDRList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -117,20 +131,6 @@ namespace ProducersBank
             this.txtRecentBatch.Size = new System.Drawing.Size(122, 22);
             this.txtRecentBatch.TabIndex = 3;
             // 
-            // packingToolStripMenuItem
-            // 
-            this.packingToolStripMenuItem.Name = "packingToolStripMenuItem";
-            this.packingToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
-            this.packingToolStripMenuItem.Text = "Packing";
-            this.packingToolStripMenuItem.Click += new System.EventHandler(this.packingToolStripMenuItem_Click);
-            // 
-            // salesInvoiceToolStripMenuItem
-            // 
-            this.salesInvoiceToolStripMenuItem.Name = "salesInvoiceToolStripMenuItem";
-            this.salesInvoiceToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
-            this.salesInvoiceToolStripMenuItem.Text = "Sales Invoice";
-            this.salesInvoiceToolStripMenuItem.Click += new System.EventHandler(this.salesInvoiceToolStripMenuItem_Click);
-            // 
             // RecentBatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -145,6 +145,7 @@ namespace ProducersBank
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recent Batch";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecentBatch_FormClosing);
+            this.Load += new System.EventHandler(this.RecentBatch_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).EndInit();

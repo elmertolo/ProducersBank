@@ -22,5 +22,6 @@ namespace ProducersBank.Models
         public  string DrNumber { get; set; }
         public string PackNumber { get; set; }
         public int Qty { get; set; }
+        public string username { get; set; }
     }
 }
