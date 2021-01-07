@@ -308,7 +308,7 @@ namespace ProducersBank.Services
             
             DBConnect();
             Sql = "SELECT DRNumber, PackNumber, BRSTN, ChkType, BranchName, COUNT(BRSTN),"+ 
-            "MIN(StartingSerial), MAX(EndingSerial),ChequeName, Batch FROM "+databaseName+".producers_history WHERE  Batch = '"+_batch+"'"+
+            "MIN(StartingSerial), MAX(EndingSerial),ChequeName, Batch FROM "+databaseName+".producers_history WHERE  Batch = '"+_batch+"' "+
              "GROUP BY DRNumber, BRSTN, ChkType, BranchName,ChequeName ,Batch ORDER BY DRNumber, PackNumber;";
              cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader myReader = cmd.ExecuteReader();
@@ -339,13 +339,13 @@ namespace ProducersBank.Services
             for (int i = 0; i < list.Count; i++)
             {
 
-
                 string sql2 = "Insert into "+databaseName+".producers_tempdatadr (DRNumber,PackNumber,BRSTN, ChkType, BranchName,Qty,StartingSerial,EndingSerial,ChequeName,Batch)" +
                                 " Values('" + list[i].DrNumber + "','" + list[i].PackNumber + "','" + list[i].BRSTN + "','" + list[i].ChkType + "','" + list[i].BranchName + "'," + list[i].Qty
                                 +",'"+list[i].StartingSerial +"','"+list[i].EndingSerial +"','"+list[i].ChequeName+"','"+list[i].Batch+"');";
             MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                 cmd2.ExecuteNonQuery();
             }
+
             DBClosed();
             return _batch;
         }
@@ -367,8 +367,7 @@ namespace ProducersBank.Services
                 db.Add(data);
               
             }
-        
-            
+
             DBClosed();
             //return _DrNumber; 
       }
@@ -381,7 +380,6 @@ namespace ProducersBank.Services
             Int64 dr = 0;
             foreach (var item in db)
             {
-
 
 
                 Sql = "Select Max(DrNumber) from " + item + " where Date >= '2020-12-01'";

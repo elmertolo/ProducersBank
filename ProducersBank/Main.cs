@@ -17,7 +17,6 @@ namespace ProducersBank
         {
             InitializeComponent();
             
-
         }
 
         private void btnDR_Click(object sender, EventArgs e)
@@ -41,6 +40,9 @@ namespace ProducersBank
             this.Hide();
         }
 
-        
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

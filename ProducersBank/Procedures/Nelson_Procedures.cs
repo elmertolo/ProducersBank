@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProducersBank.Models;
+using static ProducersBank.GlobalVariables;
+using System.Configuration;
 
 namespace ProducersBank.Procedures
 {
     public static class p
     {
-        public static string errorMessage;
 
         public static bool IsKeyPressedNumeric(ref object sender , ref KeyPressEventArgs e)
         {
@@ -21,7 +22,7 @@ namespace ProducersBank.Procedures
                 return true;
             }
             return false;
-
+            
         }
 
         public static bool ValidateInputFields(string salesInvoiceNumber, string preparedBy, string checkedBy, string approvedBy)
@@ -47,6 +48,6 @@ namespace ProducersBank.Procedures
             return Math.Round(subTotal / 1.12);
         }
 
-
+        
     }
 }

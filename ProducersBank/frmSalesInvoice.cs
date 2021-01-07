@@ -32,8 +32,7 @@ namespace ProducersBank
             DataTable dt = new DataTable();
             if (!proc.LoadInitialData(ref dt))
             {
-                MessageBox.Show("Unable to connect to server");
-                    
+                MessageBox.Show("Unable to connect to server"); 
             }
             else
             {
@@ -152,7 +151,6 @@ namespace ProducersBank
         private void btnViewSelected_Click(object sender, EventArgs e)
         {
 
-          
             pProcessSelectedDRList();
 
         }
@@ -176,12 +174,11 @@ namespace ProducersBank
                     line.drList = proc.GetDRList(line.batchName, line.checkType, line.deliveryDate);
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
                     line.lineTotalAmount = Math.Round(line.orderQuantity * line.unitPrice, 2);
-
                     SalesInvoiceList.Add(line);
                     
                 }
                 
-                //created list variable for column sorting
+                //created 'list' variable column sorting for datagrid view 
                 var sortedList = SalesInvoiceList
                     .Select
                     (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
@@ -217,7 +214,7 @@ namespace ProducersBank
             else
             {
 
-                DialogResult result = MessageBox.Show("This will process Sales Invoice on selected DR's. \r\n Select ok to proceed.", "Confirmation", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("This will process Sales Invoice on selected DR's. \r\n Select 'YES' to proceed.", "Confirmation", MessageBoxButtons.YesNo);
                 
                 if (result == DialogResult.Yes)
                 {
@@ -230,13 +227,12 @@ namespace ProducersBank
                     gSubtotalAmount = double.Parse(SalesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
                     gVatAmount = p.GetVatAmount(gSubtotalAmount);
                     gNetOfVatAmount = p.GetNetOfVatAmount(gSubtotalAmount);
-                    
 
-                    //if (!p.UpdateSalesInvoiceFields())
-                    //{
-                    //    MessageBox.Show("Error upon updating to server. " + p.errorMessage);
-                    //    return;
-                    //}
+                    if (!proc.UpdateSalesInvoiceFields(SalesInvoiceList))
+                    {
+                        MessageBox.Show("Error upon updating to server. " + proc.errorMessage);
+                        return;
+                    }
 
                     frmReportViewer crForm = new frmReportViewer();
                     crForm.Show();

@@ -18,9 +18,6 @@ namespace ProducersBank.Services
     public class ProcessServices_Nelson
     {
 
-        
-        
-      
         private string _errorMessage;
         MySqlConnection con;
         MySqlDataAdapter da;
@@ -47,6 +44,7 @@ namespace ProducersBank.Services
               
             }
         }
+
 
         private bool OpenDB()
         {
@@ -173,13 +171,11 @@ namespace ProducersBank.Services
             {
                 reportPath = Directory.GetCurrentDirectory().ToString() + @"\SalesInvoice.rpt";
             }
-           
 
             if (!File.Exists(reportPath))
             {
                 throw (new Exception("Unable to locate report file: \r\n" + reportPath));
             }
-            
 
             crystalDocument.Load(reportPath);
             crystalDocument.SetDataSource(gReportDT);
@@ -247,41 +243,6 @@ namespace ProducersBank.Services
             return result;
 
         }
-
-
-        ////VAT COMPUTATION
-        //private double vatAmount;
-        //public double VatAmount
-        //{
-        //    get { return vatAmount; }
-        //    set { vatAmount = value; }
-        //}
-
-        //private double netOfVatAmount;
-        //public double NetOfVatAmount
-        //{
-        //    get { return netOfVatAmount; }
-        //    set { netOfVatAmount = value; }
-        //}
-        //public bool ComputeVatDetails(double totalAmount)
-        //{
-        //    try
-        //    {
-                
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        _errorMessage = ex.Message;
-        //        return false;
-        //    }
-
-        //}
-        /// <summary>
-        /// END OF VAT COMPUTATION
-        /// </summary>
-
         
         public bool UpdateSalesInvoiceHistory(List<SalesInvoiceModel> siList)
         {
@@ -297,6 +258,26 @@ namespace ProducersBank.Services
             }
         }
         //public void 
+        public bool UpdateSalesInvoiceFields(List<SalesInvoiceModel> silist)
+        {
 
+
+            var drlist = silist.Select(x => x.drList).ToArray();
+            try
+            {
+                string sql = "update " + gHistoryTable + 
+                    " set salesinvoice = " + gSalesInvoiceNumber +
+                    " where drnumber in(" + drlist.GetValue(0).ToString() + ");";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+        }
+       
     }
 }
