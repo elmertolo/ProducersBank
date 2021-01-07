@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeliveryReport));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stickerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.packingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -42,9 +45,6 @@
             this.txtPackNumber = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stickerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.packingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +69,31 @@
             this.generateToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.generateToolStripMenuItem.Text = "Generate";
             this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
+            // 
+            // reportsToolStripMenuItem
+            // 
+            this.reportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stickerToolStripMenuItem,
+            this.packingToolStripMenuItem});
+            this.reportsToolStripMenuItem.Enabled = false;
+            this.reportsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.reportsToolStripMenuItem.Text = "Reports";
+            // 
+            // stickerToolStripMenuItem
+            // 
+            this.stickerToolStripMenuItem.Name = "stickerToolStripMenuItem";
+            this.stickerToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.stickerToolStripMenuItem.Text = "Sticker";
+            this.stickerToolStripMenuItem.Click += new System.EventHandler(this.stickerToolStripMenuItem_Click);
+            // 
+            // packingToolStripMenuItem
+            // 
+            this.packingToolStripMenuItem.Name = "packingToolStripMenuItem";
+            this.packingToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.packingToolStripMenuItem.Text = "Packing";
+            this.packingToolStripMenuItem.Click += new System.EventHandler(this.packingToolStripMenuItem_Click);
             // 
             // btnBrowse
             // 
@@ -172,31 +197,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(732, 325);
             this.dataGridView1.TabIndex = 12;
             // 
-            // reportsToolStripMenuItem
-            // 
-            this.reportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.stickerToolStripMenuItem,
-            this.packingToolStripMenuItem});
-            this.reportsToolStripMenuItem.Enabled = false;
-            this.reportsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
-            this.reportsToolStripMenuItem.Text = "Reports";
-            // 
-            // stickerToolStripMenuItem
-            // 
-            this.stickerToolStripMenuItem.Name = "stickerToolStripMenuItem";
-            this.stickerToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.stickerToolStripMenuItem.Text = "Sticker";
-            this.stickerToolStripMenuItem.Click += new System.EventHandler(this.stickerToolStripMenuItem_Click);
-            // 
-            // packingToolStripMenuItem
-            // 
-            this.packingToolStripMenuItem.Name = "packingToolStripMenuItem";
-            this.packingToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.packingToolStripMenuItem.Text = "Packing";
-            this.packingToolStripMenuItem.Click += new System.EventHandler(this.packingToolStripMenuItem_Click);
-            // 
             // DeliveryReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,7 +217,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "DeliveryReport";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DeliveryReport";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DeliveryReport_FormClosing);
             this.Load += new System.EventHandler(this.DeliveryReport_Load);

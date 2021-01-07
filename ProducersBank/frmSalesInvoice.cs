@@ -19,11 +19,13 @@ namespace ProducersBank
 
         List<SalesInvoiceModel> SalesInvoiceList = new List<SalesInvoiceModel>();
         ProcessServices_Nelson proc = new ProcessServices_Nelson();
-        public frmSalesInvoice()
+        Main frm;
+        public frmSalesInvoice(Main frm1)
         {
             InitializeComponent();
             ConfigureGrids();
             SalesInvoiceList.Clear();
+            this.frm = frm1;
         }
 
         private void frmSalesInvoice_Load(object sender, EventArgs e)

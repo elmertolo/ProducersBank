@@ -28,67 +28,94 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnDR = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deliveryReceiptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnDR
+            // menuStrip1
             // 
-            this.btnDR.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDR.Location = new System.Drawing.Point(12, 14);
-            this.btnDR.Name = "btnDR";
-            this.btnDR.Size = new System.Drawing.Size(141, 39);
-            this.btnDR.TabIndex = 0;
-            this.btnDR.Text = "Delivery Report";
-            this.btnDR.UseVisualStyleBackColor = true;
-            this.btnDR.Click += new System.EventHandler(this.btnDR_Click);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.transactionsToolStripMenuItem,
+            this.recentBatchToolStripMenuItem,
+            this.toolsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1304, 28);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // button2
+            // transactionsToolStripMenuItem
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(12, 62);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(141, 39);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Sales Invoice";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deliveryReceiptToolStripMenuItem,
+            this.salesInvoiceToolStripMenuItem});
+            this.transactionsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
+            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
+            this.transactionsToolStripMenuItem.Text = "Transactions";
             // 
-            // button3
+            // deliveryReceiptToolStripMenuItem
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(12, 109);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(141, 39);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Recent Batch";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.deliveryReceiptToolStripMenuItem.Name = "deliveryReceiptToolStripMenuItem";
+            this.deliveryReceiptToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.deliveryReceiptToolStripMenuItem.Text = "Delivery Receipt";
+            this.deliveryReceiptToolStripMenuItem.Click += new System.EventHandler(this.deliveryReceiptToolStripMenuItem_Click);
+            // 
+            // salesInvoiceToolStripMenuItem
+            // 
+            this.salesInvoiceToolStripMenuItem.Name = "salesInvoiceToolStripMenuItem";
+            this.salesInvoiceToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.salesInvoiceToolStripMenuItem.Text = "Sales Invoice";
+            this.salesInvoiceToolStripMenuItem.Click += new System.EventHandler(this.salesInvoiceToolStripMenuItem_Click);
+            // 
+            // recentBatchToolStripMenuItem
+            // 
+            this.recentBatchToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recentBatchToolStripMenuItem.Name = "recentBatchToolStripMenuItem";
+            this.recentBatchToolStripMenuItem.Size = new System.Drawing.Size(109, 24);
+            this.recentBatchToolStripMenuItem.Text = "Recent Batch";
+            this.recentBatchToolStripMenuItem.Click += new System.EventHandler(this.recentBatchToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+            this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(163, 162);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.btnDR);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(1304, 749);
+            this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Producers Bank";
-
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
-
+            this.Load += new System.EventHandler(this.Main_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnDR;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem transactionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recentBatchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deliveryReceiptToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salesInvoiceToolStripMenuItem;
     }
 }
 

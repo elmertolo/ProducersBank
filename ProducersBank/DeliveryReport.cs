@@ -31,13 +31,15 @@ namespace ProducersBank
         List<Int32> PNumbers = new List<Int32>();
         Int32 pNumber = 0;
         Int64 _dr = 0;
-       // public int dnumber = 0;
-      //  public int pnumber = 0;
-
-        public DeliveryReport()
+        // public int dnumber = 0;
+        //  public int pnumber = 0;
+        Main frm;
+        public DeliveryReport(Main frm1)
         {
             InitializeComponent();
+            
             dateTime = dateTimePicker1.MinDate = DateTime.Now; //Disable selection of backdated dates to prevent errors  
+            this.frm = frm1;
         }
 
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -205,9 +207,9 @@ namespace ProducersBank
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RecentBatch rb = new RecentBatch();
-            rb.Show();
-            this.Hide();
+            //RecentBatch rb = new RecentBatch(this);
+            //rb.Show();
+            //this.Hide();
         }
 
         private void btnDr_Click(object sender, EventArgs e)

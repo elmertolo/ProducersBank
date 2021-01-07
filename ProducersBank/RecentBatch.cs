@@ -16,12 +16,14 @@ namespace ProducersBank
 {
     public partial class RecentBatch : Form
     {
+        Main frm;
         public static string report = "";
         ProcessServices proc = new ProcessServices();
          List<TempModel> tempRecent = new List<TempModel>();
-        public RecentBatch()
+        public RecentBatch(Main frm1)
         {
             InitializeComponent();
+            this.frm = frm1;
         }
 
 

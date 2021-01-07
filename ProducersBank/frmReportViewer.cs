@@ -59,8 +59,8 @@ namespace ProducersBank
 
         private void frmReportViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            frmSalesInvoice si = new frmSalesInvoice();
-            si.Show();
+         //   frmSalesInvoice si = new frmSalesInvoice();
+           // si.Show();
             
         }
     }
