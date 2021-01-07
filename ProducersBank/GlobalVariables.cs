@@ -12,11 +12,8 @@ namespace ProducersBank
     public static class GlobalVariables
     {
         //this is where the main table name used by the bank will be stored
-        public static string gHistoryTable = "Producers_History";
-
-
-
-        
+        public static string gHistoryTable = "Producers_History"; // value is hardcoded temporarily.
+        public static string gCustomerCode = "PRO2"; // value is hardcoded temporarily.
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.
         /// </summary>
@@ -37,7 +34,6 @@ namespace ProducersBank
         public static string gPreparedBy;
         public static string gCheckedBy;
         public static string gApprovedBy;
-
         //=============================================================================
 
     }

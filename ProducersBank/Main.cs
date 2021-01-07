@@ -35,9 +35,12 @@ namespace ProducersBank
 
         private void button2_Click(object sender, EventArgs e)
         {
+           
+
             frmSalesInvoice si = new frmSalesInvoice();
             si.Show();
             this.Hide();
+            
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)

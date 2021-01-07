@@ -228,7 +228,7 @@ namespace ProducersBank
                     gVatAmount = p.GetVatAmount(gSubtotalAmount);
                     gNetOfVatAmount = p.GetNetOfVatAmount(gSubtotalAmount);
 
-                    if (!proc.UpdateSalesInvoiceFields(SalesInvoiceList))
+                    if (!proc.UpdateSalesInvoiceHistory(SalesInvoiceList))
                     {
                         MessageBox.Show("Error upon updating to server. " + proc.errorMessage);
                         return;
