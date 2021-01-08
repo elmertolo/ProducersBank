@@ -23,8 +23,11 @@ namespace ProducersBank
         public frmSalesInvoice(Main frm1)
         {
             InitializeComponent();
+            
             ConfigureGrids();
+            FillComboBoxes();
             SalesInvoiceList.Clear();
+            
             this.frm = frm1;
         }
 
@@ -216,7 +219,6 @@ namespace ProducersBank
             {
                 MessageBox.Show("Please select record from Batch List.");
             }
-
             else
             {
 
@@ -233,6 +235,7 @@ namespace ProducersBank
                     gSubtotalAmount = double.Parse(SalesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
                     gVatAmount = p.GetVatAmount(gSubtotalAmount);
                     gNetOfVatAmount = p.GetNetOfVatAmount(gSubtotalAmount);
+                    //gSIGeneratedBy = 
 
                     if (!proc.UpdateSalesInvoiceHistory(SalesInvoiceList))
                     {
@@ -274,10 +277,10 @@ namespace ProducersBank
         private void btnReloadDrList_Click(object sender, EventArgs e)
         {
 
-            Refresh();
+            RefreshView();
         }
 
-        private void Refresh()
+        private void RefreshView()
         {
             SalesInvoiceList.Clear();
             txtSearch.Text = "";
@@ -322,6 +325,30 @@ namespace ProducersBank
         {
            
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FillComboBoxes()
+        {
+            DataTable dt = new DataTable();
+            if (!proc.GetUserNames(ref dt))
+            {
+                MessageBox.Show("Unable to connect to server. \r\n" + proc.errorMessage);
+            }
+
+            cbPreparedBy.DisplayMember = "UserName";
+            cbCheckedBy.DisplayMember = "UserName";
+            cbApprovedBy.DisplayMember = "UserName";
+            var preparedBy = dt.Rows.Count != 0 ? cbPreparedBy.DataSource = dt : cbPreparedBy.DataSource = null;
+            var checkedBy = dt.Rows.Count != 0 ? cbCheckedBy.DataSource = dt : cbCheckedBy.DataSource = null;
+            var approvedBy = dt.Rows.Count != 0 ? cbApprovedBy.DataSource = dt : cbApprovedBy.DataSource = null;
+
+        }
+
+
     }
 
     

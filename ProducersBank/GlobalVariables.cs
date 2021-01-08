@@ -34,6 +34,7 @@ namespace ProducersBank
         public static string gPreparedBy;
         public static string gCheckedBy;
         public static string gApprovedBy;
+        public static string gSIGeneratedBy;
         //=============================================================================
 
     }

@@ -254,7 +254,7 @@ namespace ProducersBank.Services
             try
             {
                 string sql = "update " + gHistoryTable +
-                    " set salesinvoicenumber = " + gSalesInvoiceNumber +
+                    " set SalesInvoiceNumber = " + gSalesInvoiceNumber +
                     " where drnumber in(" + drlist.GetValue(0).ToString() + ");";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 cmd.ExecuteNonQuery();
@@ -288,7 +288,27 @@ namespace ProducersBank.Services
 
 
         }
-        //public void 
+
+        public bool GetUserNames(ref DataTable dt)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("select username from users;", con);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                _errorMessage = ex.Message;
+                return false;
+            }
+
+            
+
+        }
 
 
     }
