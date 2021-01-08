@@ -46,6 +46,7 @@ namespace ProducersBank
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             this.crystalReportViewer1.Load += new System.EventHandler(this.crystalReportViewer1_Load);
+            this.crystalReportViewer1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.crystalReportViewer1_KeyDown);
             // 
             // ViewReports
             // 

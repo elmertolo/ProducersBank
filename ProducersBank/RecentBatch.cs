@@ -33,6 +33,7 @@ namespace ProducersBank
         {
             proc.GetDRDetails(txtRecentBatch.Text, tempRecent);
             proc.GetStickerDetails(tempRecent, txtRecentBatch.Text);
+
             //BindingSource checkBind = new BindingSource();
             //checkBind.DataSource = tempRecent;
             //dgvDRList.DataSource = checkBind;
@@ -116,6 +117,16 @@ namespace ProducersBank
 
             dgvDRList.Columns[1].Width = 200;
             dgvDRList.Columns[3].Width = 130;
+        }
+
+        private void dgvDRList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            int rowindex = dgvDRList.CurrentCell.RowIndex;
+            int columnindex = dgvDRList.CurrentCell.ColumnIndex;
+
+            // student.Stud_ID = int.Parse(dtgList.Rows[rowindex].Cells[columnindex].Value.ToString());
+            txtRecentBatch.Text = dgvDRList.Rows[rowindex].Cells[0].Value.ToString();
         }
     }
 }
