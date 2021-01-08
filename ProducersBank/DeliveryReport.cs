@@ -144,10 +144,14 @@ namespace ProducersBank
 
 
             }
-
+            var totalB = orderList.Where(a => a.ChkType == "B").ToList();
+            var totalA = orderList.Where(a => a.ChkType == "A").ToList();
            // BindingSource checkBind = new BindingSource();
            // checkBind.DataSource = orderList;
             dataGridView1.DataSource = orderList;
+            lblTotalA.Text = totalA.Count.ToString();
+            lblTotalB.Text = totalB.Count.ToString();
+            lblTotalChecks.Text = orderList.Count.ToString();
 
         }
 
@@ -200,13 +204,14 @@ namespace ProducersBank
 
         private void mainMenuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Main m = new Main();
-            m.Show();
+            //this.Hide();
+            //Main m = new Main();
+            //m.Show();
         }
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             //RecentBatch rb = new RecentBatch(this);
             //rb.Show();
             //this.Hide();
@@ -225,9 +230,9 @@ namespace ProducersBank
 
         private void DeliveryReport_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Hide();
-            Form  f = new Main();
-            f.Show();
+            //this.Hide();
+            //Form  f = new Main();
+            //f.Show();
         }
 
         private void stickerToolStripMenuItem_Click(object sender, EventArgs e)
