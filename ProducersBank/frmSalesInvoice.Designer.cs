@@ -58,8 +58,9 @@ namespace ProducersBank
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblUserName = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.lblUserName = new System.Windows.Forms.Label();
+            this.btnReloadDrList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).BeginInit();
             this.gbSearch.SuspendLayout();
@@ -153,6 +154,7 @@ namespace ProducersBank
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(171, 21);
             this.txtSearch.TabIndex = 6;
+            this.txtSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyUp);
             // 
             // dgvListToProcess
             // 
@@ -192,7 +194,7 @@ namespace ProducersBank
             // btnViewSelected
             // 
             this.btnViewSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnViewSelected.Location = new System.Drawing.Point(826, 17);
+            this.btnViewSelected.Location = new System.Drawing.Point(826, 75);
             this.btnViewSelected.Name = "btnViewSelected";
             this.btnViewSelected.Size = new System.Drawing.Size(170, 52);
             this.btnViewSelected.TabIndex = 9;
@@ -203,7 +205,7 @@ namespace ProducersBank
             // btnPrintSalesInvoice
             // 
             this.btnPrintSalesInvoice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrintSalesInvoice.Location = new System.Drawing.Point(826, 86);
+            this.btnPrintSalesInvoice.Location = new System.Drawing.Point(826, 133);
             this.btnPrintSalesInvoice.Name = "btnPrintSalesInvoice";
             this.btnPrintSalesInvoice.Size = new System.Drawing.Size(170, 52);
             this.btnPrintSalesInvoice.TabIndex = 10;
@@ -288,6 +290,7 @@ namespace ProducersBank
             this.btnSearch.TabIndex = 18;
             this.btnSearch.Text = "Go";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // gbDetails
             // 
@@ -345,15 +348,6 @@ namespace ProducersBank
             this.panel1.Size = new System.Drawing.Size(978, 32);
             this.panel1.TabIndex = 21;
             // 
-            // lblUserName
-            // 
-            this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(12, 9);
-            this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(63, 13);
-            this.lblUserName.TabIndex = 0;
-            this.lblUserName.Text = "User Name:";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -363,12 +357,33 @@ namespace ProducersBank
             this.label5.TabIndex = 1;
             this.label5.Text = "Bank:";
             // 
+            // lblUserName
+            // 
+            this.lblUserName.AutoSize = true;
+            this.lblUserName.Location = new System.Drawing.Point(12, 9);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(63, 13);
+            this.lblUserName.TabIndex = 0;
+            this.lblUserName.Text = "User Name:";
+            // 
+            // btnReloadDrList
+            // 
+            this.btnReloadDrList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReloadDrList.Location = new System.Drawing.Point(826, 17);
+            this.btnReloadDrList.Name = "btnReloadDrList";
+            this.btnReloadDrList.Size = new System.Drawing.Size(170, 52);
+            this.btnReloadDrList.TabIndex = 22;
+            this.btnReloadDrList.Text = "REFRESH";
+            this.btnReloadDrList.UseVisualStyleBackColor = true;
+            this.btnReloadDrList.Click += new System.EventHandler(this.btnReloadDrList_Click);
+            // 
             // frmSalesInvoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.btnReloadDrList);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -424,5 +439,6 @@ namespace ProducersBank
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnReloadDrList;
     }
 }

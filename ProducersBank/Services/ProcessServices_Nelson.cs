@@ -266,8 +266,30 @@ namespace ProducersBank.Services
                 return false;
             }
         }
+
+        public bool BatchSearch(string batchToSearch,ref DataTable dt)
+        {
+            try
+            {
+                MySqlDataAdapter da;
+                string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from " + gHistoryTable +
+                    " where salesinvoicenumber is null and batch = '" + batchToSearch + "' group by batch, chequename, ChkType;";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+
+
+        }
         //public void 
-       
-       
+
+
     }
 }

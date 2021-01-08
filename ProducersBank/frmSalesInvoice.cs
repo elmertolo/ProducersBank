@@ -263,6 +263,65 @@ namespace ProducersBank
             }
 
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+            SearchText();
+           
+        }
+
+        private void btnReloadDrList_Click(object sender, EventArgs e)
+        {
+
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            SalesInvoiceList.Clear();
+            txtSearch.Text = "";
+            txtSalesInvoiceNumber.Text = "";
+            txtSalesInvoiceNumber.Focus();
+            cbPreparedBy.Text = "";
+            cbCheckedBy.Text = "";
+            cbApprovedBy.Text = "";
+
+            DataTable dt = new DataTable();
+            proc.LoadInitialData(ref dt);
+            dgvDRList.DataSource = dt;
+            dgvDRList.ClearSelection();
+
+            dgvListToProcess.DataSource = null;
+
+        }
+
+        private void SearchText()
+        {
+            DataTable dt = new DataTable();
+            if (txtSearch.Text is null || txtSearch.Text == "")
+            {
+                MessageBox.Show("Please input batch number to search");
+            }
+            else
+            {
+                if (!proc.BatchSearch(txtSearch.Text, ref dt))
+                {
+                    MessageBox.Show("Unable to connect to server. \r\n" + proc.errorMessage);
+                    return;
+                }
+
+                var check = dt.Rows.Count != 0 ? dgvDRList.DataSource = dt : MessageBox.Show("No results found");
+                txtSearch.Focus();
+                txtSearch.SelectAll();
+                dgvDRList.ClearSelection();
+            }
+        }
+
+        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+           
+        }
     }
 
     
