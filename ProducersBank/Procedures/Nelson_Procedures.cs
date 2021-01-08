@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using ProducersBank.Models;
 using static ProducersBank.GlobalVariables;
 using System.Configuration;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace ProducersBank.Procedures
 {
@@ -48,6 +50,22 @@ namespace ProducersBank.Procedures
             return Math.Round(subTotal / 1.12);
         }
 
-        
+        public static void setCrystalReportsDBInfo(ref ReportDocument rpt)
+        {
+            TableLogOnInfo logoninfo = new TableLogOnInfo();
+            foreach (CrystalDecisions.CrystalReports.Engine.Table crystalTtables in rpt.Database.Tables)
+            {
+                logoninfo = crystalTtables.LogOnInfo;
+                logoninfo.ReportName = rpt.Name;
+                logoninfo.ConnectionInfo.ServerName = ConfigurationManager.AppSettings["ServerName"].ToString();
+                logoninfo.ConnectionInfo.DatabaseName = ConfigurationManager.AppSettings["DatabaseName"].ToString();
+                logoninfo.ConnectionInfo.UserID = ConfigurationManager.AppSettings["UserId"].ToString();
+                logoninfo.ConnectionInfo.Password = ConfigurationManager.AppSettings["Password"].ToString();
+                logoninfo.TableName = crystalTtables.Name;
+                crystalTtables.ApplyLogOnInfo(logoninfo);
+                crystalTtables.Location = crystalTtables.Name;
+            }
+        }
+
     }
 }

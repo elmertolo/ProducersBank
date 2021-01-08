@@ -207,12 +207,16 @@ namespace ProducersBank
 
         private void btnPrintSalesInvoice_Click(object sender, EventArgs e)
         {
-            
 
             if (!p.ValidateInputFields(txtSalesInvoiceNumber.Text.ToString(), cbPreparedBy.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
             {
                 MessageBox.Show("Please supply values in blank field(s)");
             }
+            else if(dgvListToProcess.Rows.Count == 0)
+            {
+                MessageBox.Show("Please select record from Batch List.");
+            }
+
             else
             {
 

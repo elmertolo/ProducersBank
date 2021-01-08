@@ -45,7 +45,6 @@ namespace ProducersBank.Services
             }
         }
 
-
         private bool OpenDB()
         {
             try

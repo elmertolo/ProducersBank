@@ -13,6 +13,7 @@ using CrystalDecisions.Shared;
 using ProducersBank.Services;
 using static ProducersBank.GlobalVariables;
 using ProducersBank.Models;
+using ProducersBank.Procedures;
 
 
 namespace ProducersBank
@@ -21,7 +22,7 @@ namespace ProducersBank
     {
         //List<SalesInvoiceModel> siList = new List<SalesInvoiceModel>();
         ReportDocument crystalDocument = new ReportDocument();
-        ProcessServices_Nelson p = new ProcessServices_Nelson();
+        ProcessServices_Nelson proc = new ProcessServices_Nelson();
         
 
         public frmReportViewer()
@@ -37,7 +38,9 @@ namespace ProducersBank
             crViewer.ShowGroupTreeButton = false;
             
 
-            p.FillCRReportParameters(ref crystalDocument);
+            proc.FillCRReportParameters(ref crystalDocument);
+            p.setCrystalReportsDBInfo(ref crystalDocument);
+            
 
             if (gViewReportFirst == 1)
             {
