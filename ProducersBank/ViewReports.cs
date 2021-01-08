@@ -68,8 +68,18 @@ namespace ProducersBank
             }
             else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
             {
-                PackingReport crystalReport = new PackingReport();
-                this.crystalReportViewer1.ReportSource = crystalReport;
+                DataSet ds = new DataSet();
+                process.DBConnect();
+
+                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_tempdatadr", process.myConnect);
+
+                adp.Fill(ds);
+
+                ReportDocument cryRpt = new ReportDocument();
+                cryRpt.Load(process.FillCRReportParameters());
+                cryRpt.SetDataSource(ds.Tables[0]);
+                process.DBClosed();
+                this.crystalReportViewer1.ReportSource = cryRpt;
                 this.crystalReportViewer1.RefreshReport();
             }
             else if (RecentBatch.report == "SalesInvoice")
@@ -97,6 +107,20 @@ namespace ProducersBank
             }
 
 
+        }
+
+        private void crystalReportViewer1_KeyDown(object sender, KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+         //   if ((e.Key == Key.P) && (Keyboard.IsKeyDown(Key.LeftCtrl) ||
+         //Keyboard.IsKeyDown(Key.RightCtrl)))
+         //       reportViewer.PrintDialog();
+        }
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            if ((e.KeyCode == Keys.P) && (e.KeyCode == Keys.Control))
+               crystalReportViewer1.PrintReport();
         }
     }
 }

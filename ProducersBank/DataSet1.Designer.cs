@@ -534,7 +534,7 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DeliveryReceiptRow AddDeliveryReceiptRow(string Batch, string BRSTN, string BranchName, string Qty, string ChkType, string ChequeName, string StartingSerial, string EndingSerial, string DeliveryDate, string username, string location, string DRNumber, string PackNumber, string AttentionTo, string Multiplier) {
+            public DeliveryReceiptRow AddDeliveryReceiptRow(string Batch, string BRSTN, string BranchName, short Qty, string ChkType, string ChequeName, string StartingSerial, string EndingSerial, string DeliveryDate, string username, string location, string DRNumber, string PackNumber, string AttentionTo, string Multiplier) {
                 DeliveryReceiptRow rowDeliveryReceiptRow = ((DeliveryReceiptRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Batch,
@@ -600,7 +600,7 @@ namespace ProducersBank {
                 base.Columns.Add(this.columnBRSTN);
                 this.columnBranchName = new global::System.Data.DataColumn("BranchName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBranchName);
-                this.columnQty = new global::System.Data.DataColumn("Qty", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnQty = new global::System.Data.DataColumn("Qty", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQty);
                 this.columnChkType = new global::System.Data.DataColumn("ChkType", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnChkType);
@@ -1377,10 +1377,10 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Qty {
+            public short Qty {
                 get {
                     try {
-                        return ((string)(this[this.tableDeliveryReceipt.QtyColumn]));
+                        return ((short)(this[this.tableDeliveryReceipt.QtyColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Qty\' in table \'DeliveryReceipt\' is DBNull.", e);

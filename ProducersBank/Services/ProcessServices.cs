@@ -136,6 +136,8 @@ namespace ProducersBank.Services
 
             }
             counter = 0;
+            _DrNumber++;
+
             if (_checks.Regular_Commercial.Count > 0)
             {
                 var _List = _checks.Regular_Commercial.Select(r => r.BRSTN).Distinct().ToList();
@@ -344,7 +346,7 @@ namespace ProducersBank.Services
             for (int i = 0; i < list.Count; i++)
             {
 
-                string sql2 = "Insert into "+databaseName+".producers_tempdatadr (DRNumber,PackNumber,BRSTN, ChkType, BranchName,Qty,StartingSerial,EndingSerial,ChequeName,Batch,username)" +
+                string sql2 = "Insert into producers_tempdatadr (DRNumber,PackNumber,BRSTN, ChkType, BranchName,Qty,StartingSerial,EndingSerial,ChequeName,Batch,username)" +
                                 " Values('" + list[i].DrNumber + "','" + list[i].PackNumber + "','" + list[i].BRSTN + "','" + list[i].ChkType + "','" + list[i].BranchName + "'," + list[i].Qty
                                 +",'"+list[i].StartingSerial +"','"+list[i].EndingSerial +"','"+list[i].ChequeName+"','"+list[i].Batch+"','" + list[i].username +"');";
             MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
@@ -607,18 +609,23 @@ namespace ProducersBank.Services
             string reportPath ="";
             if (Debugger.IsAttached)
             {
-                if(RecentBatch.report == "DR" || DeliveryReport.report == "DR")
-
-                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\DeliveryReceipt.rpt";
-                else if(RecentBatch.report == "STICKER" || DeliveryReport.report =="STICKER")
+              
+                 if(RecentBatch.report == "STICKER" || DeliveryReport.report =="STICKER")
                 reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
+                else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
+                else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\DeliveryReceipt.rpt";
             }
             else
             {
-                if(RecentBatch.report == "DR" || DeliveryReport.report == "DR")
-                reportPath = Directory.GetCurrentDirectory().ToString() + @"\DeliveryReceipt.rpt";
-                else if(RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                
+                if(RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
                     reportPath = Directory.GetCurrentDirectory().ToString() + @"\Stickers.rpt";
+                else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                    reportPath = Directory.GetCurrentDirectory().ToString() + @"\PackingReport.rpt";
+                else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                    reportPath = Directory.GetCurrentDirectory().ToString() + @"\DeliveryReceipt.rpt";
             }
 
             return reportPath;
@@ -628,7 +635,7 @@ namespace ProducersBank.Services
         {
             DBConnect();
             Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history " +
-                    "where DrNumber is not null  and Batch Like '%"+ _batch+ "' group by batch, chequename, ChkType";
+                    "where DrNumber is not null  and Batch Like '%"+ _batch+ "%' OR SalesInvoiceNumber Like '%"+ _batch+ "%' group by batch, chequename, ChkType";
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
             while(reader.Read())
