@@ -90,17 +90,9 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection1 {
-            get {
-                return this.ReportDefinition.Sections[5];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[6];
+                return this.ReportDefinition.Sections[5];
             }
         }
         
@@ -186,7 +178,7 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_prVatAmount {
+        public CrystalDecisions.Shared.IParameterField Parameter_prSubtotalAmount {
             get {
                 return this.DataDefinition.ParameterFields[10];
             }
@@ -194,7 +186,7 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_prNetOfVatAmount {
+        public CrystalDecisions.Shared.IParameterField Parameter_prVatAmount {
             get {
                 return this.DataDefinition.ParameterFields[11];
             }
@@ -202,7 +194,7 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PrLineTotalAmount {
+        public CrystalDecisions.Shared.IParameterField Parameter_prNetOfVatAmount {
             get {
                 return this.DataDefinition.ParameterFields[12];
             }
@@ -210,7 +202,7 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_prCustomerCode {
+        public CrystalDecisions.Shared.IParameterField Parameter_PrLineTotalAmount {
             get {
                 return this.DataDefinition.ParameterFields[13];
             }
@@ -218,7 +210,7 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_prSubtotalAmount {
+        public CrystalDecisions.Shared.IParameterField Parameter_prCustomerCode {
             get {
                 return this.DataDefinition.ParameterFields[14];
             }

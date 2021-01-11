@@ -17,6 +17,14 @@ namespace ProducersBank.Services
 {
     public class ProcessServices_Nelson
     {
+        //Test Lang
+        private int rowNumbersAffected;
+        public int RowNumbersAffected
+        {
+            get { return rowNumbersAffected; }
+        }
+
+
 
         private string _errorMessage;
         MySqlConnection con;
@@ -195,9 +203,9 @@ namespace ProducersBank.Services
             {
                 crystalDocument.SetParameterValue("prHeaderReportAddress3", gSIHeaderReportAddress3);
             }
-            if (gSIHeaderReportCompanyName != null)
+            if (gHeaderReportCompanyName != null)
             {
-                crystalDocument.SetParameterValue("prHeaderCompanyName", gSIHeaderReportCompanyName);
+                crystalDocument.SetParameterValue("prHeaderCompanyName", gHeaderReportCompanyName);
             }
             if (gSalesInvoiceDate != null)
             {
@@ -250,16 +258,24 @@ namespace ProducersBank.Services
         public bool UpdateSalesInvoiceHistory(List<SalesInvoiceModel> siList)
         {
 
-            var drlist = siList.Select(x => x.drList).ToArray();
-            try
+            try  
             {
-                string sql = "update " + gHistoryTable + "set " +
+                //database update
+                MySqlCommand cmd;
+                foreach (var item in siList)
+                {
+                    string sql = "update " + gHistoryTable + " set " +
+                    "unitprice = " + item.unitPrice + ", " +
                     "SalesInvoiceNumber = " + gSalesInvoiceNumber + ", " +
-                    "salesinvoicedate = '" + gSalesInvoiceDate + "', " +
-                    "SalesInvoiceGeneratedBy = " + gSalesInvoiceDate + ", " +
-                    " where drnumber in(" + drlist.GetValue(0).ToString() + ");";
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                cmd.ExecuteNonQuery();
+                    "Salesinvoicedate = '" + gSalesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
+                    "SalesInvoiceGeneratedBy = '" + gSalesInvoicegeneratedBy + "' " +
+                    " where drnumber in(" + item.drList.ToString() + 
+                    ") and batch = '" + item.batchName + "'" +
+                    " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
+                    " and chequename = '" + item.checkName + "';";
+                    cmd = new MySqlCommand(sql, con);
+                    rowNumbersAffected = cmd.ExecuteNonQuery();
+                }
                 return true;
             }
             catch (Exception ex)
@@ -267,6 +283,9 @@ namespace ProducersBank.Services
                 _errorMessage = ex.Message;
                 return false;
             }
+
+            
+            
         }
 
         public bool BatchSearch(string batchToSearch,ref DataTable dt)
@@ -287,7 +306,6 @@ namespace ProducersBank.Services
                 _errorMessage = ex.Message;
                 return false;
             }
-
 
         }
 

@@ -46,7 +46,6 @@ namespace ProducersBank
             }
 
             txtSalesInvoiceNumber.Focus();
-           
         }
 
         private void frmSalesInvoice_FormClosing(object sender, FormClosingEventArgs e)
@@ -152,7 +151,7 @@ namespace ProducersBank
 
         }
 
-
+        
         private void btnViewSelected_Click(object sender, EventArgs e)
         {
 
@@ -237,11 +236,13 @@ namespace ProducersBank
                     gSalesInvoiceNetOfVatAmount = p.GetNetOfVatAmount(gSalesInvoiceSubtotalAmount);
                     //gSIGeneratedBy = 
 
+                    ///UpdateDatabase
                     if (!proc.UpdateSalesInvoiceHistory(SalesInvoiceList))
                     {
-                        MessageBox.Show("Error upon updating to server. " + proc.errorMessage);
+                        MessageBox.Show("Error upon updating to server. (proc.UpdateSalesInvoiceHistory) \r\n" + proc.errorMessage);
                         return;
                     }
+                    MessageBox.Show("Number of rows affected: " + proc.RowNumbersAffected.ToString());
 
                     frmReportViewer crForm = new frmReportViewer();
                     crForm.Show();
@@ -289,13 +290,23 @@ namespace ProducersBank
             cbPreparedBy.Text = "";
             cbCheckedBy.Text = "";
             cbApprovedBy.Text = "";
-
+            
             DataTable dt = new DataTable();
             proc.LoadInitialData(ref dt);
             dgvDRList.DataSource = dt;
             dgvDRList.ClearSelection();
 
-            dgvListToProcess.DataSource = null;
+
+            var sortedList = SalesInvoiceList
+                     .Select
+                     (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                     .ToList();
+
+            dgvListToProcess.DataSource = sortedList;
+            dgvListToProcess.ClearSelection();
+
+
+
 
         }
 
@@ -310,7 +321,7 @@ namespace ProducersBank
             {
                 if (!proc.BatchSearch(txtSearch.Text, ref dt))
                 {
-                    MessageBox.Show("Unable to connect to server. \r\n" + proc.errorMessage);
+                    MessageBox.Show("Unable to connect to server. (proc.BatchSearch)\r\n" + proc.errorMessage);
                     return;
                 }
 
@@ -339,16 +350,31 @@ namespace ProducersBank
                 MessageBox.Show("Unable to connect to server. \r\n" + proc.errorMessage);
             }
 
+            
+            _ = dt.Rows.Count != 0 ? cbPreparedBy.DataSource = dt : cbPreparedBy.DataSource = null;
+            cbPreparedBy.BindingContext = new BindingContext();
             cbPreparedBy.DisplayMember = "UserName";
+            cbPreparedBy.SelectedIndex = -1;
+
+            _ = dt.Rows.Count != 0 ? cbCheckedBy.DataSource = dt : cbCheckedBy.DataSource = null;
+            cbCheckedBy.BindingContext = new BindingContext();
             cbCheckedBy.DisplayMember = "UserName";
+            cbCheckedBy.SelectedIndex = -1;
+
+            _ = dt.Rows.Count != 0 ? cbApprovedBy.DataSource = dt : cbApprovedBy.DataSource = null;
+            cbApprovedBy.BindingContext = new BindingContext();
             cbApprovedBy.DisplayMember = "UserName";
-            var preparedBy = dt.Rows.Count != 0 ? cbPreparedBy.DataSource = dt : cbPreparedBy.DataSource = null;
-            var checkedBy = dt.Rows.Count != 0 ? cbCheckedBy.DataSource = dt : cbCheckedBy.DataSource = null;
-            var approvedBy = dt.Rows.Count != 0 ? cbApprovedBy.DataSource = dt : cbApprovedBy.DataSource = null;
+            cbApprovedBy.SelectedIndex = -1;
 
         }
 
-
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SearchText();
+            }
+        }
     }
 
     
