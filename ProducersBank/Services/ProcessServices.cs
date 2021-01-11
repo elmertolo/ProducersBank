@@ -14,6 +14,7 @@ using System.IO;
 using System.Configuration;
 using System.Diagnostics;
 using CrystalDecisions.CrystalReports.Engine;
+using static ProducersBank.GlobalVariables;
 
 namespace ProducersBank.Services
 {
@@ -91,7 +92,8 @@ namespace ProducersBank.Services
                    
                 }
             }
-            
+            checkType.Regular_Personal.OrderBy(r => r.BranchName).ToList();
+            checkType.Regular_Commercial.OrderBy(r => r.BranchName).ToList();
             Generate(checkType, DrNumber, _main.deliveryDate, "ELMER", packNumber);
            // Generate(checkType, DrNumber, _main.deliveryDate, "ELMER", packNumber);
 
@@ -101,22 +103,27 @@ namespace ProducersBank.Services
         {
             DBConnect();
             int counter = 0;
-
-            if (_checks.Regular_Personal.Count > 0)
+            var Personal = _checks.Regular_Personal.OrderBy(t => t.BranchName).ToList();
+            if (Personal.Count > 0)
             {
                 //counter++;
                 //_checks.Regular_Personal.ForEach(r =>
                 //{
-                var _list = _checks.Regular_Personal.Select(r => r.BRSTN).Distinct().ToList();
+                //_checks.Regular_Personal.OrderBy(r => r.BranchName).ToList();
+                var _list = Personal.Select(r => r.BRSTN).Distinct().ToList();
+                //var sorted = (from c in _checks.Regular_Personal
+                //                orderby c.BranchName
+                //                         ascending
+                //                select c).ToList();
                 foreach (string Brstn in _list)
                 {
-                    var _model = _checks.Regular_Personal.Where(t => t.BRSTN == Brstn);
-
+                    var _model = Personal.Where(t => t.BRSTN == Brstn);
+                   
                     foreach (var r in _model)
                     {
 
 
-                        Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
+                        Sql = "Insert into producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
                                 "DRNumber,DeliveryDate,username,batch,PackNumber )"
                               + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
                               "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd")
@@ -125,6 +132,7 @@ namespace ProducersBank.Services
                         cmd.ExecuteNonQuery();
                     }
                     counter++;
+                    _packNumber++;
                     if (counter == 10)
                     {
                         _DrNumber++;
@@ -137,20 +145,20 @@ namespace ProducersBank.Services
             }
             counter = 0;
             _DrNumber++;
-
-            if (_checks.Regular_Commercial.Count > 0)
+            var Comm = _checks.Regular_Commercial.OrderBy(r => r.BranchName).ToList();
+            if (Comm.Count > 0)
             {
-                var _List = _checks.Regular_Commercial.Select(r => r.BRSTN).Distinct().ToList();
-                //if(counter == 0)
-                //{
-                //    //counter = 0;
-                //    _DrNumber++;
-                //}
-                
+                var _List = Comm.Select(r => r.BRSTN).Distinct().ToList();
+                //var sorted = (from c in _checks.Regular_Commercial
+                //              orderby c.BranchName
+                //                       ascending
+                //              select c).ToList();
+
                 foreach (string Brstn in _List)
                 {
-                    var _model = _checks.Regular_Commercial.Where(a => a.BRSTN == Brstn);
+                    var _model = Comm.Where(a => a.BRSTN == Brstn);
 
+                
                     foreach (var r in _model)
                     {
 
@@ -166,6 +174,7 @@ namespace ProducersBank.Services
                         //});
                     }
                     counter++;
+                    _packNumber++;
                     if (counter == 10)
                     {
                         _DrNumber++;
@@ -478,8 +487,8 @@ namespace ProducersBank.Services
             try
             {
                 Sql = "SELECT BranchName, BRSTN, ChkType,MIN(StartingSerial), MAX(EndingSerial), Count(ChkType) " +
-                      "FROM producers_history WHERE Batch = '" + _batch + "'" +
-                       "GROUP BY BranchName, BRSTN, ChkType, ChequeName ORDER BY BranchName";
+                      "FROM "+ gHistoryTable + " WHERE Batch = '" + _batch + "'" +
+                       " GROUP BY ChkType,BranchName, BRSTN, ChequeName ORDER BY BranchName";
                 DBConnect();
                 cmd = new MySqlCommand(Sql, myConnect);
                 MySqlDataReader myReader = cmd.ExecuteReader();
@@ -508,19 +517,27 @@ namespace ProducersBank.Services
 
                 DBClosed();
                 DBConnect();
-
-               // int dataCount = 0;
+                //_temp.OrderBy(b => b.BranchName).ToList();
+                var sorted = (from c in _temp
+                              orderby c.ChkType,c.BranchName
+                                       ascending
+                              select c).ToList();
+                // int dataCount = 0;
                 string Type = "";
                 int licnt = 1;
                
-                for (int r = 0; r < _temp.Count; r++)
+                for (int r = 0; r < sorted.Count; r++)
                 {
+                    if (sorted[r].ChkType == "A")
+                        Type = "Personal";
+                    else if (sorted[r].ChkType == "B")
+                        Type = "Commercial";
 
                     if(licnt == 1)
                     {
                         string sql2 = "Insert into producers_sticker (Batch,BRSTN,BranchName,Qty,ChkType,ChequeName,StartingSerial,EndingSerial)" +
-                                      "values('" + _batch + "','" + _temp[r].BRSTN + "','" + _temp[r].BranchName + "'," + _temp[r].Qty + ",'" + _temp[r].ChkType +
-                                      "','" + Type + "','" + _temp[r].StartingSerial + "','" + _temp[r].EndingSerial + "');";
+                                      "values('" + _batch + "','" + sorted[r].BRSTN + "','" + sorted[r].BranchName + "'," + sorted[r].Qty + ",'" + sorted[r].ChkType +
+                                      "','" + Type + "','" + sorted[r].StartingSerial + "','" + sorted[r].EndingSerial + "');";
 
 
                         MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
@@ -529,18 +546,18 @@ namespace ProducersBank.Services
                     }
                     else if (licnt == 2)
                     {
-                        string sql2 = "Update producers_sticker set BRSTN2 = '" + _temp[r].BRSTN + "',BranchName2 = '" + _temp[r].BranchName + "',Qty2 = " + _temp[r].Qty +
-                                      ",ChkType2 = '" + _temp[r].ChkType + "',ChequeName2 = '" + Type + "',StartingSerial2 = '" + _temp[r].StartingSerial +
-                                      "',EndingSerial2 = '" + _temp[r].EndingSerial + "' where BRSTN = '" + _temp[r - 1].BRSTN + "';";
+                        string sql2 = "Update producers_sticker set BRSTN2 = '" + sorted[r].BRSTN + "',BranchName2 = '" + sorted[r].BranchName + "',Qty2 = " + sorted[r].Qty +
+                                      ",ChkType2 = '" + sorted[r].ChkType + "',ChequeName2 = '" + Type + "',StartingSerial2 = '" + sorted[r].StartingSerial +
+                                      "',EndingSerial2 = '" + sorted[r].EndingSerial + "' where BRSTN = '" + sorted[r - 1].BRSTN + "';";
                         MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                         cmd2.ExecuteNonQuery();
                         licnt++;
                     }
                     else if (licnt == 3)
                     {
-                        string sql2 = "Update producers_sticker set BRSTN3 = '" + _temp[r].BRSTN + "',BranchName3 = '" + _temp[r].BranchName + "',Qty3 = " + _temp[r].Qty +
-                                      ",ChkType3 = '" + _temp[r].ChkType + "',ChequeName3 = '" + Type + "',StartingSerial3 = '" + _temp[r].StartingSerial +
-                                      "',EndingSerial3 = '" + _temp[r].EndingSerial + "' where BRSTN2 = '" + _temp[r - 1].BRSTN + "';";
+                        string sql2 = "Update producers_sticker set BRSTN3 = '" + sorted[r].BRSTN + "',BranchName3 = '" + sorted[r].BranchName + "',Qty3 = " + sorted[r].Qty +
+                                      ",ChkType3 = '" + sorted[r].ChkType + "',ChequeName3 = '" + Type + "',StartingSerial3 = '" + sorted[r].StartingSerial +
+                                      "',EndingSerial3 = '" + sorted[r].EndingSerial + "' where BRSTN2 = '" + sorted[r - 1].BRSTN + "';";
                         MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                         cmd2.ExecuteNonQuery();
                         licnt = 1;
