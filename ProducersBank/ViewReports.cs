@@ -30,13 +30,13 @@ namespace ProducersBank
 
         private void ViewReports_Load(object sender, EventArgs e)
         {
-          
+            WindowState = FormWindowState.Maximized;
             if (RecentBatch.report == "DR")
             {
                 DataSet ds = new DataSet();
                 process.DBConnect();
 
-                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_tempdatadr", process.myConnect);
+                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_tempdatadr ORDER BY BranchName", process.myConnect);
 
                 adp.Fill(ds);
 

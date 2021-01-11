@@ -31,7 +31,9 @@ namespace ProducersBank
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            tempRecent.Clear();
             proc.GetDRDetails(txtRecentBatch.Text, tempRecent);
+            tempRecent.Clear();
             proc.GetStickerDetails(tempRecent, txtRecentBatch.Text);
 
             //BindingSource checkBind = new BindingSource();
