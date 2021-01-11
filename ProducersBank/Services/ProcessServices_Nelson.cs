@@ -207,29 +207,29 @@ namespace ProducersBank.Services
             {
                 crystalDocument.SetParameterValue("prSalesInvoiceNumber", gSalesInvoiceNumber.ToString());
             }
-            if (gPreparedBy != null)
+            if (gSalesInvoicePreparedBy != null)
             {
-                crystalDocument.SetParameterValue("prPreparedBy", gPreparedBy.ToString());
+                crystalDocument.SetParameterValue("prPreparedBy", gSalesInvoicePreparedBy.ToString());
             }
-            if (gCheckedBy != null)
+            if (gSalesinvoiceCheckedBy != null)
             {
-                crystalDocument.SetParameterValue("prCheckedBy", gCheckedBy.ToString());
+                crystalDocument.SetParameterValue("prCheckedBy", gSalesinvoiceCheckedBy.ToString());
             }
-            if (gApprovedBy != null)
+            if (gSalesInvoiceApprovedBy != null)
             {
-                crystalDocument.SetParameterValue("prApprovedBy", gApprovedBy.ToString());
+                crystalDocument.SetParameterValue("prApprovedBy", gSalesInvoiceApprovedBy.ToString());
             }
-            if (gSubtotalAmount != 0)
+            if (gSalesInvoiceSubtotalAmount != 0)
             {
-                crystalDocument.SetParameterValue("prSubtotalAmount", gSubtotalAmount.ToString());
+                crystalDocument.SetParameterValue("prSubtotalAmount", gSalesInvoiceSubtotalAmount.ToString());
             }
-            if (gVatAmount != 0)
+            if (gSalesInvoiceVatAmount != 0)
             {
-                crystalDocument.SetParameterValue("prVatAmount", gVatAmount.ToString());
+                crystalDocument.SetParameterValue("prVatAmount", gSalesInvoiceVatAmount.ToString());
             }
-            if (gNetOfVatAmount != 0)
+            if (gSalesInvoiceNetOfVatAmount != 0)
             {
-                crystalDocument.SetParameterValue("prNetOfVatAmount", gNetOfVatAmount.ToString());
+                crystalDocument.SetParameterValue("prNetOfVatAmount", gSalesInvoiceNetOfVatAmount.ToString());
             }
             if (gCustomerCode != null)
             {
@@ -253,8 +253,10 @@ namespace ProducersBank.Services
             var drlist = siList.Select(x => x.drList).ToArray();
             try
             {
-                string sql = "update " + gHistoryTable +
-                    " set SalesInvoiceNumber = " + gSalesInvoiceNumber +
+                string sql = "update " + gHistoryTable + "set " +
+                    "SalesInvoiceNumber = " + gSalesInvoiceNumber + ", " +
+                    "salesinvoicedate = '" + gSalesInvoiceDate + "', " +
+                    "SalesInvoiceGeneratedBy = " + gSalesInvoiceDate + ", " +
                     " where drnumber in(" + drlist.GetValue(0).ToString() + ");";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 cmd.ExecuteNonQuery();
