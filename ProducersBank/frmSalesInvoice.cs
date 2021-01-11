@@ -228,13 +228,13 @@ namespace ProducersBank
                 {
                     gReportDT = SalesInvoiceList;
                     gSalesInvoiceDate = dtpInvoiceDate.Value;
-                    gPreparedBy = cbPreparedBy.Text.ToString();
-                    gCheckedBy = cbCheckedBy.Text.ToString();
-                    gApprovedBy = cbApprovedBy.Text.ToString();
+                    gSalesInvoicePreparedBy = cbPreparedBy.Text.ToString();
+                    gSalesinvoiceCheckedBy = cbCheckedBy.Text.ToString();
+                    gSalesInvoiceApprovedBy = cbApprovedBy.Text.ToString();
                     gSalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
-                    gSubtotalAmount = double.Parse(SalesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
-                    gVatAmount = p.GetVatAmount(gSubtotalAmount);
-                    gNetOfVatAmount = p.GetNetOfVatAmount(gSubtotalAmount);
+                    gSalesInvoiceSubtotalAmount = double.Parse(SalesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
+                    gSalesInvoiceVatAmount = p.GetVatAmount(gSalesInvoiceSubtotalAmount);
+                    gSalesInvoiceNetOfVatAmount = p.GetNetOfVatAmount(gSalesInvoiceSubtotalAmount);
                     //gSIGeneratedBy = 
 
                     if (!proc.UpdateSalesInvoiceHistory(SalesInvoiceList))
