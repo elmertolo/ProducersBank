@@ -17,14 +17,12 @@ namespace ProducersBank.Services
 {
     public class ProcessServices_Nelson
     {
-        //Test Lang
+        //For Number of Affected Rows upon CRUD
         private int rowNumbersAffected;
         public int RowNumbersAffected
         {
             get { return rowNumbersAffected; }
         }
-
-
 
         private string _errorMessage;
         MySqlConnection con;
@@ -42,15 +40,9 @@ namespace ProducersBank.Services
 
         public ProcessServices_Nelson()
         {
-            try
-            {
-                OpenDB();
-            }
-            catch (Exception ex)
-            {
-                _errorMessage = ex.Message;
-              
-            }
+
+            OpenDB();
+
         }
 
         private bool OpenDB()
@@ -255,14 +247,14 @@ namespace ProducersBank.Services
 
         }
         
-        public bool UpdateSalesInvoiceHistory(List<SalesInvoiceModel> siList)
+        public bool UpdateSalesInvoiceHistory(List<SalesInvoiceModel> siListToProcess)
         {
 
             try  
             {
                 //database update
                 MySqlCommand cmd;
-                foreach (var item in siList)
+                foreach (var item in siListToProcess)
                 {
                     string sql = "update " + gHistoryTable + " set " +
                     "unitprice = " + item.unitPrice + ", " +
@@ -273,6 +265,7 @@ namespace ProducersBank.Services
                     ") and batch = '" + item.batchName + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
                     " and chequename = '" + item.checkName + "';";
+
                     cmd = new MySqlCommand(sql, con);
                     rowNumbersAffected = cmd.ExecuteNonQuery();
                 }
@@ -280,12 +273,11 @@ namespace ProducersBank.Services
             }
             catch (Exception ex)
             {
+
                 _errorMessage = ex.Message;
                 return false;
             }
 
-            
-            
         }
 
         public bool BatchSearch(string batchToSearch,ref DataTable dt)
@@ -328,6 +320,44 @@ namespace ProducersBank.Services
 
             
 
+        }
+
+        public bool UserLogin(string userName, string password, ref DataTable dt)
+        {
+            try
+            {
+                MySqlDataAdapter da;
+                MySqlCommand cmd = new MySqlCommand("select * from users where username = ? and password = ?", con);
+                cmd.Parameters.Add(new MySqlParameter("username", userName));
+                cmd.Parameters.Add(new MySqlParameter("password", password));
+                da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+        }
+
+        public bool GetBankList(ref DataTable dt)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("select bankname, description from clients order by bankname;", con);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
         }
 
 

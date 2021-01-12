@@ -63,6 +63,7 @@ namespace ProducersBank
             this.Label6 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.btnReloadDrList = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).BeginInit();
             this.gbSearch.SuspendLayout();
@@ -350,6 +351,7 @@ namespace ProducersBank
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.lblBankName);
             this.panel1.Controls.Add(this.lblUserName);
             this.panel1.Controls.Add(this.Label6);
@@ -405,6 +407,15 @@ namespace ProducersBank
             this.btnReloadDrList.Text = "REFRESH";
             this.btnReloadDrList.UseVisualStyleBackColor = true;
             this.btnReloadDrList.Click += new System.EventHandler(this.btnReloadDrList_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(578, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "label7";
             // 
             // frmSalesInvoice
             // 
@@ -472,5 +483,6 @@ namespace ProducersBank
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.Label lblBankName;
         private System.Windows.Forms.ComboBox cbPreparedBy;
+        private System.Windows.Forms.Label label7;
     }
 }

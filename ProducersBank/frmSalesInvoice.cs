@@ -20,14 +20,21 @@ namespace ProducersBank
         List<SalesInvoiceModel> SalesInvoiceList = new List<SalesInvoiceModel>();
         ProcessServices_Nelson proc = new ProcessServices_Nelson();
         Main frm;
+
         public frmSalesInvoice(Main frm1)
         {
+
+            //Added Validation when unable to connect to server upon Opening salesinvoice form
+            if (proc.errorMessage != null)
+            {
+                MessageBox.Show("Unable connecting to Server (pOpenDB) \r\n" + proc.errorMessage);
+                Application.Exit();
+            }
+
             InitializeComponent();
-            
             ConfigureGrids();
             FillComboBoxes();
             SalesInvoiceList.Clear();
-            
             this.frm = frm1;
         }
 
@@ -50,9 +57,9 @@ namespace ProducersBank
 
         private void frmSalesInvoice_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Hide();
-            Main main = new Main();
-            main.Show();
+            //this.Hide();
+            //Main main = new Main();
+            //main.Show();
         }
 
         private void ConfigureGrids()
@@ -234,7 +241,7 @@ namespace ProducersBank
                     gSalesInvoiceSubtotalAmount = double.Parse(SalesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
                     gSalesInvoiceVatAmount = p.GetVatAmount(gSalesInvoiceSubtotalAmount);
                     gSalesInvoiceNetOfVatAmount = p.GetNetOfVatAmount(gSalesInvoiceSubtotalAmount);
-                    //gSIGeneratedBy = 
+                    gSalesInvoicegeneratedBy = lblUserName.Text.ToString();
 
                     ///UpdateDatabase
                     if (!proc.UpdateSalesInvoiceHistory(SalesInvoiceList))
@@ -243,10 +250,14 @@ namespace ProducersBank
                         return;
                     }
                     MessageBox.Show("Number of rows affected: " + proc.RowNumbersAffected.ToString());
+                    
 
                     frmReportViewer crForm = new frmReportViewer();
                     crForm.Show();
-                    this.Hide();
+                    RefreshView();
+
+
+
                 }
 
             }
@@ -304,8 +315,6 @@ namespace ProducersBank
 
             dgvListToProcess.DataSource = sortedList;
             dgvListToProcess.ClearSelection();
-
-
 
 
         }
