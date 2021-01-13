@@ -44,6 +44,7 @@ namespace ProducersBank
 
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+                       
             deliveryDate = dateTimePicker1.Value;
             if (deliveryDate == dateTime)
             {
@@ -146,12 +147,18 @@ namespace ProducersBank
             }
             var totalB = orderList.Where(a => a.ChkType == "B").ToList();
             var totalA = orderList.Where(a => a.ChkType == "A").ToList();
-           // BindingSource checkBind = new BindingSource();
-           // checkBind.DataSource = orderList;
+            // BindingSource checkBind = new BindingSource();
+            // checkBind.DataSource = orderList;
+            proc.CheckBatchifExisted(orderList[0].Batch);
+            if (proc.CheckBatchifExisted(orderList[0].Batch) == true) 
+            MessageBox.Show("Batch Is Already Existed!!");
+            else
+            { 
             dataGridView1.DataSource = orderList;
             lblTotalA.Text = totalA.Count.ToString();
             lblTotalB.Text = totalB.Count.ToString();
             lblTotalChecks.Text = orderList.Count.ToString();
+            }
 
         }
 
@@ -180,7 +187,7 @@ namespace ProducersBank
                     pNumber = PNumbers[a];
                     
             }
-            txtPackNumber.Text = pNumber.ToString();
+            txtPackNumber.Text = (pNumber+1).ToString();
         }
         private void GetDR()
         {
@@ -197,7 +204,7 @@ namespace ProducersBank
                     _dr = DrNumbers[i];
                     
             }
-            txtDrNumber.Text = _dr.ToString();
+            txtDrNumber.Text = (_dr+1).ToString();
             return;
 
         }
@@ -230,6 +237,7 @@ namespace ProducersBank
 
         private void DeliveryReport_FormClosing(object sender, FormClosingEventArgs e)
         {
+            report = "";
             //this.Hide();
             //Form  f = new Main();
             //f.Show();

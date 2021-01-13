@@ -124,10 +124,10 @@ namespace ProducersBank.Services
 
 
                         Sql = "Insert into producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
-                                "DRNumber,DeliveryDate,username,batch,PackNumber )"
+                                "DRNumber,DeliveryDate,username,batch,PackNumber,Date,Time )"
                               + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
                               "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd")
-                              + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "');";
+                              + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "','"+DateTime.Now.ToString("yyyy-MM-dd")+"','"+DateTime.Now.ToString("hh:mm:ss")+"');";
                         cmd = new MySqlCommand(Sql, myConnect);
                         cmd.ExecuteNonQuery();
                     }
@@ -157,17 +157,16 @@ namespace ProducersBank.Services
                 foreach (string Brstn in _List)
                 {
                     var _model = Comm.Where(a => a.BRSTN == Brstn);
-
-                
                     foreach (var r in _model)
                     {
 
 
                         Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
-                                "DRNumber,DeliveryDate,username,batch,PackNumber )"
+                                "DRNumber,DeliveryDate,username,batch,PackNumber,Date,Time )"
                               + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
-                              "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd")
-                              + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "');";
+                              "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" +
+                              _deliveryDate.ToString("yyyy-MM-dd") + "','" + _username + "','" + r.Batch.TrimEnd() + "','" + _packNumber + "','" 
+                              + DateTime.Now.ToString("yyyy-MM-dd") + "','" + DateTime.Now.ToString("hh:mm:ss") + "');";
                         cmd = new MySqlCommand(Sql, myConnect);
                         cmd.ExecuteNonQuery();
                         
@@ -369,7 +368,7 @@ namespace ProducersBank.Services
       {
         //    int counter = 0;
          
-            Sql = "Select Distinct(DatabaseName) from captive_accounting.Clients";
+            Sql = "Select Distinct(DatabaseName) from Clients";
             DBConnect();
              cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader myReader = cmd.ExecuteReader();
@@ -387,7 +386,6 @@ namespace ProducersBank.Services
             DBClosed();
             //return _DrNumber; 
       }
-
         public List<Int64> GetMaxDr(List<Int64> _Dr)
         {
              GetBankTables(); 
@@ -398,7 +396,7 @@ namespace ProducersBank.Services
             {
 
 
-                Sql = "Select Max(DrNumber) from " + item + " where Date >= '2020-12-01'";
+                Sql = "Select Max(DrNumber) from " + item + " where Date > '2020-12-01'";
                 cmd = new MySqlCommand(Sql, myConnect);
                 MySqlDataReader read = cmd.ExecuteReader();
 
@@ -488,7 +486,7 @@ namespace ProducersBank.Services
             {
                 Sql = "SELECT BranchName, BRSTN, ChkType,MIN(StartingSerial), MAX(EndingSerial), Count(ChkType) " +
                       "FROM "+ gHistoryTable + " WHERE Batch = '" + _batch + "'" +
-                       " GROUP BY ChkType,BranchName, BRSTN, ChequeName ORDER BY BranchName";
+                       " GROUP BY ChkType,BranchName ORDER BY ChkType,BranchName";
                 DBConnect();
                 cmd = new MySqlCommand(Sql, myConnect);
                 MySqlDataReader myReader = cmd.ExecuteReader();
@@ -518,26 +516,26 @@ namespace ProducersBank.Services
                 DBClosed();
                 DBConnect();
                 //_temp.OrderBy(b => b.BranchName).ToList();
-                var sorted = (from c in _temp
-                              orderby c.ChkType,c.BranchName
-                                       ascending
-                              select c).ToList();
+                //var sorted = (from c in _temp
+                //              orderby c.ChkType,c.BranchName
+                //                       ascending
+                //              select c).ToList();
                 // int dataCount = 0;
                 string Type = "";
                 int licnt = 1;
                
-                for (int r = 0; r < sorted.Count; r++)
+                for (int r = 0; r < _temp.Count; r++)
                 {
-                    if (sorted[r].ChkType == "A")
+                    if (_temp[r].ChkType == "A")
                         Type = "Personal";
-                    else if (sorted[r].ChkType == "B")
+                    else if (_temp[r].ChkType == "B")
                         Type = "Commercial";
 
                     if(licnt == 1)
                     {
                         string sql2 = "Insert into producers_sticker (Batch,BRSTN,BranchName,Qty,ChkType,ChequeName,StartingSerial,EndingSerial)" +
-                                      "values('" + _batch + "','" + sorted[r].BRSTN + "','" + sorted[r].BranchName + "'," + sorted[r].Qty + ",'" + sorted[r].ChkType +
-                                      "','" + Type + "','" + sorted[r].StartingSerial + "','" + sorted[r].EndingSerial + "');";
+                                      "values('" + _batch + "','" + _temp[r].BRSTN + "','" + _temp[r].BranchName + "'," + _temp[r].Qty + ",'" + _temp[r].ChkType +
+                                      "','" + Type + "','" + _temp[r].StartingSerial + "','" + _temp[r].EndingSerial + "');";
 
 
                         MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
@@ -546,18 +544,18 @@ namespace ProducersBank.Services
                     }
                     else if (licnt == 2)
                     {
-                        string sql2 = "Update producers_sticker set BRSTN2 = '" + sorted[r].BRSTN + "',BranchName2 = '" + sorted[r].BranchName + "',Qty2 = " + sorted[r].Qty +
-                                      ",ChkType2 = '" + sorted[r].ChkType + "',ChequeName2 = '" + Type + "',StartingSerial2 = '" + sorted[r].StartingSerial +
-                                      "',EndingSerial2 = '" + sorted[r].EndingSerial + "' where BRSTN = '" + sorted[r - 1].BRSTN + "';";
+                        string sql2 = "Update producers_sticker set BRSTN2 = '" + _temp[r].BRSTN + "',BranchName2 = '" + _temp[r].BranchName + "',Qty2 = " + _temp[r].Qty +
+                                      ",ChkType2 = '" + _temp[r].ChkType + "',ChequeName2 = '" + Type + "',StartingSerial2 = '" + _temp[r].StartingSerial +
+                                      "',EndingSerial2 = '" + _temp[r].EndingSerial + "' where BRSTN = '" + _temp[r - 1].BRSTN + "' and ChkType = '" + _temp[r - 1].ChkType + "';";
                         MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                         cmd2.ExecuteNonQuery();
                         licnt++;
                     }
                     else if (licnt == 3)
                     {
-                        string sql2 = "Update producers_sticker set BRSTN3 = '" + sorted[r].BRSTN + "',BranchName3 = '" + sorted[r].BranchName + "',Qty3 = " + sorted[r].Qty +
-                                      ",ChkType3 = '" + sorted[r].ChkType + "',ChequeName3 = '" + Type + "',StartingSerial3 = '" + sorted[r].StartingSerial +
-                                      "',EndingSerial3 = '" + sorted[r].EndingSerial + "' where BRSTN2 = '" + sorted[r - 1].BRSTN + "';";
+                        string sql2 = "Update producers_sticker set BRSTN3 = '" + _temp[r].BRSTN + "',BranchName3 = '" + _temp[r].BranchName + "',Qty3 = " + _temp[r].Qty +
+                                      ",ChkType3 = '" + _temp[r].ChkType + "',ChequeName3 = '" + Type + "',StartingSerial3 = '" + _temp[r].StartingSerial +
+                                      "',EndingSerial3 = '" + _temp[r].EndingSerial + "' where BRSTN2 = '" + _temp[r - 1].BRSTN + "' and ChkType = '"+_temp[r-1].ChkType+"';";
                         MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                         cmd2.ExecuteNonQuery();
                         licnt = 1;
@@ -652,7 +650,7 @@ namespace ProducersBank.Services
         {
             DBConnect();
             Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history " +
-                    "where DrNumber is not null  and Batch Like '%"+ _batch+ "%' OR SalesInvoiceNumber Like '%"+ _batch+ "%' group by batch, chequename, ChkType";
+                    "where DrNumber is not null  and (Batch Like '%" + _batch+ "%' OR SalesInvoiceNumber Like '%" + _batch+ "%') group by batch, chequename, ChkType";
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
             while(reader.Read())
@@ -671,6 +669,28 @@ namespace ProducersBank.Services
             DBClosed();
 
             return _batch;
+        }
+        public bool CheckBatchifExisted(string _batch)
+        {
+            string batch = "";
+            Sql = "Select Batch from producers_history where Batch  = '"+_batch+"'";
+            DBConnect();
+            cmd = new MySqlCommand(Sql, myConnect);
+     
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                batch = reader.GetString(0);
+            }
+
+            DBClosed();
+            if (batch != "")
+            {
+                return false;
+            }
+            else
+                return true;
+            
         }
     }
 }
