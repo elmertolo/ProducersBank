@@ -20,7 +20,6 @@ namespace ProducersBank.Procedures
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
                 (e.KeyChar != '.') || ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -2))) 
             {
-                
                 return true;
             }
             return false;

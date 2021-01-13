@@ -12,15 +12,17 @@ namespace ProducersBank
     public static class GlobalVariables
     {
         //this is where the main table name used by the bank will be stored
+        public static string gBanckCode;
         public static string gHistoryTable = "Producers_History"; // value is hardcoded temporarily.
         public static string gCustomerCode = "PRO2"; // value is hardcoded temporarily.
+        
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.
         /// </summary>
         //variables from appconfig file=================================================
         public static List<SalesInvoiceModel> gReportDT = new List<SalesInvoiceModel>();
         public static int gViewReportFirst = int.Parse(ConfigurationManager.AppSettings["ViewReportFirst"]);
-        public static string gSIHeaderReportCompanyName = ConfigurationManager.AppSettings["SIHeaderReportCompanyName"]; //"PRODUCERS BANK";
+        public static string gHeaderReportCompanyName = ConfigurationManager.AppSettings["SIHeaderReportCompanyName"]; //"PRODUCERS BANK";
         public static string gSIheaderReportTitle = ConfigurationManager.AppSettings["SIheaderReportTitle"]; //"SALES INVOICE";
         public static string gSIHeaderReportAddress1 = ConfigurationManager.AppSettings["SIHeaderReportAddress1"]; //"6197 Ayala Avenue";
         public static string gSIHeaderReportAddress2 = ConfigurationManager.AppSettings["SIHeaderReportAddress2"]; //"Salcedo Village";

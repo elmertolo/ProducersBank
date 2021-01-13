@@ -28,11 +28,45 @@ namespace ProducersBank
         public frmReportViewer()
         {
             InitializeComponent();
+            
         }
+
+
+        //private void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    //MessageBox.Show("Print Button Clicked");
+        //    PrintDialog printDialog = new PrintDialog();
+        //    if (printDialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        crystalDocument.PrintOptions.PrinterName = printDialog.PrinterSettings.PrinterName;
+        //        crystalDocument.PrintToPrinter(printDialog.PrinterSettings.Copies, printDialog.PrinterSettings.Collate, printDialog.PrinterSettings.FromPage, printDialog.PrinterSettings.ToPage);
+        //    }
+        //}
 
         private void crViewer_Load(object sender, EventArgs e)
         {
-          
+
+            ////Disabled to create a new one to get the printing event
+            //crViewer.ShowPrintButton = false;
+            
+            ////Create New Print Button
+            //foreach (var ctrl in crViewer.Controls)
+            //{
+
+            //    if (ctrl is ToolStrip) 
+            //    {
+
+            //        ToolStripButton btnPrint = new ToolStripButton();
+            //        btnPrint.Text = "Print";
+            //        btnPrint.ToolTipText = "Print";
+            //        btnPrint.Image = Image.FromFile(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Image\Print.png");
+            //        btnPrint.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            //        ((ToolStrip)ctrl).Items.Insert(0, btnPrint);
+            //        btnPrint.Click += new EventHandler(btnPrint_Click);
+            //    }
+            //}
+            ////====================================================================
+
             crViewer.ShowRefreshButton = false;
             crViewer.ShowCloseButton = false;
             crViewer.ShowGroupTreeButton = false;
@@ -62,9 +96,9 @@ namespace ProducersBank
 
         private void frmReportViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-         //   frmSalesInvoice si = new frmSalesInvoice();
-           // si.Show();
             
+
+
         }
     }
 
