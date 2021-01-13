@@ -394,6 +394,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\MySql.Data.dll" />
+    <None Include="Resources\generate.ico" />
+    <None Include="Resources\generate.png" />
+    <None Include="Resources\trash-512.png" />
+    <None Include="Resources\search.jpg" />
+    <None Include="Resources\save.jpg" />
+    <None Include="Resources\refresh.jpg" />
+    <None Include="Resources\print.png" />
+    <None Include="Resources\logout.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\login.png" />
+    <None Include="Resources\list.png" />
+    <None Include="Resources\istockphoto-1271310116-170667a.jpg" />
+    <None Include="Resources\GreenCheck.jpg" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\close.jpg" />
+    <None Include="Resources\addsub.png" />
+    <None Include="Resources\add.jpg" />
     <None Include="Resources\Captive.ico" />
     <None Include="Resources\CPC.ico" />
   </ItemGroup>

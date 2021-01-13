@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProducersBank.Services;
+using static ProducersBank.GlobalVariables;
 
 namespace ProducersBank
 {
@@ -56,8 +57,10 @@ namespace ProducersBank
             }
             else
             {
+                gUserName = userName;
                 Main mainFrm = new Main();
                 mainFrm.Show();
+                
                 this.Hide();
             }
         }

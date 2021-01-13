@@ -149,8 +149,8 @@ namespace ProducersBank
             var totalA = orderList.Where(a => a.ChkType == "A").ToList();
             // BindingSource checkBind = new BindingSource();
             // checkBind.DataSource = orderList;
-            proc.CheckBatchifExisted(orderList[0].Batch);
-            if (proc.CheckBatchifExisted(orderList[0].Batch) == true) 
+       //     proc.CheckBatchifExisted(orderList[0].Batch.Trim());
+            if (proc.CheckBatchifExisted(orderList[0].Batch.Trim()) == true) 
             MessageBox.Show("Batch Is Already Existed!!");
             else
             { 
@@ -168,8 +168,7 @@ namespace ProducersBank
             ChequeName();
             //  BankName();
         
-            GetDR();
-            GetPack();
+       
            // MessageBox.Show(proc.myConnect.ConnectionString);
         }
         private void GetPack()
@@ -191,6 +190,8 @@ namespace ProducersBank
         }
         private void GetDR()
         {
+        //    Int64 liCnt = 1;
+           // Int64 liCount = 0;
             proc.GetMaxDr(DrNumbers);
 
             // Int64.Parse(txtDrNumber.Text)
@@ -202,7 +203,9 @@ namespace ProducersBank
                 }
                 else
                     _dr = DrNumbers[i];
-                    
+          //      ProcessServices.gsStatusBar(stb1, "Processing data please wait " + (Int64)((float)(liCnt) / (float)(liCount) * 100) + "%...");
+            //    ProcessServices.gsProgressBar(stb2, (Int16)((float)(liCnt) / (float)(liCount) * 100));
+             //   liCnt++;
             }
             txtDrNumber.Text = (_dr+1).ToString();
             return;
@@ -255,6 +258,17 @@ namespace ProducersBank
             report = "Packing";
             ViewReports vp = new ViewReports();
             vp.Show();
+        }
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+           
+            Cursor.Current = Cursors.WaitCursor;
+            Cursor.Show();
+            GetDR();
+            GetPack();
+         
+            MessageBox.Show("Getting DrNumber and PackNumber done!!");
         }
     }
 }

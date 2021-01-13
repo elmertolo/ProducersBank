@@ -15,7 +15,7 @@ namespace ProducersBank
         public static string gBanckCode;
         public static string gHistoryTable = "Producers_History"; // value is hardcoded temporarily.
         public static string gCustomerCode = "PRO2"; // value is hardcoded temporarily.
-        
+        public static string gUserName = ""; // value is hardcoded temporarily.
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.
         /// </summary>
