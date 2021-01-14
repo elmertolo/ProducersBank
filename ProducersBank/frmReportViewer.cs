@@ -46,36 +46,15 @@ namespace ProducersBank
         private void crViewer_Load(object sender, EventArgs e)
         {
 
-            ////Disabled to create a new one to get the printing event
-            //crViewer.ShowPrintButton = false;
-            
-            ////Create New Print Button
-            //foreach (var ctrl in crViewer.Controls)
-            //{
-
-            //    if (ctrl is ToolStrip) 
-            //    {
-
-            //        ToolStripButton btnPrint = new ToolStripButton();
-            //        btnPrint.Text = "Print";
-            //        btnPrint.ToolTipText = "Print";
-            //        btnPrint.Image = Image.FromFile(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Image\Print.png");
-            //        btnPrint.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            //        ((ToolStrip)ctrl).Items.Insert(0, btnPrint);
-            //        btnPrint.Click += new EventHandler(btnPrint_Click);
-            //    }
-            //}
-            ////====================================================================
-
             crViewer.ShowRefreshButton = false;
             crViewer.ShowCloseButton = false;
             crViewer.ShowGroupTreeButton = false;
             
-
+            //Supplu report parameters
             proc.FillCRReportParameters(ref crystalDocument);
+            //Supply database /  table credentials dynamically
             p.setCrystalReportsDBInfo(ref crystalDocument);
             
-
             if (gViewReportFirst == 1)
             {
                 crViewer.ReportSource = crystalDocument;

@@ -14,14 +14,15 @@ namespace ProducersBank
         //this is where the main table name used by the bank will be stored
         public static string gBanckCode;
         public static string gHistoryTable = "Producers_History"; // value is hardcoded temporarily.
+        public static string gSIFinishedTable = "Producers_SalesInvoice_Finished";
         public static string gCustomerCode = "PRO2"; // value is hardcoded temporarily.
         
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.
         /// </summary>
         //variables from appconfig file=================================================
-        public static List<SalesInvoiceModel> gReportDT = new List<SalesInvoiceModel>();
-        
+        public static List<SalesInvoiceModel> gSalesInvoiceList = new List<SalesInvoiceModel>();
+        public static DataTable gReportDT;
         public static int gViewReportFirst = int.Parse(ConfigurationManager.AppSettings["ViewReportFirst"]);
         public static string gHeaderReportCompanyName = ConfigurationManager.AppSettings["SIHeaderReportCompanyName"]; //"PRODUCERS BANK";
         public static string gSIheaderReportTitle = ConfigurationManager.AppSettings["SIheaderReportTitle"]; //"SALES INVOICE";
@@ -34,10 +35,9 @@ namespace ProducersBank
         public static double gSalesInvoiceSubtotalAmount;
         public static double gSalesInvoiceVatAmount;
         public static double gSalesInvoiceNetOfVatAmount;
-        public static string gSalesInvoicePreparedBy;
         public static string gSalesinvoiceCheckedBy;
         public static string gSalesInvoiceApprovedBy;
-        public static string gSalesInvoicegeneratedBy;
+        public static string gSalesInvoiceGeneratedBy;
         //=============================================================================
 
     }

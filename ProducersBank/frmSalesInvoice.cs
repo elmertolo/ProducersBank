@@ -11,13 +11,14 @@ using ProducersBank.Services;
 using ProducersBank.Models;
 using static ProducersBank.GlobalVariables;
 using ProducersBank.Procedures;
+using FastMember;
 
 namespace ProducersBank
 {
     public partial class frmSalesInvoice : Form
     {
 
-        List<SalesInvoiceModel> SalesInvoiceList = new List<SalesInvoiceModel>();
+        List<SalesInvoiceModel> salesInvoiceList = new List<SalesInvoiceModel>();
         ProcessServices_Nelson proc = new ProcessServices_Nelson();
         Main frm;
 
@@ -34,7 +35,7 @@ namespace ProducersBank
             InitializeComponent();
             ConfigureGrids();
             FillComboBoxes();
-            SalesInvoiceList.Clear();
+            salesInvoiceList.Clear();
             this.frm = frm1;
         }
 
@@ -185,12 +186,12 @@ namespace ProducersBank
                     line.drList = proc.GetDRList(line.batchName, line.checkType, line.deliveryDate);
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
                     line.lineTotalAmount = Math.Round(line.orderQuantity * line.unitPrice, 2);
-                    SalesInvoiceList.Add(line);
+                    salesInvoiceList.Add(line);
                     
                 }
                 
                 //created 'list' variable column sorting for datagrid view 
-                var sortedList = SalesInvoiceList
+                var sortedList = salesInvoiceList
                     .Select
                     (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
                     .ToList();
@@ -200,7 +201,7 @@ namespace ProducersBank
                 
                 ProcessServices_Nelson proc1 = new ProcessServices_Nelson();
 
-                if (!proc1.UpdateTempTable(SalesInvoiceList))
+                if (!proc1.UpdateTempTable(salesInvoiceList))
                 {
                     MessageBox.Show("Unable to connect to server. \r\n" + proc1.errorMessage);
                     return;
@@ -232,31 +233,37 @@ namespace ProducersBank
                 
                 if (result == DialogResult.Yes)
                 {
-                    gReportDT = SalesInvoiceList;
+                    gSalesInvoiceList = salesInvoiceList;
                     gSalesInvoiceDate = dtpInvoiceDate.Value;
-                    gSalesInvoicePreparedBy = cbPreparedBy.Text.ToString();
+                    gSalesInvoiceGeneratedBy = lblUserName.Text.ToString();
                     gSalesinvoiceCheckedBy = cbCheckedBy.Text.ToString();
                     gSalesInvoiceApprovedBy = cbApprovedBy.Text.ToString();
                     gSalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
-                    gSalesInvoiceSubtotalAmount = double.Parse(SalesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
+                    gSalesInvoiceSubtotalAmount = double.Parse(salesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
                     gSalesInvoiceVatAmount = p.GetVatAmount(gSalesInvoiceSubtotalAmount);
                     gSalesInvoiceNetOfVatAmount = p.GetNetOfVatAmount(gSalesInvoiceSubtotalAmount);
-                    gSalesInvoicegeneratedBy = lblUserName.Text.ToString();
+                    
 
                     ///UpdateDatabase
-                    if (!proc.UpdateSalesInvoiceHistory(SalesInvoiceList))
+                    if (!proc.UpdateSalesInvoiceHistory(salesInvoiceList))
                     {
                         MessageBox.Show("Error upon updating to server. (proc.UpdateSalesInvoiceHistory) \r\n" + proc.errorMessage);
                         return;
                     }
-                    MessageBox.Show("Number of rows affected: " + proc.RowNumbersAffected.ToString());
-                    
+                    //MessageBox.Show("Number of rows affected: " + proc.RowNumbersAffected.ToString());
+
+
+                    //Install Fastmember from nuGet for Fast (List to Datatable) Conversion
+                    DataTable dt = new DataTable();
+                    using (var reader = ObjectReader.Create(salesInvoiceList))
+                    {
+                        dt.Load(reader);
+                    }
+                    gReportDT = dt;
 
                     frmReportViewer crForm = new frmReportViewer();
                     crForm.Show();
                     RefreshView();
-
-
 
                 }
 
@@ -294,7 +301,7 @@ namespace ProducersBank
 
         private void RefreshView()
         {
-            SalesInvoiceList.Clear();
+            salesInvoiceList.Clear();
             txtSearch.Text = "";
             txtSalesInvoiceNumber.Text = "";
             txtSalesInvoiceNumber.Focus();
@@ -308,7 +315,7 @@ namespace ProducersBank
             dgvDRList.ClearSelection();
 
 
-            var sortedList = SalesInvoiceList
+            var sortedList = salesInvoiceList
                      .Select
                      (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
                      .ToList();

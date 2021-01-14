@@ -177,8 +177,9 @@ namespace ProducersBank.Services
             }
 
             crystalDocument.Load(reportPath);
-            crystalDocument.SetDataSource(gReportDT);
 
+
+            crystalDocument.SetDataSource(gReportDT);
             crystalDocument.SetParameterValue("prHeaderReportTitle", gSIheaderReportTitle.ToString() ?? "");
             crystalDocument.SetParameterValue("prHeaderReportAddress1", gSIHeaderReportAddress1.ToString() ?? "");
             crystalDocument.SetParameterValue("prHeaderReportAddress2", gSIHeaderReportAddress2.ToString() ?? "");
@@ -186,7 +187,7 @@ namespace ProducersBank.Services
             crystalDocument.SetParameterValue("prHeaderCompanyName", gHeaderReportCompanyName.ToString() ?? "");
             crystalDocument.SetParameterValue("prSalesInvoiceDate", gSalesInvoiceDate.ToString("MMMMM dd, yyyy") ?? "");
             crystalDocument.SetParameterValue("prSalesInvoiceNumber", gSalesInvoiceNumber.ToString() ?? "");
-            crystalDocument.SetParameterValue("prPreparedBy", gSalesInvoicePreparedBy.ToString() ?? "");
+            crystalDocument.SetParameterValue("prPreparedBy", gSalesInvoiceGeneratedBy.ToString() ?? "");
             crystalDocument.SetParameterValue("prCheckedBy", gSalesinvoiceCheckedBy.ToString() ?? "");
             crystalDocument.SetParameterValue("prApprovedBy", gSalesInvoiceApprovedBy.ToString() ?? "");
             crystalDocument.SetParameterValue("prSubtotalAmount", gSalesInvoiceSubtotalAmount.ToString() ?? "");
@@ -214,17 +215,36 @@ namespace ProducersBank.Services
                 MySqlCommand cmd;
                 foreach (var item in siListToProcess)
                 {
+
+                    //Update History Table
                     string sql = "update " + gHistoryTable + " set " +
                     "unitprice = " + item.unitPrice + ", " +
                     "SalesInvoice = " + gSalesInvoiceNumber + ", " +
                     "Salesinvoicedate = '" + gSalesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
-                    "SalesInvoiceGeneratedBy = '" + gSalesInvoicegeneratedBy + "' " +
+                    "SalesInvoiceGeneratedBy = '" + gSalesInvoiceGeneratedBy + "' " +
                     " where drnumber in(" + item.drList.ToString() + 
                     ") and batch = '" + item.batchName + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
                     " and chequename = '" + item.checkName + "';";
 
                     cmd = new MySqlCommand(sql, con);
+                    rowNumbersAffected = cmd.ExecuteNonQuery();
+
+                    //Insert to SalesInvoice Finished
+                    string sql2 = "insert into " + gSIFinishedTable + " " +
+                    "(CustomerCode, SalesInvoiceNumber, salesInvoiceDateTime, GeneratedBy, CheckedBy, ApprovedBy, TotalAmount, VatAmount, NetOfVatAmount) " +
+                    "Values ('" +
+                    gCustomerCode + "', " +
+                    gSalesInvoiceNumber + ", '" +
+                    gSalesInvoiceDate.ToString("yyyy-MM-dd HH:mm") + "', '" +
+                    gSalesInvoiceGeneratedBy + "', '" +
+                    gSalesinvoiceCheckedBy + "', '" +
+                    gSalesInvoiceApprovedBy + "', " +
+                    gSalesInvoiceSubtotalAmount + ", " +
+                    gSalesInvoiceVatAmount + ", " +
+                    gSalesInvoiceNetOfVatAmount + ");";
+
+                    cmd = new MySqlCommand(sql2, con);
                     rowNumbersAffected = cmd.ExecuteNonQuery();
                 }
                 return true;
