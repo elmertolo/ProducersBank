@@ -54,7 +54,7 @@ namespace ProducersBank
                 DataSet ds = new DataSet();
                 process.DBConnect();
 
-                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_sticker", process.myConnect);
+                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_sticker ", process.myConnect);
 
                 adp.Fill(ds);
 
