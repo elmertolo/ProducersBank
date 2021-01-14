@@ -58,12 +58,13 @@ namespace ProducersBank
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
             this.lblBankName = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
             this.Label6 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.btnReloadDrList = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.btnReprint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).BeginInit();
             this.gbSearch.SuspendLayout();
@@ -361,6 +362,15 @@ namespace ProducersBank
             this.panel1.Size = new System.Drawing.Size(978, 32);
             this.panel1.TabIndex = 21;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(578, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "label7";
+            // 
             // lblBankName
             // 
             this.lblBankName.AutoSize = true;
@@ -408,14 +418,16 @@ namespace ProducersBank
             this.btnReloadDrList.UseVisualStyleBackColor = true;
             this.btnReloadDrList.Click += new System.EventHandler(this.btnReloadDrList_Click);
             // 
-            // label7
+            // btnReprint
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(578, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "label7";
+            this.btnReprint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReprint.Location = new System.Drawing.Point(826, 568);
+            this.btnReprint.Name = "btnReprint";
+            this.btnReprint.Size = new System.Drawing.Size(170, 52);
+            this.btnReprint.TabIndex = 23;
+            this.btnReprint.Text = "REPRINT PREVIOUS SALES INVOICE";
+            this.btnReprint.UseVisualStyleBackColor = true;
+            this.btnReprint.Click += new System.EventHandler(this.btnReprint_Click);
             // 
             // frmSalesInvoice
             // 
@@ -423,6 +435,7 @@ namespace ProducersBank
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.btnReprint);
             this.Controls.Add(this.btnReloadDrList);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
@@ -484,5 +497,6 @@ namespace ProducersBank
         private System.Windows.Forms.Label lblBankName;
         private System.Windows.Forms.ComboBox cbPreparedBy;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnReprint;
     }
 }

@@ -338,6 +338,49 @@ namespace ProducersBank.Services
             }
         }
 
+        public bool SalesInvoiceExist(int salesInvoiceNumber, ref DataTable dt)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("select * from " + gSIFinishedTable + " where salesinvoicenumber = " + salesInvoiceNumber + ";", con);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                if (dt.Rows.Count == 0)
+                {
+                    
+                    return false;
+                }
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+           
+        }
+
+
+        public bool GetOldSalesInvoiceList(double salesInvoiceNumber, ref DataTable dt)
+        {
+            try
+            {
+                string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity, group_concat(distinct(drnumber) separator ', ') as drList from " + gHistoryTable + " where salesinvoice = " + salesInvoiceNumber + " group by batch, chequename, ChkType";
+                //string sql = "select count(*) as count from producers_history";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+        }
 
     }
 }

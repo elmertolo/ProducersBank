@@ -233,7 +233,7 @@ namespace ProducersBank
                 
                 if (result == DialogResult.Yes)
                 {
-                    gSalesInvoiceList = salesInvoiceList;
+                    //gSalesInvoiceList = salesInvoiceList;
                     gSalesInvoiceDate = dtpInvoiceDate.Value;
                     gSalesInvoiceGeneratedBy = lblUserName.Text.ToString();
                     gSalesinvoiceCheckedBy = cbCheckedBy.Text.ToString();
@@ -391,6 +391,61 @@ namespace ProducersBank
                 SearchText();
             }
         }
+
+        private void btnReprint_Click(object sender, EventArgs e)
+        {
+            frmMessageInput xfrm = new frmMessageInput();
+            xfrm.labelMessage = "Input Sales Invoice Number:";
+            DialogResult result = xfrm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                ReprintSalesInvoice(int.Parse(xfrm.userInput));
+            }
+
+        }
+
+
+        public void ReprintSalesInvoice(int salesInvoiceNumber )
+        {
+            DataTable siFinishedDT = new DataTable();
+            if (!proc.SalesInvoiceExist(salesInvoiceNumber, ref siFinishedDT))
+            {
+                MessageBox.Show("Unable to find provided Sales Invoice Number. (proc.SalesInvoiceExist)\r\n" + proc.errorMessage);
+                return;
+            }
+
+            foreach (DataRow row in siFinishedDT.Rows)
+            {
+                
+                
+                gCustomerCode = row.Field<string>("CustomerCode");
+                gSalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
+                gSalesInvoiceDate = row.Field<DateTime>("SalesInvoiceDateTime");
+                gSalesInvoiceGeneratedBy = row.Field<string>("GeneratedBy");
+                gSalesinvoiceCheckedBy = row.Field<string>("CheckedBy");
+                gSalesInvoiceApprovedBy = row.Field<string>("ApprovedBy");
+                gSalesInvoiceSubtotalAmount = row.Field<double>("TotalAmount");
+                gSalesInvoiceVatAmount = row.Field<double>("VatAmount");
+                gSalesInvoiceNetOfVatAmount = row.Field<double>("NetOfVatAmount");
+            }
+
+            DataTable siListDT = new DataTable();
+            if (!proc.GetOldSalesInvoiceList(salesInvoiceNumber, ref siListDT))
+            {
+                MessageBox.Show("Unable to connect to server. (proc.SalesInvoiceExist)\r\n" + proc.errorMessage);
+                return;
+            }
+
+            gReportDT = siListDT;
+            frmReportViewer crForm = new frmReportViewer();
+            crForm.Show();
+
+
+
+        }
+
+
+
     }
 
     
