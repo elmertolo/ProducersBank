@@ -179,7 +179,6 @@ namespace ProducersBank.Services
             crystalDocument.Load(reportPath);
             crystalDocument.SetDataSource(gReportDT);
 
-
             crystalDocument.SetParameterValue("prHeaderReportTitle", gSIheaderReportTitle.ToString() ?? "");
             crystalDocument.SetParameterValue("prHeaderReportAddress1", gSIHeaderReportAddress1.ToString() ?? "");
             crystalDocument.SetParameterValue("prHeaderReportAddress2", gSIHeaderReportAddress2.ToString() ?? "");

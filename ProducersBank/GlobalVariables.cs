@@ -21,6 +21,7 @@ namespace ProducersBank
         /// </summary>
         //variables from appconfig file=================================================
         public static List<SalesInvoiceModel> gReportDT = new List<SalesInvoiceModel>();
+        
         public static int gViewReportFirst = int.Parse(ConfigurationManager.AppSettings["ViewReportFirst"]);
         public static string gHeaderReportCompanyName = ConfigurationManager.AppSettings["SIHeaderReportCompanyName"]; //"PRODUCERS BANK";
         public static string gSIheaderReportTitle = ConfigurationManager.AppSettings["SIheaderReportTitle"]; //"SALES INVOICE";
