@@ -177,23 +177,24 @@ namespace ProducersBank
                 {
                     SalesInvoiceModel line = new SalesInvoiceModel();
 
-                    line.batchName = row.Cells["batch Name"].Value.ToString();
+                    line.Batch = row.Cells["batch Name"].Value.ToString();
                     line.checkName = row.Cells["check name"].Value.ToString();
                     line.checkType = row.Cells["check type"].Value.ToString();
                     line.salesInvoiceDate = DateTime.Parse(dtpInvoiceDate.Value.ToShortDateString());
                     line.deliveryDate = DateTime.Parse(row.Cells["Delivery Date"].Value.ToString());
-                    line.orderQuantity = int.Parse(row.Cells["Quantity"].Value.ToString());
-                    line.drList = proc.GetDRList(line.batchName, line.checkType, line.deliveryDate);
+                    line.Quantity = int.Parse(row.Cells["Quantity"].Value.ToString());
+                    line.drList = proc.GetDRList(line.Batch, line.checkType, line.deliveryDate);
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
-                    line.lineTotalAmount = Math.Round(line.orderQuantity * line.unitPrice, 2);
+                    line.lineTotalAmount = Math.Round(line.Quantity * line.unitPrice, 2);
                     salesInvoiceList.Add(line);
                     
                 }
                 
-                //created 'list' variable column sorting for datagrid view 
+                //created 'list' variable column sorting by line for datagrid view 
                 var sortedList = salesInvoiceList
                     .Select
-                    (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                    (i => new { i.Quantity, i.Batch, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                    
                     .ToList();
 
                 dgvListToProcess.DataSource = sortedList;
@@ -242,10 +243,15 @@ namespace ProducersBank
                     gSalesInvoiceSubtotalAmount = double.Parse(salesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
                     gSalesInvoiceVatAmount = p.GetVatAmount(gSalesInvoiceSubtotalAmount);
                     gSalesInvoiceNetOfVatAmount = p.GetNetOfVatAmount(gSalesInvoiceSubtotalAmount);
-                    
 
-                    ///UpdateDatabase
-                    if (!proc.UpdateSalesInvoiceHistory(salesInvoiceList))
+
+                    
+                    ///Sort Sales Invoice By Batch before saving and Printing
+                    var sortedList = salesInvoiceList.OrderBy(x => x.Batch).ToList();
+
+
+                    ///Update Database
+                    if (!proc.UpdateSalesInvoiceHistory(sortedList))
                     {
                         MessageBox.Show("Error upon updating to server. (proc.UpdateSalesInvoiceHistory) \r\n" + proc.errorMessage);
                         return;
@@ -255,10 +261,12 @@ namespace ProducersBank
 
                     //Install Fastmember from nuGet for Fast (List to Datatable) Conversion
                     DataTable dt = new DataTable();
-                    using (var reader = ObjectReader.Create(salesInvoiceList))
+                    using (var reader = ObjectReader.Create(sortedList))
                     {
                         dt.Load(reader);
                     }
+
+                    ///Supply datatable from the list converted
                     gReportDT = dt;
 
                     frmReportViewer crForm = new frmReportViewer();
@@ -317,7 +325,7 @@ namespace ProducersBank
 
             var sortedList = salesInvoiceList
                      .Select
-                     (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                     (i => new { i.Quantity, i.Batch, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
                      .ToList();
 
             dgvListToProcess.DataSource = sortedList;
@@ -401,12 +409,12 @@ namespace ProducersBank
             {
                 ReprintSalesInvoice(int.Parse(xfrm.userInput));
             }
-
         }
 
-
-        public void ReprintSalesInvoice(int salesInvoiceNumber )
+        public void ReprintSalesInvoice(int salesInvoiceNumber)
         {
+
+            //get Finished Sales Inbvoice details if exist
             DataTable siFinishedDT = new DataTable();
             if (!proc.SalesInvoiceExist(salesInvoiceNumber, ref siFinishedDT))
             {
@@ -414,10 +422,9 @@ namespace ProducersBank
                 return;
             }
 
+            //Supply Global Variables based on fetched data
             foreach (DataRow row in siFinishedDT.Rows)
             {
-                
-                
                 gCustomerCode = row.Field<string>("CustomerCode");
                 gSalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
                 gSalesInvoiceDate = row.Field<DateTime>("SalesInvoiceDateTime");
@@ -429,18 +436,18 @@ namespace ProducersBank
                 gSalesInvoiceNetOfVatAmount = row.Field<double>("NetOfVatAmount");
             }
 
+            //Get Sales Invoice List Details to be supplied to Global Report Datatable
             DataTable siListDT = new DataTable();
             if (!proc.GetOldSalesInvoiceList(salesInvoiceNumber, ref siListDT))
             {
                 MessageBox.Show("Unable to connect to server. (proc.SalesInvoiceExist)\r\n" + proc.errorMessage);
                 return;
             }
-
             gReportDT = siListDT;
+
+            
             frmReportViewer crForm = new frmReportViewer();
             crForm.Show();
-
-
 
         }
 

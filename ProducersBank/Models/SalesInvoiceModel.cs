@@ -8,9 +8,9 @@ namespace ProducersBank.Models
 {
     public class SalesInvoiceModel
     {
-        public string batchName { get; set; }
+        public string Batch { get; set; }
         public double salesInvoiceNumber { get; set; }
-        public int orderQuantity { get; set; }
+        public int Quantity { get; set; }
         public double lineTotalAmount { get; set; }
         public string checkName { get; set; }
         public string drList { get; set; }

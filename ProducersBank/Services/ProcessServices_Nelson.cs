@@ -116,12 +116,12 @@ namespace ProducersBank.Services
                 foreach (var row in SalesInvoiceList)
                 {
                     string sql = "insert into producers_salesinvoice_temp " +
-                                 "(OrderQuantity, BatchName, CheckName, DRList, SalesInvoiceDate) values " +
-                                 "(" + row.orderQuantity + "," +
-                                 " '" + row.batchName.ToString() + "'," +
+                                 "(Quantity, Batch, CheckName, DRList) values " +
+                                 "(" + row.Quantity + "," +
+                                 " '" + row.Batch.ToString() + "'," +
                                  " '" + row.checkName.ToString() + "'," +
-                                 " '" + row.drList.ToString() + "'," +
-                                 " '" + row.salesInvoiceDate.ToString("yyyy-MM-dd") + "'" +
+                                 " '" + row.drList.ToString() + "'" +
+
                                  ");";
                     MySqlCommand cmd = new MySqlCommand(sql, con);
                     cmd.ExecuteNonQuery();
@@ -223,30 +223,32 @@ namespace ProducersBank.Services
                     "Salesinvoicedate = '" + gSalesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
                     "SalesInvoiceGeneratedBy = '" + gSalesInvoiceGeneratedBy + "' " +
                     " where drnumber in(" + item.drList.ToString() + 
-                    ") and batch = '" + item.batchName + "'" +
+                    ") and batch = '" + item.Batch + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
                     " and chequename = '" + item.checkName + "';";
 
                     cmd = new MySqlCommand(sql, con);
                     rowNumbersAffected = cmd.ExecuteNonQuery();
 
-                    //Insert to SalesInvoice Finished
-                    string sql2 = "insert into " + gSIFinishedTable + " " +
-                    "(CustomerCode, SalesInvoiceNumber, salesInvoiceDateTime, GeneratedBy, CheckedBy, ApprovedBy, TotalAmount, VatAmount, NetOfVatAmount) " +
-                    "Values ('" +
-                    gCustomerCode + "', " +
-                    gSalesInvoiceNumber + ", '" +
-                    gSalesInvoiceDate.ToString("yyyy-MM-dd HH:mm") + "', '" +
-                    gSalesInvoiceGeneratedBy + "', '" +
-                    gSalesinvoiceCheckedBy + "', '" +
-                    gSalesInvoiceApprovedBy + "', " +
-                    gSalesInvoiceSubtotalAmount + ", " +
-                    gSalesInvoiceVatAmount + ", " +
-                    gSalesInvoiceNetOfVatAmount + ");";
-
-                    cmd = new MySqlCommand(sql2, con);
-                    rowNumbersAffected = cmd.ExecuteNonQuery();
                 }
+
+                //Insert to SalesInvoice Finished
+                string sql2 = "insert into " + gSIFinishedTable + " " +
+                "(CustomerCode, SalesInvoiceNumber, salesInvoiceDateTime, GeneratedBy, CheckedBy, ApprovedBy, TotalAmount, VatAmount, NetOfVatAmount) " +
+                "Values ('" +
+                gCustomerCode + "', " +
+                gSalesInvoiceNumber + ", '" +
+                gSalesInvoiceDate.ToString("yyyy-MM-dd HH:mm") + "', '" +
+                gSalesInvoiceGeneratedBy + "', '" +
+                gSalesinvoiceCheckedBy + "', '" +
+                gSalesInvoiceApprovedBy + "', " +
+                gSalesInvoiceSubtotalAmount + ", " +
+                gSalesInvoiceVatAmount + ", " +
+                gSalesInvoiceNetOfVatAmount + ");";
+
+                cmd = new MySqlCommand(sql2, con);
+                rowNumbersAffected = cmd.ExecuteNonQuery();
+
                 return true;
             }
             catch (Exception ex)
@@ -348,7 +350,6 @@ namespace ProducersBank.Services
                 da.Fill(dt);
                 if (dt.Rows.Count == 0)
                 {
-                    
                     return false;
                 }
                 return true;
@@ -362,12 +363,23 @@ namespace ProducersBank.Services
            
         }
 
-
         public bool GetOldSalesInvoiceList(double salesInvoiceNumber, ref DataTable dt)
         {
             try
             {
-                string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity, group_concat(distinct(drnumber) separator ', ') as drList from " + gHistoryTable + " where salesinvoice = " + salesInvoiceNumber + " group by batch, chequename, ChkType";
+                string sql =
+                    "select count(ChkType) as Quantity, batch, chequename as CheckName, group_concat(distinct(drnumber) separator ', ') as DRList, " +
+                    "ChkType, deliverydate, (select unitPrice from producers_pricelist where ChequeName = CheckName) as Unitprice, " +
+                    "count(ChkType) * UnitPrice as LineTotalAmount " +
+                    "from producers_history " +
+                    "where salesinvoice = " + salesInvoiceNumber + " " +
+                    "group by batch, CheckName, ChkType order by BatchName;";
+
+
+                //"select batch as BatchName, chequename as CheckName, ChkType, deliverydate, count(ChkType) as Quantity, group_concat(distinct(drnumber) separator ', ') as drList " +
+                //    "from " + gHistoryTable + " " +
+                //    "where salesinvoice = " + salesInvoiceNumber + " group by batch, CheckName, ChkType order by BatchName";
+                
                 //string sql = "select count(*) as count from producers_history";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);

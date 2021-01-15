@@ -65,7 +65,6 @@ namespace ProducersBank
                 this.Close();
             }
 
-
         }
 
         private void frmReportViewer_Load(object sender, EventArgs e)
