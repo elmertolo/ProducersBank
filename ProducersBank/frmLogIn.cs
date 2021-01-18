@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ProducersBank.Services;
 using static ProducersBank.GlobalVariables;
 using ProducersBank.Procedures;
+using ProducersBank.Models;
 
 namespace ProducersBank
 {
@@ -58,15 +59,11 @@ namespace ProducersBank
                 MessageBox.Show("User Name or Password is incorrect. Please try again");
                 return;
             }
-            
-            //Cashier Details============================
-            foreach (DataRow row in dt.Rows)
-            {
-                gUserName = row.Field<string>("UserName");
-                gUserFullName = row.Field<string>("Name");
-            }
 
-            SupplyBankVariables(cbBankList.Text.ToString());
+            //Load Cashier Details============================
+            SupplyGlobalUserVariables(ref dt);
+
+            SupplyGlobalClientVariables(cbBankList.Text.ToString());
 
             Main mainFrm = new Main();
             mainFrm.Show();
@@ -91,12 +88,63 @@ namespace ProducersBank
             
         }
 
-        private void SupplyBankVariables(string bankname)
-        {
-            gCustomerCode = proc.GetBankList()
+        private void SupplyGlobalClientVariables(string bankname)
+        { 
+            DataTable dt = new DataTable();
+            if(!proc.GetClientDetails(bankname,ref dt))
+            {
+                MessageBox.Show("Server Connection Error (GetBankList)\r\n" + proc.errorMessage);
+            }
+
+
+            if (dt.Rows.Count != 0)
+            {
+                
+                foreach (DataRow row in dt.Rows)
+                {
+                    gClient.ClientCode = row.Field<string>("ClientCode") ?? "";
+                    gClient.ShortName = row.Field<string>("ShortName") ?? "";
+                    gClient.Description = row.Field<string>("Description") ?? "";
+                    gClient.Address1 = row.Field<string>("Address1") ?? "";
+                    gClient.Address2 = row.Field<string>("Address2") ?? "";
+                    gClient.Address3 = row.Field<string>("Address3") ?? "";
+                    gClient.AttentionTo = row.Field<string>("AttentionTo") ?? "";
+                    gClient.Princes_DESC = row.Field<string>("Princes_DESC") ?? "";
+                    gClient.TIN = row.Field<string>("TIN") ?? "";
+                    gClient.WithholdingTaxPercentage = row.Field<decimal>("WithholdingTaxPercentage");
+                    gClient.DataBaseName = row.Field<string>("DataBaseName") ?? "";
+                    gClient.SalesInvoiceTempTable = row.Field<string>("SalesInvoiceTempTable") ?? "";
+                    gClient.SalesInvoiceFinishedTable = row.Field<string>("SalesInvoiceFinishedTable") ?? "";
+                    gClient.PriceListTable = row.Field<string>("PriceListTable") ?? "";
+                    gClient.DRTempTable = row.Field<string>("DRTempTable") ?? "";
+                }
+            }
+           
+            
         }
 
+        private void frmLogIn_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        public void SupplyGlobalUserVariables(ref DataTable dt) 
+        {
+           
+            foreach (DataRow row in dt.Rows)
+            {
+                gUser.UserName = row.Field<string>("UserName");
+                gUser.Password = row.Field<string>("Password");
+                gUser.FirstName = row.Field<string>("FirstName");
+                gUser.MiddleName = row.Field<string>("MiddleName");
+                gUser.LastName = row.Field<string>("LastName");
+                gUser.Suffix = row.Field<string>("Suffix");
+                gUser.Lockout = row.Field<string>("Lockout");
+
+            }
+        }
+
+       
 
     }
 

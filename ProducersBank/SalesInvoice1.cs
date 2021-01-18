@@ -210,7 +210,7 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_prCustomerCode {
+        public CrystalDecisions.Shared.IParameterField Parameter_prClientCode {
             get {
                 return this.DataDefinition.ParameterFields[14];
             }

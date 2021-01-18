@@ -35,6 +35,7 @@ namespace ProducersBank
             InitializeComponent();
             ConfigureGrids();
             FillComboBoxes();
+            ConfigureDesignLabels();
             salesInvoiceList.Clear();
             this.frm = frm1;
         }
@@ -45,13 +46,12 @@ namespace ProducersBank
             DataTable dt = new DataTable();
             if (!proc.LoadInitialData(ref dt))
             {
-                MessageBox.Show("Unable to connect to server");
+                MessageBox.Show("Server Connection Error (LoadInitialData) \r\n" + proc.errorMessage);
                 return;
             }
             
             dgvDRList.DataSource = dt;
             dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
-            lblUserName.Text = gUserFullName.ToString();
             txtSalesInvoiceNumber.Focus();
         }
 
@@ -119,11 +119,11 @@ namespace ProducersBank
 
             dgvListToProcess.Columns[0].Name = "QTY";
             dgvListToProcess.Columns[0].Width = 50;
-            dgvListToProcess.Columns[0].DataPropertyName = "OrderQuantity";
+            dgvListToProcess.Columns[0].DataPropertyName = "Quantity";
 
             dgvListToProcess.Columns[1].Name = "BATCH";
             dgvListToProcess.Columns[1].Width = 100;
-            dgvListToProcess.Columns[1].DataPropertyName = "BatchName"; //this must be the actual table name in sql
+            dgvListToProcess.Columns[1].DataPropertyName = "Batch"; //this must be the actual table name in sql
 
             dgvListToProcess.Columns[2].Name = "CHECK NAME";
             dgvListToProcess.Columns[2].Width = 180;
@@ -199,13 +199,7 @@ namespace ProducersBank
                 dgvListToProcess.DataSource = sortedList;
                 dgvListToProcess.ClearSelection();
                 
-                ProcessServices_Nelson proc1 = new ProcessServices_Nelson();
-
-                if (!proc1.UpdateTempTable(salesInvoiceList))
-                {
-                    MessageBox.Show("Unable to connect to server. \r\n" + proc1.errorMessage);
-                    return;
-                }
+                
 
             }
             else
@@ -233,18 +227,26 @@ namespace ProducersBank
                 
                 if (result == DialogResult.Yes)
                 {
+
+                    ProcessServices_Nelson proc = new ProcessServices_Nelson();
+                    if (!proc.UpdateTempTable(salesInvoiceList))
+                    {
+                        MessageBox.Show("Sales Invoice Temp Table Update Error (UpdateTempTable). \r\n" + proc.errorMessage);
+                        return;
+                    }
+
+                    //Fill gSalesInvoiceFinished Model Class
                     //gSalesInvoiceList = salesInvoiceList;
-                    gSalesInvoiceDate = dtpInvoiceDate.Value;
-                    gSalesInvoiceGeneratedBy = gUserName.ToString();
-                    gSalesinvoiceCheckedBy = cbCheckedBy.Text.ToString();
-                    gSalesInvoiceApprovedBy = cbApprovedBy.Text.ToString();
-                    gSalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
-                    gSalesInvoiceSubtotalAmount = double.Parse(salesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
-                    gSalesInvoiceVatAmount = p.GetVatAmount(gSalesInvoiceSubtotalAmount);
-                    gSalesInvoiceNetOfVatAmount = p.GetNetOfVatAmount(gSalesInvoiceSubtotalAmount);
-
-
-                    
+                    gSalesInvoiceFinished.ClientCode = gClient.ClientCode.ToString();
+                    gSalesInvoiceFinished.SalesInvoiceDateTime = dtpInvoiceDate.Value;
+                    gSalesInvoiceFinished.GeneratedBy = gUser.UserName.ToString();
+                    gSalesInvoiceFinished.CheckedBy = cbCheckedBy.Text.ToString();
+                    gSalesInvoiceFinished.ApprovedBy = cbApprovedBy.Text.ToString();
+                    gSalesInvoiceFinished.SalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
+                    gSalesInvoiceFinished.TotalAmount = double.Parse(salesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
+                    gSalesInvoiceFinished.VatAmount = p.GetVatAmount(gSalesInvoiceFinished.TotalAmount);
+                    gSalesInvoiceFinished.NetOfVatAmount = p.GetNetOfVatAmount(gSalesInvoiceFinished.TotalAmount);
+                   
                     ///Sort Sales Invoice By Batch before saving and Printing
                     var sortedList = salesInvoiceList.OrderBy(x => x.Batch).ToList();
 
@@ -252,7 +254,7 @@ namespace ProducersBank
                     ///Update Database
                     if (!proc.UpdateSalesInvoiceHistory(sortedList))
                     {
-                        MessageBox.Show("Error upon updating to server. (proc.UpdateSalesInvoiceHistory) \r\n" + proc.errorMessage);
+                        MessageBox.Show("Error updating sales invoice record to server. (proc.UpdateSalesInvoiceHistory) \r\n" + proc.errorMessage);
                         return;
                     }
                     //MessageBox.Show("Number of rows affected: " + proc.RowNumbersAffected.ToString());
@@ -417,7 +419,7 @@ namespace ProducersBank
             //Supply Global Variables based on fetched data
             foreach (DataRow row in siFinishedDT.Rows)
             {
-                gCustomerCode = row.Field<string>("CustomerCode");
+                gClientCode = row.Field<string>("ClientCode");
                 gSalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
                 gSalesInvoiceDate = row.Field<DateTime>("SalesInvoiceDateTime");
                 gSalesInvoiceGeneratedBy = row.Field<string>("GeneratedBy");
@@ -440,6 +442,16 @@ namespace ProducersBank
             
             frmReportViewer crForm = new frmReportViewer();
             crForm.Show();
+
+        }
+
+
+        public void ConfigureDesignLabels()
+        {
+            string fullname = gUser.UserName + " " + gUser.LastName ;
+
+            lblUserName.Text = fullname;
+            lblBankName.Text = gClient.Description;
 
         }
 
