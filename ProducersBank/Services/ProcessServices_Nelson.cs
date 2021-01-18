@@ -89,7 +89,7 @@ namespace ProducersBank.Services
                 DataTable dt = new DataTable();
 
                 string sql = "select group_concat(distinct(drnumber) separator ', ') from producers_history " +
-                "WHERE salesinvoicenumber is null " +
+                "WHERE salesinvoice is null " +
                 "and batch = '" + batch + "' " +
                 "and chktype = '" + checktype + "' " +
                 "and deliverydate = '" + deliveryDate.ToString("yyyy-MM-dd") + "';";
@@ -116,12 +116,12 @@ namespace ProducersBank.Services
                 foreach (var row in SalesInvoiceList)
                 {
                     string sql = "insert into producers_salesinvoice_temp " +
-                                 "(OrderQuantity, BatchName, CheckName, DRList, SalesInvoiceDate) values " +
-                                 "(" + row.orderQuantity + "," +
-                                 " '" + row.batchName.ToString() + "'," +
+                                 "(Quantity, Batch, CheckName, DRList) values " +
+                                 "(" + row.Quantity + "," +
+                                 " '" + row.Batch.ToString() + "'," +
                                  " '" + row.checkName.ToString() + "'," +
-                                 " '" + row.drList.ToString() + "'," +
-                                 " '" + row.salesInvoiceDate.ToString("yyyy-MM-dd") + "'" +
+                                 " '" + row.drList.ToString() + "'" +
+
                                  ");";
                     MySqlCommand cmd = new MySqlCommand(sql, con);
                     cmd.ExecuteNonQuery();
@@ -177,64 +177,23 @@ namespace ProducersBank.Services
             }
 
             crystalDocument.Load(reportPath);
-            crystalDocument.SetDataSource(gReportDT);
 
-            if (gSIheaderReportTitle != null)
-            {
-                crystalDocument.SetParameterValue("prHeaderReportTitle", gSIheaderReportTitle);
-            }
-            if (gSIHeaderReportAddress1 != null)
-            {
-                crystalDocument.SetParameterValue("prHeaderReportAddress1", gSIHeaderReportAddress1);
-            }
-            if (gSIHeaderReportAddress2 != null)
-            {
-                crystalDocument.SetParameterValue("prHeaderReportAddress2", gSIHeaderReportAddress2);
-            }
-            if (gSIHeaderReportAddress3 != null)
-            {
-                crystalDocument.SetParameterValue("prHeaderReportAddress3", gSIHeaderReportAddress3);
-            }
-            if (gHeaderReportCompanyName != null)
-            {
-                crystalDocument.SetParameterValue("prHeaderCompanyName", gHeaderReportCompanyName);
-            }
-            if (gSalesInvoiceDate != null)
-            {
-                crystalDocument.SetParameterValue("prSalesInvoiceDate", gSalesInvoiceDate.ToString("MMMMM dd, yyyy"));
-            }
-            if (gSalesInvoiceNumber != 0)
-            {
-                crystalDocument.SetParameterValue("prSalesInvoiceNumber", gSalesInvoiceNumber.ToString());
-            }
-            if (gSalesInvoicePreparedBy != null)
-            {
-                crystalDocument.SetParameterValue("prPreparedBy", gSalesInvoicePreparedBy.ToString());
-            }
-            if (gSalesinvoiceCheckedBy != null)
-            {
-                crystalDocument.SetParameterValue("prCheckedBy", gSalesinvoiceCheckedBy.ToString());
-            }
-            if (gSalesInvoiceApprovedBy != null)
-            {
-                crystalDocument.SetParameterValue("prApprovedBy", gSalesInvoiceApprovedBy.ToString());
-            }
-            if (gSalesInvoiceSubtotalAmount != 0)
-            {
-                crystalDocument.SetParameterValue("prSubtotalAmount", gSalesInvoiceSubtotalAmount.ToString());
-            }
-            if (gSalesInvoiceVatAmount != 0)
-            {
-                crystalDocument.SetParameterValue("prVatAmount", gSalesInvoiceVatAmount.ToString());
-            }
-            if (gSalesInvoiceNetOfVatAmount != 0)
-            {
-                crystalDocument.SetParameterValue("prNetOfVatAmount", gSalesInvoiceNetOfVatAmount.ToString());
-            }
-            if (gCustomerCode != null)
-            {
-                crystalDocument.SetParameterValue("prCustomerCode", gCustomerCode.ToString());
-            }
+
+            crystalDocument.SetDataSource(gReportDT);
+            crystalDocument.SetParameterValue("prHeaderReportTitle", gSIheaderReportTitle.ToString() ?? "");
+            crystalDocument.SetParameterValue("prHeaderReportAddress1", gSIHeaderReportAddress1.ToString() ?? "");
+            crystalDocument.SetParameterValue("prHeaderReportAddress2", gSIHeaderReportAddress2.ToString() ?? "");
+            crystalDocument.SetParameterValue("prHeaderReportAddress3", gSIHeaderReportAddress3.ToString() ?? "");
+            crystalDocument.SetParameterValue("prHeaderCompanyName", gHeaderReportCompanyName.ToString() ?? "");
+            crystalDocument.SetParameterValue("prSalesInvoiceDate", gSalesInvoiceDate.ToString("MMMMM dd, yyyy") ?? "");
+            crystalDocument.SetParameterValue("prSalesInvoiceNumber", gSalesInvoiceNumber.ToString() ?? "");
+            crystalDocument.SetParameterValue("prPreparedBy", gSalesInvoiceGeneratedBy.ToString() ?? "");
+            crystalDocument.SetParameterValue("prCheckedBy", gSalesinvoiceCheckedBy.ToString() ?? "");
+            crystalDocument.SetParameterValue("prApprovedBy", gSalesInvoiceApprovedBy.ToString() ?? "");
+            crystalDocument.SetParameterValue("prSubtotalAmount", gSalesInvoiceSubtotalAmount.ToString() ?? "");
+            crystalDocument.SetParameterValue("prVatAmount", gSalesInvoiceVatAmount.ToString() ?? "");
+            crystalDocument.SetParameterValue("prNetOfVatAmount", gSalesInvoiceNetOfVatAmount.ToString() ?? "");
+            crystalDocument.SetParameterValue("prCustomerCode", gCustomerCode.ToString() ?? "");
 
         }
 
@@ -256,19 +215,40 @@ namespace ProducersBank.Services
                 MySqlCommand cmd;
                 foreach (var item in siListToProcess)
                 {
+
+                    //Update History Table
                     string sql = "update " + gHistoryTable + " set " +
                     "unitprice = " + item.unitPrice + ", " +
-                    "SalesInvoiceNumber = " + gSalesInvoiceNumber + ", " +
+                    "SalesInvoice = " + gSalesInvoiceNumber + ", " +
                     "Salesinvoicedate = '" + gSalesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
-                    "SalesInvoiceGeneratedBy = '" + gSalesInvoicegeneratedBy + "' " +
+                    "SalesInvoiceGeneratedBy = '" + gSalesInvoiceGeneratedBy + "' " +
                     " where drnumber in(" + item.drList.ToString() + 
-                    ") and batch = '" + item.batchName + "'" +
+                    ") and batch = '" + item.Batch + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
                     " and chequename = '" + item.checkName + "';";
 
                     cmd = new MySqlCommand(sql, con);
                     rowNumbersAffected = cmd.ExecuteNonQuery();
+
                 }
+
+                //Insert to SalesInvoice Finished
+                string sql2 = "insert into " + gSIFinishedTable + " " +
+                "(CustomerCode, SalesInvoiceNumber, salesInvoiceDateTime, GeneratedBy, CheckedBy, ApprovedBy, TotalAmount, VatAmount, NetOfVatAmount) " +
+                "Values ('" +
+                gCustomerCode + "', " +
+                gSalesInvoiceNumber + ", '" +
+                gSalesInvoiceDate.ToString("yyyy-MM-dd HH:mm") + "', '" +
+                gSalesInvoiceGeneratedBy + "', '" +
+                gSalesinvoiceCheckedBy + "', '" +
+                gSalesInvoiceApprovedBy + "', " +
+                gSalesInvoiceSubtotalAmount + ", " +
+                gSalesInvoiceVatAmount + ", " +
+                gSalesInvoiceNetOfVatAmount + ");";
+
+                cmd = new MySqlCommand(sql2, con);
+                rowNumbersAffected = cmd.ExecuteNonQuery();
+
                 return true;
             }
             catch (Exception ex)
@@ -286,7 +266,7 @@ namespace ProducersBank.Services
             {
                 MySqlDataAdapter da;
                 string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from " + gHistoryTable +
-                    " where salesinvoicenumber is null and batch = '" + batchToSearch + "' group by batch, chequename, ChkType;";
+                    " where salesinvoice is null and batch = '" + batchToSearch + "' group by batch, chequename, ChkType;";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
                 cmd.ExecuteNonQuery();
@@ -360,6 +340,64 @@ namespace ProducersBank.Services
             }
         }
 
+        public bool SalesInvoiceExist(int salesInvoiceNumber, ref DataTable dt)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("select * from " + gSIFinishedTable + " where salesinvoicenumber = " + salesInvoiceNumber + ";", con);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                if (dt.Rows.Count == 0)
+                {
+                    return false;
+                }
+                return true;
 
-    }
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+           
+        }
+
+        public bool GetOldSalesInvoiceList(double salesInvoiceNumber, ref DataTable dt)
+        {
+            try
+            {
+                string sql =
+                    "select count(ChkType) as Quantity, batch, chequename as CheckName, group_concat(distinct(drnumber) separator ', ') as DRList, " +
+                    "ChkType, deliverydate, (select unitPrice from producers_pricelist where ChequeName = CheckName) as Unitprice, " +
+                    "count(ChkType) * UnitPrice as LineTotalAmount " +
+                    "from producers_history " +
+                    "where salesinvoice = " + salesInvoiceNumber + " " +
+                    "group by batch, CheckName, ChkType order by Batch;";
+
+
+                //"select batch as BatchName, chequename as CheckName, ChkType, deliverydate, count(ChkType) as Quantity, group_concat(distinct(drnumber) separator ', ') as drList " +
+                //    "from " + gHistoryTable + " " +
+                //    "where salesinvoice = " + salesInvoiceNumber + " group by batch, CheckName, ChkType order by BatchName";
+                
+                //string sql = "select count(*) as count from producers_history";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+        }
+
+
+        public bool SeekReturn(string tableName, string fieldName, Type type)
+        {
+            
+        }
+       
 }

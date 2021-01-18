@@ -46,7 +46,6 @@ namespace ProducersBank
             this.dgvListToProcess = new System.Windows.Forms.DataGridView();
             this.btnViewSelected = new System.Windows.Forms.Button();
             this.btnPrintSalesInvoice = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.cbCheckedBy = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbApprovedBy = new System.Windows.Forms.ComboBox();
@@ -54,16 +53,16 @@ namespace ProducersBank
             this.gbSearch = new System.Windows.Forms.GroupBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.gbDetails = new System.Windows.Forms.GroupBox();
-            this.cbPreparedBy = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
             this.lblBankName = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
             this.Label6 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.btnReloadDrList = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.btnReprint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).BeginInit();
             this.gbSearch.SuspendLayout();
@@ -217,23 +216,13 @@ namespace ProducersBank
             this.btnPrintSalesInvoice.UseVisualStyleBackColor = true;
             this.btnPrintSalesInvoice.Click += new System.EventHandler(this.btnPrintSalesInvoice_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 133);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 15);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Prepared By:";
-            // 
             // cbCheckedBy
             // 
             this.cbCheckedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbCheckedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbCheckedBy.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCheckedBy.FormattingEnabled = true;
-            this.cbCheckedBy.Location = new System.Drawing.Point(91, 162);
+            this.cbCheckedBy.Location = new System.Drawing.Point(91, 133);
             this.cbCheckedBy.Name = "cbCheckedBy";
             this.cbCheckedBy.Size = new System.Drawing.Size(146, 23);
             this.cbCheckedBy.TabIndex = 14;
@@ -242,7 +231,7 @@ namespace ProducersBank
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 165);
+            this.label3.Location = new System.Drawing.Point(8, 136);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 15);
             this.label3.TabIndex = 13;
@@ -254,7 +243,7 @@ namespace ProducersBank
             this.cbApprovedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbApprovedBy.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbApprovedBy.FormattingEnabled = true;
-            this.cbApprovedBy.Location = new System.Drawing.Point(91, 191);
+            this.cbApprovedBy.Location = new System.Drawing.Point(91, 162);
             this.cbApprovedBy.Name = "cbApprovedBy";
             this.cbApprovedBy.Size = new System.Drawing.Size(146, 23);
             this.cbApprovedBy.TabIndex = 16;
@@ -263,7 +252,7 @@ namespace ProducersBank
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(9, 194);
+            this.label4.Location = new System.Drawing.Point(9, 165);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 15);
             this.label4.TabIndex = 15;
@@ -294,7 +283,6 @@ namespace ProducersBank
             // gbDetails
             // 
             this.gbDetails.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.gbDetails.Controls.Add(this.cbPreparedBy);
             this.gbDetails.Controls.Add(this.lblDRList);
             this.gbDetails.Controls.Add(this.dtpInvoiceDate);
             this.gbDetails.Controls.Add(this.cbApprovedBy);
@@ -302,7 +290,6 @@ namespace ProducersBank
             this.gbDetails.Controls.Add(this.label1);
             this.gbDetails.Controls.Add(this.label4);
             this.gbDetails.Controls.Add(this.label3);
-            this.gbDetails.Controls.Add(this.label2);
             this.gbDetails.Controls.Add(this.cbCheckedBy);
             this.gbDetails.Location = new System.Drawing.Point(12, 86);
             this.gbDetails.Name = "gbDetails";
@@ -310,17 +297,6 @@ namespace ProducersBank
             this.gbDetails.TabIndex = 18;
             this.gbDetails.TabStop = false;
             this.gbDetails.Text = "DETAILS";
-            // 
-            // cbPreparedBy
-            // 
-            this.cbPreparedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cbPreparedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbPreparedBy.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbPreparedBy.FormattingEnabled = true;
-            this.cbPreparedBy.Location = new System.Drawing.Point(91, 133);
-            this.cbPreparedBy.Name = "cbPreparedBy";
-            this.cbPreparedBy.Size = new System.Drawing.Size(146, 23);
-            this.cbPreparedBy.TabIndex = 17;
             // 
             // groupBox1
             // 
@@ -360,6 +336,15 @@ namespace ProducersBank
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(978, 32);
             this.panel1.TabIndex = 21;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(578, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "label7";
             // 
             // lblBankName
             // 
@@ -408,14 +393,16 @@ namespace ProducersBank
             this.btnReloadDrList.UseVisualStyleBackColor = true;
             this.btnReloadDrList.Click += new System.EventHandler(this.btnReloadDrList_Click);
             // 
-            // label7
+            // btnReprint
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(578, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "label7";
+            this.btnReprint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReprint.Location = new System.Drawing.Point(826, 568);
+            this.btnReprint.Name = "btnReprint";
+            this.btnReprint.Size = new System.Drawing.Size(170, 52);
+            this.btnReprint.TabIndex = 23;
+            this.btnReprint.Text = "REPRINT PREVIOUS SALES INVOICE";
+            this.btnReprint.UseVisualStyleBackColor = true;
+            this.btnReprint.Click += new System.EventHandler(this.btnReprint_Click);
             // 
             // frmSalesInvoice
             // 
@@ -423,6 +410,7 @@ namespace ProducersBank
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.btnReprint);
             this.Controls.Add(this.btnReloadDrList);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
@@ -465,7 +453,6 @@ namespace ProducersBank
         private System.Windows.Forms.DataGridView dgvListToProcess;
         private System.Windows.Forms.Button btnViewSelected;
         private System.Windows.Forms.Button btnPrintSalesInvoice;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbApprovedBy;
         private System.Windows.Forms.ComboBox cbCheckedBy;
         private System.Windows.Forms.Label label3;
@@ -482,7 +469,7 @@ namespace ProducersBank
         private System.Windows.Forms.Button btnReloadDrList;
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.Label lblBankName;
-        private System.Windows.Forms.ComboBox cbPreparedBy;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnReprint;
     }
 }

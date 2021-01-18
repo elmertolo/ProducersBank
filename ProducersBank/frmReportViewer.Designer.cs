@@ -54,10 +54,7 @@ namespace ProducersBank
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "REPORT VIEWER";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmReportViewer_FormClosing);
-            this.Load += new System.EventHandler(this.frmReportViewer_Load);
             this.ResumeLayout(false);
-
         }
 
         #endregion

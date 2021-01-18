@@ -11,13 +11,14 @@ using ProducersBank.Services;
 using ProducersBank.Models;
 using static ProducersBank.GlobalVariables;
 using ProducersBank.Procedures;
+using FastMember;
 
 namespace ProducersBank
 {
     public partial class frmSalesInvoice : Form
     {
 
-        List<SalesInvoiceModel> SalesInvoiceList = new List<SalesInvoiceModel>();
+        List<SalesInvoiceModel> salesInvoiceList = new List<SalesInvoiceModel>();
         ProcessServices_Nelson proc = new ProcessServices_Nelson();
         Main frm;
 
@@ -34,7 +35,7 @@ namespace ProducersBank
             InitializeComponent();
             ConfigureGrids();
             FillComboBoxes();
-            SalesInvoiceList.Clear();
+            salesInvoiceList.Clear();
             this.frm = frm1;
         }
 
@@ -44,14 +45,13 @@ namespace ProducersBank
             DataTable dt = new DataTable();
             if (!proc.LoadInitialData(ref dt))
             {
-                MessageBox.Show("Unable to connect to server"); 
+                MessageBox.Show("Unable to connect to server");
+                return;
             }
-            else
-            {
-                dgvDRList.DataSource = dt;
-                dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
-            }
-
+            
+            dgvDRList.DataSource = dt;
+            dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
+            lblUserName.Text = gUserFullName.ToString();
             txtSalesInvoiceNumber.Focus();
         }
 
@@ -176,23 +176,24 @@ namespace ProducersBank
                 {
                     SalesInvoiceModel line = new SalesInvoiceModel();
 
-                    line.batchName = row.Cells["batch Name"].Value.ToString();
+                    line.Batch = row.Cells["batch Name"].Value.ToString();
                     line.checkName = row.Cells["check name"].Value.ToString();
                     line.checkType = row.Cells["check type"].Value.ToString();
                     line.salesInvoiceDate = DateTime.Parse(dtpInvoiceDate.Value.ToShortDateString());
                     line.deliveryDate = DateTime.Parse(row.Cells["Delivery Date"].Value.ToString());
-                    line.orderQuantity = int.Parse(row.Cells["Quantity"].Value.ToString());
-                    line.drList = proc.GetDRList(line.batchName, line.checkType, line.deliveryDate);
+                    line.Quantity = int.Parse(row.Cells["Quantity"].Value.ToString());
+                    line.drList = proc.GetDRList(line.Batch, line.checkType, line.deliveryDate);
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
-                    line.lineTotalAmount = Math.Round(line.orderQuantity * line.unitPrice, 2);
-                    SalesInvoiceList.Add(line);
+                    line.lineTotalAmount = Math.Round(line.Quantity * line.unitPrice, 2);
+                    salesInvoiceList.Add(line);
                     
                 }
                 
-                //created 'list' variable column sorting for datagrid view 
-                var sortedList = SalesInvoiceList
+                //created 'list' variable column sorting by line for datagrid view 
+                var sortedList = salesInvoiceList
                     .Select
-                    (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                    (i => new { i.Quantity, i.Batch, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                    
                     .ToList();
 
                 dgvListToProcess.DataSource = sortedList;
@@ -200,7 +201,7 @@ namespace ProducersBank
                 
                 ProcessServices_Nelson proc1 = new ProcessServices_Nelson();
 
-                if (!proc1.UpdateTempTable(SalesInvoiceList))
+                if (!proc1.UpdateTempTable(salesInvoiceList))
                 {
                     MessageBox.Show("Unable to connect to server. \r\n" + proc1.errorMessage);
                     return;
@@ -217,7 +218,7 @@ namespace ProducersBank
         private void btnPrintSalesInvoice_Click(object sender, EventArgs e)
         {
 
-            if (!p.ValidateInputFields(txtSalesInvoiceNumber.Text.ToString(), cbPreparedBy.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
+            if (!p.ValidateInputFields(txtSalesInvoiceNumber.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
             {
                 MessageBox.Show("Please supply values in blank field(s)");
             }
@@ -232,31 +233,44 @@ namespace ProducersBank
                 
                 if (result == DialogResult.Yes)
                 {
-                    gReportDT = SalesInvoiceList;
+                    //gSalesInvoiceList = salesInvoiceList;
                     gSalesInvoiceDate = dtpInvoiceDate.Value;
-                    gSalesInvoicePreparedBy = cbPreparedBy.Text.ToString();
+                    gSalesInvoiceGeneratedBy = gUserName.ToString();
                     gSalesinvoiceCheckedBy = cbCheckedBy.Text.ToString();
                     gSalesInvoiceApprovedBy = cbApprovedBy.Text.ToString();
                     gSalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
-                    gSalesInvoiceSubtotalAmount = double.Parse(SalesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
+                    gSalesInvoiceSubtotalAmount = double.Parse(salesInvoiceList.Sum(x => x.lineTotalAmount).ToString());
                     gSalesInvoiceVatAmount = p.GetVatAmount(gSalesInvoiceSubtotalAmount);
                     gSalesInvoiceNetOfVatAmount = p.GetNetOfVatAmount(gSalesInvoiceSubtotalAmount);
-                    gSalesInvoicegeneratedBy = lblUserName.Text.ToString();
 
-                    ///UpdateDatabase
-                    if (!proc.UpdateSalesInvoiceHistory(SalesInvoiceList))
+
+                    
+                    ///Sort Sales Invoice By Batch before saving and Printing
+                    var sortedList = salesInvoiceList.OrderBy(x => x.Batch).ToList();
+
+
+                    ///Update Database
+                    if (!proc.UpdateSalesInvoiceHistory(sortedList))
                     {
                         MessageBox.Show("Error upon updating to server. (proc.UpdateSalesInvoiceHistory) \r\n" + proc.errorMessage);
                         return;
                     }
-                    MessageBox.Show("Number of rows affected: " + proc.RowNumbersAffected.ToString());
-                    
+                    //MessageBox.Show("Number of rows affected: " + proc.RowNumbersAffected.ToString());
+
+
+                    //Install Fastmember from nuGet for Fast (List to Datatable) Conversion
+                    DataTable dt = new DataTable();
+                    using (var reader = ObjectReader.Create(sortedList))
+                    {
+                        dt.Load(reader);
+                    }
+
+                    ///Supply datatable from the list converted
+                    gReportDT = dt;
 
                     frmReportViewer crForm = new frmReportViewer();
                     crForm.Show();
                     RefreshView();
-
-
 
                 }
 
@@ -294,11 +308,10 @@ namespace ProducersBank
 
         private void RefreshView()
         {
-            SalesInvoiceList.Clear();
+            salesInvoiceList.Clear();
             txtSearch.Text = "";
             txtSalesInvoiceNumber.Text = "";
             txtSalesInvoiceNumber.Focus();
-            cbPreparedBy.Text = "";
             cbCheckedBy.Text = "";
             cbApprovedBy.Text = "";
             
@@ -308,9 +321,9 @@ namespace ProducersBank
             dgvDRList.ClearSelection();
 
 
-            var sortedList = SalesInvoiceList
+            var sortedList = salesInvoiceList
                      .Select
-                     (i => new { i.orderQuantity, i.batchName, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                     (i => new { i.Quantity, i.Batch, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
                      .ToList();
 
             dgvListToProcess.DataSource = sortedList;
@@ -359,12 +372,6 @@ namespace ProducersBank
                 MessageBox.Show("Unable to connect to server. \r\n" + proc.errorMessage);
             }
 
-            
-            _ = dt.Rows.Count != 0 ? cbPreparedBy.DataSource = dt : cbPreparedBy.DataSource = null;
-            cbPreparedBy.BindingContext = new BindingContext();
-            cbPreparedBy.DisplayMember = "UserName";
-            cbPreparedBy.SelectedIndex = -1;
-
             _ = dt.Rows.Count != 0 ? cbCheckedBy.DataSource = dt : cbCheckedBy.DataSource = null;
             cbCheckedBy.BindingContext = new BindingContext();
             cbCheckedBy.DisplayMember = "UserName";
@@ -384,6 +391,60 @@ namespace ProducersBank
                 SearchText();
             }
         }
+
+        private void btnReprint_Click(object sender, EventArgs e)
+        {
+            frmMessageInput xfrm = new frmMessageInput();
+            xfrm.labelMessage = "Input Sales Invoice Number:";
+            DialogResult result = xfrm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                ReprintSalesInvoice(int.Parse(xfrm.userInput));
+            }
+        }
+
+        public void ReprintSalesInvoice(int salesInvoiceNumber)
+        {
+
+            //get Finished Sales Inbvoice details if exist
+            DataTable siFinishedDT = new DataTable();
+            if (!proc.SalesInvoiceExist(salesInvoiceNumber, ref siFinishedDT))
+            {
+                MessageBox.Show("Unable to find provided Sales Invoice Number. (proc.SalesInvoiceExist)\r\n" + proc.errorMessage);
+                return;
+            }
+
+            //Supply Global Variables based on fetched data
+            foreach (DataRow row in siFinishedDT.Rows)
+            {
+                gCustomerCode = row.Field<string>("CustomerCode");
+                gSalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
+                gSalesInvoiceDate = row.Field<DateTime>("SalesInvoiceDateTime");
+                gSalesInvoiceGeneratedBy = row.Field<string>("GeneratedBy");
+                gSalesinvoiceCheckedBy = row.Field<string>("CheckedBy");
+                gSalesInvoiceApprovedBy = row.Field<string>("ApprovedBy");
+                gSalesInvoiceSubtotalAmount = row.Field<double>("TotalAmount");
+                gSalesInvoiceVatAmount = row.Field<double>("VatAmount");
+                gSalesInvoiceNetOfVatAmount = row.Field<double>("NetOfVatAmount");
+            }
+
+            //Get Sales Invoice List Details to be supplied to Global Report Datatable
+            DataTable siListDT = new DataTable();
+            if (!proc.GetOldSalesInvoiceList(salesInvoiceNumber, ref siListDT))
+            {
+                MessageBox.Show("Unable to connect to server. (proc.SalesInvoiceExist)\r\n" + proc.errorMessage);
+                return;
+            }
+            gReportDT = siListDT;
+
+            
+            frmReportViewer crForm = new frmReportViewer();
+            crForm.Show();
+
+        }
+
+
+
     }
 
     
