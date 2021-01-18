@@ -700,6 +700,55 @@ namespace ProducersBank.Services
                 return false;
             
         }
-        
+        public bool CheckTypeNotMatch(string _type)
+        {
+            
+            return true;
+        }
+        public static string ErrorMessage(string _errorMessage)
+        {
+            try
+            {
+                
+                StreamWriter sw = new StreamWriter(Application.StartupPath + "\\ErrorMessage.txt");
+                sw.WriteLine(_errorMessage);
+                sw.Close();
+                return _errorMessage;
+                
+            }
+            catch (Exception error)
+            {
+                return error.Message;
+            }
+        }
+        public void DeleteBatch(string _batch)
+        {
+            Sql = "Delete from producers_history where Batch = '"+_batch+"'";
+            DBConnect();
+            cmd = new MySqlCommand(Sql, myConnect);
+            cmd.ExecuteNonQuery();
+            DBClosed();
+            return;
+        }
+        public void ChangeDr(string _batch,List<TempModel> _DR)
+        {
+            Sql = " SELECT distinct(DRNumber) FROM producers_history where Batch ='" + _batch + "';";
+            DBConnect();
+            cmd = new MySqlCommand(Sql, myConnect);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                TempModel temp = new TempModel
+                {
+                    DrNumber = !reader.IsDBNull(0) ? reader.GetString(0) : ""
+                };
+                _DR.Add(temp);
+            }
+            reader.Close();
+            DBClosed();
+
+        }
+
     }
+
 }

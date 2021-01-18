@@ -130,5 +130,14 @@ namespace ProducersBank
             // student.Stud_ID = int.Parse(dtgList.Rows[rowindex].Cells[columnindex].Value.ToString());
             txtRecentBatch.Text = dgvDRList.Rows[rowindex].Cells[0].Value.ToString();
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            proc.DeleteBatch(txtRecentBatch.Text);
+            MessageBox.Show("Batch has been deleted!");
+            txtRecentBatch.Text = "";
+            dgvDRList.Refresh();
+            batchTemp.Clear();
+        }
     }
 }

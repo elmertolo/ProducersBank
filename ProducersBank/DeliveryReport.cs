@@ -31,9 +31,8 @@ namespace ProducersBank
         List<Int32> PNumbers = new List<Int32>();
         Int32 pNumber = 0;
         Int64 _dr = 0;
-        // public int dnumber = 0;
-        //  public int pnumber = 0;
         Main frm;
+        string errorMessage = "";
         public DeliveryReport(Main frm1)
         {
             InitializeComponent();
@@ -92,74 +91,112 @@ namespace ProducersBank
         {
             var fileContent = string.Empty;
             var filePath = string.Empty;
-
-
-            OpenFileDialog op = new OpenFileDialog();
-            //op.InitialDirectory = Application.StartupPath;
-            op.InitialDirectory = @"\\192.168.10.254\Accounting_Files\Packing\ProducersBank";
-            op.Filter = "dbf files (*.dbf)|*.dbf|All files (*.*)|*.*";
-            op.FilterIndex = 2;
-            op.RestoreDirectory = true;
-            if (op.ShowDialog() == DialogResult.OK)
+            try
             {
-                string ConString = "Provider = VFPOLEDB.1; Data Source = " + op.FileName + ";";
-                OleDbConnection con = new OleDbConnection(ConString);
 
-
-
-                //Get the path of specified file
-                filePath = Path.GetFileNameWithoutExtension(op.FileName);
-
-                //Read the contents of the file into a stream
-                var fileStream = op.OpenFile();
-
-                //  DataTable dt = con.GetSchema(OleDbMetaDataCollectionNames.Tables);
-                var sql = "Select * FROM " + filePath;
-                OleDbCommand cmd = new OleDbCommand(sql, con);
-                con.Open();
-                OleDbDataReader myReader = cmd.ExecuteReader();
-
-                while (myReader.Read())
+                OpenFileDialog op = new OpenFileDialog();
+                //op.InitialDirectory = Application.StartupPath;
+                op.InitialDirectory = @"\\192.168.10.254\Accounting_Files\Packing\ProducersBank";
+                op.Filter = "dbf files (*.dbf)|*.dbf|All files (*.*)|*.*";
+                op.FilterIndex = 2;
+                op.RestoreDirectory = true;
+                if (op.ShowDialog() == DialogResult.OK)
                 {
-                    OrderModel order = new OrderModel();
-                    order.Batch = myReader.GetString(0);
-                    order.BRSTN = myReader.GetString(2);
-                    order.BranchName = myReader.GetString(4);
-                    order.AccountNo = myReader.GetString(5);
-                    order.Name1 = myReader.GetString(8);
-                    order.Name2 = myReader.GetString(9);
-                    order.ChkType = myReader.GetString(7);
-                    order.AccountNoWithHypen = myReader.GetString(6);
-                    order.StartingSerial = myReader.GetString(12);
-                    order.EndingSerial = myReader.GetString(14);
-                    if (order.ChkType == "A" && comboBox1.Text == "Regular Checks")
-                        order.ChequeName = "Regular Personal Checks";
-                    else
-                        order.ChequeName = "Regular Commercial Checks";
-                    if (order.ChkType == "A" && comboBox1.Text == "Manager's Checks")
-                        order.ChequeName = "Manager's Checks";
+                    string ConString = "Provider = VFPOLEDB.1; Data Source = " + op.FileName + ";";
+                    OleDbConnection con = new OleDbConnection(ConString);
 
 
-                    orderList.Add(order);
+
+                    //Get the path of specified file
+                    filePath = Path.GetFileNameWithoutExtension(op.FileName);
+
+                    //Read the contents of the file into a stream
+                    var fileStream = op.OpenFile();
+
+                    //  DataTable dt = con.GetSchema(OleDbMetaDataCollectionNames.Tables);
+                    var sql = "Select * FROM " + filePath;
+                    OleDbCommand cmd = new OleDbCommand(sql, con);
+                    con.Open();
+                    OleDbDataReader myReader = cmd.ExecuteReader();
+
+                    while (myReader.Read())
+                    {
+                        OrderModel order = new OrderModel();
+                        order.Batch = myReader.GetString(0);
+                        order.BRSTN = myReader.GetString(2);
+                        order.BranchName = myReader.GetString(4);
+                        order.AccountNo = myReader.GetString(5);
+                        order.Name1 = myReader.GetString(8);
+                        order.Name2 = myReader.GetString(9);
+                        order.ChkType = myReader.GetString(7);
+                        order.AccountNoWithHypen = myReader.GetString(6);
+                        order.StartingSerial = myReader.GetString(12);
+                        order.EndingSerial = myReader.GetString(14);
+
+                        //if (order.AccountNo == "" || order.AccountNo == null)
+                        //    errorMessage += "The Account Number field does not have data!!\r\n";
+                        //if (order.BRSTN.Length == 9)
+                        //    errorMessage += "BRSTN length is not valid";
+                        //if (order.BRSTN == "" || order.BRSTN == null)
+                        //    errorMessage += "BRSTN is empty!";
+                        if (order.ChkType == "A" && comboBox1.Text == "Regular Checks")
+                            order.ChequeName = "Regular Personal Checks";
+                        else if (order.ChkType == "B" && comboBox1.Text == "Regular Checks")
+                            order.ChequeName = "Regular Commercial Checks";
+                        else
+                        {
+                            errorMessage += "\r\nCheque Type " + order.ChkType + " on batch : " +order.BRSTN.Trim() +": "+order.BranchName.Trim()+" does not match\r\n";
+                        }
+                        if (order.ChkType == "A" && comboBox1.Text == "Manager's Checks")
+                            order.ChequeName = "Manager's Checks";
+
+
+                        orderList.Add(order);
+                    }
+
+
                 }
+                else
+                {
+                    errorMessage += "The file :" +op.FileName+" is not a dbf file!\r\n";
+                }
+                var totalB = orderList.Where(a => a.ChkType == "B").ToList();
+                var totalA = orderList.Where(a => a.ChkType == "A").ToList();
+                // BindingSource checkBind = new BindingSource();
+                // checkBind.DataSource = orderList;
+                //     proc.CheckBatchifExisted(orderList[0].Batch.Trim());
 
 
+                if (proc.CheckBatchifExisted(orderList[0].Batch.Trim()) == true)
+                {
+                    errorMessage += "\r\nBatch : "+orderList[0].Batch +" Is Already Existed!!";
+                    MessageBox.Show(errorMessage);
+                    
+                    
+                }
+                
+                
+//                }
+                if (errorMessage != "")
+            {
+                ProcessServices.ErrorMessage(errorMessage);
+                MessageBox.Show("Checking files done! with errors found! Check ErrorMessage.txt for references", "Error!");
+                this.Close();
             }
-            var totalB = orderList.Where(a => a.ChkType == "B").ToList();
-            var totalA = orderList.Where(a => a.ChkType == "A").ToList();
-            // BindingSource checkBind = new BindingSource();
-            // checkBind.DataSource = orderList;
-       //     proc.CheckBatchifExisted(orderList[0].Batch.Trim());
-            if (proc.CheckBatchifExisted(orderList[0].Batch.Trim()) == true) 
-            MessageBox.Show("Batch Is Already Existed!!");
             else
-            { 
-            dataGridView1.DataSource = orderList;
-            lblTotalA.Text = totalA.Count.ToString();
-            lblTotalB.Text = totalB.Count.ToString();
-            lblTotalChecks.Text = orderList.Count.ToString();
-            }
+            {
+                MessageBox.Show("Checking files done! No Errors found");
+                dataGridView1.DataSource = orderList;
+                lblTotalA.Text = totalA.Count.ToString();
+                lblTotalB.Text = totalB.Count.ToString();
+                lblTotalChecks.Text = orderList.Count.ToString();
 
+            }
+        }
+            catch(Exception e)
+            {
+                
+            }
         }
 
         private void DeliveryReport_Load(object sender, EventArgs e)
@@ -203,9 +240,7 @@ namespace ProducersBank
                 }
                 else
                     _dr = DrNumbers[i];
-          //      ProcessServices.gsStatusBar(stb1, "Processing data please wait " + (Int64)((float)(liCnt) / (float)(liCount) * 100) + "%...");
-            //    ProcessServices.gsProgressBar(stb2, (Int16)((float)(liCnt) / (float)(liCount) * 100));
-             //   liCnt++;
+        
             }
             txtDrNumber.Text = (_dr+1).ToString();
             return;
