@@ -658,13 +658,7 @@ namespace ProducersBank.Services
         {
             DBConnect();
             Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history " +
-<<<<<<< HEAD
-                    "where DrNumber is not null  and (Batch Like '%" + _batch+ "%' OR SalesInvoice Like '%" + _batch+ "%') group by batch, chequename, ChkType";
-=======
-
                     "where DrNumber is not null  and Batch Like '%"+ _batch+ "%' OR SalesInvoice Like '%"+ _batch+ "%' group by batch, chequename, ChkType";
-
->>>>>>> 90188d9e81a7f2a02726716d1a2183c64e999731
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
             while(reader.Read())
