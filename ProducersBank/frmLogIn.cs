@@ -8,13 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProducersBank.Services;
+using static ProducersBank.GlobalVariables;
+using ProducersBank.Procedures;
 
 namespace ProducersBank
 {
     public partial class frmLogIn : Form
     {
-
-        ProcessServices_Nelson p = new ProcessServices_Nelson();
+        DataTable BankListDT = new DataTable();
+        ProcessServices_Nelson proc = new ProcessServices_Nelson();
+        
         public frmLogIn()
         {
             InitializeComponent();
@@ -30,36 +33,45 @@ namespace ProducersBank
 
         private void FillBankList()
         {
-            DataTable dt = new DataTable();
-
-            if (!p.GetBankList(ref dt))
+           
+            if (!proc.GetBankList(ref BankListDT))
             {
-                MessageBox.Show("Unable to connect to server. \r\n" + p.errorMessage);
+                MessageBox.Show("Unable to connect to server. \r\n" + proc.errorMessage);
                 Application.Exit();
+                
             }
             cbBankList.DisplayMember = "description";
-            cbBankList.DataSource = dt;
+            cbBankList.DataSource = BankListDT;
 
         }
 
         private void Login(string userName, string password)
         {
             DataTable dt = new DataTable();
-            if (!p.UserLogin(userName, password, ref dt))
+            if (!proc.UserLogin(userName, password, ref dt))
             {
-                MessageBox.Show("Unable to connect to server. \r\n" + p.errorMessage);
+                MessageBox.Show("Unable to connect to server. \r\n" + proc.errorMessage);
             }
 
             if (dt.Rows.Count == 0)
             {
                 MessageBox.Show("User Name or Password is incorrect. Please try again");
+                return;
             }
-            else
+            
+            //Cashier Details============================
+            foreach (DataRow row in dt.Rows)
             {
-                Main mainFrm = new Main();
-                mainFrm.Show();
-                this.Hide();
+                gUserName = row.Field<string>("UserName");
+                gUserFullName = row.Field<string>("Name");
             }
+
+            SupplyBankVariables(cbBankList.Text.ToString());
+
+            Main mainFrm = new Main();
+            mainFrm.Show();
+            this.Hide();
+           
         }
 
         private void txtUserName_KeyDown(object sender, KeyEventArgs e)
@@ -79,7 +91,13 @@ namespace ProducersBank
             
         }
 
-        
+        private void SupplyBankVariables(string bankname)
+        {
+            gCustomerCode = proc.GetBankList()
+        }
+
+
+
     }
 
 }

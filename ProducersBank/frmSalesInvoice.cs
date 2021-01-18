@@ -45,14 +45,13 @@ namespace ProducersBank
             DataTable dt = new DataTable();
             if (!proc.LoadInitialData(ref dt))
             {
-                MessageBox.Show("Unable to connect to server"); 
+                MessageBox.Show("Unable to connect to server");
+                return;
             }
-            else
-            {
-                dgvDRList.DataSource = dt;
-                dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
-            }
-
+            
+            dgvDRList.DataSource = dt;
+            dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
+            lblUserName.Text = gUserFullName.ToString();
             txtSalesInvoiceNumber.Focus();
         }
 
@@ -219,7 +218,7 @@ namespace ProducersBank
         private void btnPrintSalesInvoice_Click(object sender, EventArgs e)
         {
 
-            if (!p.ValidateInputFields(txtSalesInvoiceNumber.Text.ToString(), cbPreparedBy.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
+            if (!p.ValidateInputFields(txtSalesInvoiceNumber.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
             {
                 MessageBox.Show("Please supply values in blank field(s)");
             }
@@ -236,7 +235,7 @@ namespace ProducersBank
                 {
                     //gSalesInvoiceList = salesInvoiceList;
                     gSalesInvoiceDate = dtpInvoiceDate.Value;
-                    gSalesInvoiceGeneratedBy = lblUserName.Text.ToString();
+                    gSalesInvoiceGeneratedBy = gUserName.ToString();
                     gSalesinvoiceCheckedBy = cbCheckedBy.Text.ToString();
                     gSalesInvoiceApprovedBy = cbApprovedBy.Text.ToString();
                     gSalesInvoiceNumber = double.Parse(txtSalesInvoiceNumber.Text.ToString());
@@ -313,7 +312,6 @@ namespace ProducersBank
             txtSearch.Text = "";
             txtSalesInvoiceNumber.Text = "";
             txtSalesInvoiceNumber.Focus();
-            cbPreparedBy.Text = "";
             cbCheckedBy.Text = "";
             cbApprovedBy.Text = "";
             
@@ -373,12 +371,6 @@ namespace ProducersBank
             {
                 MessageBox.Show("Unable to connect to server. \r\n" + proc.errorMessage);
             }
-
-            
-            _ = dt.Rows.Count != 0 ? cbPreparedBy.DataSource = dt : cbPreparedBy.DataSource = null;
-            cbPreparedBy.BindingContext = new BindingContext();
-            cbPreparedBy.DisplayMember = "UserName";
-            cbPreparedBy.SelectedIndex = -1;
 
             _ = dt.Rows.Count != 0 ? cbCheckedBy.DataSource = dt : cbCheckedBy.DataSource = null;
             cbCheckedBy.BindingContext = new BindingContext();

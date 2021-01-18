@@ -32,17 +32,6 @@ namespace ProducersBank
         }
 
 
-        //private void btnPrint_Click(object sender, EventArgs e)
-        //{
-        //    //MessageBox.Show("Print Button Clicked");
-        //    PrintDialog printDialog = new PrintDialog();
-        //    if (printDialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        crystalDocument.PrintOptions.PrinterName = printDialog.PrinterSettings.PrinterName;
-        //        crystalDocument.PrintToPrinter(printDialog.PrinterSettings.Copies, printDialog.PrinterSettings.Collate, printDialog.PrinterSettings.FromPage, printDialog.PrinterSettings.ToPage);
-        //    }
-        //}
-
         private void crViewer_Load(object sender, EventArgs e)
         {
 
@@ -67,17 +56,6 @@ namespace ProducersBank
 
         }
 
-        private void frmReportViewer_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void frmReportViewer_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-
-
-        }
     }
 
 }
