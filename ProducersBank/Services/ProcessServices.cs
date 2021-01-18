@@ -66,6 +66,14 @@ namespace ProducersBank.Services
         {
             myConnect.Close();
         }
+        public static void gsStatusBar(Label pTool, string msg)
+        {
+            pTool.Text = msg;
+        }
+        public static void gsProgressBar(ProgressBar pTool, int pValue)
+        {
+            pTool.Value = pValue;
+        }
         // end of function
         public List<OrderModel> Process(List<OrderModel> _orders, DeliveryReport _main, int DrNumber, int packNumber)
         {
@@ -94,7 +102,7 @@ namespace ProducersBank.Services
             }
             checkType.Regular_Personal.OrderBy(r => r.BranchName).ToList();
             checkType.Regular_Commercial.OrderBy(r => r.BranchName).ToList();
-            Generate(checkType, DrNumber, _main.deliveryDate, "ELMER", packNumber);
+            Generate(checkType, DrNumber, _main.deliveryDate, gUserName, packNumber);
            // Generate(checkType, DrNumber, _main.deliveryDate, "ELMER", packNumber);
 
             return _orders;
@@ -388,8 +396,8 @@ namespace ProducersBank.Services
       }
         public List<Int64> GetMaxDr(List<Int64> _Dr)
         {
-             GetBankTables(); 
-          
+             GetBankTables();
+            
             DBConnect();
             Int64 dr = 0;
             foreach (var item in db)
@@ -403,8 +411,8 @@ namespace ProducersBank.Services
                 while (read.Read())
                 {
                     dr = !read.IsDBNull(0) ?  read.GetInt64(0): 0;
-
-                   _Dr.Add(dr);
+                   
+                    _Dr.Add(dr);
                 }
 
                 read.Close();
@@ -555,7 +563,7 @@ namespace ProducersBank.Services
                     {
                         string sql2 = "Update producers_sticker set BRSTN3 = '" + _temp[r].BRSTN + "',BranchName3 = '" + _temp[r].BranchName + "',Qty3 = " + _temp[r].Qty +
                                       ",ChkType3 = '" + _temp[r].ChkType + "',ChequeName3 = '" + Type + "',StartingSerial3 = '" + _temp[r].StartingSerial +
-                                      "',EndingSerial3 = '" + _temp[r].EndingSerial + "' where BRSTN2 = '" + _temp[r - 1].BRSTN + "' and ChkType = '"+_temp[r-1].ChkType+"';";
+                                      "',EndingSerial3 = '" + _temp[r].EndingSerial + "' where BRSTN2 = '" + _temp[r - 1].BRSTN + "' and ChkType2 = '"+_temp[r-1].ChkType+"';";
                         MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                         cmd2.ExecuteNonQuery();
                         licnt = 1;
@@ -650,9 +658,13 @@ namespace ProducersBank.Services
         {
             DBConnect();
             Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history " +
+<<<<<<< HEAD
+                    "where DrNumber is not null  and (Batch Like '%" + _batch+ "%' OR SalesInvoice Like '%" + _batch+ "%') group by batch, chequename, ChkType";
+=======
 
                     "where DrNumber is not null  and Batch Like '%"+ _batch+ "%' OR SalesInvoice Like '%"+ _batch+ "%' group by batch, chequename, ChkType";
 
+>>>>>>> 90188d9e81a7f2a02726716d1a2183c64e999731
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
             while(reader.Read())
@@ -675,7 +687,7 @@ namespace ProducersBank.Services
         public bool CheckBatchifExisted(string _batch)
         {
             string batch = "";
-            Sql = "Select Batch from producers_history where Batch  = '"+_batch+"'";
+            Sql = "Select Distinct(Batch) from producers_history where Batch  = '"+_batch+"'";
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
      
@@ -688,11 +700,61 @@ namespace ProducersBank.Services
             DBClosed();
             if (batch != "")
             {
-                return false;
+                return true;
             }
             else
-                return true;
+                return false;
             
         }
+        public bool CheckTypeNotMatch(string _type)
+        {
+            
+            return true;
+        }
+        public static string ErrorMessage(string _errorMessage)
+        {
+            try
+            {
+                
+                StreamWriter sw = new StreamWriter(Application.StartupPath + "\\ErrorMessage.txt");
+                sw.WriteLine(_errorMessage);
+                sw.Close();
+                return _errorMessage;
+                
+            }
+            catch (Exception error)
+            {
+                return error.Message;
+            }
+        }
+        public void DeleteBatch(string _batch)
+        {
+            Sql = "Delete from producers_history where Batch = '"+_batch+"'";
+            DBConnect();
+            cmd = new MySqlCommand(Sql, myConnect);
+            cmd.ExecuteNonQuery();
+            DBClosed();
+            return;
+        }
+        public void ChangeDr(string _batch,List<TempModel> _DR)
+        {
+            Sql = " SELECT distinct(DRNumber) FROM producers_history where Batch ='" + _batch + "';";
+            DBConnect();
+            cmd = new MySqlCommand(Sql, myConnect);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                TempModel temp = new TempModel
+                {
+                    DrNumber = !reader.IsDBNull(0) ? reader.GetString(0) : ""
+                };
+                _DR.Add(temp);
+            }
+            reader.Close();
+            DBClosed();
+
+        }
+
     }
+
 }
