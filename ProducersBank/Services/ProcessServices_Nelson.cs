@@ -373,7 +373,7 @@ namespace ProducersBank.Services
                     "count(ChkType) * UnitPrice as LineTotalAmount " +
                     "from producers_history " +
                     "where salesinvoice = " + salesInvoiceNumber + " " +
-                    "group by batch, CheckName, ChkType order by BatchName;";
+                    "group by batch, CheckName, ChkType order by Batch;";
 
 
                 //"select batch as BatchName, chequename as CheckName, ChkType, deliverydate, count(ChkType) as Quantity, group_concat(distinct(drnumber) separator ', ') as drList " +
@@ -394,5 +394,10 @@ namespace ProducersBank.Services
             }
         }
 
-    }
+
+        public bool SeekReturn(string tableName, string fieldName, Type type)
+        {
+            
+        }
+       
 }

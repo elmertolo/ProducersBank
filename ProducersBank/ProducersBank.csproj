@@ -221,6 +221,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\BankClientsModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\SalesInvoiceModel.cs" />
     <Compile Include="Models\TempModel.cs" />
