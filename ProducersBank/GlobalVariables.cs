@@ -25,7 +25,6 @@ namespace ProducersBank
         public static ReportDocument gCrystalDocument = new ReportDocument();
         public static DataTable gReportDT;
 
-
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.
         /// </summary

@@ -12,13 +12,15 @@ using static ProducersBank.GlobalVariables;
 using ProducersBank.Procedures;
 using ProducersBank.Models;
 
+
 namespace ProducersBank
 {
     public partial class frmLogIn : Form
     {
         DataTable BankListDT = new DataTable();
         ProcessServices_Nelson proc = new ProcessServices_Nelson();
-        
+        public static string tableName = "";
+        public static string tempTableName = "";
         public frmLogIn()
         {
             InitializeComponent();
@@ -60,11 +62,24 @@ namespace ProducersBank
                 return;
             }
 
+
+
             //Load Cashier Details============================
             SupplyGlobalUserVariables(ref dt);
 
             SupplyGlobalClientVariables(cbBankList.Text.ToString());
 
+            if(cbBankList.Text== "Philippine National Bank")
+            {
+                tableName = "pnb_history";
+                tempTableName = "pnb_temp";
+                MessageBox.Show(tableName);
+            }
+            else if (cbBankList.Text == "Producers Bank")
+            {
+                tableName = "producers_history";
+                MessageBox.Show(tableName);
+            }
             Main mainFrm = new Main();
             mainFrm.Show();
             this.Hide();
@@ -126,6 +141,7 @@ namespace ProducersBank
         private void frmLogIn_Load(object sender, EventArgs e)
         {
 
+
         }
 
         public void SupplyGlobalUserVariables(ref DataTable dt) 
@@ -145,6 +161,7 @@ namespace ProducersBank
         }
 
        
+
 
     }
 

@@ -27,6 +27,7 @@ namespace ProducersBank.Services
         List<Int64> listofDR = new List<long>();
         MySqlCommand cmd;
         string Sql = "";
+
         public void DBConnect()
         {
             try
@@ -36,7 +37,7 @@ namespace ProducersBank.Services
                 //   if (frmLogIn.userName == "elmer")
                 //  {
                 DBConnection = ConfigurationManager.AppSettings["ConnectionString"];
-
+                
                 //databaseName = "captive_accounting";
                 //  MessageBox.Show(databaseName);
                 //   }
@@ -131,7 +132,7 @@ namespace ProducersBank.Services
                     {
 
 
-                        Sql = "Insert into producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
+                        Sql = "Insert into "+frmLogIn.tableName+" (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
                                 "DRNumber,DeliveryDate,username,batch,PackNumber,Date,Time )"
                               + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
                               "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd")
@@ -169,7 +170,7 @@ namespace ProducersBank.Services
                     {
 
 
-                        Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
+                        Sql = "Insert into " + frmLogIn.tableName + " (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial," +
                                 "DRNumber,DeliveryDate,username,batch,PackNumber,Date,Time )"
                               + "VALUES('" + r.BRSTN + "','" + r.BranchName + "','" + r.AccountNo + "','" + r.AccountNoWithHypen + "','" + r.Name1 + "','" + r.Name2 +
                               "','" + r.ChkType + "','" + r.ChequeName + "','" + r.StartingSerial + "','" + r.EndingSerial + "','" + _DrNumber + "','" +
@@ -215,7 +216,7 @@ namespace ProducersBank.Services
                 //_list.OrderBy(a => a.ChkType);
                 foreach (var check in _list)
                 {
-                    Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial,DRNumber,DeliveryDate,username,batch,PackNumber )"
+                    Sql = "Insert into " + frmLogIn.tableName + " (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial,DRNumber,DeliveryDate,username,batch,PackNumber )"
                    + "VALUES('" + check.BRSTN + "','" + check.BranchName + "','" + check.AccountNo + "','" + check.AccountNoWithHypen + "','" + check.Name1 + "','" + check.Name2 +
                    "','" + check.ChkType + "','" + check.ChequeName + "','" + check.StartingSerial + "','" + check.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd") + "','" + _username + "','" + check.Batch.TrimEnd() + "','" + _packNumber + "');";
                     cmd = new MySqlCommand(Sql, myConnect);
@@ -257,7 +258,7 @@ namespace ProducersBank.Services
                 DBConnect();
                 foreach (var check in _listb)
                 {
-                    Sql = "Insert into " + databaseName + ".producers_history (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial,DRNumber,DeliveryDate,username,batch,PackNumber )"
+                    Sql = "Insert into " + frmLogIn.tableName + " (BRSTN,BranchName,AccountNo,AcctNoWithHyphen,Name1,Name2,ChkType,ChequeName,StartingSerial,EndingSerial,DRNumber,DeliveryDate,username,batch,PackNumber )"
                    + "VALUES('" + check.BRSTN + "','" + check.BranchName + "','" + check.AccountNo + "','" + check.AccountNoWithHypen + "','" + check.Name1 + "','" + check.Name2 +
                    "','" + check.ChkType + "','" + check.ChequeName + "','" + check.StartingSerial + "','" + check.EndingSerial + "','" + _DrNumber + "','" + _deliveryDate.ToString("yyyy-MM-dd") + "','" + _username + "','" + check.Batch.TrimEnd() + "','" + _packNumber + "');";
                     cmd = new MySqlCommand(Sql, myConnect);
@@ -308,7 +309,7 @@ namespace ProducersBank.Services
         public int GetLastDRFromHistory()
         {
             int LdrNumber = 0;
-            Sql = "Select Max(DrNumber) from producers_history";
+            Sql = "Select Max(DrNumber) from " + frmLogIn.tableName ;
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -327,9 +328,9 @@ namespace ProducersBank.Services
         {
             
             DBConnect();
-            Sql = "SELECT DRNumber, PackNumber, BRSTN, ChkType, BranchName, COUNT(BRSTN),"+ 
+            Sql = "SELECT DRNumber, PackNumber, BRSTN, ChkType, BranchName, COUNT(BRSTN),"+
 
-            "MIN(StartingSerial), MAX(EndingSerial),ChequeName, Batch,username FROM producers_history WHERE  Batch = '"+_batch+"'"+
+            "MIN(StartingSerial), MAX(EndingSerial),ChequeName, Batch,username FROM " + frmLogIn.tableName + " WHERE  Batch = '" + _batch+"'"+
              " GROUP BY DRNumber, BRSTN, ChkType, BranchName,ChequeName ,Batch ORDER BY DRNumber, PackNumber;";
 
              cmd = new MySqlCommand(Sql, myConnect);
@@ -365,7 +366,7 @@ namespace ProducersBank.Services
                 string sql2 = "Insert into producers_tempdatadr (DRNumber,PackNumber,BRSTN, ChkType, BranchName,Qty,StartingSerial,EndingSerial,ChequeName,Batch,username)" +
                                 " Values('" + list[i].DrNumber + "','" + list[i].PackNumber + "','" + list[i].BRSTN + "','" + list[i].ChkType + "','" + list[i].BranchName + "'," + list[i].Qty
                                 +",'"+list[i].StartingSerial +"','"+list[i].EndingSerial +"','"+list[i].ChequeName+"','"+list[i].Batch+"','" + list[i].username +"');";
-            MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
+                MySqlCommand cmd2 = new MySqlCommand(sql2, myConnect);
                 cmd2.ExecuteNonQuery();
             }
 
@@ -373,7 +374,7 @@ namespace ProducersBank.Services
             return _batch;
         }
         public void GetBankTables()
-      {
+        {
         //    int counter = 0;
          
             Sql = "Select Distinct(DatabaseName) from Clients";
@@ -493,7 +494,7 @@ namespace ProducersBank.Services
             try
             {
                 Sql = "SELECT BranchName, BRSTN, ChkType,MIN(StartingSerial), MAX(EndingSerial), Count(ChkType) " +
-                      "FROM "+ gClient.DataBaseName + " WHERE Batch = '" + _batch + "'" +
+                      "FROM " + frmLogIn.tableName + " WHERE Batch = '" + _batch + "'" +
                        " GROUP BY ChkType,BranchName ORDER BY ChkType,BranchName";
                 DBConnect();
                 cmd = new MySqlCommand(Sql, myConnect);
@@ -632,13 +633,33 @@ namespace ProducersBank.Services
             string reportPath ="";
             if (Debugger.IsAttached)
             {
-              
-                 if(RecentBatch.report == "STICKER" || DeliveryReport.report =="STICKER")
-                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
-                else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
-                    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
-                else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
-                    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\DeliveryReceipt.rpt";
+                if (frmLogIn.tableName == "")
+                    MessageBox.Show("There is no table selected!");
+                else
+                {
+                    if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                        reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
+                    else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                        reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
+                    if (frmLogIn.tableName == "producers_history")
+                    {
+                        
+                         if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\DeliveryReceipt.rpt";
+                    }
+                    else if (frmLogIn.tableName == "pnb_history")
+                    {
+                        
+                         if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PNBDeliveryReceipt.rpt";
+                    }
+                    //if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                    //    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
+                    //else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                    //    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
+                }
+               
+                    
             }
             else
             {
@@ -681,7 +702,7 @@ namespace ProducersBank.Services
         public bool CheckBatchifExisted(string _batch)
         {
             string batch = "";
-            Sql = "Select Distinct(Batch) from producers_history where Batch  = '"+_batch+"'";
+            Sql = "Select Distinct(Batch) from "+frmLogIn.tableName+" where Batch  = '"+_batch+"'";
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
      
@@ -723,16 +744,16 @@ namespace ProducersBank.Services
         }
         public void DeleteBatch(string _batch)
         {
-            Sql = "Delete from producers_history where Batch = '"+_batch+"'";
+            Sql = "Delete from "+frmLogIn.tableName+" where Batch = '"+_batch+"'";
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
             cmd.ExecuteNonQuery();
             DBClosed();
             return;
         }
-        public void ChangeDr(string _batch,List<TempModel> _DR)
+        public void GetDr(string _batch,List<TempModel> _DR)
         {
-            Sql = " SELECT distinct(DRNumber) FROM producers_history where Batch ='" + _batch + "';";
+            Sql = " SELECT MIN(DRNumber) FROM producers_history where Batch ='" + _batch + "';";
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -746,8 +767,16 @@ namespace ProducersBank.Services
             }
             reader.Close();
             DBClosed();
+            return;
+        }
+        public void ChangeDR(List<TempModel> _Dr)
+        {
+            Sql = "Update ";
+            return;
+
 
         }
+
 
     }
 

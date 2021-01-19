@@ -164,6 +164,7 @@ namespace ProducersBank.Services
         public double GetUnitPrice(string checkName)
         {
 
+
             MySqlCommand cmd = new MySqlCommand("select unitprice as UnitPrice from " + gClient.PriceListTable + " where chequename = '" + checkName + "'", con);
             var result = (double)cmd.ExecuteScalar();
             return result;
@@ -370,7 +371,6 @@ namespace ProducersBank.Services
 
 
         }
-
         public bool GetClientDetails(string clientDescription, ref DataTable dt)
         {
             try
