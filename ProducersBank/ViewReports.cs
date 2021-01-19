@@ -35,8 +35,8 @@ namespace ProducersBank
             {
                 DataSet ds = new DataSet();
                 process.DBConnect();
-
-                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_tempdatadr ORDER BY BranchName", process.myConnect);
+                string sql = "Select * from producers_tempdatadr ORDER BY BranchName";
+                MySqlDataAdapter adp = new MySqlDataAdapter(sql, process.myConnect);
 
                 adp.Fill(ds);
 

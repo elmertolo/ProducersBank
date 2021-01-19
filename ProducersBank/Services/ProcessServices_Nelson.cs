@@ -30,7 +30,7 @@ namespace ProducersBank.Services
         public string conStr
         {
             get { return ConfigurationManager.AppSettings["ConnectionString"]; }
-        } 
+        }
 
         public string errorMessage
         {
@@ -82,10 +82,10 @@ namespace ProducersBank.Services
 
         public string GetDRList(string batch, string checktype, DateTime deliveryDate)
         {
-            
+
             try
             {
-                
+
                 DataTable dt = new DataTable();
 
                 string sql = "select group_concat(distinct(drnumber) separator ', ') from producers_history " +
@@ -147,7 +147,7 @@ namespace ProducersBank.Services
                 da = new MySqlDataAdapter(cmd);
                 cmd.ExecuteNonQuery();
                 da.Fill(dt);
-                
+
                 return true;
             }
             catch (Exception ex)
@@ -159,7 +159,7 @@ namespace ProducersBank.Services
 
         public void FillCRReportParameters(ref ReportDocument crystalDocument)
         {
-            
+
             //Determine path when running through IDE or not
             string reportPath;
             if (Debugger.IsAttached)
@@ -199,17 +199,17 @@ namespace ProducersBank.Services
 
         public double GetUnitPrice(string checkName)
         {
-            
+
             MySqlCommand cmd = new MySqlCommand("select unitprice as UnitPrice from producers_pricelist where chequename = '" + checkName + "'", con);
             var result = (double)cmd.ExecuteScalar();
             return result;
 
         }
-        
+
         public bool UpdateSalesInvoiceHistory(List<SalesInvoiceModel> siListToProcess)
         {
 
-            try  
+            try
             {
                 //database update
                 MySqlCommand cmd;
@@ -222,7 +222,7 @@ namespace ProducersBank.Services
                     "SalesInvoice = " + gSalesInvoiceNumber + ", " +
                     "Salesinvoicedate = '" + gSalesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
                     "SalesInvoiceGeneratedBy = '" + gSalesInvoiceGeneratedBy + "' " +
-                    " where drnumber in(" + item.drList.ToString() + 
+                    " where drnumber in(" + item.drList.ToString() +
                     ") and batch = '" + item.Batch + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
                     " and chequename = '" + item.checkName + "';";
@@ -260,7 +260,7 @@ namespace ProducersBank.Services
 
         }
 
-        public bool BatchSearch(string batchToSearch,ref DataTable dt)
+        public bool BatchSearch(string batchToSearch, ref DataTable dt)
         {
             try
             {
@@ -298,7 +298,7 @@ namespace ProducersBank.Services
                 return false;
             }
 
-            
+
 
         }
 
@@ -360,7 +360,7 @@ namespace ProducersBank.Services
                 _errorMessage = ex.Message;
                 return false;
             }
-           
+
         }
 
         public bool GetOldSalesInvoiceList(double salesInvoiceNumber, ref DataTable dt)
@@ -379,7 +379,7 @@ namespace ProducersBank.Services
                 //"select batch as BatchName, chequename as CheckName, ChkType, deliverydate, count(ChkType) as Quantity, group_concat(distinct(drnumber) separator ', ') as drList " +
                 //    "from " + gHistoryTable + " " +
                 //    "where salesinvoice = " + salesInvoiceNumber + " group by batch, CheckName, ChkType order by BatchName";
-                
+
                 //string sql = "select count(*) as count from producers_history";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
@@ -395,9 +395,10 @@ namespace ProducersBank.Services
         }
 
 
-        public bool SeekReturn(string tableName, string fieldName, Type type)
-        {
-            
-        }
-       
+        //public bool SeekReturn(string tableName, string fieldName, Type type)
+        //{
+
+        //}
+
+    }
 }

@@ -344,6 +344,12 @@ namespace ProducersBank {
             
             private global::System.Data.DataColumn columnMultiplier;
             
+            private global::System.Data.DataColumn columnBranchCode;
+            
+            private global::System.Data.DataColumn columnOldBranchCode;
+            
+            private global::System.Data.DataColumn columnPO;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DeliveryReceiptDataTable() {
@@ -499,6 +505,30 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BranchCodeColumn {
+                get {
+                    return this.columnBranchCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn OldBranchCodeColumn {
+                get {
+                    return this.columnOldBranchCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn POColumn {
+                get {
+                    return this.columnPO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -534,7 +564,25 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DeliveryReceiptRow AddDeliveryReceiptRow(string Batch, string BRSTN, string BranchName, short Qty, string ChkType, string ChequeName, string StartingSerial, string EndingSerial, string DeliveryDate, string username, string location, string DRNumber, string PackNumber, string AttentionTo, string Multiplier) {
+            public DeliveryReceiptRow AddDeliveryReceiptRow(
+                        string Batch, 
+                        string BRSTN, 
+                        string BranchName, 
+                        short Qty, 
+                        string ChkType, 
+                        string ChequeName, 
+                        string StartingSerial, 
+                        string EndingSerial, 
+                        string DeliveryDate, 
+                        string username, 
+                        string location, 
+                        string DRNumber, 
+                        string PackNumber, 
+                        string AttentionTo, 
+                        string Multiplier, 
+                        string BranchCode, 
+                        string OldBranchCode, 
+                        string PO) {
                 DeliveryReceiptRow rowDeliveryReceiptRow = ((DeliveryReceiptRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Batch,
@@ -551,7 +599,10 @@ namespace ProducersBank {
                         DRNumber,
                         PackNumber,
                         AttentionTo,
-                        Multiplier};
+                        Multiplier,
+                        BranchCode,
+                        OldBranchCode,
+                        PO};
                 rowDeliveryReceiptRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDeliveryReceiptRow);
                 return rowDeliveryReceiptRow;
@@ -589,6 +640,9 @@ namespace ProducersBank {
                 this.columnPackNumber = base.Columns["PackNumber"];
                 this.columnAttentionTo = base.Columns["AttentionTo"];
                 this.columnMultiplier = base.Columns["Multiplier"];
+                this.columnBranchCode = base.Columns["BranchCode"];
+                this.columnOldBranchCode = base.Columns["OldBranchCode"];
+                this.columnPO = base.Columns["PO"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -624,6 +678,12 @@ namespace ProducersBank {
                 base.Columns.Add(this.columnAttentionTo);
                 this.columnMultiplier = new global::System.Data.DataColumn("Multiplier", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMultiplier);
+                this.columnBranchCode = new global::System.Data.DataColumn("BranchCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBranchCode);
+                this.columnOldBranchCode = new global::System.Data.DataColumn("OldBranchCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOldBranchCode);
+                this.columnPO = new global::System.Data.DataColumn("PO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPO);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1569,6 +1629,54 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string BranchCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableDeliveryReceipt.BranchCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BranchCode\' in table \'DeliveryReceipt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDeliveryReceipt.BranchCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string OldBranchCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableDeliveryReceipt.OldBranchCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OldBranchCode\' in table \'DeliveryReceipt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDeliveryReceipt.OldBranchCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDeliveryReceipt.POColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PO\' in table \'DeliveryReceipt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDeliveryReceipt.POColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsBatchNull() {
                 return this.IsNull(this.tableDeliveryReceipt.BatchColumn);
             }
@@ -1745,6 +1853,42 @@ namespace ProducersBank {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetMultiplierNull() {
                 this[this.tableDeliveryReceipt.MultiplierColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBranchCodeNull() {
+                return this.IsNull(this.tableDeliveryReceipt.BranchCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBranchCodeNull() {
+                this[this.tableDeliveryReceipt.BranchCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOldBranchCodeNull() {
+                return this.IsNull(this.tableDeliveryReceipt.OldBranchCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOldBranchCodeNull() {
+                this[this.tableDeliveryReceipt.OldBranchCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPONull() {
+                return this.IsNull(this.tableDeliveryReceipt.POColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPONull() {
+                this[this.tableDeliveryReceipt.POColumn] = global::System.Convert.DBNull;
             }
         }
         

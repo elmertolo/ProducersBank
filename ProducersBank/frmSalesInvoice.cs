@@ -51,7 +51,7 @@ namespace ProducersBank
             
             dgvDRList.DataSource = dt;
             dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
-            lblUserName.Text = gUserFullName.ToString();
+            lblUserName.Text = gUserName.ToString();
             txtSalesInvoiceNumber.Focus();
         }
 

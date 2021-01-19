@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProducersBank.Services;
 using static ProducersBank.GlobalVariables;
-<<<<<<< HEAD
-=======
 using ProducersBank.Procedures;
->>>>>>> 90188d9e81a7f2a02726716d1a2183c64e999731
+
 
 namespace ProducersBank
 {
@@ -20,7 +18,8 @@ namespace ProducersBank
     {
         DataTable BankListDT = new DataTable();
         ProcessServices_Nelson proc = new ProcessServices_Nelson();
-        
+        public static string tableName = "";
+        public static string tempTableName = "";
         public frmLogIn()
         {
             InitializeComponent();
@@ -61,24 +60,34 @@ namespace ProducersBank
                 MessageBox.Show("User Name or Password is incorrect. Please try again");
                 return;
             }
-            
+
             //Cashier Details============================
             foreach (DataRow row in dt.Rows)
             {
-<<<<<<< HEAD
+
                 gUserName = userName;
-                Main mainFrm = new Main();
-                mainFrm.Show();
-                
-                this.Hide();
-=======
+                //Main mainFrm = new Main();
+                //mainFrm.Show();
+
+                //this.Hide();
+
                 gUserName = row.Field<string>("UserName");
-                gUserFullName = row.Field<string>("Name");
->>>>>>> 90188d9e81a7f2a02726716d1a2183c64e999731
+                //gUserFullName = row.Field<string>("Name");
             }
 
             SupplyBankVariables(cbBankList.Text.ToString());
 
+            if(cbBankList.Text== "Philippine National Bank")
+            {
+                tableName = "pnb_history";
+                tempTableName = "pnb_temp";
+                MessageBox.Show(tableName);
+            }
+            else if (cbBankList.Text == "Producers Bank")
+            {
+                tableName = "producers_history";
+                MessageBox.Show(tableName);
+            }
             Main mainFrm = new Main();
             mainFrm.Show();
             this.Hide();
@@ -104,11 +113,13 @@ namespace ProducersBank
 
         private void SupplyBankVariables(string bankname)
         {
-            gCustomerCode = proc.GetBankList()
+          //  gCustomerCode = proc.GetBankList();
         }
 
+        private void cbBankList_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-
+        }
     }
 
 }
