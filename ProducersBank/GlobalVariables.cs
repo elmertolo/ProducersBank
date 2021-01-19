@@ -8,16 +8,30 @@ using System.Data;
 using ProducersBank.Models;
 
 namespace ProducersBank
-{
+{ 
     public static class GlobalVariables
     {
+        public static ClientListModel gClient = new ClientListModel(); // Test only
+        public static UserListModel gUser = new UserListModel(); // Test only
+        public static SalesInvoiceFinishedModel gSalesInvoiceFinished = new SalesInvoiceFinishedModel();
+
         //this is where the main table name used by the bank will be stored
         public static string gBanckCode;
         public static string gHistoryTable = "Producers_History"; // value is hardcoded temporarily.
         public static string gSIFinishedTable = "Producers_SalesInvoice_Finished";
         public static string gCustomerCode = "PRO2"; // value is hardcoded temporarily.
 
+<<<<<<< HEAD
         public static string gUserName = ""; // value is hardcoded temporarily.
+=======
+        //User Details Variables
+        public static string gUserName;
+        public static string gUserFirstName;
+        public static string gUserMiddleName;
+        public static string gUserLastName;
+        public static string gUserSuffix;
+        public static string gUserFullName;
+>>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
 
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.

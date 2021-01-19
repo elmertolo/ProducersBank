@@ -221,11 +221,13 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\BankClientsModel.cs" />
+    <Compile Include="Models\ClientList.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\SalesInvoiceFinishedModel.cs" />
     <Compile Include="Models\SalesInvoiceModel.cs" />
     <Compile Include="Models\TempModel.cs" />
     <Compile Include="Models\TypeofCheckModel.cs" />
+    <Compile Include="Models\UserListModel.cs" />
     <Compile Include="PackingReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

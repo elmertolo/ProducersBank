@@ -6,19 +6,23 @@ using System.Threading.Tasks;
 
 namespace ProducersBank.Models
 {
-    public class BankClientsModel
+    public class ClientListModel
     {
-        public string Bankname { get; set; }
+        public string ClientCode { get; set; }
+        public string ShortName { get; set; }
         public string Description { get; set; }
-        public string DataBaseName { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
         public string AttentionTo { get; set; }
         public string Princes_DESC { get; set; }
         public string TIN { get; set; }
-        public string WithholdingTaxPercentage { get; set; }
-
+        public decimal WithholdingTaxPercentage { get; set; }
+        public string DataBaseName { get; set; }
+        public string SalesInvoiceTempTable { get; set; }
+        public string SalesInvoiceFinishedTable { get; set; }
+        public string PriceListTable { get; set; }
+        public string DRTempTable { get; set; }
 
     }
 }
