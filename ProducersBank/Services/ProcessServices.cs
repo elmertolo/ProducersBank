@@ -678,14 +678,9 @@ namespace ProducersBank.Services
         public string DisplayAllBatches(string _batch,List<TempModel> _temp)
         {
             DBConnect();
-<<<<<<< HEAD
             Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from  "+ frmLogIn.tableName  +
                     " where DrNumber is not null  and (Batch Like '%" + _batch+ "%' OR SalesInvoice Like '%" + _batch+ "%') group by batch, chequename, ChkType";
 
-=======
-            Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history " +
-                    "where DrNumber is not null  and Batch Like '%"+ _batch+ "%' OR SalesInvoice Like '%"+ _batch+ "%' group by batch, chequename, ChkType";
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
             while(reader.Read())

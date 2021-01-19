@@ -52,10 +52,7 @@ namespace ProducersBank
             
             dgvDRList.DataSource = dt;
             dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
-<<<<<<< HEAD
-            lblUserName.Text = gUserName.ToString();
-=======
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
+
             txtSalesInvoiceNumber.Focus();
         }
 
@@ -423,7 +420,7 @@ namespace ProducersBank
             //Supply Global Variables based on fetched data
             foreach (DataRow row in siFinishedDT.Rows)
             {
-                gClientCode = row.Field<string>("ClientCode");
+               // gClientCode = row.Field<string>("ClientCode");
                 gSalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
                 gSalesInvoiceDate = row.Field<DateTime>("SalesInvoiceDateTime");
                 gSalesInvoiceGeneratedBy = row.Field<string>("GeneratedBy");

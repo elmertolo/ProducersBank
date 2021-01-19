@@ -199,11 +199,9 @@ namespace ProducersBank.Services
         public double GetUnitPrice(string checkName)
         {
 
-<<<<<<< HEAD
-            MySqlCommand cmd = new MySqlCommand("select unitprice as UnitPrice from producers_pricelist where chequename = '" + checkName + "'", con);
-=======
+
             MySqlCommand cmd = new MySqlCommand("select unitprice as UnitPrice from " + gClient.PriceListTable + " where chequename = '" + checkName + "'", con);
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
+
             var result = (double)cmd.ExecuteScalar();
             return result;
 
@@ -222,15 +220,11 @@ namespace ProducersBank.Services
                     //Update History Table
                     string sql = "update " + gClient.DataBaseName + " set " +
                     "unitprice = " + item.unitPrice + ", " +
-<<<<<<< HEAD
-                    "SalesInvoice = " + gSalesInvoiceNumber + ", " +
-                    "Salesinvoicedate = '" + gSalesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
-                    "SalesInvoiceGeneratedBy = '" + gSalesInvoiceGeneratedBy + "' " +
-=======
+
                     "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
                     "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
                     "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
+
                     " where drnumber in(" + item.drList.ToString() +
                     ") and batch = '" + item.Batch + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
@@ -406,14 +400,9 @@ namespace ProducersBank.Services
         }
 
 
-<<<<<<< HEAD
-        //public bool SeekReturn(string tableName, string fieldName, Type type)
-        //{
 
-        //}
 
-    }
-=======
+    
         public bool SeekReturn(string query, string databaseName, string tableName)
         {
             try
@@ -451,6 +440,5 @@ namespace ProducersBank.Services
 
 
     }
-       
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
+
 }

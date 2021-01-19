@@ -10,11 +10,8 @@ using System.Windows.Forms;
 using ProducersBank.Services;
 using static ProducersBank.GlobalVariables;
 using ProducersBank.Procedures;
-<<<<<<< HEAD
-
-=======
 using ProducersBank.Models;
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
+
 
 namespace ProducersBank
 {
@@ -64,7 +61,6 @@ namespace ProducersBank
                 MessageBox.Show("User Name or Password is incorrect. Please try again");
                 return;
             }
-<<<<<<< HEAD
 
             //Cashier Details============================
             foreach (DataRow row in dt.Rows)
@@ -79,10 +75,7 @@ namespace ProducersBank
                 gUserName = row.Field<string>("UserName");
                 //gUserFullName = row.Field<string>("Name");
             }
-=======
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
 
-            //Load Cashier Details============================
             SupplyGlobalUserVariables(ref dt);
 
             SupplyGlobalClientVariables(cbBankList.Text.ToString());
@@ -158,15 +151,13 @@ namespace ProducersBank
 
         private void frmLogIn_Load(object sender, EventArgs e)
         {
-<<<<<<< HEAD
           //  gCustomerCode = proc.GetBankList();
         }
 
         private void cbBankList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
-=======
+        
 
         }
 
@@ -188,7 +179,6 @@ namespace ProducersBank
 
        
 
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
     }
 
 }

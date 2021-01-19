@@ -21,9 +21,6 @@ namespace ProducersBank
         public static string gSIFinishedTable = "Producers_SalesInvoice_Finished";
         public static string gCustomerCode = "PRO2"; // value is hardcoded temporarily.
 
-<<<<<<< HEAD
-        public static string gUserName = ""; // value is hardcoded temporarily.
-=======
         //User Details Variables
         public static string gUserName;
         public static string gUserFirstName;
@@ -31,7 +28,7 @@ namespace ProducersBank
         public static string gUserLastName;
         public static string gUserSuffix;
         public static string gUserFullName;
->>>>>>> d1f13652603f75e24ac6760cbebe14c89c427f56
+
 
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.
