@@ -162,11 +162,11 @@ namespace ProducersBank
         private void btnViewSelected_Click(object sender, EventArgs e)
         {
 
-            pProcessSelectedDRList();
+            AddSelectedDRRow();
 
         }
 
-        private void pProcessSelectedDRList()
+        private void AddSelectedDRRow()
         {
 
             if (dgvDRList.SelectedRows != null && dgvDRList.SelectedRows.Count > 0)
@@ -199,8 +199,6 @@ namespace ProducersBank
                 dgvListToProcess.DataSource = sortedList;
                 dgvListToProcess.ClearSelection();
                 
-                
-
             }
             else
             {
@@ -266,9 +264,18 @@ namespace ProducersBank
                     {
                         dt.Load(reader);
                     }
-
                     ///Supply datatable from the list converted
                     gReportDT = dt;
+                    
+                    //Check RPT File
+                    if (!p.LoadReportPath("SalesInvoice"))
+                    {
+                        MessageBox.Show("SalesInvoice.rpt File not found");
+                        return;
+                    }
+
+                    //Supply details on 
+                    p.FillCRReportParameters("SalesInvoice");
 
                     frmReportViewer crForm = new frmReportViewer();
                     crForm.Show();
@@ -310,6 +317,7 @@ namespace ProducersBank
 
         private void RefreshView()
         {
+
             salesInvoiceList.Clear();
             txtSearch.Text = "";
             txtSalesInvoiceNumber.Text = "";
@@ -321,7 +329,6 @@ namespace ProducersBank
             proc.LoadInitialData(ref dt);
             dgvDRList.DataSource = dt;
             dgvDRList.ClearSelection();
-
 
             var sortedList = salesInvoiceList
                      .Select
@@ -419,15 +426,15 @@ namespace ProducersBank
             //Supply Global Variables based on fetched data
             foreach (DataRow row in siFinishedDT.Rows)
             {
-                gClientCode = row.Field<string>("ClientCode");
-                gSalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
-                gSalesInvoiceDate = row.Field<DateTime>("SalesInvoiceDateTime");
-                gSalesInvoiceGeneratedBy = row.Field<string>("GeneratedBy");
-                gSalesinvoiceCheckedBy = row.Field<string>("CheckedBy");
-                gSalesInvoiceApprovedBy = row.Field<string>("ApprovedBy");
-                gSalesInvoiceSubtotalAmount = row.Field<double>("TotalAmount");
-                gSalesInvoiceVatAmount = row.Field<double>("VatAmount");
-                gSalesInvoiceNetOfVatAmount = row.Field<double>("NetOfVatAmount");
+                gSalesInvoiceFinished.ClientCode = row.Field<string>("ClientCode");
+                gSalesInvoiceFinished.SalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
+                gSalesInvoiceFinished.SalesInvoiceDateTime = row.Field<DateTime>("SalesInvoiceDateTime");
+                gSalesInvoiceFinished.GeneratedBy = row.Field<string>("GeneratedBy");
+                gSalesInvoiceFinished.CheckedBy = row.Field<string>("CheckedBy");
+                gSalesInvoiceFinished.ApprovedBy = row.Field<string>("ApprovedBy");
+                gSalesInvoiceFinished.TotalAmount = row.Field<double>("TotalAmount");
+                gSalesInvoiceFinished.VatAmount = row.Field<double>("VatAmount");
+                gSalesInvoiceFinished.NetOfVatAmount = row.Field<double>("NetOfVatAmount");
             }
 
             //Get Sales Invoice List Details to be supplied to Global Report Datatable
@@ -437,9 +444,19 @@ namespace ProducersBank
                 MessageBox.Show("Unable to connect to server. (proc.SalesInvoiceExist)\r\n" + proc.errorMessage);
                 return;
             }
+
             gReportDT = siListDT;
 
-            
+            ///Supply datatable from the list converted
+            if (!p.LoadReportPath("SalesInvoice"))
+            {
+                MessageBox.Show("SalesInvoice.rpt File not found");
+                return;
+            }
+
+            p.FillCRReportParameters("SalesInvoice");
+
+
             frmReportViewer crForm = new frmReportViewer();
             crForm.Show();
 

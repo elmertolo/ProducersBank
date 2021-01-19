@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProducersBank {
+namespace ProducersBank.Reports {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace ProducersBank {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class SalesInvoice : ReportClass {
+    public class Producers_SalesInvoice : ReportClass {
         
-        public SalesInvoice() {
+        public Producers_SalesInvoice() {
         }
         
         public override string ResourceName {
             get {
-                return "SalesInvoice.rpt";
+                return "Producers_SalesInvoice.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace ProducersBank {
         
         public override string FullResourceName {
             get {
-                return "ProducersBank.SalesInvoice.rpt";
+                return "ProducersBank.Reports.Producers_SalesInvoice.rpt";
             }
             set {
                 // Do nothing
@@ -218,9 +218,9 @@ namespace ProducersBank {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedSalesInvoice : Component, ICachedReport {
+    public class CachedProducers_SalesInvoice : Component, ICachedReport {
         
-        public CachedSalesInvoice() {
+        public CachedProducers_SalesInvoice() {
         }
         
         [Browsable(false)]
@@ -257,7 +257,7 @@ namespace ProducersBank {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            SalesInvoice rpt = new SalesInvoice();
+            Producers_SalesInvoice rpt = new Producers_SalesInvoice();
             rpt.Site = this.Site;
             return rpt;
         }

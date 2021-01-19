@@ -223,6 +223,7 @@
     </Compile>
     <Compile Include="Models\ClientList.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\ReportRequirement.cs" />
     <Compile Include="Models\SalesInvoiceFinishedModel.cs" />
     <Compile Include="Models\SalesInvoiceModel.cs" />
     <Compile Include="Models\TempModel.cs" />
@@ -249,10 +250,16 @@
     <Compile Include="frmSalesInvoice.Designer.cs">
       <DependentUpon>frmSalesInvoice.cs</DependentUpon>
     </Compile>
-    <Compile Include="SalesInvoice1.cs">
+    <Compile Include="Reports\PNB_SalesInvoice.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SalesInvoice.rpt</DependentUpon>
+      <DependentUpon>PNB_SalesInvoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Producers_SalesInvoice.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Producers_SalesInvoice.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\ProcessServices.cs" />
@@ -308,9 +315,13 @@
     <EmbeddedResource Include="frmSalesInvoice.resx">
       <DependentUpon>frmSalesInvoice.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SalesInvoice.rpt">
+    <EmbeddedResource Include="Reports\PNB_SalesInvoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SalesInvoice1.cs</LastGenOutput>
+      <LastGenOutput>PNB_SalesInvoice.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Producers_SalesInvoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Producers_SalesInvoice.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Stickers.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -349,7 +360,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />
-    <Folder Include="Reports\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="CrystalAnalysisCommLayerLib">

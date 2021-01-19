@@ -102,7 +102,7 @@ namespace ProducersBank.Services
             }
             checkType.Regular_Personal.OrderBy(r => r.BranchName).ToList();
             checkType.Regular_Commercial.OrderBy(r => r.BranchName).ToList();
-            Generate(checkType, DrNumber, _main.deliveryDate, gUserName, packNumber);
+            Generate(checkType, DrNumber, _main.deliveryDate, gUser.UserName, packNumber);
            // Generate(checkType, DrNumber, _main.deliveryDate, "ELMER", packNumber);
 
             return _orders;
@@ -493,7 +493,7 @@ namespace ProducersBank.Services
             try
             {
                 Sql = "SELECT BranchName, BRSTN, ChkType,MIN(StartingSerial), MAX(EndingSerial), Count(ChkType) " +
-                      "FROM "+ gHistoryTable + " WHERE Batch = '" + _batch + "'" +
+                      "FROM "+ gClient.DataBaseName + " WHERE Batch = '" + _batch + "'" +
                        " GROUP BY ChkType,BranchName ORDER BY ChkType,BranchName";
                 DBConnect();
                 cmd = new MySqlCommand(Sql, myConnect);
