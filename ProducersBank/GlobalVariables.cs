@@ -20,10 +20,10 @@ namespace ProducersBank
         public static ClientListModel gClient = new ClientListModel();
         public static UserListModel gUser = new UserListModel();
         public static SalesInvoiceFinishedModel gSalesInvoiceFinished = new SalesInvoiceFinishedModel();
+        public static PurchaseOrderModel gPurchaseOrderFinished = new PurchaseOrderModel();
 
-        //Report Global Variables (Crystal Report Prerequisites)
-        public static ReportDocument gCrystalDocument = new ReportDocument();
-        public static DataTable gReportDT;
+        //Crystal Report Global Variable (Crystal Report Prerequisites)
+        public static ReportDocument gCrystalDocument;
 
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.

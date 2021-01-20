@@ -172,6 +172,7 @@ namespace ProducersBank
                     errorMessage += "\r\nBatch : "+orderList[0].Batch +" Is Already Existed!!";
                     MessageBox.Show(errorMessage);
                     
+
                     
                 }
                 
@@ -193,7 +194,7 @@ namespace ProducersBank
 
             }
         }
-            catch(Exception e)
+            catch(Exception ex)
             {
                 
             }

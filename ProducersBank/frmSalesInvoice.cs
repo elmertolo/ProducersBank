@@ -12,6 +12,7 @@ using ProducersBank.Models;
 using static ProducersBank.GlobalVariables;
 using ProducersBank.Procedures;
 using FastMember;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace ProducersBank
 {
@@ -44,7 +45,7 @@ namespace ProducersBank
         {
            
             DataTable dt = new DataTable();
-            if (!proc.LoadInitialData(ref dt))
+            if (!proc.LoadUnprocessedSalesInvoiceData(ref dt))
             {
                 MessageBox.Show("Server Connection Error (LoadInitialData) \r\n" + proc.errorMessage);
                 return;
@@ -210,7 +211,8 @@ namespace ProducersBank
         private void btnPrintSalesInvoice_Click(object sender, EventArgs e)
         {
 
-            if (!p.ValidateInputFields(txtSalesInvoiceNumber.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
+
+            if (!p.ValidateInputFieldsSI(txtSalesInvoiceNumber.Text.ToString(), cbCheckedBy.Text.ToString(), cbApprovedBy.Text.ToString()))
             {
                 MessageBox.Show("Please supply values in blank field(s)");
             }
@@ -227,7 +229,7 @@ namespace ProducersBank
                 {
 
                     ProcessServices_Nelson proc = new ProcessServices_Nelson();
-                    if (!proc.UpdateTempTable(salesInvoiceList))
+                    if (!proc.UpdateTempTableSI(salesInvoiceList))
                     {
                         MessageBox.Show("Sales Invoice Temp Table Update Error (UpdateTempTable). \r\n" + proc.errorMessage);
                         return;
@@ -255,27 +257,38 @@ namespace ProducersBank
                         MessageBox.Show("Error updating sales invoice record to server. (proc.UpdateSalesInvoiceHistory) \r\n" + proc.errorMessage);
                         return;
                     }
-                    //MessageBox.Show("Number of rows affected: " + proc.RowNumbersAffected.ToString());
 
 
-                    //Install Fastmember from nuGet for Fast (List to Datatable) Conversion
-                    DataTable dt = new DataTable();
-                    using (var reader = ObjectReader.Create(sortedList))
-                    {
-                        dt.Load(reader);
-                    }
-                    ///Supply datatable from the list converted
-                    gReportDT = dt;
+                    //Create new instance of the document/ Prepare report using Crystal Reports
+                    ReportDocument crystalDocument = new ReportDocument();
+                    
                     
                     //Check RPT File
-                    if (!p.LoadReportPath("SalesInvoice"))
+                    if (!p.LoadReportPath("SalesInvoice", ref crystalDocument))
                     {
                         MessageBox.Show("SalesInvoice.rpt File not found");
                         return;
                     }
 
-                    //Supply details on 
-                    p.FillCRReportParameters("SalesInvoice");
+                    //Supply Data source to document
+                    crystalDocument.SetDataSource(sortedList);
+
+                    //Install Fastmember from nuGet for Fast (List to Datatable) Conversion
+                    //DataTable dt = new DataTable();
+                    //using (var reader = ObjectReader.Create(sortedList))
+                    //{
+                    //    dt.Load(reader);
+                    //}
+                    /////Supply datatable from the list converted
+                    //gReportDT = dt;
+
+
+                    //Supply details on report parameters
+                    p.FillCRReportParameters("SalesInvoice", ref crystalDocument);
+
+
+                    //Supply these details into Global ReportDocument to be able for the report viewer to initialize the rerport
+                    gCrystalDocument = crystalDocument;
 
                     frmReportViewer crForm = new frmReportViewer();
                     crForm.Show();
@@ -326,7 +339,7 @@ namespace ProducersBank
             cbApprovedBy.Text = "";
             
             DataTable dt = new DataTable();
-            proc.LoadInitialData(ref dt);
+            proc.LoadUnprocessedSalesInvoiceData(ref dt);
             dgvDRList.DataSource = dt;
             dgvDRList.ClearSelection();
 
@@ -423,7 +436,7 @@ namespace ProducersBank
                 return;
             }
 
-            //Supply Global Variables based on fetched data
+            //Supply Global SalesInvoiceFinished Object variables based on fetched data
             foreach (DataRow row in siFinishedDT.Rows)
             {
                 gSalesInvoiceFinished.ClientCode = row.Field<string>("ClientCode");
@@ -445,18 +458,27 @@ namespace ProducersBank
                 return;
             }
 
-            gReportDT = siListDT;
 
-            ///Supply datatable from the list converted
-            if (!p.LoadReportPath("SalesInvoice"))
+            //Create new instance of the document.
+            ReportDocument crystalDocument = new ReportDocument();
+
+            //Load path of the report
+            if (!p.LoadReportPath("SalesInvoice", ref crystalDocument))
             {
                 MessageBox.Show("SalesInvoice.rpt File not found");
                 return;
             }
 
-            p.FillCRReportParameters("SalesInvoice");
+            //Supply report Data Source
+            crystalDocument.SetDataSource(siListDT);
 
+            //Supply values on report parameters.
+            p.FillCRReportParameters("SalesInvoice", ref crystalDocument);
 
+            //Tag newly created report to global Crystal Document
+            gCrystalDocument = crystalDocument;
+
+            //Load report Viewer
             frmReportViewer crForm = new frmReportViewer();
             crForm.Show();
 

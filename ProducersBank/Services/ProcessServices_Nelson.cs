@@ -62,11 +62,32 @@ namespace ProducersBank.Services
             }
         }
 
-        public bool LoadInitialData(ref DataTable dt)
+        public bool LoadUnprocessedSalesInvoiceData(ref DataTable dt)
         {
             try
             {
                 string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from " + gClient.DataBaseName + " where salesinvoice is null group by batch, chequename, ChkType";
+                //string sql = "select count(*) as count from producers_history";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                da = new MySqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                da.Fill(dt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+
+        }
+
+
+        public bool LoadPriceListData(ref DataTable dt)
+        {
+            try
+            {
+                string sql = "select productcode, bank, chequeName, desription, UnitPrice, Docstamp from " + gClient.PriceListTable + "";
                 //string sql = "select count(*) as count from producers_history";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
@@ -90,7 +111,7 @@ namespace ProducersBank.Services
 
                 DataTable dt = new DataTable();
 
-                string sql = "select group_concat(distinct(drnumber) separator ', ') from producers_history " +
+                string sql = "select group_concat(distinct(drnumber) separator ', ') from " + gClient.DataBaseName + " " +
                 "WHERE salesinvoice is null " +
                 "and batch = '" + batch + "' " +
                 "and chktype = '" + checktype + "' " +
@@ -111,7 +132,7 @@ namespace ProducersBank.Services
             }
         }
         
-        public bool UpdateTempTable(List<SalesInvoiceModel> SalesInvoiceList)
+        public bool UpdateTempTableSI(List<SalesInvoiceModel> SalesInvoiceList)
         {
             try
             {
@@ -139,6 +160,8 @@ namespace ProducersBank.Services
             }
 
         }
+
+        
 
         public bool GetProcessedSalesInvoiceList(ref DataTable dt)
         {
@@ -214,6 +237,52 @@ namespace ProducersBank.Services
 
                 cmd = new MySqlCommand(sql2, con);
                 rowNumbersAffected = cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                _errorMessage = ex.Message;
+                return false;
+            }
+
+        }
+
+        public bool UpdatePurchaseOrderFinished(List<PurchaseOrderModel> poListToProcess)
+        {
+
+            try
+            {
+                //database update
+                MySqlCommand cmd;
+                foreach (var item in poListToProcess)
+                {
+
+                    //Insert Purchase Order Finished
+                    string sql = "insert into " + gClient.SalesInvoiceFinishedTable + " " +
+                    "(purchaseorderno, purchaseorderdatetime, clientcode, productcode, quantity, chequename, description, unitprice, docstamp, checktype, generatedby, checkedby, approvedby) " +
+                    "Values ('" +
+                    item.PurchaseOrderNumber + "', '" +
+                    item.PurchaseOrderDateTime.ToString("yyyy-MM-dd HH:mm") + "', " +
+                    item.ClientCode + ", '" +
+                    item.ProductCode + "', " +
+                    item.Quantity + ", '" +
+                    item.ChequeName + "', '" +
+                    item.Description + "', " +
+                    item.UnitPrice + ", " +
+                    item.Docstamp + ", '" +
+                    item.CheckType + "', '" +
+                    item.GeneratedBy + "', '" +
+                    item.CheckedBy + "', '" +
+                    item.ApprovedBy + "');";
+
+                    cmd = new MySqlCommand(sql, con);
+                    rowNumbersAffected = cmd.ExecuteNonQuery();
+
+                }
+
+                
 
                 return true;
             }

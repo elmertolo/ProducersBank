@@ -21,6 +21,7 @@ namespace ProducersBank.Models
         public string DataBaseName { get; set; }
         public string SalesInvoiceTempTable { get; set; }
         public string SalesInvoiceFinishedTable { get; set; }
+        public string PurchaseOrderFinishedTable { get; set; }
         public string PriceListTable { get; set; }
         public string DRTempTable { get; set; }
 
