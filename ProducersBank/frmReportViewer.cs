@@ -21,16 +21,14 @@ namespace ProducersBank
     public partial class frmReportViewer : Form
     {
         //List<SalesInvoiceModel> siList = new List<SalesInvoiceModel>();
-        ReportDocument crystalDocument = new ReportDocument();
+        
         ProcessServices_Nelson proc = new ProcessServices_Nelson();
         
 
         public frmReportViewer()
         {
             InitializeComponent();
-            
         }
-
 
         private void crViewer_Load(object sender, EventArgs e)
         {
@@ -39,18 +37,17 @@ namespace ProducersBank
             crViewer.ShowCloseButton = false;
             crViewer.ShowGroupTreeButton = false;
             
-            //Supplu report parameters
-            proc.FillCRReportParameters(ref crystalDocument);
-            //Supply database /  table credentials dynamically
-            p.setCrystalReportsDBInfo(ref crystalDocument);
+            //Supply report parameters
+            //Supply database /  table credetials dynamically
+            p.setCrystalReportsDBInfo(ref gCrystalDocument);
             
             if (gViewReportFirst == 1)
             {
-                crViewer.ReportSource = crystalDocument;
+                crViewer.ReportSource = gCrystalDocument;
             }
             else
             {
-                crystalDocument.PrintToPrinter(1, false, 0, 0);
+                gCrystalDocument.PrintToPrinter(1, false, 0, 0);
                 this.Close();
             }
 

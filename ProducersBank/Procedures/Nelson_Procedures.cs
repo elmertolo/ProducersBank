@@ -10,11 +10,18 @@ using System.Configuration;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
+using ProducersBank.Services;
 
 namespace ProducersBank.Procedures
 {
+
+
     public static class p
     {
+
+        public static string message;
 
         public static bool IsKeyPressedNumeric(ref object sender , ref KeyPressEventArgs e)
         {
@@ -67,136 +74,77 @@ namespace ProducersBank.Procedures
             }
         }
 
-        //public static void SupplyBankVariables(string bankName, ref DataTable dt)
-        //{
+
+        public static void FillCRReportParameters(string reportType)
+        {
+
+            switch (reportType) 
+            {
+                case "SalesInvoice":
+
+                    gCrystalDocument.SetDataSource(gReportDT);
+                    gCrystalDocument.SetParameterValue("prHeaderReportTitle", gSIheaderReportTitle.ToString() ?? "");
+                    //gSalesInvoiceFinished Global model used to supply parameters
+                    gCrystalDocument.SetParameterValue("prHeaderReportAddress1", gClient.Address1.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prHeaderReportAddress2", gClient.Address2.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prHeaderReportAddress3", gClient.Address3.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prHeaderCompanyName", gClient.Description.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prSalesInvoiceDate", gSalesInvoiceFinished.SalesInvoiceDateTime.ToString("MMMMM dd, yyyy") ?? "");
+                    gCrystalDocument.SetParameterValue("prSalesInvoiceNumber", gSalesInvoiceFinished.SalesInvoiceNumber.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prPreparedBy", gSalesInvoiceFinished.GeneratedBy.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prCheckedBy", gSalesInvoiceFinished.CheckedBy.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prApprovedBy", gSalesInvoiceFinished.ApprovedBy.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prSubtotalAmount", gSalesInvoiceFinished.TotalAmount.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prVatAmount", gSalesInvoiceFinished.VatAmount.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prNetOfVatAmount", gSalesInvoiceFinished.NetOfVatAmount.ToString() ?? "");
+                    gCrystalDocument.SetParameterValue("prClientCode", gClient.ClientCode.ToString() ?? "");
+
+                    if (gClient.ShortName == "PNB")
+                    {
+
+                    }
+
+                    break;
+
+                default:
+                    message = "Report type not recognized.";
+                    
+                    break;
+            
+            }
+
+           
+
+        }
+
+        public static bool LoadReportPath(string reportType) 
+        {
+
+            string reportPath;
+
+            //Determine path when running through IDE or not
+            if (Debugger.IsAttached)
+            {
+                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Reports\" + gClient.ShortName + "_" + reportType + ".rpt";
+            }
+            else
+            {
+                reportPath = Directory.GetCurrentDirectory().ToString() + @"\Reports\" + gClient.ShortName + "_" + reportType + ".rpt";
+
+            }
+
+            if (!File.Exists(reportPath))
+            {
+                return false;
+            }
+
+            gCrystalDocument.Load(reportPath);
+            return true;
 
 
-            //if (bankName == "United Coconut Planters Bank")
-            //{
+        }
 
-            //}
-            //if (bankName == "Unionbank of the Philippines")
-            //{
 
-            //}
-            //if (bankName == "Sterling Bank of Asia")
-            //{
-
-            //}
-            //if (bankName == "Security Bank Savings")
-            //{
-
-            //}
-            //if (bankName == "Security Bank Corporation")
-            //{
-
-            //}
-            //if (bankName == "Rural Bank of Central Pangasinan")
-            //{
-
-            //}
-            //if (bankName == "Rizal Commercial Banking Corporation")
-            //{
-
-            //}
-            //if (bankName == "Real Bank")
-            //{
-
-            //}
-            //if (bankName == "RCBC Savings Bank")
-            //{
-
-            //}
-            //if (bankName == "Producers Bank")
-            //{
-
-            //}
-            //if (bankName == "Planters Bank")
-            //{
-
-            //}
-            //if (bankName == "PhilTrust")
-            //{
-
-            //}
-            //if (bankName == "Philippine Savings Bank")
-            //{
-
-            //}
-            //if (bankName == "Philippine Savings Bank")
-            //{
-
-            //}
-            //if (bankName == "Philippine National Bank")
-            //{
-
-            //}
-            //if (bankName == "Philippine Bank of Communications")
-            //{
-
-            //}
-            //if (bankName == "Metropolitan Bank And Trust Company")
-            //{
-
-            //}
-            //if (bankName == "Maybank Philippines")
-            //{
-
-            //}
-            //if (bankName == "Malayan Bank")
-            //{
-
-            //}
-            //if (bankName == "Equicom Savings Bank")
-            //{
-
-            //}
-            //if (bankName == "East West Bank")
-            //{
-
-            //}
-            //if (bankName == "Citystate Savings Bank")
-            //{
-
-            //}
-            //if (bankName == "Chinabank Savings")
-            //{
-
-            //}
-            //if (bankName == "China Banking Corporation")
-            //{
-
-            //}
-            //if (bankName == "BPI Family Savings Bank")
-            //{
-
-            //}
-            //if (bankName == "Bank One")
-            //{
-
-            //}
-            //if (bankName == "Bank of the Philippine Island")
-            //{
-
-            //}
-            //if (bankName == "Bank of Florida")
-            //{
-
-            //}
-            //if (bankName == "Bank of Commerce")
-            //{
-
-            //}
-            //if (bankName == "Banco De Oro")
-            //{
-
-            //}
-            //if (bankName == "Asia United Bank")
-            //{
-
-            //}
-
-        //}
 
 
     }

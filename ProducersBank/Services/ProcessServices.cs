@@ -103,7 +103,7 @@ namespace ProducersBank.Services
             }
             checkType.Regular_Personal.OrderBy(r => r.BranchName).ToList();
             checkType.Regular_Commercial.OrderBy(r => r.BranchName).ToList();
-            Generate(checkType, DrNumber, _main.deliveryDate, gUserName, packNumber);
+            Generate(checkType, DrNumber, _main.deliveryDate, gUser.UserName, packNumber);
            // Generate(checkType, DrNumber, _main.deliveryDate, "ELMER", packNumber);
 
             return _orders;
@@ -678,9 +678,14 @@ namespace ProducersBank.Services
         public string DisplayAllBatches(string _batch,List<TempModel> _temp)
         {
             DBConnect();
+<<<<<<< HEAD
             Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from  "+ frmLogIn.tableName  +
                     " where DrNumber is not null  and (Batch Like '%" + _batch+ "%' OR SalesInvoice Like '%" + _batch+ "%') group by batch, chequename, ChkType";
 
+=======
+            Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from producers_history " +
+                    "where DrNumber is not null  and Batch Like '%"+ _batch+ "%' OR SalesInvoice Like '%"+ _batch+ "%' group by batch, chequename, ChkType";
+>>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
             while(reader.Read())

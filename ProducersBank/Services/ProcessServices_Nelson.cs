@@ -17,6 +17,8 @@ namespace ProducersBank.Services
 {
     public class ProcessServices_Nelson
     {
+        
+
         //For Number of Affected Rows upon CRUD
         private int rowNumbersAffected;
         public int RowNumbersAffected
@@ -157,51 +159,17 @@ namespace ProducersBank.Services
             }
         }
 
-        public void FillCRReportParameters(ref ReportDocument crystalDocument)
-        {
-
-            //Determine path when running through IDE or not
-            string reportPath;
-            if (Debugger.IsAttached)
-            {
-                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\SalesInvoice.rpt";
-            }
-            else
-            {
-                reportPath = Directory.GetCurrentDirectory().ToString() + @"\SalesInvoice.rpt";
-            }
-
-            if (!File.Exists(reportPath))
-            {
-                throw (new Exception("Unable to locate report file: \r\n" + reportPath));
-            }
-
-            crystalDocument.Load(reportPath);
-
-            crystalDocument.SetDataSource(gReportDT);
-            crystalDocument.SetParameterValue("prHeaderReportTitle", gSIheaderReportTitle.ToString() ?? "");
-            crystalDocument.SetParameterValue("prHeaderReportAddress1", gSIHeaderReportAddress1.ToString() ?? "");
-            crystalDocument.SetParameterValue("prHeaderReportAddress2", gSIHeaderReportAddress2.ToString() ?? "");
-            crystalDocument.SetParameterValue("prHeaderReportAddress3", gSIHeaderReportAddress3.ToString() ?? "");
-            crystalDocument.SetParameterValue("prHeaderCompanyName", gHeaderReportCompanyName.ToString() ?? "");
-            crystalDocument.SetParameterValue("prSalesInvoiceDate", gSalesInvoiceFinished.SalesInvoiceDateTime.ToString("MMMMM dd, yyyy") ?? "");
-            crystalDocument.SetParameterValue("prSalesInvoiceNumber", gSalesInvoiceFinished.SalesInvoiceNumber.ToString() ?? "");
-            crystalDocument.SetParameterValue("prPreparedBy", gSalesInvoiceFinished.GeneratedBy.ToString() ?? "");
-            crystalDocument.SetParameterValue("prCheckedBy", gSalesInvoiceFinished.CheckedBy.ToString() ?? "");
-            crystalDocument.SetParameterValue("prApprovedBy", gSalesInvoiceFinished.ApprovedBy.ToString() ?? "");
-            crystalDocument.SetParameterValue("prSubtotalAmount", gSalesInvoiceFinished.TotalAmount.ToString() ?? "");
-            crystalDocument.SetParameterValue("prVatAmount", gSalesInvoiceFinished.VatAmount.ToString() ?? "");
-            crystalDocument.SetParameterValue("prNetOfVatAmount", gSalesInvoiceFinished.NetOfVatAmount.ToString() ?? "");
-            crystalDocument.SetParameterValue("prClientCode", gClient.ClientCode.ToString() ?? "");
-
-        }
+        
 
         public double GetUnitPrice(string checkName)
         {
 
 
             MySqlCommand cmd = new MySqlCommand("select unitprice as UnitPrice from " + gClient.PriceListTable + " where chequename = '" + checkName + "'", con);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
             var result = (double)cmd.ExecuteScalar();
             return result;
 
@@ -220,11 +188,17 @@ namespace ProducersBank.Services
                     //Update History Table
                     string sql = "update " + gClient.DataBaseName + " set " +
                     "unitprice = " + item.unitPrice + ", " +
+<<<<<<< HEAD
 
                     "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
                     "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
                     "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
 
+=======
+                    "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
+                    "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
+                    "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
+>>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
                     " where drnumber in(" + item.drList.ToString() +
                     ") and batch = '" + item.Batch + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
@@ -269,7 +243,7 @@ namespace ProducersBank.Services
             try
             {
                 MySqlDataAdapter da;
-                string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from " + gHistoryTable +
+                string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from " + gClient.DataBaseName +
                     " where salesinvoice is null and batch = '" + batchToSearch + "' group by batch, chequename, ChkType;";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
@@ -349,7 +323,7 @@ namespace ProducersBank.Services
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand("select * from " + gSIFinishedTable + " where salesinvoicenumber = " + salesInvoiceNumber + ";", con);
+                MySqlCommand cmd = new MySqlCommand("select * from " + gClient.SalesInvoiceFinishedTable + " where salesinvoicenumber = " + salesInvoiceNumber + ";", con);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 cmd.ExecuteNonQuery();
                 da.Fill(dt);
@@ -374,9 +348,9 @@ namespace ProducersBank.Services
             {
                 string sql =
                     "select count(ChkType) as Quantity, batch, chequename as CheckName, group_concat(distinct(drnumber) separator ', ') as DRList, " +
-                    "ChkType, deliverydate, (select unitPrice from producers_pricelist where ChequeName = CheckName) as Unitprice, " +
+                    "ChkType, deliverydate, (select unitPrice from " + gClient.PriceListTable + " where ChequeName = CheckName) as Unitprice, " +
                     "count(ChkType) * UnitPrice as LineTotalAmount " +
-                    "from producers_history " +
+                    "from " + gClient.DataBaseName + " " +
                     "where salesinvoice = " + salesInvoiceNumber + " " +
                     "group by batch, CheckName, ChkType order by Batch;";
 
@@ -400,23 +374,22 @@ namespace ProducersBank.Services
         }
 
 
+<<<<<<< HEAD
 
 
     
         public bool SeekReturn(string query, string databaseName, string tableName)
+=======
+        public object SeekReturn(string query, Type type)
+>>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
         {
-            try
-            {
-                return true;
-            }
-            catch (Exception ex)
-            {
+           
+            MySqlCommand cmd = new MySqlCommand(query, con);
+            var result = cmd.ExecuteScalar();
+            return result;
 
-                return false;
 
-            }
         }
-
         public bool GetClientDetails(string clientDescription, ref DataTable dt)
         {
             try
@@ -440,5 +413,9 @@ namespace ProducersBank.Services
 
 
     }
+<<<<<<< HEAD
 
+=======
+       
+>>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
 }

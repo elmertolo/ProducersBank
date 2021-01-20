@@ -84,9 +84,10 @@ namespace ProducersBank
             }
             else if (RecentBatch.report == "SalesInvoice")
             {
-                SalesInvoice crystalReport = new SalesInvoice();
-                this.crystalReportViewer1.ReportSource = crystalReport;
-                this.crystalReportViewer1.RefreshReport();
+                //Commented for because I am having an error upon testing NA_01192021
+                //SalesInvoice crystalReport = new SalesInvoice();
+                //this.crystalReportViewer1.ReportSource = crystalReport;
+                //this.crystalReportViewer1.RefreshReport();
             }
             else if (DeliveryReport.report == "DR")
             {

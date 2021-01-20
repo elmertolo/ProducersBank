@@ -84,7 +84,6 @@ namespace ProducersBank
             this.cbBankList.Name = "cbBankList";
             this.cbBankList.Size = new System.Drawing.Size(170, 21);
             this.cbBankList.TabIndex = 4;
-            this.cbBankList.SelectedIndexChanged += new System.EventHandler(this.cbBankList_SelectedIndexChanged);
             // 
             // label3
             // 
