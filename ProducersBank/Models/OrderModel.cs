@@ -19,5 +19,8 @@ namespace ProducersBank.Models
         public string ChkType { get; set; }
         public string AccountNoWithHypen { get; set; }
         public string ChequeName { get; set; }
+
+        public string BranchCode { get; set; }
+        public string OldBranchCode { get; set; }
     }
 }

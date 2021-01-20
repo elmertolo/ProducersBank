@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ProducersBank.GlobalVariables;
+using ProducersBank.Forms;
 
 namespace ProducersBank
 {
@@ -70,6 +71,12 @@ namespace ProducersBank
         private void salesInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form frm = new frmSalesInvoice(this);
+            frm.ShowDialog();
+        }
+
+        private void documentStampToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form frm = new frmDocStamp(this);
             frm.ShowDialog();
         }
     }

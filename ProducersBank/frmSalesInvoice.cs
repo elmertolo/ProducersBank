@@ -52,10 +52,7 @@ namespace ProducersBank
             
             dgvDRList.DataSource = dt;
             dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
-<<<<<<< HEAD
 
-=======
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
             txtSalesInvoiceNumber.Focus();
         }
 
@@ -231,11 +228,11 @@ namespace ProducersBank
                 {
 
                     ProcessServices_Nelson proc = new ProcessServices_Nelson();
-                    if (!proc.UpdateTempTable(salesInvoiceList))
-                    {
-                        MessageBox.Show("Sales Invoice Temp Table Update Error (UpdateTempTable). \r\n" + proc.errorMessage);
-                        return;
-                    }
+                    //if (!proc.UpdateTempTable(salesInvoiceList))
+                    //{
+                    //    MessageBox.Show("Sales Invoice Temp Table Update Error (UpdateTempTable). \r\n" + proc.errorMessage);
+                    //    return;
+                    //}
 
                     //Fill gSalesInvoiceFinished Model Class
                     //gSalesInvoiceList = salesInvoiceList;
@@ -430,17 +427,7 @@ namespace ProducersBank
             //Supply Global Variables based on fetched data
             foreach (DataRow row in siFinishedDT.Rows)
             {
-<<<<<<< HEAD
-               // gClientCode = row.Field<string>("ClientCode");
-                gSalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
-                gSalesInvoiceDate = row.Field<DateTime>("SalesInvoiceDateTime");
-                gSalesInvoiceGeneratedBy = row.Field<string>("GeneratedBy");
-                gSalesinvoiceCheckedBy = row.Field<string>("CheckedBy");
-                gSalesInvoiceApprovedBy = row.Field<string>("ApprovedBy");
-                gSalesInvoiceSubtotalAmount = row.Field<double>("TotalAmount");
-                gSalesInvoiceVatAmount = row.Field<double>("VatAmount");
-                gSalesInvoiceNetOfVatAmount = row.Field<double>("NetOfVatAmount");
-=======
+
                 gSalesInvoiceFinished.ClientCode = row.Field<string>("ClientCode");
                 gSalesInvoiceFinished.SalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
                 gSalesInvoiceFinished.SalesInvoiceDateTime = row.Field<DateTime>("SalesInvoiceDateTime");
@@ -450,7 +437,7 @@ namespace ProducersBank
                 gSalesInvoiceFinished.TotalAmount = row.Field<double>("TotalAmount");
                 gSalesInvoiceFinished.VatAmount = row.Field<double>("VatAmount");
                 gSalesInvoiceFinished.NetOfVatAmount = row.Field<double>("NetOfVatAmount");
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
+
             }
 
             //Get Sales Invoice List Details to be supplied to Global Report Datatable

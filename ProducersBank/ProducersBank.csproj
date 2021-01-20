@@ -202,6 +202,12 @@
       <DependentUpon>DocStamp.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\frmDocStamp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDocStamp.Designer.cs">
+      <DependentUpon>frmDocStamp.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMessageInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,7 +234,9 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientList.cs" />
+    <Compile Include="Models\DocStampModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\PriceListModel.cs" />
     <Compile Include="Models\ReportRequirement.cs" />
     <Compile Include="Models\SalesInvoiceFinishedModel.cs" />
     <Compile Include="Models\SalesInvoiceModel.cs" />
@@ -298,6 +306,9 @@
     <EmbeddedResource Include="DocStamp.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>DocStamp.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDocStamp.resx">
+      <DependentUpon>frmDocStamp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogIn.resx">
       <DependentUpon>frmLogIn.cs</DependentUpon>

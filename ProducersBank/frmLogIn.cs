@@ -61,25 +61,9 @@ namespace ProducersBank
                 MessageBox.Show("User Name or Password is incorrect. Please try again");
                 return;
             }
-<<<<<<< HEAD
-
-            //Cashier Details============================
-            foreach (DataRow row in dt.Rows)
-            {
-
-                gUserName = userName;
-                //Main mainFrm = new Main();
-                //mainFrm.Show();
-=======
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
 
 
-<<<<<<< HEAD
-                gUserName = row.Field<string>("UserName");
-                //gUserFullName = row.Field<string>("Name");
-            }
-=======
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
+
 
             SupplyGlobalUserVariables(ref dt);
 
@@ -156,17 +140,13 @@ namespace ProducersBank
 
         private void frmLogIn_Load(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-          //  gCustomerCode = proc.GetBankList();
+
         }
 
         private void cbBankList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        
-=======
 
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
 
         }
 
@@ -187,11 +167,6 @@ namespace ProducersBank
         }
 
        
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
     }
 
 }

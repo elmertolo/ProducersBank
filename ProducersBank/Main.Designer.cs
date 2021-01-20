@@ -34,6 +34,7 @@
             this.deliveryReceiptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentStampToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +53,8 @@
             // 
             this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deliveryReceiptToolStripMenuItem,
-            this.salesInvoiceToolStripMenuItem});
+            this.salesInvoiceToolStripMenuItem,
+            this.documentStampToolStripMenuItem});
             this.transactionsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
             this.transactionsToolStripMenuItem.ShortcutKeyDisplayString = "T";
@@ -82,6 +84,13 @@
             this.recentBatchToolStripMenuItem.Text = "Recent Batch";
             this.recentBatchToolStripMenuItem.Click += new System.EventHandler(this.recentBatchToolStripMenuItem_Click);
             // 
+            // documentStampToolStripMenuItem
+            // 
+            this.documentStampToolStripMenuItem.Name = "documentStampToolStripMenuItem";
+            this.documentStampToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.documentStampToolStripMenuItem.Text = "Document Stamp";
+            this.documentStampToolStripMenuItem.Click += new System.EventHandler(this.documentStampToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -108,6 +117,7 @@
         private System.Windows.Forms.ToolStripMenuItem recentBatchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deliveryReceiptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salesInvoiceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem documentStampToolStripMenuItem;
     }
 }
 

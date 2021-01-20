@@ -90,7 +90,7 @@ namespace ProducersBank.Services
 
                 DataTable dt = new DataTable();
 
-                string sql = "select group_concat(distinct(drnumber) separator ', ') from producers_history " +
+                string sql = "select group_concat(distinct(drnumber) separator ', ') from "+gClient.DataBaseName+" " +
                 "WHERE salesinvoice is null " +
                 "and batch = '" + batch + "' " +
                 "and chktype = '" + checktype + "' " +
@@ -166,10 +166,6 @@ namespace ProducersBank.Services
 
 
             MySqlCommand cmd = new MySqlCommand("select unitprice as UnitPrice from " + gClient.PriceListTable + " where chequename = '" + checkName + "'", con);
-<<<<<<< HEAD
-
-=======
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
             var result = (double)cmd.ExecuteScalar();
             return result;
 
@@ -188,17 +184,11 @@ namespace ProducersBank.Services
                     //Update History Table
                     string sql = "update " + gClient.DataBaseName + " set " +
                     "unitprice = " + item.unitPrice + ", " +
-<<<<<<< HEAD
 
                     "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
                     "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
                     "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
 
-=======
-                    "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
-                    "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
-                    "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
                     " where drnumber in(" + item.drList.ToString() +
                     ") and batch = '" + item.Batch + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
@@ -374,14 +364,9 @@ namespace ProducersBank.Services
         }
 
 
-<<<<<<< HEAD
 
-
-    
-        public bool SeekReturn(string query, string databaseName, string tableName)
-=======
         public object SeekReturn(string query, Type type)
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
+
         {
            
             MySqlCommand cmd = new MySqlCommand(query, con);
@@ -413,9 +398,4 @@ namespace ProducersBank.Services
 
 
     }
-<<<<<<< HEAD
-
-=======
-       
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
 }

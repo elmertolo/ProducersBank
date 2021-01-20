@@ -21,26 +21,10 @@ namespace ProducersBank
         public static UserListModel gUser = new UserListModel();
         public static SalesInvoiceFinishedModel gSalesInvoiceFinished = new SalesInvoiceFinishedModel();
 
-<<<<<<< HEAD
-        //this is where the main table name used by the bank will be stored
-        public static string gBanckCode;
-        public static string gHistoryTable = "Producers_History"; // value is hardcoded temporarily.
-        public static string gSIFinishedTable = "Producers_SalesInvoice_Finished";
-        public static string gCustomerCode = "PRO2"; // value is hardcoded temporarily.
-
-        //User Details Variables
-        public static string gUserName;
-        public static string gUserFirstName;
-        public static string gUserMiddleName;
-        public static string gUserLastName;
-        public static string gUserSuffix;
-        public static string gUserFullName;
-
-=======
         //Report Global Variables (Crystal Report Prerequisites)
         public static ReportDocument gCrystalDocument = new ReportDocument();
         public static DataTable gReportDT;
->>>>>>> 29ae6983fdad456c3a7f03159a0d9545c068d7f7
+
 
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.
