@@ -187,6 +187,7 @@ namespace ProducersBank
                     errorMessage += "\r\nBatch : "+orderList[0].Batch +" Is Already Existed!!";
                     MessageBox.Show(errorMessage);
                     
+
                     
                 }
                 
@@ -207,9 +208,15 @@ namespace ProducersBank
                 lblTotalChecks.Text = orderList.Count.ToString();
 
             }
+<<<<<<< HEAD
      //   }
             //catch(Exception e)
             //{
+=======
+        }
+            catch(Exception ex)
+            {
+>>>>>>> b734660ac0bcea89ea5feb6fd7ec453dc5db21a2
                 
             //}
         }
