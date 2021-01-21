@@ -53,6 +53,7 @@ namespace ProducersBank
             
             dgvDRList.DataSource = dt;
             dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
+
             txtSalesInvoiceNumber.Focus();
         }
 
@@ -229,11 +230,13 @@ namespace ProducersBank
                 {
 
                     ProcessServices_Nelson proc = new ProcessServices_Nelson();
+
                     if (!proc.UpdateTempTableSI(salesInvoiceList))
                     {
                         MessageBox.Show("Sales Invoice Temp Table Update Error (UpdateTempTable). \r\n" + proc.errorMessage);
                         return;
                     }
+
 
                     //Fill gSalesInvoiceFinished Model Class
                     //gSalesInvoiceList = salesInvoiceList;
@@ -439,6 +442,7 @@ namespace ProducersBank
             //Supply Global SalesInvoiceFinished Object variables based on fetched data
             foreach (DataRow row in siFinishedDT.Rows)
             {
+
                 gSalesInvoiceFinished.ClientCode = row.Field<string>("ClientCode");
                 gSalesInvoiceFinished.SalesInvoiceNumber = row.Field<double>("SalesInvoiceNumber");
                 gSalesInvoiceFinished.SalesInvoiceDateTime = row.Field<DateTime>("SalesInvoiceDateTime");
@@ -448,6 +452,7 @@ namespace ProducersBank
                 gSalesInvoiceFinished.TotalAmount = row.Field<double>("TotalAmount");
                 gSalesInvoiceFinished.VatAmount = row.Field<double>("VatAmount");
                 gSalesInvoiceFinished.NetOfVatAmount = row.Field<double>("NetOfVatAmount");
+
             }
 
             //Get Sales Invoice List Details to be supplied to Global Report Datatable

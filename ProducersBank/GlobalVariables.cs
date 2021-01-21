@@ -25,6 +25,7 @@ namespace ProducersBank
         //Crystal Report Global Variable (Crystal Report Prerequisites)
         public static ReportDocument gCrystalDocument;
 
+
         /// <summary>
         /// This variables is used for SalesInvoice Processes only.
         /// </summary

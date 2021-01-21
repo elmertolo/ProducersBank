@@ -54,6 +54,7 @@
             this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deliveryReceiptToolStripMenuItem,
             this.salesInvoiceToolStripMenuItem,
+
             this.purchaseOrderToolStripMenuItem});
             this.transactionsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
@@ -90,6 +91,7 @@
             this.purchaseOrderToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.purchaseOrderToolStripMenuItem.Text = "Purchase Order";
             this.purchaseOrderToolStripMenuItem.Click += new System.EventHandler(this.purchaseOrderToolStripMenuItem_Click);
+
             // 
             // Main
             // 

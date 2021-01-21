@@ -113,6 +113,7 @@ namespace ProducersBank.Services
 
                 DataTable dt = new DataTable();
 
+
                 string sql = "select group_concat(distinct(drnumber) separator ', ') from " + gClient.DataBaseName + " " +
                 "WHERE salesinvoice is null " +
                 "and batch = '" + batch + "' " +
@@ -207,9 +208,11 @@ namespace ProducersBank.Services
                     //Update History Table
                     string sql = "update " + gClient.DataBaseName + " set " +
                     "unitprice = " + item.unitPrice + ", " +
+
                     "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
                     "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
                     "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
+
                     " where drnumber in(" + item.drList.ToString() +
                     ") and batch = '" + item.Batch + "'" +
                     " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
@@ -451,6 +454,7 @@ namespace ProducersBank.Services
         }
 
         public object SeekReturn(string query, Type type)
+
         {
            
             MySqlCommand cmd = new MySqlCommand(query, con);
@@ -483,5 +487,4 @@ namespace ProducersBank.Services
 
 
     }
-       
 }

@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using ProducersBank.Models;
 using ProducersBank.Services;
 using CrystalDecisions.Shared;
+using static ProducersBank.GlobalVariables;
 
 
 namespace ProducersBank
@@ -91,12 +92,12 @@ namespace ProducersBank
         {
             var fileContent = string.Empty;
             var filePath = string.Empty;
-            try
-            {
+            //try
+            //{
 
                 OpenFileDialog op = new OpenFileDialog();
                 //op.InitialDirectory = Application.StartupPath;
-                op.InitialDirectory = @"\\192.168.10.254\Accounting_Files\Packing\ProducersBank";
+                op.InitialDirectory = @"\\192.168.10.254\Accounting_Files\Packing";
                 op.Filter = "dbf files (*.dbf)|*.dbf|All files (*.*)|*.*";
                 op.FilterIndex = 2;
                 op.RestoreDirectory = true;
@@ -112,9 +113,18 @@ namespace ProducersBank
 
                     //Read the contents of the file into a stream
                     var fileStream = op.OpenFile();
-
-                    //  DataTable dt = con.GetSchema(OleDbMetaDataCollectionNames.Tables);
-                    var sql = "Select * FROM " + filePath;
+                string sql = "";
+                //  DataTable dt = con.GetSchema(OleDbMetaDataCollectionNames.Tables);
+                if (gClient.DataBaseName == "producers_history")
+                {
+                     sql = "Select BATCHNO,RT_NO,BRANCH,ACCT_NO,CHKTYPE,ACCT_NAME1,ACCT_NAME2," +
+                              "CK_NO_B,CK_NO_E FROM " + filePath;
+                }
+                else if(gClient.DataBaseName == "pnb_history")
+                {
+                    sql = "Select BATCHNO,RT_NO,BRANCH,ACCT_NO,CHKTYPE,ACCT_NAME1,ACCT_NAME2," +
+                             "CK_NO_B,CK_NO_E,BRANCHCODE,OLDBCODE FROM " + filePath;
+                }
                     OleDbCommand cmd = new OleDbCommand(sql, con);
                     con.Open();
                     OleDbDataReader myReader = cmd.ExecuteReader();
@@ -122,17 +132,22 @@ namespace ProducersBank
                     while (myReader.Read())
                     {
                         OrderModel order = new OrderModel();
-                        order.Batch = myReader.GetString(0);
-                        order.BRSTN = myReader.GetString(2);
-                        order.BranchName = myReader.GetString(4);
-                        order.AccountNo = myReader.GetString(5);
-                        order.Name1 = myReader.GetString(8);
-                        order.Name2 = myReader.GetString(9);
-                        order.ChkType = myReader.GetString(7);
-                        order.AccountNoWithHypen = myReader.GetString(6);
-                        order.StartingSerial = myReader.GetString(12);
-                        order.EndingSerial = myReader.GetString(14);
-
+                        order.Batch = !myReader.IsDBNull(0) ? myReader.GetString(0): "";
+                        order.BRSTN = !myReader.IsDBNull(1) ? myReader.GetString(1): "";
+                        order.BranchName = !myReader.IsDBNull(2) ? myReader.GetString(2): "";
+                        order.AccountNo = !myReader.IsDBNull(3) ?  myReader.GetString(3): "";
+                        order.ChkType = !myReader.IsDBNull(4) ?  myReader.GetString(4):"";
+                        order.Name1 = !myReader.IsDBNull(5) ? myReader.GetString(5):"";
+                        order.Name2 = !myReader.IsDBNull(6) ? myReader.GetString(6):"";
+                        //order.AccountNoWithHypen = myReader.GetString(6);
+                        order.StartingSerial = !myReader.IsDBNull(7) ? myReader.GetString(7):"";
+                        order.EndingSerial = !myReader.IsDBNull(8) ? myReader.GetString(8):"";
+                    //PNB Required fields
+                    if (gClient.DataBaseName == "pnb_history")
+                    {
+                        order.BranchCode = !myReader.IsDBNull(9) ? myReader.GetString(9) : "";
+                        order.OldBranchCode = !myReader.IsDBNull(10) ? myReader.GetString(10) : "";
+                    }
                         //if (order.AccountNo == "" || order.AccountNo == null)
                         //    errorMessage += "The Account Number field does not have data!!\r\n";
                         //if (order.BRSTN.Length == 9)
@@ -179,26 +194,25 @@ namespace ProducersBank
                 
 //                }
                 if (errorMessage != "")
-            {
-                ProcessServices.ErrorMessage(errorMessage);
-                MessageBox.Show("Checking files done! with errors found! Check ErrorMessage.txt for references", "Error!");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Checking files done! No Errors found");
-                dataGridView1.DataSource = orderList;
-                lblTotalA.Text = totalA.Count.ToString();
-                lblTotalB.Text = totalB.Count.ToString();
-                lblTotalChecks.Text = orderList.Count.ToString();
+                {
+                    ProcessServices.ErrorMessage(errorMessage);
+                    MessageBox.Show("Checking files done! with errors found! Check ErrorMessage.txt for references", "Error!");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Checking files done! No Errors found");
+                    dataGridView1.DataSource = orderList;
+                    lblTotalA.Text = totalA.Count.ToString();
+                    lblTotalB.Text = totalB.Count.ToString();
+                    lblTotalChecks.Text = orderList.Count.ToString();
 
-            }
+                }
+
+
+        
         }
-            catch(Exception ex)
-            {
-                
-            }
-        }
+
 
         private void DeliveryReport_Load(object sender, EventArgs e)
         {

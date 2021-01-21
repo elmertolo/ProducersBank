@@ -24,5 +24,7 @@ namespace ProducersBank.Models
         public int Qty { get; set; }
         public string username { get; set; }
         public DateTime DeliveryDate { get; set; }
+        public string BranchCode { get; set; }
+        public string OldBranchCode { get; set; }
     }
 }

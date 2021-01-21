@@ -64,7 +64,7 @@ namespace ProducersBank
 
 
 
-            //Load Cashier Details============================
+
             SupplyGlobalUserVariables(ref dt);
 
             SupplyGlobalClientVariables(cbBankList.Text.ToString());
@@ -133,6 +133,12 @@ namespace ProducersBank
         private void frmLogIn_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbBankList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
 
         }
 
@@ -153,8 +159,6 @@ namespace ProducersBank
         }
 
        
-
-
     }
 
 }

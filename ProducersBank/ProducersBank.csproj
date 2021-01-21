@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -196,6 +196,18 @@
     <Compile Include="DeliveryReport.Designer.cs">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="DocStamp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocStamp.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDocStamp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDocStamp.Designer.cs">
+      <DependentUpon>frmDocStamp.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMessageInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,7 +240,9 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientList.cs" />
+    <Compile Include="Models\DocStampModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\PriceListModel.cs" />
     <Compile Include="Models\PurchaseOrderModel.cs" />
     <Compile Include="Models\ReportRequirement.cs" />
     <Compile Include="Models\SalesInvoiceFinishedModel.cs" />
@@ -295,6 +309,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeliveryReport.resx">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DocStamp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DocStamp.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDocStamp.resx">
+      <DependentUpon>frmDocStamp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogIn.resx">
       <DependentUpon>frmLogIn.cs</DependentUpon>
