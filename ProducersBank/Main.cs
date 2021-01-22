@@ -80,5 +80,16 @@ namespace ProducersBank
             Form frm = new frmPurchaseOrder(this);
             frm.ShowDialog();
         }
+
+        private void doToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void salesInvoiceToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmPurchaseOrder poFrm = new frmPurchaseOrder(this);
+            poFrm.Show();
+        }
     }
 }

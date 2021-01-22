@@ -164,9 +164,9 @@ namespace ProducersBank
                     (
                     0, 
                     row.Cells["Product Code"].Value.ToString(), 
-                    row.Cells["Check Name"].Value.ToString(), 
-                    row.Cells["Unit Price"].Value.ToString(), 
-                    row.Cells["DocStamp"].Value.ToString(),
+                    row.Cells["Check Name"].Value.ToString(),
+                    string.Format("{0,12:#.00}", row.Cells["Unit Price"].Value), 
+                    string.Format("{0,12:#.00}", row.Cells["DocStamp"].Value),
                     row.Cells["Description"].Value.ToString()
                     );
 
@@ -181,6 +181,10 @@ namespace ProducersBank
                     }
 
                 }
+                // Put datagriview ready to edit
+                
+                dgvListToProcess.CurrentCell = dgvListToProcess[0, dgvListToProcess.Rows.Count - 1];
+                dgvListToProcess.BeginEdit(true);
 
                 ///REPLACED THIS WITH MANUAL ISERTION OF DATA ABOVE
                 //created 'list' variable column sorting by line for datagrid view 
@@ -209,7 +213,6 @@ namespace ProducersBank
             AddSelectedItemRow();
         }
 
-
         private void btnSavePrintPO_Click(object sender, EventArgs e)
         {
 
@@ -235,14 +238,14 @@ namespace ProducersBank
                         PurchaseOrderModel line = new PurchaseOrderModel();
 
                         line.PurchaseOrderNumber = int.Parse(txtPONumber.Text.ToString());
-                        line.PurchaseOrderDateTime = DateTime.Parse(dtpPODate.Value.ToShortDateString());
+                        line.PurchaseOrderDateTime = DateTime.Parse(dtpPODate.Value.ToString());
                         line.ClientCode = gClient.ClientCode;
                         line.ProductCode = row.Cells["Product Code"].Value.ToString();
                         line.Quantity = int.Parse(row.Cells["Quantity"].Value.ToString());
                         line.ChequeName = row.Cells["Check Name"].Value.ToString();
                         line.Description = row.Cells["Description"].Value.ToString();
-                        line.UnitPrice = int.Parse(row.Cells["Unit Price"].Value.ToString());
-                        line.Docstamp = int.Parse(row.Cells["DocStamp"].Value.ToString());
+                        line.UnitPrice = double.Parse(row.Cells["Unit Price"].Value.ToString());
+                        line.Docstamp = double.Parse(row.Cells["DocStamp"].Value.ToString());
                         line.GeneratedBy = lblUserName.Text.ToString();
                         line.CheckedBy = cbCheckedBy.Text.ToString();
                         line.ApprovedBy = cbApprovedBy.Text.ToString();
@@ -316,6 +319,7 @@ namespace ProducersBank
             dgvListToProcess.Rows.Clear();
             dgvListToProcess.ClearSelection();
 
+            DisableControls();
 
         }
 
@@ -364,6 +368,7 @@ namespace ProducersBank
             if (!proc.LoadPriceListData(ref dt))
             {
                 MessageBox.Show("Server Connection Error (LoadPriceListData) \r\n" + proc.errorMessage);
+                RefreshView();
                 return;
             }
 
@@ -381,8 +386,6 @@ namespace ProducersBank
             pnlActionButtons.Enabled = false;
             gbPONo.Enabled = true;
             
-
-
             dgvItemList.ClearSelection();
             //remove first highlighted row in datagrid
             var sortedList = purchaseOrderList
@@ -402,6 +405,11 @@ namespace ProducersBank
                 return;
             }
             EnableControls();
+        }
+
+        private void btnCancelClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

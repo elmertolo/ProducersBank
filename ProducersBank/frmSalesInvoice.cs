@@ -120,11 +120,11 @@ namespace ProducersBank
             //Column names and width setup
 
             dgvListToProcess.Columns[0].Name = "QTY";
-            dgvListToProcess.Columns[0].Width = 50;
+            dgvListToProcess.Columns[0].Width = 40;
             dgvListToProcess.Columns[0].DataPropertyName = "Quantity";
 
             dgvListToProcess.Columns[1].Name = "BATCH";
-            dgvListToProcess.Columns[1].Width = 100;
+            dgvListToProcess.Columns[1].Width = 70;
             dgvListToProcess.Columns[1].DataPropertyName = "Batch"; //this must be the actual table name in sql
 
             dgvListToProcess.Columns[2].Name = "CHECK NAME";
@@ -150,7 +150,7 @@ namespace ProducersBank
 
             dgvListToProcess.Columns[7].Name = "AMOUNT";
             dgvListToProcess.Columns[7].DefaultCellStyle.Format = "#,0.00##";
-            dgvListToProcess.Columns[7].Width = 500;
+            dgvListToProcess.Columns[7].Width = 100;
             dgvListToProcess.Columns[7].DataPropertyName = "LineTotalAmount";
 
         }
@@ -173,6 +173,9 @@ namespace ProducersBank
 
             if (dgvDRList.SelectedRows != null && dgvDRList.SelectedRows.Count > 0)
             {
+                
+               
+
 
                 foreach (DataGridViewRow row in dgvDRList.SelectedRows)
                 {
@@ -187,10 +190,27 @@ namespace ProducersBank
                     line.drList = proc.GetDRList(line.Batch, line.checkType, line.deliveryDate);
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
                     line.lineTotalAmount = Math.Round(line.Quantity * line.unitPrice, 2);
+
+
+                    //Validation of Cheque quantity for PNB
+                    if (gClient.ShortName == "PNB")
+                    {
+                        if (!proc.isQuantityOnHandSufficient(line.Quantity, line.checkName))
+                        {
+                            MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n" + proc.errorMessage);
+                            return;
+                        }
+                    }
+
+
+
                     salesInvoiceList.Add(line);
                     
                 }
+
+
                 
+
                 //created 'list' variable column sorting by line for datagrid view 
                 var sortedList = salesInvoiceList
                     .Select
@@ -259,6 +279,24 @@ namespace ProducersBank
                     {
                         MessageBox.Show("Error updating sales invoice record to server. (proc.UpdateSalesInvoiceHistory) \r\n" + proc.errorMessage);
                         return;
+                    }
+
+                    //Update Quantity On hand for PNB
+                    if (gClient.ShortName == "PNB")
+                    {
+                        foreach(var item in sortedList)
+                        {
+                            int quantity = item.Quantity;
+                            string checkname = item.checkName;
+
+                            if (!proc.UpdateItemQuantityOnhand(quantity, checkname))
+                            {
+                                MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n" + proc.errorMessage);
+                                return;
+                            }
+                        }
+
+                        
                     }
 
 
@@ -501,10 +539,8 @@ namespace ProducersBank
 
 
 
+
     }
 
-    
-
-    
 
 }

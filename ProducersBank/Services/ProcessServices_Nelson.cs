@@ -88,7 +88,7 @@ namespace ProducersBank.Services
         {
             try
             {
-                string sql = "select productcode, bank, chequeName, description, UnitPrice, Docstamp from " + gClient.PriceListTable + "";
+                string sql = "select productcode, bankcode, chequeName, description, UnitPrice, Docstamp from " + gClient.PriceListTable + "";
                 //string sql = "select count(*) as count from producers_history";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
@@ -163,8 +163,6 @@ namespace ProducersBank.Services
             }
 
         }
-
-        
 
         public bool GetProcessedSalesInvoiceList(ref DataTable dt)
         {
@@ -453,12 +451,13 @@ namespace ProducersBank.Services
             }
         }
 
-        public object SeekReturn(string query, Type type)
+        public object SeekReturn(string query)
 
         {
            
             MySqlCommand cmd = new MySqlCommand(query, con);
             var result = cmd.ExecuteScalar();
+ 
             return result;
 
 
@@ -483,6 +482,51 @@ namespace ProducersBank.Services
                 return false;
             }
         }
+
+        public bool isQuantityOnHandSufficient(double quantity, string chequeName)
+        {
+            try
+            {
+                //Check Onhand quantity first. cancel update if onhand quantity is insufficient
+                double onhandQuantity = double.Parse(SeekReturn("select quantityonhand from " + gClient.PriceListTable + " where chequename = '" + chequeName + "'").ToString() ?? "");
+                double newItemQuantity = onhandQuantity - quantity;
+
+                if (newItemQuantity < 0)
+                {
+                    _errorMessage = "Insufficient " + chequeName + " Quantity.";
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+        }
+
+        public bool UpdateItemQuantityOnhand(double quantity, string chequeName)
+        {
+            try
+            {
+                //Check Onhand quantity first. cancel update if onhand quantity is insufficient
+                double onhandQuantity = double.Parse(SeekReturn("select quantityonhand from " + gClient.PriceListTable + " where chequename = '" + chequeName + "'").ToString() ?? "");
+                double newItemQuantity = onhandQuantity - quantity;
+
+                MySqlCommand cmd = new MySqlCommand("Update " + gClient.PriceListTable + " set quantityonhand = " + newItemQuantity + " where chequeName = '" + chequeName + "'", con);
+                rowNumbersAffected = cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+                return false;
+            }
+        }
+
+
+
 
 
 
