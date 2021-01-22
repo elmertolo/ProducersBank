@@ -13,5 +13,6 @@ namespace ProducersBank.Models
         public string ChkType { get; set; }
         public  double DocStampPrice { get; set; }
         public double unitprice{ get; set; }
+
     }
 }

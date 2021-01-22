@@ -230,19 +230,13 @@ namespace ProducersBank
                 {
 
                     ProcessServices_Nelson proc = new ProcessServices_Nelson();
-<<<<<<< HEAD
-                    //if (!proc.UpdateTempTable(salesInvoiceList))
+
+                    //if (!proc.UpdateTempTableSI(salesInvoiceList))
                     //{
                     //    MessageBox.Show("Sales Invoice Temp Table Update Error (UpdateTempTable). \r\n" + proc.errorMessage);
                     //    return;
                     //}
-=======
-                    if (!proc.UpdateTempTableSI(salesInvoiceList))
-                    {
-                        MessageBox.Show("Sales Invoice Temp Table Update Error (UpdateTempTable). \r\n" + proc.errorMessage);
-                        return;
-                    }
->>>>>>> b734660ac0bcea89ea5feb6fd7ec453dc5db21a2
+
 
                     //Fill gSalesInvoiceFinished Model Class
                     //gSalesInvoiceList = salesInvoiceList;

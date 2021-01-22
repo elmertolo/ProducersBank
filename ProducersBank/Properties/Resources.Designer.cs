@@ -121,12 +121,42 @@ namespace ProducersBank.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon generate1 {
+        internal static System.Drawing.Bitmap generate1 {
             get {
                 object obj = ResourceManager.GetObject("generate1", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generate2 {
+            get {
+                object obj = ResourceManager.GetObject("generate2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generate3 {
+            get {
+                object obj = ResourceManager.GetObject("generate3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generate4 {
+            get {
+                object obj = ResourceManager.GetObject("generate4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

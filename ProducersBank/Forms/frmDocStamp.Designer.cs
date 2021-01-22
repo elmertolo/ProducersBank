@@ -29,80 +29,112 @@ namespace ProducersBank.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Button btnGenerateDocStampNo;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDocStamp));
+            System.Windows.Forms.Button btnProcess;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.Button btnClear;
             this.txtBatch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.DgvDSalesInvoice = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtQty = new System.Windows.Forms.Label();
             this.dgvOutput = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dtpDocDate = new System.Windows.Forms.DateTimePicker();
-            ((System.ComponentModel.ISupportInitialize)(this.DgvDSalesInvoice)).BeginInit();
+            this.txtTotalQty = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtDocStampNo = new System.Windows.Forms.TextBox();
+            this.DgvDSalesInvoice = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            btnGenerateDocStampNo = new System.Windows.Forms.Button();
+            btnProcess = new System.Windows.Forms.Button();
+            btnClear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvDSalesInvoice)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // btnGenerateDocStampNo
+            // 
+            btnGenerateDocStampNo.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerateDocStampNo.Image")));
+            btnGenerateDocStampNo.Location = new System.Drawing.Point(157, 52);
+            btnGenerateDocStampNo.Name = "btnGenerateDocStampNo";
+            btnGenerateDocStampNo.Size = new System.Drawing.Size(29, 26);
+            btnGenerateDocStampNo.TabIndex = 8;
+            btnGenerateDocStampNo.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            btnGenerateDocStampNo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            btnGenerateDocStampNo.UseVisualStyleBackColor = true;
+            btnGenerateDocStampNo.Click += new System.EventHandler(this.btnGenerateDocStampNo_Click);
+            // 
+            // btnProcess
+            // 
+            btnProcess.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnProcess.Location = new System.Drawing.Point(201, 50);
+            btnProcess.Name = "btnProcess";
+            btnProcess.Size = new System.Drawing.Size(73, 29);
+            btnProcess.TabIndex = 12;
+            btnProcess.Text = "Add";
+            btnProcess.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            btnProcess.UseVisualStyleBackColor = true;
+            btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
             // 
             // txtBatch
             // 
-            this.txtBatch.Location = new System.Drawing.Point(134, 34);
+            this.txtBatch.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBatch.Location = new System.Drawing.Point(132, 22);
             this.txtBatch.Name = "txtBatch";
-            this.txtBatch.Size = new System.Drawing.Size(100, 20);
-            this.txtBatch.TabIndex = 0;
+            this.txtBatch.Size = new System.Drawing.Size(100, 25);
+            this.txtBatch.TabIndex = 1;
+            this.txtBatch.TextChanged += new System.EventHandler(this.txtBatch_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 36);
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(15, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 16);
+            this.label1.Size = new System.Drawing.Size(112, 21);
             this.label1.TabIndex = 1;
             this.label1.Text = "Sales Invoice :";
             // 
-            // DgvDSalesInvoice
-            // 
-            this.DgvDSalesInvoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvDSalesInvoice.Location = new System.Drawing.Point(17, 60);
-            this.DgvDSalesInvoice.Name = "DgvDSalesInvoice";
-            this.DgvDSalesInvoice.Size = new System.Drawing.Size(639, 191);
-            this.DgvDSalesInvoice.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 266);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 16);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Total Quantity :";
-            // 
-            // txtQty
-            // 
-            this.txtQty.AutoSize = true;
-            this.txtQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQty.Location = new System.Drawing.Point(134, 266);
-            this.txtQty.Name = "txtQty";
-            this.txtQty.Size = new System.Drawing.Size(16, 16);
-            this.txtQty.TabIndex = 4;
-            this.txtQty.Text = "0";
-            // 
             // dgvOutput
             // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOutput.Location = new System.Drawing.Point(19, 289);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvOutput.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvOutput.Location = new System.Drawing.Point(19, 84);
             this.dgvOutput.Name = "dgvOutput";
-            this.dgvOutput.Size = new System.Drawing.Size(639, 191);
+            this.dgvOutput.Size = new System.Drawing.Size(771, 191);
             this.dgvOutput.TabIndex = 5;
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.generateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(676, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(827, 28);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -117,34 +149,146 @@ namespace ProducersBank.Forms
             // 
             // dtpDocDate
             // 
+            this.dtpDocDate.CalendarFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDocDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDocDate.Location = new System.Drawing.Point(415, 32);
+            this.dtpDocDate.Location = new System.Drawing.Point(549, 55);
             this.dtpDocDate.Name = "dtpDocDate";
             this.dtpDocDate.Size = new System.Drawing.Size(241, 22);
             this.dtpDocDate.TabIndex = 7;
+            // 
+            // txtTotalQty
+            // 
+            this.txtTotalQty.AutoSize = true;
+            this.txtTotalQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalQty.Location = new System.Drawing.Point(144, 575);
+            this.txtTotalQty.Name = "txtTotalQty";
+            this.txtTotalQty.Size = new System.Drawing.Size(16, 16);
+            this.txtTotalQty.TabIndex = 9;
+            this.txtTotalQty.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(26, 575);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(112, 16);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Total Quantity :";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(btnClear);
+            this.groupBox1.Controls.Add(btnProcess);
+            this.groupBox1.Controls.Add(btnGenerateDocStampNo);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtDocStampNo);
+            this.groupBox1.Controls.Add(this.dgvOutput);
+            this.groupBox1.Controls.Add(this.dtpDocDate);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(12, 294);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(802, 309);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Document Stamp Result";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(545, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(132, 21);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "DocStamp Date :";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(19, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(175, 21);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Document Stamp No. :";
+            // 
+            // txtDocStampNo
+            // 
+            this.txtDocStampNo.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDocStampNo.Location = new System.Drawing.Point(23, 52);
+            this.txtDocStampNo.Name = "txtDocStampNo";
+            this.txtDocStampNo.Size = new System.Drawing.Size(128, 25);
+            this.txtDocStampNo.TabIndex = 6;
+            // 
+            // DgvDSalesInvoice
+            // 
+            this.DgvDSalesInvoice.AllowUserToAddRows = false;
+            this.DgvDSalesInvoice.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DgvDSalesInvoice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.DgvDSalesInvoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvDSalesInvoice.Location = new System.Drawing.Point(17, 56);
+            this.DgvDSalesInvoice.Name = "DgvDSalesInvoice";
+            this.DgvDSalesInvoice.ReadOnly = true;
+            this.DgvDSalesInvoice.Size = new System.Drawing.Size(773, 177);
+            this.DgvDSalesInvoice.TabIndex = 2;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.DgvDSalesInvoice);
+            this.groupBox2.Controls.Add(this.txtBatch);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(12, 34);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(802, 249);
+            this.groupBox2.TabIndex = 11;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Processed Sales Invoice";
+            // 
+            // btnClear
+            // 
+            btnClear.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnClear.Location = new System.Drawing.Point(285, 49);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new System.Drawing.Size(73, 29);
+            btnClear.TabIndex = 13;
+            btnClear.Text = "Clear";
+            btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // frmDocStamp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(676, 498);
-            this.Controls.Add(this.dtpDocDate);
-            this.Controls.Add(this.dgvOutput);
-            this.Controls.Add(this.txtQty);
+            this.ClientSize = new System.Drawing.Size(827, 622);
+            this.Controls.Add(this.txtTotalQty);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.DgvDSalesInvoice);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtBatch);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmDocStamp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Document Stamp";
             this.Load += new System.EventHandler(this.frmDocStamp_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.DgvDSalesInvoice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOutput)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvDSalesInvoice)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,12 +298,17 @@ namespace ProducersBank.Forms
 
         private System.Windows.Forms.TextBox txtBatch;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView DgvDSalesInvoice;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label txtQty;
         private System.Windows.Forms.DataGridView dgvOutput;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
         private System.Windows.Forms.DateTimePicker dtpDocDate;
+        private System.Windows.Forms.Label txtTotalQty;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView DgvDSalesInvoice;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtDocStampNo;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

@@ -69,17 +69,7 @@ namespace ProducersBank
 
             SupplyGlobalClientVariables(cbBankList.Text.ToString());
 
-            if(cbBankList.Text== "Philippine National Bank")
-            {
-                tableName = "pnb_history";
-                tempTableName = "pnb_temp";
-                MessageBox.Show(tableName);
-            }
-            else if (cbBankList.Text == "Producers Bank")
-            {
-                tableName = "producers_history";
-                MessageBox.Show(tableName);
-            }
+            
             Main mainFrm = new Main();
             mainFrm.Show();
             this.Hide();

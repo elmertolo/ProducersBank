@@ -111,11 +111,9 @@ namespace ProducersBank.Services
 
                 DataTable dt = new DataTable();
 
-<<<<<<< HEAD
-                string sql = "select group_concat(distinct(drnumber) separator ', ') from "+gClient.DataBaseName+" " +
-=======
+
                 string sql = "select group_concat(distinct(drnumber) separator ', ') from " + gClient.DataBaseName + " " +
->>>>>>> b734660ac0bcea89ea5feb6fd7ec453dc5db21a2
+
                 "WHERE salesinvoice is null " +
                 "and batch = '" + batch + "' " +
                 "and chktype = '" + checktype + "' " +

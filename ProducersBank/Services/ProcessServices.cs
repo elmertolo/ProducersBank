@@ -670,7 +670,7 @@ namespace ProducersBank.Services
             string reportPath = "";
             if (Debugger.IsAttached)
             {
-                if (frmLogIn.tableName == "")
+                if (gClient.DataBaseName == "")
                     MessageBox.Show("There is no table selected!");
                 else
                 {
@@ -764,7 +764,7 @@ namespace ProducersBank.Services
         public bool CheckBatchifExisted(string _batch)
         {
             string batch = "";
-            Sql = "Select Distinct(Batch) from " + frmLogIn.tableName + " where Batch  = '" + _batch + "'";
+            Sql = "Select Distinct(Batch) from " + gClient.DataBaseName + " where Batch  = '" + _batch + "'";
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
 
@@ -887,7 +887,7 @@ namespace ProducersBank.Services
         }
         public List<SalesInvoiceModel> ListofProcessSI(List<SalesInvoiceModel> _SI)
         {
-            Sql = "Select SalesInvoiceDate,SalesInvoice, Count(ChkType) as Quantity,ChkyType, ChequeName, Batch from " + gClient.DataBaseName +
+            Sql = "Select SalesInvoiceDate,SalesInvoice, Count(ChkType) as Quantity,ChkType, ChequeName, Batch from " + gClient.DataBaseName +
                     " Group by SalesInvoice,ChkType order by SalesInvoice, ChkType;";
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
@@ -913,7 +913,7 @@ namespace ProducersBank.Services
             return _SI;
         }
 
-        public string ContcatSalesInvoice(string batch, string checktype, DateTime deliveryDate)
+        public string ContcatSalesInvoice(string batch, string checktype, DateTime salesinvoicedate)
         {
 
             DataTable dt = new DataTable();
@@ -921,22 +921,101 @@ namespace ProducersBank.Services
             Sql = "select group_concat(distinct(SalesInvoice) separator ', ') from " + gClient.DataBaseName + " " +
            "WHERE salesinvoice is not null " +
            "and batch = '" + batch + "' " +
-           "and chktype = '" + checktype + "' " +
-           "and deliverydate = '" + deliveryDate.ToString("yyyy-MM-dd") + "';";
-
+           "and chktype = '" + checktype + "'; ";
+           //"and salesinvoicedate = '" + salesinvoicedate.ToString("yyyy-MM-dd") + "';";
+            DBConnect();
             MySqlCommand cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             cmd.ExecuteNonQuery();
             da.Fill(dt);
-            string drList = dt.Rows[0].Field<string>(0).ToString(); // get concatenated delivery number list 
-            return drList is null ? "" : drList; // return concatenated delivery number list if not null
+            
+            string siList = dt.Rows[0].Field<string>(0).ToString(); // get concatenated delivery number list 
+            DBClosed();
+            return siList is null ? "" : siList; // return concatenated delivery number list if not null
 
-
+            
         }
-        public void GetPriceList(List<PriceListModel> _list)
+        //public string ConcatBatches(string batch, string checktype, DateTime deliveryDate)
+        //{
+
+        //    DataTable dt = new DataTable();
+
+        //    Sql = "select group_concat(distinct(Batches) separator ', ') from " + gClient.DataBaseName + " " +
+        //   "WHERE salesinvoice is not null " +
+        //   "and batch = '" + batch + "' " +
+        //   "and chktype = '" + checktype + "' " +
+        //   "and deliverydate = '" + deliveryDate.ToString("yyyy-MM-dd") + "';";
+
+        //    MySqlCommand cmd = new MySqlCommand(Sql, myConnect);
+        //    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+        //    cmd.ExecuteNonQuery();
+        //    da.Fill(dt);
+        //    string siList = dt.Rows[0].Field<string>(0).ToString(); // get concatenated delivery number list 
+        //    return siList is null ? "" : siList; // return concatenated delivery number list if not null
+
+
+        //}
+        public PriceListModel GetPriceList(PriceListModel price, string chkType)
         {
+            Sql = "Select Bank, Description, Docstamp from " + gClient.PriceListTable  + " where FinalChkType ='"+chkType+"'; ";
+            DBConnect();
+            cmd = new MySqlCommand(Sql, myConnect);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
 
+                price.Bank = !reader.IsDBNull(0) ? reader.GetString(0) : "";
+                price.ChequeDescription = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                price.DocStampPrice = !reader.IsDBNull(2) ? reader.GetDouble(2) : 0;
+               // price.unitprice = !reader.IsDBNull(3) ? reader.GetDouble(3) : 0;
+               
+                
+            }
+            reader.Close();
+            DBClosed();
+            return price;
+        }
+        public void GenerateDocStamp(List<DocStampModel> _docStamp)
+        {
+            DBConnect();
+            _docStamp.ForEach(r => {
+                Sql = "Update " + gClient.DataBaseName + " set DocStamp = " + r.DocStampPrice + ", DocStampNumber = " + r.DocStampNumber +
+                    ", Date_DocStamp = '" + r.DocStampDate.ToString("yyyy-MM-dd") + "' where SalesInvoice = " + r.SalesInvoiceNumber + " and ChkType = '"+r.ChkType+"';";
+                cmd = new MySqlCommand(Sql, myConnect);
+                cmd.ExecuteNonQuery();
+                
+            });
+            
+            return;
+        }
+        public string DisplayAllSalesInvoice(string _batch, List<TempModel> _temp)
+        {
+            DBConnect();
 
+            Sql = "Select SalesInvoiceDate,SalesInvoice, Count(ChkType) as Quantity,ChkType, ChequeName, Batch from  " + gClient.DataBaseName +
+                    " where (DocStampNumber is null or DocStampNumber = '')  and (Batch Like '%" + _batch + "%' OR SalesInvoice Like '%" + _batch + "%') " +
+                    "group by SalesInvoice, ChkType order by SalesInvoice, ChkType;";
+
+            cmd = new MySqlCommand(Sql, myConnect);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                TempModel t = new TempModel
+                {
+                    SI_Date = !reader.IsDBNull(0) ? reader.GetDateTime(0) : DateTime.Now,
+                    SalesInvoice = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
+                    Qty = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+                    ChkType = !reader.IsDBNull(3) ? reader.GetString(3) : "",
+                    ChequeName = !reader.IsDBNull(4) ? reader.GetString(4) : "",
+                    Batch = !reader.IsDBNull(5) ? reader.GetString(5) : ""
+                    
+                };
+                _temp.Add(t);
+            }
+            reader.Close();
+            DBClosed();
+
+            return _batch;
         }
     }
 
