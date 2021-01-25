@@ -79,6 +79,7 @@ namespace ProducersBank
             Form frm = new frmDocStamp(this);
             frm.ShowDialog();
         }
+<<<<<<< HEAD
         //private void purchaseOrderToolStripMenuItem_Click(object sender, EventArgs e)
         //{
         //    Form frm = new frmPurchaseOrder(this);
@@ -90,5 +91,18 @@ namespace ProducersBank
 
         //    frm.ShowDialog();
         //}
+=======
+
+        private void doToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void salesInvoiceToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmPurchaseOrder poFrm = new frmPurchaseOrder(this);
+            poFrm.Show();
+        }
+>>>>>>> 44c1886142baf18ed70765938d72e2dbddf4ed6d
     }
 }
