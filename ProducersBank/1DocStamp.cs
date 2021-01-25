@@ -16,14 +16,14 @@ namespace ProducersBank {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class DocStamp : ReportClass {
+    public class Crystal_Report11DocStamp : ReportClass {
         
-        public DocStamp() {
+        public Crystal_Report11DocStamp() {
         }
         
         public override string ResourceName {
             get {
-                return "DocStamp.rpt";
+                return "1DocStamp.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace ProducersBank {
         
         public override string FullResourceName {
             get {
-                return "ProducersBank.DocStamp.rpt";
+                return "ProducersBank.1DocStamp.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section8 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -82,7 +82,7 @@ namespace ProducersBank {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section9 {
             get {
                 return this.ReportDefinition.Sections[4];
             }
@@ -106,9 +106,9 @@ namespace ProducersBank {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedDocStamp : Component, ICachedReport {
+    public class CachedCrystal_Report11DocStamp : Component, ICachedReport {
         
-        public CachedDocStamp() {
+        public CachedCrystal_Report11DocStamp() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace ProducersBank {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            DocStamp rpt = new DocStamp();
+            Crystal_Report11DocStamp rpt = new Crystal_Report11DocStamp();
             rpt.Site = this.Site;
             return rpt;
         }

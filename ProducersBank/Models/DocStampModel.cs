@@ -19,6 +19,9 @@ namespace ProducersBank.Models
         public double DocStampPrice { get; set; }
         public double TotalAmount { get; set; }
         public double unitprice { get; set; }
+        public string BankCode { get; set; }
+        public string PreparedBy { get; set; }
+        public string CheckedBy { get; set; }
 
     }
 }

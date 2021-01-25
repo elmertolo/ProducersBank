@@ -688,8 +688,11 @@ namespace ProducersBank.Services
                     {
                         if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
                             reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
+
                         else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
                             reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
+                        else if (RecentBatch.report == "DOC" || DeliveryReport.report == "DOC")
+                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\DocStamp.rpt";
                         else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
                             reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PNBDeliveryReceipt.rpt";
 
@@ -704,7 +707,7 @@ namespace ProducersBank.Services
             }
             else
             {
-                if (frmLogIn.tableName == "")
+                if (gClient.DataBaseName == "")
                     MessageBox.Show("There is no table selected!");
                 else
                 {
@@ -740,7 +743,8 @@ namespace ProducersBank.Services
             DBConnect();
 
             Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from  " + gClient.DataBaseName +
-                    " where DrNumber is not null  and (Batch Like '%" + _batch + "%' OR SalesInvoice Like '%" + _batch + "%') group by batch, chequename, ChkType";
+                    " where DrNumber is not null  and (Batch Like '%" + _batch + "%' OR SalesInvoice Like '%" + _batch + "%' OR DocStampNumber Like '%" + _batch + "%' )" +
+                    " group by batch, chequename, ChkType";
 
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -880,11 +884,7 @@ namespace ProducersBank.Services
             value = textBox.Text;
             return dialogResult;
         }
-        public void GenerateDocStamp(List<TempModel> _temp)
-        {
-            Sql = "Select";
 
-        }
         public List<SalesInvoiceModel> ListofProcessSI(List<SalesInvoiceModel> _SI)
         {
             Sql = "Select SalesInvoiceDate,SalesInvoice, Count(ChkType) as Quantity,ChkType, ChequeName, Batch from " + gClient.DataBaseName +
@@ -922,18 +922,18 @@ namespace ProducersBank.Services
            "WHERE salesinvoice is not null " +
            "and batch = '" + batch + "' " +
            "and chktype = '" + checktype + "'; ";
-           //"and salesinvoicedate = '" + salesinvoicedate.ToString("yyyy-MM-dd") + "';";
+            //"and salesinvoicedate = '" + salesinvoicedate.ToString("yyyy-MM-dd") + "';";
             DBConnect();
             MySqlCommand cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             cmd.ExecuteNonQuery();
             da.Fill(dt);
-            
+
             string siList = dt.Rows[0].Field<string>(0).ToString(); // get concatenated delivery number list 
             DBClosed();
             return siList is null ? "" : siList; // return concatenated delivery number list if not null
 
-            
+
         }
         //public string ConcatBatches(string batch, string checktype, DateTime deliveryDate)
         //{
@@ -957,37 +957,42 @@ namespace ProducersBank.Services
         //}
         public PriceListModel GetPriceList(PriceListModel price, string chkType)
         {
-            Sql = "Select Bank, Description, Docstamp from " + gClient.PriceListTable  + " where FinalChkType ='"+chkType+"'; ";
+            Sql = "Select BankCode, Description, Docstamp from " + gClient.PriceListTable + " where FinalChkType ='" + chkType + "'; ";
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
-            while(reader.Read())
+            while (reader.Read())
             {
 
                 price.Bank = !reader.IsDBNull(0) ? reader.GetString(0) : "";
                 price.ChequeDescription = !reader.IsDBNull(1) ? reader.GetString(1) : "";
                 price.DocStampPrice = !reader.IsDBNull(2) ? reader.GetDouble(2) : 0;
-               // price.unitprice = !reader.IsDBNull(3) ? reader.GetDouble(3) : 0;
-               
-                
+                // price.unitprice = !reader.IsDBNull(3) ? reader.GetDouble(3) : 0;
+
+
             }
             reader.Close();
             DBClosed();
             return price;
         }
-        public void GenerateDocStamp(List<DocStampModel> _docStamp)
+        public void UpdateDocstamp(List<DocStampModel> _docStamp)
         {
             DBConnect();
-            _docStamp.ForEach(r => {
+            _docStamp.ForEach(r =>
+            {
                 Sql = "Update " + gClient.DataBaseName + " set DocStamp = " + r.DocStampPrice + ", DocStampNumber = " + r.DocStampNumber +
-                    ", Date_DocStamp = '" + r.DocStampDate.ToString("yyyy-MM-dd") + "' where SalesInvoice = " + r.SalesInvoiceNumber + " and ChkType = '"+r.ChkType+"';";
+                    ", Date_DocStamp = '" + r.DocStampDate.ToString("yyyy-MM-dd") + "',Username_DocStamp ='" + r.PreparedBy +
+                    "', CheckedByDS = '" + r.CheckedBy + "'  where SalesInvoice = " + r.SalesInvoiceNumber + " and ChkType = '" + r.ChkType + "';";
                 cmd = new MySqlCommand(Sql, myConnect);
                 cmd.ExecuteNonQuery();
-                
+
             });
-            
+            DBClosed();
+
+
             return;
         }
+
         public string DisplayAllSalesInvoice(string _batch, List<TempModel> _temp)
         {
             DBConnect();
@@ -1008,7 +1013,7 @@ namespace ProducersBank.Services
                     ChkType = !reader.IsDBNull(3) ? reader.GetString(3) : "",
                     ChequeName = !reader.IsDBNull(4) ? reader.GetString(4) : "",
                     Batch = !reader.IsDBNull(5) ? reader.GetString(5) : ""
-                    
+
                 };
                 _temp.Add(t);
             }
@@ -1017,6 +1022,93 @@ namespace ProducersBank.Services
 
             return _batch;
         }
-    }
+        public void GetDocStampDetails(List<DocStampModel> _temp, string _docStampNumber)
+        {
+            Sql = "Select Bank, DocStampNumber,SalesInvoice,Count(ChkType) as Quantity,ChkType, ChequeName, DocStamp, " +
+                    "Username_DocStamp, CheckedByDS from " + gClient.DataBaseName +
+                    " where  DocStampNumber= '" + _docStampNumber + "' Group by DocStampNumber,ChkType order by DocStampNumber, ChkType";
+            DBConnect();
+            cmd = new MySqlCommand(Sql, myConnect);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                DocStampModel doc = new DocStampModel
+                {
+                    BankCode = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+                    DocStampNumber = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
+                    TotalQuantity = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+                    ChkType = !reader.IsDBNull(3) ? reader.GetString(3) : "",
+                    DocDesc = !reader.IsDBNull(4) ? reader.GetString(4) : "",
+                    //  TotalAmount = !reader.IsDBNull(5) ? reader.GetDouble(5) : 0,
+                    DocStampPrice = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0,
+                    PreparedBy = !reader.IsDBNull(7) ? reader.GetString(7) : "",
+                    CheckedBy = !reader.IsDBNull(8) ? reader.GetString(8) : ""
+                };
+                _temp.Add(doc);
+            }
+            reader.Close();
+            DBClosed();
 
+            DBConnect();
+            _temp.ForEach(d =>
+            {
+                string Sql2 = "Insert into " + gClient.DocStampTempTable + "(Bank, DocStampNumber,SalesInvoice,Quantity,ChkType, ChequeDesc, DocStampPrice, " +
+                            "PreparedBy, CheckedBy, PONumber,BalanceOrder,Batch)Values('" + d.BankCode + "'," + d.DocStampNumber +
+                            ", " + d.SalesInvoiceNumber + "," + d.TotalQuantity + ",'" + d.ChkType + "','" + d.DocDesc +
+                            "," + d.DocStampPrice + ",'" + d.PreparedBy + "','" + d.CheckedBy + "'";
+                MySqlCommand cmd2 = new MySqlCommand(Sql2, myConnect);
+                cmd2.ExecuteNonQuery();
+            });
+            DBClosed();
+            return;
+        }
+        public void GetUsers(List<UserListModel> _users)
+        {
+            Sql = "Select Username from userlist";
+            DBConnect();
+            cmd = new MySqlCommand(Sql, myConnect);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                UserListModel user = new UserListModel
+                {
+                    UserName = !reader.IsDBNull(0) ? reader.GetString(0) : ""
+                };
+                _users.Add(user);
+            }
+            reader.Close();
+            DBClosed();
+            return;
+        }
+        public List<Int32> GetMaxDocStamp()
+        {
+            GetBankTables();
+            //InsertToMaxTB();
+            DBConnect();
+            List<Int32> pack = new List<Int32>();
+            Int32 dr = 0;
+            foreach (var item in db)
+            {
+
+
+                Sql = "Select Max(DocStampNumber) from " + item + " where Date >= '2020-12-01'";
+
+                cmd = new MySqlCommand(Sql, myConnect);
+                MySqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    dr = !read.IsDBNull(0) ? read.GetInt32(0) : 0;
+                    pack.Add(dr);
+                }
+
+                read.Close();
+            }
+
+            DBClosed();
+
+
+            return pack;
+        }
+    }
 }

@@ -1423,11 +1423,25 @@ namespace ProducersBank {
             
             private global::System.Data.DataColumn columnQuantity;
             
+            private global::System.Data.DataColumn columnChkType;
+            
             private global::System.Data.DataColumn columnChequeDesc;
             
-            private global::System.Data.DataColumn columnDataColumn1;
+            private global::System.Data.DataColumn columnDocStampDate;
             
-            private global::System.Data.DataColumn columnDataColumn2;
+            private global::System.Data.DataColumn columnTotalAmount;
+            
+            private global::System.Data.DataColumn columnDocStampPrice;
+            
+            private global::System.Data.DataColumn columnPreparedBy;
+            
+            private global::System.Data.DataColumn columnCheckedBy;
+            
+            private global::System.Data.DataColumn columnPONumber;
+            
+            private global::System.Data.DataColumn columnBalanceOrder;
+            
+            private global::System.Data.DataColumn columnBatch;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1496,6 +1510,14 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ChkTypeColumn {
+                get {
+                    return this.columnChkType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn ChequeDescColumn {
                 get {
                     return this.columnChequeDesc;
@@ -1504,17 +1526,65 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DataColumn1Column {
+            public global::System.Data.DataColumn DocStampDateColumn {
                 get {
-                    return this.columnDataColumn1;
+                    return this.columnDocStampDate;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DataColumn2Column {
+            public global::System.Data.DataColumn TotalAmountColumn {
                 get {
-                    return this.columnDataColumn2;
+                    return this.columnTotalAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DocStampPriceColumn {
+                get {
+                    return this.columnDocStampPrice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PreparedByColumn {
+                get {
+                    return this.columnPreparedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CheckedByColumn {
+                get {
+                    return this.columnCheckedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PONumberColumn {
+                get {
+                    return this.columnPONumber;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BalanceOrderColumn {
+                get {
+                    return this.columnBalanceOrder;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BatchColumn {
+                get {
+                    return this.columnBatch;
                 }
             }
             
@@ -1555,16 +1625,23 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DocStampRow AddDocStampRow(string Bank, string DocstampNumber, string SalesInvoice, string Quantity, string ChequeDesc, string DataColumn1, string DataColumn2) {
+            public DocStampRow AddDocStampRow(string Bank, string DocstampNumber, string SalesInvoice, string Quantity, string ChkType, string ChequeDesc, string DocStampDate, string TotalAmount, string DocStampPrice, string PreparedBy, string CheckedBy, string PONumber, string BalanceOrder, string Batch) {
                 DocStampRow rowDocStampRow = ((DocStampRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Bank,
                         DocstampNumber,
                         SalesInvoice,
                         Quantity,
+                        ChkType,
                         ChequeDesc,
-                        DataColumn1,
-                        DataColumn2};
+                        DocStampDate,
+                        TotalAmount,
+                        DocStampPrice,
+                        PreparedBy,
+                        CheckedBy,
+                        PONumber,
+                        BalanceOrder,
+                        Batch};
                 rowDocStampRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDocStampRow);
                 return rowDocStampRow;
@@ -1591,9 +1668,16 @@ namespace ProducersBank {
                 this.columnDocstampNumber = base.Columns["DocstampNumber"];
                 this.columnSalesInvoice = base.Columns["SalesInvoice"];
                 this.columnQuantity = base.Columns["Quantity"];
+                this.columnChkType = base.Columns["ChkType"];
                 this.columnChequeDesc = base.Columns["ChequeDesc"];
-                this.columnDataColumn1 = base.Columns["DataColumn1"];
-                this.columnDataColumn2 = base.Columns["DataColumn2"];
+                this.columnDocStampDate = base.Columns["DocStampDate"];
+                this.columnTotalAmount = base.Columns["TotalAmount"];
+                this.columnDocStampPrice = base.Columns["DocStampPrice"];
+                this.columnPreparedBy = base.Columns["PreparedBy"];
+                this.columnCheckedBy = base.Columns["CheckedBy"];
+                this.columnPONumber = base.Columns["PONumber"];
+                this.columnBalanceOrder = base.Columns["BalanceOrder"];
+                this.columnBatch = base.Columns["Batch"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1607,12 +1691,26 @@ namespace ProducersBank {
                 base.Columns.Add(this.columnSalesInvoice);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQuantity);
+                this.columnChkType = new global::System.Data.DataColumn("ChkType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnChkType);
                 this.columnChequeDesc = new global::System.Data.DataColumn("ChequeDesc", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnChequeDesc);
-                this.columnDataColumn1 = new global::System.Data.DataColumn("DataColumn1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDataColumn1);
-                this.columnDataColumn2 = new global::System.Data.DataColumn("DataColumn2", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDataColumn2);
+                this.columnDocStampDate = new global::System.Data.DataColumn("DocStampDate", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDocStampDate);
+                this.columnTotalAmount = new global::System.Data.DataColumn("TotalAmount", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalAmount);
+                this.columnDocStampPrice = new global::System.Data.DataColumn("DocStampPrice", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDocStampPrice);
+                this.columnPreparedBy = new global::System.Data.DataColumn("PreparedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPreparedBy);
+                this.columnCheckedBy = new global::System.Data.DataColumn("CheckedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCheckedBy);
+                this.columnPONumber = new global::System.Data.DataColumn("PONumber", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPONumber);
+                this.columnBalanceOrder = new global::System.Data.DataColumn("BalanceOrder", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBalanceOrder);
+                this.columnBatch = new global::System.Data.DataColumn("Batch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBatch);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2969,6 +3067,22 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ChkType {
+                get {
+                    try {
+                        return ((string)(this[this.tableDocStamp.ChkTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ChkType\' in table \'DocStamp\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDocStamp.ChkTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string ChequeDesc {
                 get {
                     try {
@@ -2985,33 +3099,129 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DataColumn1 {
+            public string DocStampDate {
                 get {
                     try {
-                        return ((string)(this[this.tableDocStamp.DataColumn1Column]));
+                        return ((string)(this[this.tableDocStamp.DocStampDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DataColumn1\' in table \'DocStamp\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'DocStampDate\' in table \'DocStamp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDocStamp.DataColumn1Column] = value;
+                    this[this.tableDocStamp.DocStampDateColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DataColumn2 {
+            public string TotalAmount {
                 get {
                     try {
-                        return ((string)(this[this.tableDocStamp.DataColumn2Column]));
+                        return ((string)(this[this.tableDocStamp.TotalAmountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DataColumn2\' in table \'DocStamp\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalAmount\' in table \'DocStamp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDocStamp.DataColumn2Column] = value;
+                    this[this.tableDocStamp.TotalAmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DocStampPrice {
+                get {
+                    try {
+                        return ((string)(this[this.tableDocStamp.DocStampPriceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DocStampPrice\' in table \'DocStamp\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDocStamp.DocStampPriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PreparedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableDocStamp.PreparedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PreparedBy\' in table \'DocStamp\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDocStamp.PreparedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CheckedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableDocStamp.CheckedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CheckedBy\' in table \'DocStamp\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDocStamp.CheckedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PONumber {
+                get {
+                    try {
+                        return ((string)(this[this.tableDocStamp.PONumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PONumber\' in table \'DocStamp\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDocStamp.PONumberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string BalanceOrder {
+                get {
+                    try {
+                        return ((string)(this[this.tableDocStamp.BalanceOrderColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BalanceOrder\' in table \'DocStamp\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDocStamp.BalanceOrderColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Batch {
+                get {
+                    try {
+                        return ((string)(this[this.tableDocStamp.BatchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Batch\' in table \'DocStamp\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDocStamp.BatchColumn] = value;
                 }
             }
             
@@ -3065,6 +3275,18 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsChkTypeNull() {
+                return this.IsNull(this.tableDocStamp.ChkTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetChkTypeNull() {
+                this[this.tableDocStamp.ChkTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsChequeDescNull() {
                 return this.IsNull(this.tableDocStamp.ChequeDescColumn);
             }
@@ -3077,26 +3299,98 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDataColumn1Null() {
-                return this.IsNull(this.tableDocStamp.DataColumn1Column);
+            public bool IsDocStampDateNull() {
+                return this.IsNull(this.tableDocStamp.DocStampDateColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDataColumn1Null() {
-                this[this.tableDocStamp.DataColumn1Column] = global::System.Convert.DBNull;
+            public void SetDocStampDateNull() {
+                this[this.tableDocStamp.DocStampDateColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDataColumn2Null() {
-                return this.IsNull(this.tableDocStamp.DataColumn2Column);
+            public bool IsTotalAmountNull() {
+                return this.IsNull(this.tableDocStamp.TotalAmountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDataColumn2Null() {
-                this[this.tableDocStamp.DataColumn2Column] = global::System.Convert.DBNull;
+            public void SetTotalAmountNull() {
+                this[this.tableDocStamp.TotalAmountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDocStampPriceNull() {
+                return this.IsNull(this.tableDocStamp.DocStampPriceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDocStampPriceNull() {
+                this[this.tableDocStamp.DocStampPriceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPreparedByNull() {
+                return this.IsNull(this.tableDocStamp.PreparedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPreparedByNull() {
+                this[this.tableDocStamp.PreparedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCheckedByNull() {
+                return this.IsNull(this.tableDocStamp.CheckedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCheckedByNull() {
+                this[this.tableDocStamp.CheckedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPONumberNull() {
+                return this.IsNull(this.tableDocStamp.PONumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPONumberNull() {
+                this[this.tableDocStamp.PONumberColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBalanceOrderNull() {
+                return this.IsNull(this.tableDocStamp.BalanceOrderColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBalanceOrderNull() {
+                this[this.tableDocStamp.BalanceOrderColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBatchNull() {
+                return this.IsNull(this.tableDocStamp.BatchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBatchNull() {
+                this[this.tableDocStamp.BatchColumn] = global::System.Convert.DBNull;
             }
         }
         

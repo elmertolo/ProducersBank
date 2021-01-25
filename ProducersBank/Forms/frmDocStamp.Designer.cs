@@ -32,10 +32,9 @@ namespace ProducersBank.Forms
             System.Windows.Forms.Button btnGenerateDocStampNo;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDocStamp));
             System.Windows.Forms.Button btnProcess;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.Button btnClear;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtBatch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvOutput = new System.Windows.Forms.DataGridView();
@@ -50,6 +49,10 @@ namespace ProducersBank.Forms
             this.txtDocStampNo = new System.Windows.Forms.TextBox();
             this.DgvDSalesInvoice = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cboPreparedBy = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cboCheckBy = new System.Windows.Forms.ComboBox();
             btnGenerateDocStampNo = new System.Windows.Forms.Button();
             btnProcess = new System.Windows.Forms.Button();
             btnClear = new System.Windows.Forms.Button();
@@ -63,7 +66,7 @@ namespace ProducersBank.Forms
             // btnGenerateDocStampNo
             // 
             btnGenerateDocStampNo.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerateDocStampNo.Image")));
-            btnGenerateDocStampNo.Location = new System.Drawing.Point(157, 52);
+            btnGenerateDocStampNo.Location = new System.Drawing.Point(428, 30);
             btnGenerateDocStampNo.Name = "btnGenerateDocStampNo";
             btnGenerateDocStampNo.Size = new System.Drawing.Size(29, 26);
             btnGenerateDocStampNo.TabIndex = 8;
@@ -75,7 +78,7 @@ namespace ProducersBank.Forms
             // btnProcess
             // 
             btnProcess.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnProcess.Location = new System.Drawing.Point(201, 50);
+            btnProcess.Location = new System.Drawing.Point(31, 30);
             btnProcess.Name = "btnProcess";
             btnProcess.Size = new System.Drawing.Size(73, 29);
             btnProcess.TabIndex = 12;
@@ -83,6 +86,18 @@ namespace ProducersBank.Forms
             btnProcess.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             btnProcess.UseVisualStyleBackColor = true;
             btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
+            // 
+            // btnClear
+            // 
+            btnClear.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnClear.Location = new System.Drawing.Point(32, 65);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new System.Drawing.Size(73, 29);
+            btnClear.TabIndex = 13;
+            btnClear.Text = "Clear";
+            btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // txtBatch
             // 
@@ -105,26 +120,18 @@ namespace ProducersBank.Forms
             // 
             // dgvOutput
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvOutput.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvOutput.Location = new System.Drawing.Point(19, 84);
+            this.dgvOutput.Location = new System.Drawing.Point(19, 116);
             this.dgvOutput.Name = "dgvOutput";
-            this.dgvOutput.Size = new System.Drawing.Size(771, 191);
+            this.dgvOutput.Size = new System.Drawing.Size(771, 200);
             this.dgvOutput.TabIndex = 5;
             // 
             // menuStrip1
@@ -151,7 +158,7 @@ namespace ProducersBank.Forms
             // 
             this.dtpDocDate.CalendarFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDocDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDocDate.Location = new System.Drawing.Point(549, 55);
+            this.dtpDocDate.Location = new System.Drawing.Point(289, 67);
             this.dtpDocDate.Name = "dtpDocDate";
             this.dtpDocDate.Size = new System.Drawing.Size(241, 22);
             this.dtpDocDate.TabIndex = 7;
@@ -160,7 +167,7 @@ namespace ProducersBank.Forms
             // 
             this.txtTotalQty.AutoSize = true;
             this.txtTotalQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalQty.Location = new System.Drawing.Point(144, 575);
+            this.txtTotalQty.Location = new System.Drawing.Point(140, 622);
             this.txtTotalQty.Name = "txtTotalQty";
             this.txtTotalQty.Size = new System.Drawing.Size(16, 16);
             this.txtTotalQty.TabIndex = 9;
@@ -170,7 +177,7 @@ namespace ProducersBank.Forms
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 575);
+            this.label2.Location = new System.Drawing.Point(26, 620);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 16);
             this.label2.TabIndex = 8;
@@ -178,6 +185,10 @@ namespace ProducersBank.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cboCheckBy);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.cboPreparedBy);
             this.groupBox1.Controls.Add(btnClear);
             this.groupBox1.Controls.Add(btnProcess);
             this.groupBox1.Controls.Add(btnGenerateDocStampNo);
@@ -187,9 +198,9 @@ namespace ProducersBank.Forms
             this.groupBox1.Controls.Add(this.dgvOutput);
             this.groupBox1.Controls.Add(this.dtpDocDate);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 294);
+            this.groupBox1.Location = new System.Drawing.Point(12, 289);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(802, 309);
+            this.groupBox1.Size = new System.Drawing.Size(802, 357);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Document Stamp Result";
@@ -198,7 +209,7 @@ namespace ProducersBank.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(545, 31);
+            this.label3.Location = new System.Drawing.Point(158, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(132, 21);
             this.label3.TabIndex = 3;
@@ -208,7 +219,7 @@ namespace ProducersBank.Forms
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(19, 28);
+            this.label4.Location = new System.Drawing.Point(118, 31);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(175, 21);
             this.label4.TabIndex = 7;
@@ -217,7 +228,7 @@ namespace ProducersBank.Forms
             // txtDocStampNo
             // 
             this.txtDocStampNo.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDocStampNo.Location = new System.Drawing.Point(23, 52);
+            this.txtDocStampNo.Location = new System.Drawing.Point(291, 31);
             this.txtDocStampNo.Name = "txtDocStampNo";
             this.txtDocStampNo.Size = new System.Drawing.Size(128, 25);
             this.txtDocStampNo.TabIndex = 6;
@@ -226,14 +237,14 @@ namespace ProducersBank.Forms
             // 
             this.DgvDSalesInvoice.AllowUserToAddRows = false;
             this.DgvDSalesInvoice.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DgvDSalesInvoice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DgvDSalesInvoice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DgvDSalesInvoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvDSalesInvoice.Location = new System.Drawing.Point(17, 56);
             this.DgvDSalesInvoice.Name = "DgvDSalesInvoice";
@@ -254,23 +265,47 @@ namespace ProducersBank.Forms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Processed Sales Invoice";
             // 
-            // btnClear
+            // cboPreparedBy
             // 
-            btnClear.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnClear.Location = new System.Drawing.Point(285, 49);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new System.Drawing.Size(73, 29);
-            btnClear.TabIndex = 13;
-            btnClear.Text = "Clear";
-            btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            btnClear.UseVisualStyleBackColor = true;
-            btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.cboPreparedBy.FormattingEnabled = true;
+            this.cboPreparedBy.Location = new System.Drawing.Point(662, 26);
+            this.cboPreparedBy.Name = "cboPreparedBy";
+            this.cboPreparedBy.Size = new System.Drawing.Size(128, 28);
+            this.cboPreparedBy.TabIndex = 14;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(545, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(111, 21);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Prepared By : ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(546, 65);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(103, 21);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Checked By :";
+            // 
+            // cboCheckBy
+            // 
+            this.cboCheckBy.FormattingEnabled = true;
+            this.cboCheckBy.Location = new System.Drawing.Point(662, 63);
+            this.cboCheckBy.Name = "cboCheckBy";
+            this.cboCheckBy.Size = new System.Drawing.Size(128, 28);
+            this.cboCheckBy.TabIndex = 17;
             // 
             // frmDocStamp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 622);
+            this.ClientSize = new System.Drawing.Size(827, 660);
             this.Controls.Add(this.txtTotalQty);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.menuStrip1);
@@ -310,5 +345,9 @@ namespace ProducersBank.Forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtDocStampNo;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox cboCheckBy;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cboPreparedBy;
     }
 }

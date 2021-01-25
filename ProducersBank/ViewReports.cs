@@ -23,10 +23,10 @@ namespace ProducersBank
         }
         ProcessServices process = new ProcessServices();
         
-        private void crystalReportViewer1_Load(object sender, EventArgs e)
-        {
+        //private void crystalReportViewer1_Load(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         private void ViewReports_Load(object sender, EventArgs e)
         {
@@ -71,7 +71,7 @@ namespace ProducersBank
                 DataSet ds = new DataSet();
                 process.DBConnect();
 
-                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from producers_tempdatadr", process.myConnect);
+                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from docstamp_temp ", process.myConnect);
 
                 adp.Fill(ds);
 
