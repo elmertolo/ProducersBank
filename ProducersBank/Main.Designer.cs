@@ -35,9 +35,8 @@
             this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 
-            this.documentStampToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 
-          //  this.purchaseOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentStampToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -59,9 +58,9 @@
             this.deliveryReceiptToolStripMenuItem,
             this.salesInvoiceToolStripMenuItem,
 
+
             this.documentStampToolStripMenuItem});
 
-//            this.purchaseOrderToolStripMenuItem});
 
             this.transactionsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
@@ -93,6 +92,7 @@
             this.recentBatchToolStripMenuItem.Click += new System.EventHandler(this.recentBatchToolStripMenuItem_Click);
             // 
 
+
             // documentStampToolStripMenuItem
             // 
             this.documentStampToolStripMenuItem.Name = "documentStampToolStripMenuItem";
@@ -106,6 +106,14 @@
             //this.purchaseOrderToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             //this.purchaseOrderToolStripMenuItem.Text = "Purchase Order";
             //this.purchaseOrderToolStripMenuItem.Click += new System.EventHandler(this.purchaseOrderToolStripMenuItem_Click);
+
+            // purchaseOrderToolStripMenuItem
+            // 
+            //this.purchaseOrderToolStripMenuItem.Name = "purchaseOrderToolStripMenuItem";
+            //this.purchaseOrderToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            //this.purchaseOrderToolStripMenuItem.Text = "Purchase Order";
+            //this.purchaseOrderToolStripMenuItem.Click += new System.EventHandler(this.purchaseOrderToolStripMenuItem_Click);
+
 
             // 
             // Main
@@ -135,10 +143,10 @@
         private System.Windows.Forms.ToolStripMenuItem deliveryReceiptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salesInvoiceToolStripMenuItem;
 
+
         private System.Windows.Forms.ToolStripMenuItem documentStampToolStripMenuItem;
 
-      //  private System.Windows.Forms.ToolStripMenuItem purchaseOrderToolStripMenuItem;
-
+   
     }
 }
 

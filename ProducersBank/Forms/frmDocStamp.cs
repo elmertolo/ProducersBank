@@ -28,10 +28,14 @@ namespace ProducersBank.Forms
         List<PriceListModel> priceList = new List<PriceListModel>();
         PriceListModel priceA = new PriceListModel();
         List<TempModel> tempSI = new List<TempModel>();
+        List<UserListModel> users = new List<UserListModel>();
         int TotalQty = 0;
+        Int32 _dr = 0;
+        List<Int32> iDocStampNumber ;
         private void frmDocStamp_Load(object sender, EventArgs e)
         {
-
+            LoadUsers(cboPreparedBy);
+            LoadUsers(cboCheckBy);
             //proc.ListofProcessSI(listofSI);
             //DataTable dt = new DataTable();
             //dt.Columns.Add("Sales Invoice Date");
@@ -51,12 +55,41 @@ namespace ProducersBank.Forms
             //DgvDSalesInvoice.Columns[3].Width =50 ;
             //DgvDSalesInvoice.Columns[4].Width = 50;
         }
+        private void GetDocStampNumber()
+        {
+            //    Int64 liCnt = 1;
+            // Int64 liCount = 0;
+            iDocStampNumber =  proc.GetMaxDocStamp();
 
+            // Int64.Parse(txtDrNumber.Text)
+            for (int i = 0; i < iDocStampNumber.Count; i++)
+            {
+                if (_dr > iDocStampNumber[i])
+                {
+
+                }
+                else
+                    _dr = iDocStampNumber[i];
+
+            }
+            txtDocStampNo.Text = (_dr + 1).ToString();
+            return;
+
+        }
+        private void LoadUsers(ComboBox combo)
+        {
+            proc.GetUsers(users);
+            users.ForEach(u => {
+                combo.Items.Add(u.UserName);
+            });
+            combo.SelectedIndex = 0;
+        }
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-           
-                proc.GenerateDocStamp(docstamp);
+
+            proc.UpdateDocstamp(docstamp);
+            proc.GetDocStampDetails(docstamp,docstamp[0].DocStampNumber.ToString());
                 MessageBox.Show("Documetn Stamp has been process!!!");
                 ViewReports vp = new ViewReports();
                 DeliveryReport.report = "DOC";
@@ -96,7 +129,8 @@ namespace ProducersBank.Forms
 
         private void btnGenerateDocStampNo_Click(object sender, EventArgs e)
         {
-
+            GetDocStampNumber();
+            MessageBox.Show("Getting Document Stamp Number Succesful!");
         }
 
         private void btnProcess_Click(object sender, EventArgs e)
@@ -114,6 +148,7 @@ namespace ProducersBank.Forms
                         proc.GetPriceList(priceA, row.Cells["ChkType"].Value.ToString());
                         DocStampModel doc = new DocStampModel();
 
+                        doc.BankCode = priceA.Bank;
                         doc.DocStampNumber = int.Parse(txtDocStampNo.Text);
                         doc.DocStampDate = dtpDocDate.Value;
                         doc.batches = row.Cells["Batch"].Value.ToString();
@@ -124,8 +159,7 @@ namespace ProducersBank.Forms
                         // doc.unitprice = priceA.unitprice;
                         doc.TotalQuantity = int.Parse(row.Cells["Quantity"].Value.ToString());
                         doc.TotalAmount = doc.TotalQuantity * doc.DocStampPrice;
-
-
+                       // doc.PreparedBy = 
                         docstamp.Add(doc);
                         TotalQty += doc.TotalQuantity;
                     }

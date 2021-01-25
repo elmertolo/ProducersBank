@@ -74,17 +74,21 @@ namespace ProducersBank
             frm.ShowDialog();
         }
 
-
         private void documentStampToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form frm = new frmDocStamp(this);
             frm.ShowDialog();
         }
-        private void purchaseOrderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form frm = new frmPurchaseOrder(this);
+        //private void purchaseOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Form frm = new frmPurchaseOrder(this);
 
-            frm.ShowDialog();
-        }
+        //}
+        //private void purchaseOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Form frm = new frmPurchaseOrder(this);
+
+        //    frm.ShowDialog();
+        //}
     }
 }

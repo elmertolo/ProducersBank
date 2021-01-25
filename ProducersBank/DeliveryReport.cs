@@ -208,9 +208,28 @@ namespace ProducersBank
 
             }
 
+
+
+
+
+            //                }
+            if (errorMessage != "")
+            {
+                ProcessServices.ErrorMessage(errorMessage);
+                MessageBox.Show("Checking files done! with errors found! Check ErrorMessage.txt for references", "Error!");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Checking files done! No Errors found");
+                dataGridView1.DataSource = orderList;
+                lblTotalA.Text = totalA.Count.ToString();
+                lblTotalB.Text = totalB.Count.ToString();
+                lblTotalChecks.Text = orderList.Count.ToString();
+
+            }
+
         }
-    
- 
 
         private void DeliveryReport_Load(object sender, EventArgs e)
         {

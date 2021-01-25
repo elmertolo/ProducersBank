@@ -69,7 +69,6 @@ namespace ProducersBank
 
             SupplyGlobalClientVariables(cbBankList.Text.ToString());
 
-            
             Main mainFrm = new Main();
             mainFrm.Show();
             this.Hide();
@@ -98,11 +97,11 @@ namespace ProducersBank
             DataTable dt = new DataTable();
             if(!proc.GetClientDetails(bankname,ref dt))
             {
-                MessageBox.Show("Server Connection Error (GetBankList)\r\n" + proc.errorMessage);
+                MessageBox.Show("Server Connection Error (GetClientDetails)\r\n" + proc.errorMessage);
             }
 
 
-            if (dt.Rows.Count != 0)
+            if (dt.Rows.Count > 0)
             {
                 
                 foreach (DataRow row in dt.Rows)
@@ -117,11 +116,14 @@ namespace ProducersBank
                     gClient.Princes_DESC = row.Field<string>("Princes_DESC") ?? "";
                     gClient.TIN = row.Field<string>("TIN") ?? "";
                     gClient.WithholdingTaxPercentage = row.Field<decimal>("WithholdingTaxPercentage");
-                    gClient.DataBaseName = row.Field<string>("DataBaseName") ?? "";
-                    gClient.SalesInvoiceTempTable = row.Field<string>("SalesInvoiceTempTable") ?? "";
-                    gClient.SalesInvoiceFinishedTable = row.Field<string>("SalesInvoiceFinishedTable") ?? "";
-                    gClient.PriceListTable = row.Field<string>("PriceListTable") ?? "";
-                    gClient.DRTempTable = row.Field<string>("DRTempTable") ?? "";
+                    
+                    //Database Global Tables
+                    gClient.DataBaseName = row.Field<string>("ShortName").ToLower() + "_history" ?? "";
+                    gClient.SalesInvoiceTempTable = row.Field<string>("ShortName").ToLower() + "_salesInvoice_temp" ?? "";
+                    gClient.SalesInvoiceFinishedTable = row.Field<string>("ShortName").ToLower() + "_salesinvoice_finished" ?? "";
+                    gClient.PriceListTable = row.Field<string>("ShortName").ToLower() + "_pricelist" ?? "";
+                    gClient.DRTempTable = row.Field<string>("ShortName").ToLower() + "_dr_temp" ?? "";
+                    gClient.PurchaseOrderFinishedTable = row.Field<string>("ShortName").ToLower() + "_purchaseorder_finished" ?? "";
                 }
             }
            

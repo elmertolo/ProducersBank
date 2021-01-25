@@ -34,16 +34,8 @@ namespace ProducersBank
 
         private void frmPurcahseOrder_Load(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            if (!proc.LoadPriceListData(ref dt))
-            {
-                MessageBox.Show("Server Connection Error (LoadInitialData) \r\n" + proc.errorMessage);
-                return;
-            }
-
-            dgvItemList.DataSource = dt;
-            dgvItemList.ClearSelection(); // remove first highlighted row in datagrid
-            txtPONumber.Focus();
+            RefreshView();
+            DisableControls();
         }
 
         private void ConfigureGrids()
@@ -61,62 +53,71 @@ namespace ProducersBank
 
             //Rename datagrid columns programmatically
             dgvItemList.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgvItemList.ColumnCount = 4; //COUNT OF COLUMNS THAT WILL DISPLAY IN GRID
+            dgvItemList.ColumnCount = 5; //COUNT OF COLUMNS THAT WILL DISPLAY IN GRID
 
             //Column names and width setup
-            dgvItemList.Columns[0].Name = "Product Code";
-            dgvItemList.Columns[0].Width = 70;
+            dgvItemList.Columns[0].Name = "PRODUCT CODE";
+            dgvItemList.Columns[0].Width = 150;
             dgvItemList.Columns[0].DataPropertyName = "ProductCode";
 
             dgvItemList.Columns[1].Name = "CHECK NAME";
-            dgvItemList.Columns[1].Width = 250;
+            dgvItemList.Columns[1].Width = 300;
             dgvItemList.Columns[1].DataPropertyName = "ChequeName"; //this must be the actual table name in sql
 
-            dgvItemList.Columns[2].Name = "Unit Price";
-            dgvItemList.Columns[2].Width = 70;
-            dgvItemList.Columns[2].DataPropertyName = "UnitPrice";
+            dgvItemList.Columns[2].Name = "UNIT PRICE";
+            dgvItemList.Columns[2].Width = 100;
+            dgvItemList.Columns[2].DataPropertyName = "unitprice";
 
-            dgvItemList.Columns[3].Name = "Docstamp";
-            dgvItemList.Columns[3].Width = 70;
-            dgvItemList.Columns[3].DataPropertyName = "Docstamp";
+            dgvItemList.Columns[3].Name = "DOCSTAMP";
+            dgvItemList.Columns[3].Width = 1000;
+            dgvItemList.Columns[3].DataPropertyName = "docstamp";
 
+            dgvItemList.Columns[4].Name = "DESCRIPTION";
+            dgvItemList.Columns[4].Width = 50;
+            dgvItemList.Columns[4].DataPropertyName = "Description";
+
+    
 
             //GRID 2
             //dgvItemList.AutoGenerateColumns = true;
             dgvListToProcess.AllowUserToAddRows = false;
             dgvListToProcess.AllowUserToResizeColumns = false;
-            dgvListToProcess.AllowUserToDeleteRows = false;
+            //dgvListToProcess.AllowUserToDeleteRows = false;
             dgvListToProcess.AllowUserToOrderColumns = false;
             dgvListToProcess.AllowUserToResizeRows = false;
             dgvListToProcess.AllowUserToAddRows = false;
             dgvListToProcess.ScrollBars = ScrollBars.Vertical;
-            dgvListToProcess.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //dgvListToProcess.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             //Rename datagrid columns programmatically
-            dgvListToProcess.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgvListToProcess.ColumnCount = 8; //COUNT OF COLUMNS THAT WILL DISPLAY IN GRID
+            dgvListToProcess.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
+            dgvListToProcess.ColumnCount = 6; //COUNT OF COLUMNS THAT WILL DISPLAY IN GRID
 
             //Column names and width setup
 
             dgvListToProcess.Columns[0].Name = "QUANTITY";
-            dgvListToProcess.Columns[0].Width = 50;
-            dgvListToProcess.Columns[0].DataPropertyName = "Quantity";
+            dgvListToProcess.Columns[0].Width = 100;
+            //dgvListToProcess.Columns[0].DataPropertyName = "Quantity";
 
             dgvListToProcess.Columns[1].Name = "PRODUCT CODE";
-            dgvListToProcess.Columns[1].Width = 100;
+            dgvListToProcess.Columns[1].Width = 120;
             dgvListToProcess.Columns[1].DataPropertyName = "ProductCode"; //this must be the actual table name in sql
 
             dgvListToProcess.Columns[2].Name = "CHECK NAME";
             dgvListToProcess.Columns[2].Width = 400;
-            dgvListToProcess.Columns[2].DataPropertyName = "CheckName";
+            dgvListToProcess.Columns[2].DataPropertyName = "ChequeName";
 
             dgvListToProcess.Columns[3].Name = "UNIT PRICE";
-            dgvListToProcess.Columns[3].Width = 70;
-            dgvListToProcess.Columns[3].DataPropertyName = "Unit Price";
+            dgvListToProcess.Columns[3].Width = 100;
+            dgvListToProcess.Columns[3].DataPropertyName = "UnitPrice";
 
             dgvListToProcess.Columns[4].Name = "DOCSTAMP";
-            dgvListToProcess.Columns[4].Width = 70;
+            dgvListToProcess.Columns[4].Width = 1000;
             dgvListToProcess.Columns[4].DataPropertyName = "Docstamp";
+
+            dgvListToProcess.Columns[5].Name = "DESCRIPTION";
+            dgvListToProcess.Columns[5].Width = 1000;
+            dgvListToProcess.Columns[5].DataPropertyName = "Description";
 
 
         }
@@ -158,30 +159,41 @@ namespace ProducersBank
 
                 foreach (DataGridViewRow row in dgvItemList.SelectedRows)
                 {
-                    PurchaseOrderModel line = new PurchaseOrderModel();
+                    //insert record to Items to process in datagrid
+                    dgvListToProcess.Rows.Add
+                    (
+                    0, 
+                    row.Cells["Product Code"].Value.ToString(), 
+                    row.Cells["Check Name"].Value.ToString(), 
+                    row.Cells["Unit Price"].Value.ToString(), 
+                    row.Cells["DocStamp"].Value.ToString(),
+                    row.Cells["Description"].Value.ToString()
+                    );
 
-                    line.PurchaseOrderNumber = int.Parse(row.Cells["PurchaseOrderNo"].Value.ToString());
-                    line.PurchaseOrderDateTime = DateTime.Parse(dtpPODate.Value.ToShortDateString());
-                    line.ProductCode = row.Cells["ProductCode"].Value.ToString();
-                    line.Quantity = int.Parse(row.Cells["Quantity"].Value.ToString());
-                    line.ChequeName = row.Cells["CheckName"].Value.ToString();
-                    line.Description = row.Cells["Description"].Value.ToString();
-                    line.UnitPrice = int.Parse(row.Cells["UnitPrice"].Value.ToString());
-                    line.Docstamp = int.Parse(row.Cells["DocStamp"].Value.ToString());
-                    line.CheckType = row.Cells["CheckType"].Value.ToString();
 
-                    purchaseOrderList.Add(line);
+                }
+                //Disable editing on other columns
+                foreach (DataGridViewColumn col in dgvListToProcess.Columns)
+                {
+                    if (col.Name != "QUANTITY")
+                    {
+                        dgvListToProcess.Columns[col.Name.ToString()].ReadOnly = true;
+                    }
+
                 }
 
+                ///REPLACED THIS WITH MANUAL ISERTION OF DATA ABOVE
                 //created 'list' variable column sorting by line for datagrid view 
-                var sortedList = purchaseOrderList
-                    .Select
-                    (i => new { i.Quantity, i.ProductCode, i.ChequeName, i.UnitPrice, i.Docstamp })
+                //var sortedList = purchaseOrderList
+                //    .Select
+                //    (i => new { i.Quantity, i.ProductCode, i.ChequeName, i.UnitPrice, i.Docstamp })
 
-                    .ToList();
+                //    .ToList();
 
-                dgvListToProcess.DataSource = sortedList;
-                dgvListToProcess.ClearSelection();
+                //dgvListToProcess.DataSource = sortedList;
+                //dgvListToProcess.ClearSelection();
+
+
 
             }
             else
@@ -218,6 +230,27 @@ namespace ProducersBank
                 {
 
 
+                    foreach (DataGridViewRow row in dgvListToProcess.Rows)
+                    {
+                        PurchaseOrderModel line = new PurchaseOrderModel();
+
+                        line.PurchaseOrderNumber = int.Parse(txtPONumber.Text.ToString());
+                        line.PurchaseOrderDateTime = DateTime.Parse(dtpPODate.Value.ToShortDateString());
+                        line.ClientCode = gClient.ClientCode;
+                        line.ProductCode = row.Cells["Product Code"].Value.ToString();
+                        line.Quantity = int.Parse(row.Cells["Quantity"].Value.ToString());
+                        line.ChequeName = row.Cells["Check Name"].Value.ToString();
+                        line.Description = row.Cells["Description"].Value.ToString();
+                        line.UnitPrice = int.Parse(row.Cells["Unit Price"].Value.ToString());
+                        line.Docstamp = int.Parse(row.Cells["DocStamp"].Value.ToString());
+                        line.GeneratedBy = lblUserName.Text.ToString();
+                        line.CheckedBy = cbCheckedBy.Text.ToString();
+                        line.ApprovedBy = cbApprovedBy.Text.ToString();
+                        
+                        purchaseOrderList.Add(line);
+
+                    }
+
                     ///Sort Sales Invoice By Batch before saving and Printing
                     var sortedList = purchaseOrderList.OrderBy(x => x.ChequeName).ToList();
 
@@ -230,31 +263,34 @@ namespace ProducersBank
                     }
 
 
-                    //Create new instance of the document/ Prepare report using Crystal Reports
-                    ReportDocument crystalDocument = new ReportDocument();
+
+                    ////Create new instance of the document/ Prepare report using Crystal Reports
+                    //ReportDocument crystalDocument = new ReportDocument();
 
 
-                    //Check RPT File
-                    if (!p.LoadReportPath("PurchaseOrder", ref crystalDocument))
-                    {
-                        MessageBox.Show("purchase Order Report File not found File not found");
-                        return;
-                    }
+                    ////Check RPT File
+                    //if (!p.LoadReportPath("PurchaseOrder", ref crystalDocument))
+                    //{
+                    //    MessageBox.Show("purchase Order Report File not found File not found");
+                    //    return;
+                    //}
 
-                    //Supply Data source to document
-                    crystalDocument.SetDataSource(sortedList);
+                    ////Supply Data source to document
+                    //crystalDocument.SetDataSource(sortedList);
 
-                    //Supply details on report parameters
-                    p.FillCRReportParameters("SalesInvoice", ref crystalDocument);
+                    ////Supply details on report parameters
+                    //p.FillCRReportParameters("SalesInvoice", ref crystalDocument);
 
 
-                    //Supply these details into Global ReportDocument to be able for the report viewer to initialize the rerport
-                    gCrystalDocument = crystalDocument;
+                    ////Supply these details into Global ReportDocument to be able for the report viewer to initialize the rerport
+                    //gCrystalDocument = crystalDocument;
 
-                    frmReportViewer crForm = new frmReportViewer();
-                    crForm.Show();
+                    //frmReportViewer crForm = new frmReportViewer();
+                    //crForm.Show();
 
                     RefreshView();
+                    DisableControls();
+                    MessageBox.Show("Record has been saved successfully.");
 
                 }
 
@@ -264,32 +300,108 @@ namespace ProducersBank
         private void btnReloadDrList_Click(object sender, EventArgs e)
         {
             RefreshView();
+            DisableControls();
         }
 
         private void RefreshView()
         {
 
             purchaseOrderList.Clear();
-            txtSearch.Text = "";
-            txtPONumber.Text = "";
+            txtSearch.Clear();
+            txtPONumber.Clear();
             txtPONumber.Focus();
             cbCheckedBy.Text = "";
             cbApprovedBy.Text = "";
 
-            DataTable dt = new DataTable();
-            proc.LoadPriceListData(ref dt);
-            dgvItemList.DataSource = dt;
-            dgvItemList.ClearSelection();
-
-            var sortedList = purchaseOrderList
-                     .Select
-                    (i => new { i.Quantity, i.ProductCode, i.ChequeName, i.UnitPrice, i.Docstamp })
-                    .ToList();
-
-            dgvListToProcess.DataSource = sortedList;
+            dgvListToProcess.Rows.Clear();
             dgvListToProcess.ClearSelection();
 
 
+        }
+
+        private void dgvItemList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            AddSelectedItemRow();
+        }
+
+        private void txtPONumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (p.IsKeyPressedNumeric(ref sender, ref e))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPONumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPONumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (string.IsNullOrWhiteSpace(txtPONumber.Text.ToString()))
+                {
+                    MessageBox.Show("Please enter a valid PO number");
+                    return;
+                }
+                EnableControls();
+
+            }
+        }
+
+        private void EnableControls()
+        {
+            gbSearchItem.Enabled = true;
+            gbItemList.Enabled = true;
+            gbDetails.Enabled = true;
+            gbListToProcess.Enabled = true;
+            pnlActionButtons.Enabled = true;
+            gbPONo.Enabled = false;
+
+            DataTable dt = new DataTable();
+            if (!proc.LoadPriceListData(ref dt))
+            {
+                MessageBox.Show("Server Connection Error (LoadPriceListData) \r\n" + proc.errorMessage);
+                return;
+            }
+
+            dgvItemList.DataSource = dt;
+            dgvItemList.ClearSelection(); // remove first highlighted row in datagrid
+            btnAddRecord.Focus();
+        }
+
+        private void DisableControls()
+        {
+            gbSearchItem.Enabled = false;
+            gbItemList.Enabled = false;
+            gbDetails.Enabled = false;
+            gbListToProcess.Enabled = false;
+            pnlActionButtons.Enabled = false;
+            gbPONo.Enabled = true;
+            
+
+
+            dgvItemList.ClearSelection();
+            //remove first highlighted row in datagrid
+            var sortedList = purchaseOrderList
+               .Select
+               (i => new { i.Quantity, i.ProductCode, i.ChequeName, i.UnitPrice, i.Docstamp })
+               .ToList();
+            dgvItemList.DataSource = sortedList;
+            txtPONumber.Focus();
+        }
+
+        private void btnAddRecord_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPONumber.Text.ToString()))
+            {
+                MessageBox.Show("Please enter a valid PO number");
+                txtPONumber.Focus();
+                return;
+            }
+            EnableControls();
         }
     }
 }

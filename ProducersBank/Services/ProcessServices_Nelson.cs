@@ -29,6 +29,7 @@ namespace ProducersBank.Services
         private string _errorMessage;
         MySqlConnection con;
         MySqlDataAdapter da;
+
         public string conStr
         {
             get { return ConfigurationManager.AppSettings["ConnectionString"]; }
@@ -87,7 +88,7 @@ namespace ProducersBank.Services
         {
             try
             {
-                string sql = "select productcode, bank, chequeName, desription, UnitPrice, Docstamp from " + gClient.PriceListTable + "";
+                string sql = "select productcode, bank, chequeName, description, UnitPrice, Docstamp from " + gClient.PriceListTable + "";
                 //string sql = "select count(*) as count from producers_history";
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
@@ -109,11 +110,11 @@ namespace ProducersBank.Services
             try
             {
 
+
                 DataTable dt = new DataTable();
 
 
                 string sql = "select group_concat(distinct(drnumber) separator ', ') from " + gClient.DataBaseName + " " +
-
                 "WHERE salesinvoice is null " +
                 "and batch = '" + batch + "' " +
                 "and chktype = '" + checktype + "' " +
@@ -183,8 +184,6 @@ namespace ProducersBank.Services
                 return false;
             }
         }
-
-        
 
         public double GetUnitPrice(string checkName)
         {
@@ -263,25 +262,45 @@ namespace ProducersBank.Services
                 foreach (var item in poListToProcess)
                 {
 
+                    ////Insert Purchase Order Finished
+                    //string sql = "insert into " + gClient.PurchaseOrderFinishedTable + " " +
+                    //"(purchaseorderno, purchaseorderdatetime, clientcode, productcode, quantity, chequename, description, unitprice, docstamp, generatedby, checkedby, approvedby) " +
+                    //"Values ('" +
+                    //item.PurchaseOrderNumber + "', '" +
+                    //item.PurchaseOrderDateTime.ToString("yyyy-MM-dd HH:mm") + "', '" +
+                    //item.ClientCode + "', '" +
+                    //item.ProductCode + "', " +
+                    //item.Quantity + ", '" +
+                    //item.ChequeName + "', " +
+                    //item.Description + ", " +
+                    //item.UnitPrice + ", " +
+                    //item.Docstamp + ", '" +
+                    //item.GeneratedBy + "', '" +
+                    //item.CheckedBy + "', '" +
+                    //item.ApprovedBy + "');";
+
                     //Insert Purchase Order Finished
-                    string sql = "insert into " + gClient.SalesInvoiceFinishedTable + " " +
-                    "(purchaseorderno, purchaseorderdatetime, clientcode, productcode, quantity, chequename, description, unitprice, docstamp, checktype, generatedby, checkedby, approvedby) " +
-                    "Values ('" +
-                    item.PurchaseOrderNumber + "', '" +
-                    item.PurchaseOrderDateTime.ToString("yyyy-MM-dd HH:mm") + "', " +
-                    item.ClientCode + ", '" +
-                    item.ProductCode + "', " +
-                    item.Quantity + ", '" +
-                    item.ChequeName + "', '" +
-                    item.Description + "', " +
-                    item.UnitPrice + ", " +
-                    item.Docstamp + ", '" +
-                    item.CheckType + "', '" +
-                    item.GeneratedBy + "', '" +
-                    item.CheckedBy + "', '" +
-                    item.ApprovedBy + "');";
+                    string sql = "insert into " + gClient.PurchaseOrderFinishedTable + " " +
+                    "(purchaseorderno, purchaseorderdatetime, clientcode, productcode, quantity, chequename, description, unitprice, docstamp, generatedby, checkedby, approvedby) " +
+                    "Values (@PurchaseOrderNumber, @PurchaseOrderDateTime, @ClientCode, @ProductCode, @Quantity, @ChequeName, @Description, @UnitPrice, @Docstamp, @GeneratedBy, @CheckedBy, @ApprovedBy)";
 
                     cmd = new MySqlCommand(sql, con);
+
+                    cmd.Parameters.Add("@PurchaseOrderNumber", MySqlDbType.Int32).Value = item.PurchaseOrderNumber;
+                    cmd.Parameters.Add("@PurchaseOrderDateTime", MySqlDbType.DateTime).Value = item.PurchaseOrderDateTime;
+                    cmd.Parameters.Add("@ClientCode", MySqlDbType.String).Value = item.ClientCode;
+                    cmd.Parameters.Add("@ProductCode", MySqlDbType.String).Value = item.ProductCode;
+                    cmd.Parameters.Add("@Quantity", MySqlDbType.Int32).Value = item.Quantity;
+                    cmd.Parameters.Add("@ChequeName", MySqlDbType.String).Value = item.ChequeName;
+                    cmd.Parameters.Add("@Description", MySqlDbType.String).Value = item.Description;
+                    cmd.Parameters.Add("@UnitPrice", MySqlDbType.Double).Value = item.UnitPrice;
+                    cmd.Parameters.Add("@Docstamp", MySqlDbType.Double).Value = item.Docstamp;
+                    cmd.Parameters.Add("@GeneratedBy", MySqlDbType.String).Value = item.GeneratedBy;
+                    cmd.Parameters.Add("@CheckedBy", MySqlDbType.String).Value = item.CheckedBy;
+                    cmd.Parameters.Add("@ApprovedBy", MySqlDbType.String).Value = item.ApprovedBy;
+
+
+
                     rowNumbersAffected = cmd.ExecuteNonQuery();
 
                 }
@@ -367,7 +386,7 @@ namespace ProducersBank.Services
             try
             {
                 MySqlCommand cmd = new MySqlCommand("select clientcode, shortname, description, address1, address2, address3, attentionto, Princes_DESC, TIN, WithholdingTaxPercentage, " +
-                    "databasename, salesinvoicetemptable, salesinvoicefinishedtable, pricelisttable,DRTempTable from clientlist order by shortname;", con);
+                    "databasename from clientlist order by shortname;", con);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 cmd.ExecuteNonQuery();
                 da.Fill(dt);
@@ -434,8 +453,6 @@ namespace ProducersBank.Services
             }
         }
 
-
-
         public object SeekReturn(string query, Type type)
 
         {
@@ -446,12 +463,13 @@ namespace ProducersBank.Services
 
 
         }
+
         public bool GetClientDetails(string clientDescription, ref DataTable dt)
         {
             try
             {
                 string sql = "select clientcode, shortname, description, address1, address2, address3, attentionto, Princes_DESC, TIN, WithholdingTaxPercentage, " +
-                    "databasename, salesinvoicetemptable, salesinvoicefinishedtable, pricelisttable, DRTempTable from clientlist " +
+                    "databasename from clientlist " +
                     "where description = '" + clientDescription + "' order by shortname;";
                 MySqlCommand cmd = new MySqlCommand(sql , con);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
