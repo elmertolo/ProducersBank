@@ -26,5 +26,8 @@ namespace ProducersBank.Models
         public DateTime DeliveryDate { get; set; }
         public string BranchCode { get; set; }
         public string OldBranchCode { get; set; }
+        public DateTime SI_Date { get; set; }
+        public int SalesInvoice { get; set; }
+        
     }
 }

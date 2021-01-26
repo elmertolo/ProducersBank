@@ -23,10 +23,10 @@ namespace ProducersBank
         }
         ProcessServices process = new ProcessServices();
         
-        private void crystalReportViewer1_Load(object sender, EventArgs e)
-        {
+        //private void crystalReportViewer1_Load(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         private void ViewReports_Load(object sender, EventArgs e)
         {
@@ -64,6 +64,22 @@ namespace ProducersBank
                 process.DBClosed();
            
                 this.crystalReportViewer1.ReportSource =cryRpt;
+                this.crystalReportViewer1.RefreshReport();
+            }
+            else if (RecentBatch.report == "DOC" || DeliveryReport.report == "DOC")
+            {
+                DataSet ds = new DataSet();
+                process.DBConnect();
+
+                MySqlDataAdapter adp = new MySqlDataAdapter("Select * from docstamp_temp ", process.myConnect);
+
+                adp.Fill(ds);
+
+                ReportDocument cryRpt = new ReportDocument();
+                cryRpt.Load(process.FillCRReportParameters());
+                cryRpt.SetDataSource(ds.Tables[0]);
+                process.DBClosed();
+                this.crystalReportViewer1.ReportSource = cryRpt;
                 this.crystalReportViewer1.RefreshReport();
             }
             else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")

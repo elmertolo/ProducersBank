@@ -30,7 +30,7 @@ namespace ProducersBank
         private void InitializeComponent()
         {
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
-            this.deliveryReceipt1 = new ProducersBank.DeliveryReceipt();
+          //  this.deliveryReceipt1 = new ProducersBank.DeliveryReceipt();
             this.SuspendLayout();
             // 
             // crystalReportViewer1
@@ -45,9 +45,9 @@ namespace ProducersBank
             this.crystalReportViewer1.Size = new System.Drawing.Size(1216, 597);
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
-            this.crystalReportViewer1.Load += new System.EventHandler(this.crystalReportViewer1_Load);
+            //this.crystalReportViewer1.Load += new System.EventHandler(this.crystalReportViewer1_Load);
             this.crystalReportViewer1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.crystalReportViewer1_KeyDown);
-            // 
+            //  // 
             // ViewReports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -64,6 +64,6 @@ namespace ProducersBank
         #endregion
 
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
-        private DeliveryReceipt deliveryReceipt1;
+        //private DeliveryReceipt deliveryReceipt1;
     }
 }

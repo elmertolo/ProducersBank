@@ -33,10 +33,7 @@
             this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deliveryReceiptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.doToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salesInvoiceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,8 +41,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.transactionsToolStripMenuItem,
-            this.recentBatchToolStripMenuItem,
-            this.maintenanceToolStripMenuItem});
+            this.recentBatchToolStripMenuItem });
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1304, 28);
@@ -57,7 +53,7 @@
             this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deliveryReceiptToolStripMenuItem,
             this.salesInvoiceToolStripMenuItem,
-            this.doToolStripMenuItem});
+            this.documentStampToolStripMenuItem});
             this.transactionsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
             this.transactionsToolStripMenuItem.ShortcutKeyDisplayString = "T";
@@ -78,13 +74,7 @@
             this.salesInvoiceToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.salesInvoiceToolStripMenuItem.Text = "Sales Invoice";
             this.salesInvoiceToolStripMenuItem.Click += new System.EventHandler(this.salesInvoiceToolStripMenuItem_Click);
-            // 
-            // doToolStripMenuItem
-            // 
-            this.doToolStripMenuItem.Name = "doToolStripMenuItem";
-            this.doToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.doToolStripMenuItem.Text = "Document Stamp";
-            this.doToolStripMenuItem.Click += new System.EventHandler(this.doToolStripMenuItem_Click);
+
             // 
             // recentBatchToolStripMenuItem
             // 
@@ -94,21 +84,15 @@
             this.recentBatchToolStripMenuItem.Text = "Recent Batch";
             this.recentBatchToolStripMenuItem.Click += new System.EventHandler(this.recentBatchToolStripMenuItem_Click);
             // 
-            // maintenanceToolStripMenuItem
+
+
+            // documentStampToolStripMenuItem
             // 
-            this.maintenanceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.salesInvoiceToolStripMenuItem1});
-            this.maintenanceToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
-            this.maintenanceToolStripMenuItem.Size = new System.Drawing.Size(110, 24);
-            this.maintenanceToolStripMenuItem.Text = "Maintenance";
-            // 
-            // salesInvoiceToolStripMenuItem1
-            // 
-            this.salesInvoiceToolStripMenuItem1.Name = "salesInvoiceToolStripMenuItem1";
-            this.salesInvoiceToolStripMenuItem1.Size = new System.Drawing.Size(184, 24);
-            this.salesInvoiceToolStripMenuItem1.Text = "Purchase Order";
-            this.salesInvoiceToolStripMenuItem1.Click += new System.EventHandler(this.salesInvoiceToolStripMenuItem1_Click);
+            this.documentStampToolStripMenuItem.Name = "documentStampToolStripMenuItem";
+            this.documentStampToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.documentStampToolStripMenuItem.Text = "Document Stamp";
+            this.documentStampToolStripMenuItem.Click += new System.EventHandler(this.documentStampToolStripMenuItem_Click);
+            
             // 
             // Main
             // 
@@ -136,9 +120,9 @@
         private System.Windows.Forms.ToolStripMenuItem recentBatchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deliveryReceiptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salesInvoiceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem doToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem salesInvoiceToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem documentStampToolStripMenuItem;
+  
+
     }
 }
 

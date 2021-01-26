@@ -152,5 +152,12 @@ namespace ProducersBank
             else
                 MessageBox.Show("Deletion Cancelled!!");
         }
+
+        private void documentStampToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            report = "DOC";
+            ViewReports vp = new ViewReports();
+            vp.Show();
+        }
     }
 }

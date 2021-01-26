@@ -25,5 +25,7 @@ namespace ProducersBank.Models
         public string PriceListTable { get; set; }
         public string DRTempTable { get; set; }
 
+        public string DocStampTempTable { get; set; } // Added By ET Jan. 22, 2021
+
     }
 }

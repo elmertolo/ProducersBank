@@ -118,12 +118,12 @@ namespace ProducersBank
                     gClient.WithholdingTaxPercentage = row.Field<decimal>("WithholdingTaxPercentage");
                     
                     //Database Global Tables
-                    gClient.DataBaseName = row.Field<string>("ShortName") + "_History" ?? "";
-                    gClient.SalesInvoiceTempTable = row.Field<string>("ShortName") + "_salesInvoice_temp" ?? "";
-                    gClient.SalesInvoiceFinishedTable = row.Field<string>("ShortName") + "_salesInvoice_finished" ?? "";
-                    gClient.PriceListTable = row.Field<string>("ShortName") + "_PriceList" ?? "";
-                    gClient.DRTempTable = row.Field<string>("ShortName") + "_DR_Temp" ?? "";
-                    gClient.PurchaseOrderFinishedTable = row.Field<string>("ShortName") + "_purchaseorder_finished" ?? "";
+                    gClient.DataBaseName = row.Field<string>("ShortName").ToLower() + "_history" ?? "";
+                    gClient.SalesInvoiceTempTable = row.Field<string>("ShortName").ToLower() + "_salesInvoice_temp" ?? "";
+                    gClient.SalesInvoiceFinishedTable = row.Field<string>("ShortName").ToLower() + "_salesinvoice_finished" ?? "";
+                    gClient.PriceListTable = row.Field<string>("ShortName").ToLower() + "_pricelist" ?? "";
+                    gClient.DRTempTable = row.Field<string>("ShortName").ToLower() + "_dr_temp" ?? "";
+                    gClient.PurchaseOrderFinishedTable = row.Field<string>("ShortName").ToLower() + "_purchaseorder_finished" ?? "";
                 }
             }
            
