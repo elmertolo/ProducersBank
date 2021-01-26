@@ -454,6 +454,16 @@
   <ItemGroup>
     <Content Include="Captive.ico" />
     <Content Include="DLL\MySql.Data.dll" />
+    <None Include="Resources\YellowButton3.png" />
+    <None Include="Resources\YellowButton2.png" />
+    <None Include="Resources\Header_Login.png" />
+    <None Include="Resources\Header_SalesInvoice1.png" />
+    <None Include="Resources\FormBackground1.jpg" />
+    <None Include="Resources\Header_SalesInvoice.png" />
+    <None Include="Resources\background-red-header.png" />
+    <None Include="Resources\SalesInvoiceHeader.jpg" />
+    <None Include="Resources\Header12.jpg" />
+    <None Include="Resources\Header11.jpg" />
     <None Include="Resources\FormBackground.jpg" />
     <None Include="Resources\Header3.jpg.png" />
     <None Include="Resources\Header1.jpg" />

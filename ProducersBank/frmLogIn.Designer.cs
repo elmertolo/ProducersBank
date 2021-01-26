@@ -93,6 +93,7 @@ namespace ProducersBank
             // cbBankList
             // 
             this.cbBankList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBankList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbBankList.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbBankList.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.cbBankList.FormattingEnabled = true;
@@ -117,9 +118,11 @@ namespace ProducersBank
             // 
             // btnLogin
             // 
+            this.btnLogin.BackgroundImage = global::ProducersBank.Properties.Resources.YellowButton2;
+            this.btnLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnLogin.Font = new System.Drawing.Font("Cooper Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Image = global::ProducersBank.Properties.Resources.YellowButton;
+            this.btnLogin.Image = global::ProducersBank.Properties.Resources.YellowButton3;
             this.btnLogin.Location = new System.Drawing.Point(68, 181);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.btnLogin.Name = "btnLogin";
@@ -145,11 +148,12 @@ namespace ProducersBank
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::ProducersBank.Properties.Resources.Header3_jpg;
+            this.pictureBox1.BackgroundImage = global::ProducersBank.Properties.Resources.Header_Login;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(400, 59);
+            this.pictureBox1.Size = new System.Drawing.Size(615, 66);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 

@@ -29,13 +29,13 @@ namespace ProducersBank
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label7 = new System.Windows.Forms.Label();
             this.lblBankName = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
@@ -64,6 +64,7 @@ namespace ProducersBank
             this.btnReloadDrList = new System.Windows.Forms.Button();
             this.btnAddSelectedItem = new System.Windows.Forms.Button();
             this.pnlActionButtons = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.gbDetails.SuspendLayout();
             this.gbSearchItem.SuspendLayout();
@@ -73,6 +74,7 @@ namespace ProducersBank
             ((System.ComponentModel.ISupportInitialize)(this.dgvItemList)).BeginInit();
             this.gbPONo.SuspendLayout();
             this.pnlActionButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label7
@@ -144,9 +146,9 @@ namespace ProducersBank
             this.gbDetails.Controls.Add(this.cbCheckedBy);
             this.gbDetails.Controls.Add(this.lblCheckedBy);
             this.gbDetails.Controls.Add(this.lblApprovedBy);
-            this.gbDetails.Location = new System.Drawing.Point(12, 86);
+            this.gbDetails.Location = new System.Drawing.Point(12, 160);
             this.gbDetails.Name = "gbDetails";
-            this.gbDetails.Size = new System.Drawing.Size(248, 368);
+            this.gbDetails.Size = new System.Drawing.Size(248, 294);
             this.gbDetails.TabIndex = 26;
             this.gbDetails.TabStop = false;
             this.gbDetails.Text = "DETAILS";
@@ -175,7 +177,7 @@ namespace ProducersBank
             this.cbApprovedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbApprovedBy.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbApprovedBy.FormattingEnabled = true;
-            this.cbApprovedBy.Location = new System.Drawing.Point(90, 329);
+            this.cbApprovedBy.Location = new System.Drawing.Point(90, 213);
             this.cbApprovedBy.Name = "cbApprovedBy";
             this.cbApprovedBy.Size = new System.Drawing.Size(146, 23);
             this.cbApprovedBy.TabIndex = 16;
@@ -186,7 +188,7 @@ namespace ProducersBank
             this.cbCheckedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbCheckedBy.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCheckedBy.FormattingEnabled = true;
-            this.cbCheckedBy.Location = new System.Drawing.Point(90, 300);
+            this.cbCheckedBy.Location = new System.Drawing.Point(90, 184);
             this.cbCheckedBy.Name = "cbCheckedBy";
             this.cbCheckedBy.Size = new System.Drawing.Size(146, 23);
             this.cbCheckedBy.TabIndex = 14;
@@ -195,7 +197,7 @@ namespace ProducersBank
             // 
             this.lblCheckedBy.AutoSize = true;
             this.lblCheckedBy.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheckedBy.Location = new System.Drawing.Point(11, 303);
+            this.lblCheckedBy.Location = new System.Drawing.Point(11, 187);
             this.lblCheckedBy.Name = "lblCheckedBy";
             this.lblCheckedBy.Size = new System.Drawing.Size(73, 15);
             this.lblCheckedBy.TabIndex = 13;
@@ -205,7 +207,7 @@ namespace ProducersBank
             // 
             this.lblApprovedBy.AutoSize = true;
             this.lblApprovedBy.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApprovedBy.Location = new System.Drawing.Point(8, 332);
+            this.lblApprovedBy.Location = new System.Drawing.Point(8, 216);
             this.lblApprovedBy.Name = "lblApprovedBy";
             this.lblApprovedBy.Size = new System.Drawing.Size(81, 15);
             this.lblApprovedBy.TabIndex = 15;
@@ -227,7 +229,7 @@ namespace ProducersBank
             this.gbSearchItem.BackColor = System.Drawing.Color.WhiteSmoke;
             this.gbSearchItem.Controls.Add(this.btnSearch);
             this.gbSearchItem.Controls.Add(this.txtSearch);
-            this.gbSearchItem.Location = new System.Drawing.Point(266, 12);
+            this.gbSearchItem.Location = new System.Drawing.Point(272, 86);
             this.gbSearchItem.Name = "gbSearchItem";
             this.gbSearchItem.Size = new System.Drawing.Size(316, 68);
             this.gbSearchItem.TabIndex = 25;
@@ -269,33 +271,33 @@ namespace ProducersBank
             this.dgvListToProcess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvListToProcess.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvListToProcess.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvListToProcess.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvListToProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvListToProcess.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvListToProcess.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvListToProcess.Location = new System.Drawing.Point(6, 19);
             this.dgvListToProcess.Name = "dgvListToProcess";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvListToProcess.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvListToProcess.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvListToProcess.Size = new System.Drawing.Size(796, 176);
             this.dgvListToProcess.TabIndex = 8;
             // 
@@ -304,49 +306,49 @@ namespace ProducersBank
             this.gbItemList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbItemList.Controls.Add(this.dgvItemList);
-            this.gbItemList.Location = new System.Drawing.Point(266, 86);
+            this.gbItemList.Location = new System.Drawing.Point(266, 160);
             this.gbItemList.Name = "gbItemList";
-            this.gbItemList.Size = new System.Drawing.Size(554, 368);
+            this.gbItemList.Size = new System.Drawing.Size(554, 294);
             this.gbItemList.TabIndex = 28;
             this.gbItemList.TabStop = false;
             this.gbItemList.Text = "ITEM LIST";
             // 
             // dgvItemList
             // 
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.Ivory;
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
-            this.dgvItemList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Ivory;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            this.dgvItemList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvItemList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvItemList.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvItemList.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvItemList.Location = new System.Drawing.Point(6, 19);
             this.dgvItemList.Name = "dgvItemList";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
-            this.dgvItemList.Size = new System.Drawing.Size(542, 343);
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvItemList.Size = new System.Drawing.Size(542, 269);
             this.dgvItemList.TabIndex = 0;
             this.dgvItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItemList_CellDoubleClick);
             // 
@@ -355,9 +357,9 @@ namespace ProducersBank
             this.gbPONo.BackColor = System.Drawing.Color.WhiteSmoke;
             this.gbPONo.Controls.Add(this.btnAddRecord);
             this.gbPONo.Controls.Add(this.txtPONumber);
-            this.gbPONo.Location = new System.Drawing.Point(12, 12);
+            this.gbPONo.Location = new System.Drawing.Point(12, 86);
             this.gbPONo.Name = "gbPONo";
-            this.gbPONo.Size = new System.Drawing.Size(243, 68);
+            this.gbPONo.Size = new System.Drawing.Size(248, 68);
             this.gbPONo.TabIndex = 31;
             this.gbPONo.TabStop = false;
             this.gbPONo.Text = "PURCHASE ORDER NUMBER";
@@ -401,7 +403,7 @@ namespace ProducersBank
             this.btnReloadDrList.Name = "btnReloadDrList";
             this.btnReloadDrList.Size = new System.Drawing.Size(158, 62);
             this.btnReloadDrList.TabIndex = 29;
-            this.btnReloadDrList.Text = "REFRESH";
+            this.btnReloadDrList.Text = "CLEAR";
             this.btnReloadDrList.UseVisualStyleBackColor = true;
             this.btnReloadDrList.Click += new System.EventHandler(this.btnReloadDrList_Click);
             // 
@@ -430,11 +432,22 @@ namespace ProducersBank
             this.pnlActionButtons.TabIndex = 32;
             this.pnlActionButtons.TabStop = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::ProducersBank.Properties.Resources.Header12;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1008, 80);
+            this.pictureBox1.TabIndex = 33;
+            this.pictureBox1.TabStop = false;
+            // 
             // frmPurchaseOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pnlActionButtons);
             this.Controls.Add(this.gbPONo);
             this.Controls.Add(this.gbItemList);
@@ -460,6 +473,7 @@ namespace ProducersBank
             this.gbPONo.ResumeLayout(false);
             this.gbPONo.PerformLayout();
             this.pnlActionButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -493,5 +507,6 @@ namespace ProducersBank
         private System.Windows.Forms.Button btnAddSelectedItem;
         private System.Windows.Forms.GroupBox pnlActionButtons;
         private System.Windows.Forms.Button btnAddRecord;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
