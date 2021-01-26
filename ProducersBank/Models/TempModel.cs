@@ -28,6 +28,7 @@ namespace ProducersBank.Models
         public string OldBranchCode { get; set; }
         public DateTime SI_Date { get; set; }
         public int SalesInvoice { get; set; }
-        
+        public int DocStampNumber { get; set; }
+
     }
 }
