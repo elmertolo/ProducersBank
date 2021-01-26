@@ -134,7 +134,7 @@ namespace ProducersBank
 
         private void frmLogIn_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         private void cbBankList_SelectedIndexChanged(object sender, EventArgs e)
@@ -163,6 +163,16 @@ namespace ProducersBank
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void txtUserName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

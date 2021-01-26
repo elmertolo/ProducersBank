@@ -128,7 +128,7 @@
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
@@ -470,6 +470,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\MySql.Data.dll" />
+    <None Include="Resources\FormBackground.jpg" />
+    <None Include="Resources\Header3.jpg.png" />
+    <None Include="Resources\Header1.jpg" />
+    <None Include="Resources\Header2.jpg" />
+    <None Include="Resources\Header.jpg" />
+    <None Include="Resources\YellowButton1.png" />
+    <None Include="Resources\YellowButton.png" />
+    <None Include="Resources\LoginBackground.jpg" />
     <None Include="Resources\generate.ico" />
     <None Include="Resources\generate.png" />
     <None Include="Resources\trash-512.png" />

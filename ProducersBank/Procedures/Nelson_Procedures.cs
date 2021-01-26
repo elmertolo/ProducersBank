@@ -36,7 +36,7 @@ namespace ProducersBank.Procedures
 
         public static bool ValidateInputFieldsSI(string salesInvoiceNumber, string checkedBy, string approvedBy)
         {
-            if (string.IsNullOrWhiteSpace(checkedBy) || string.IsNullOrWhiteSpace(approvedBy))
+            if (string.IsNullOrWhiteSpace(checkedBy) || string.IsNullOrWhiteSpace(approvedBy) || string.IsNullOrWhiteSpace(salesInvoiceNumber))
             {
                 return false;
             }
@@ -47,9 +47,9 @@ namespace ProducersBank.Procedures
 
         }
 
-        public static bool ValidateInputFieldsPO(string salesInvoiceNumber, string checkedBy, string approvedBy)
+        public static bool ValidateInputFieldsPO(string purchaseOrderNumber, string checkedBy, string approvedBy)
         {
-            if (string.IsNullOrWhiteSpace(checkedBy) || string.IsNullOrWhiteSpace(approvedBy))
+            if (string.IsNullOrWhiteSpace(checkedBy) || string.IsNullOrWhiteSpace(approvedBy) || string.IsNullOrWhiteSpace(purchaseOrderNumber))
             {
                 return false;
             }
