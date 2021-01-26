@@ -79,7 +79,6 @@ namespace ProducersBank
             Form frm = new frmDocStamp(this);
             frm.ShowDialog();
         }
-
         private void doToolStripMenuItem_Click(object sender, EventArgs e)
         {
 

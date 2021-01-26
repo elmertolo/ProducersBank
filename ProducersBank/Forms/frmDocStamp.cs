@@ -89,7 +89,7 @@ namespace ProducersBank.Forms
 
 
             proc.UpdateDocstamp(docstamp);
-            proc.GetDocStampDetails(docstamp,docstamp[0].DocStampNumber.ToString());
+            proc.GetDocStampDetails(docstamp,docstamp[0].DocStampNumber);
                 MessageBox.Show("Documetn Stamp has been process!!!");
                 ViewReports vp = new ViewReports();
                 DeliveryReport.report = "DOC";

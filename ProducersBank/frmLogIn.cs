@@ -31,6 +31,7 @@ namespace ProducersBank
         {
 
             Login(txtUserName.Text.ToString(), txtPassword.Text.ToString());
+            //MessageBox.Show(gClient.DocStampTempTable.ToString());
 
         }
 
@@ -124,6 +125,7 @@ namespace ProducersBank
                     gClient.PriceListTable = row.Field<string>("ShortName").ToLower() + "_pricelist" ?? "";
                     gClient.DRTempTable = row.Field<string>("ShortName").ToLower() + "_dr_temp" ?? "";
                     gClient.PurchaseOrderFinishedTable = row.Field<string>("ShortName").ToLower() + "_purchaseorder_finished" ?? "";
+                    gClient.DocStampTempTable =  "docstamp_temp" ?? "";
                 }
             }
            

@@ -35,6 +35,9 @@
             this.salesInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentStampToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.purchaseOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +78,13 @@
             this.salesInvoiceToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.salesInvoiceToolStripMenuItem.Text = "Sales Invoice";
             this.salesInvoiceToolStripMenuItem.Click += new System.EventHandler(this.salesInvoiceToolStripMenuItem_Click);
-
+            // 
+            // documentStampToolStripMenuItem
+            // 
+            this.documentStampToolStripMenuItem.Name = "documentStampToolStripMenuItem";
+            this.documentStampToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.documentStampToolStripMenuItem.Text = "Document Stamp";
+            this.documentStampToolStripMenuItem.Click += new System.EventHandler(this.documentStampToolStripMenuItem_Click);
             // 
             // recentBatchToolStripMenuItem
             // 
@@ -85,15 +94,27 @@
             this.recentBatchToolStripMenuItem.Text = "Recent Batch";
             this.recentBatchToolStripMenuItem.Click += new System.EventHandler(this.recentBatchToolStripMenuItem_Click);
             // 
-
-
+            // maintenanceToolStripMenuItem
+            // 
+            this.maintenanceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.purchaseOrderToolStripMenuItem});
+            this.maintenanceToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
+            this.maintenanceToolStripMenuItem.Size = new System.Drawing.Size(110, 24);
+            this.maintenanceToolStripMenuItem.Text = "Maintenance";
+            // 
+            // purchaseOrderToolStripMenuItem
+            // 
+            this.purchaseOrderToolStripMenuItem.Name = "purchaseOrderToolStripMenuItem";
+            this.purchaseOrderToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
+            this.purchaseOrderToolStripMenuItem.Text = "Purchase Order";
             // documentStampToolStripMenuItem
             // 
             this.documentStampToolStripMenuItem.Name = "documentStampToolStripMenuItem";
             this.documentStampToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.documentStampToolStripMenuItem.Text = "Document Stamp";
             this.documentStampToolStripMenuItem.Click += new System.EventHandler(this.documentStampToolStripMenuItem_Click);
-            
+
             // 
             // Main
             // 
@@ -122,8 +143,8 @@
         private System.Windows.Forms.ToolStripMenuItem deliveryReceiptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salesInvoiceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem documentStampToolStripMenuItem;
-  
-
+        private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem purchaseOrderToolStripMenuItem;
     }
 }
 

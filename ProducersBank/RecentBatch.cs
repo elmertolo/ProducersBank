@@ -21,6 +21,7 @@ namespace ProducersBank
         ProcessServices proc = new ProcessServices();
          List<TempModel> tempRecent = new List<TempModel>();
         List<TempModel> batchTemp = new List<TempModel>();
+        List<DocStampModel> docTemp = new List<DocStampModel>();
         public RecentBatch(Main frm1)
         {
             InitializeComponent();
@@ -31,11 +32,39 @@ namespace ProducersBank
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            bool flag = true;
             tempRecent.Clear();
             proc.GetDRDetails(txtRecentBatch.Text, tempRecent);
             tempRecent.Clear();
             proc.GetStickerDetails(tempRecent, txtRecentBatch.Text);
 
+            var dBatchtemp = batchTemp.Select(d => d.Batch).Distinct().ToList();
+            
+            foreach (string batch in dBatchtemp)
+            {
+                var _dbatch = batchTemp.Where(r => r.Batch == batch).ToList();
+                _dbatch.ForEach(f =>
+                {
+                    if (flag == true)
+                    { 
+                        proc.GetDocStampDetails(docTemp, f.DocStampNumber);
+                        flag = false;
+                    }
+                    
+                });
+
+            }
+            //dBatchtemp.ForEach(r =>
+            //{
+            //    var dBatch= batchTemp.Where(f => f.Batch == dBatchTemp).ToList();
+            //    dBatch.ForEach(t =>
+            //    {
+            //        proc.GetDocStampDetails(docTemp, t.DocStampNumber);
+            //    });
+                    
+                
+            //});
+            
             //BindingSource checkBind = new BindingSource();
             //checkBind.DataSource = tempRecent;
             //dgvDRList.DataSource = checkBind;
@@ -104,21 +133,23 @@ namespace ProducersBank
             dt.Clear();
 
             dt.Columns.Add("Batch");
+            dt.Columns.Add("Sales Invoice");
+            dt.Columns.Add("Document Stamp");
             dt.Columns.Add("Cheque Name");
             dt.Columns.Add("ChkType");
             dt.Columns.Add("Delivery Date");
             dt.Columns.Add("Quantity");
-          
+                
 
             batchTemp.ForEach(r =>
             {
-                dt.Rows.Add(new object[] { r.Batch, r.ChequeName, r.ChkType, r.DeliveryDate.ToString("yyyy-MM-dd"), r.Qty });
+                dt.Rows.Add(new object[] { r.Batch, r.SalesInvoice, r.DocStampNumber,r.ChequeName, r.ChkType, r.DeliveryDate.ToString("yyyy-MM-dd"), r.Qty });
             });
             
             dgvDRList.DataSource = dt;
 
-            dgvDRList.Columns[1].Width = 200;
-            dgvDRList.Columns[3].Width = 130;
+            dgvDRList.Columns[3].Width = 200;
+            dgvDRList.Columns[5].Width = 130;
         }
 
         private void dgvDRList_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -128,7 +159,18 @@ namespace ProducersBank
             int columnindex = dgvDRList.CurrentCell.ColumnIndex;
 
             // student.Stud_ID = int.Parse(dtgList.Rows[rowindex].Cells[columnindex].Value.ToString());
-            txtRecentBatch.Text = dgvDRList.Rows[rowindex].Cells[0].Value.ToString();
+            
+            txtRecentBatch.Text = dgvDRList.Rows[rowindex].Cells[columnindex].Value.ToString();
+            //if(columnindex == 0)
+            //{
+            //    lblNote.Text = "This is Batch Number!";
+            //}
+            //else if (columnindex == 1)
+            //{
+            //    lblNote.Text = "This is Sales Invoice Number!";
+            //}
+            //else if( columnindex == 2)
+            //lblNote.Text = "This is Document Stamp Number!";
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

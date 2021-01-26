@@ -742,7 +742,7 @@ namespace ProducersBank.Services
         {
             DBConnect();
 
-            Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from  " + gClient.DataBaseName +
+            Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity,SalesInvoice,DocStampNumber from  " + gClient.DataBaseName +
                     " where DrNumber is not null  and (Batch Like '%" + _batch + "%' OR SalesInvoice Like '%" + _batch + "%' OR DocStampNumber Like '%" + _batch + "%' )" +
                     " group by batch, chequename, ChkType";
 
@@ -756,7 +756,10 @@ namespace ProducersBank.Services
                     ChequeName = !reader.IsDBNull(1) ? reader.GetString(1) : "",
                     ChkType = !reader.IsDBNull(2) ? reader.GetString(2) : "",
                     DeliveryDate = !reader.IsDBNull(3) ? reader.GetDateTime(3) : DateTime.Now,
-                    Qty = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0
+                    Qty = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
+                    SalesInvoice = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0,
+                    DocStampNumber = !reader.IsDBNull(6) ? reader.GetInt32(6):0
+                   
                 };
                 _temp.Add(t);
             }
@@ -966,7 +969,7 @@ namespace ProducersBank.Services
 
                 price.Bank = !reader.IsDBNull(0) ? reader.GetString(0) : "";
                 price.ChequeDescription = !reader.IsDBNull(1) ? reader.GetString(1) : "";
-                price.DocStampPrice = !reader.IsDBNull(2) ? reader.GetDouble(2) : 0;
+                price.DocStampPrice = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0;
                 // price.unitprice = !reader.IsDBNull(3) ? reader.GetDouble(3) : 0;
 
 
@@ -1022,40 +1025,52 @@ namespace ProducersBank.Services
 
             return _batch;
         }
-        public void GetDocStampDetails(List<DocStampModel> _temp, string _docStampNumber)
+        public void GetDocStampDetails(List<DocStampModel> _temp, int _docStampNumber)
         {
-            Sql = "Select Bank, DocStampNumber,SalesInvoice,Count(ChkType) as Quantity,ChkType, ChequeName, DocStamp, " +
-                    "Username_DocStamp, CheckedByDS from " + gClient.DataBaseName +
-                    " where  DocStampNumber= '" + _docStampNumber + "' Group by DocStampNumber,ChkType order by DocStampNumber, ChkType";
+            Sql = "Select P.BankCode, DocStampNumber,SalesInvoice,Count(ChkType) as Quantity,ChkType, H.ChequeName, H.DocStamp, " +
+                  "Username_DocStamp, CheckedByDS,PurchaseOrderNumber,P.QuantityOnHand,Batch," +
+                  "(Count(ChkType) * H.DocStamp) as TotalAmount from " + gClient.DataBaseName +
+                  " H left join " + gClient.PriceListTable +"  P on H.Bank = P.BankCode and H.ChkType = P.FinalChkType" +
+                  " where  DocStampNumber= " + _docStampNumber + " Group by DocStampNumber,ChkType order by DocStampNumber, ChkType";
             DBConnect();
             cmd = new MySqlCommand(Sql, myConnect);
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                DocStampModel doc = new DocStampModel
-                {
-                    BankCode = !reader.IsDBNull(0) ? reader.GetString(0) : "",
-                    DocStampNumber = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0,
-                    TotalQuantity = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
-                    ChkType = !reader.IsDBNull(3) ? reader.GetString(3) : "",
-                    DocDesc = !reader.IsDBNull(4) ? reader.GetString(4) : "",
-                    //  TotalAmount = !reader.IsDBNull(5) ? reader.GetDouble(5) : 0,
-                    DocStampPrice = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0,
-                    PreparedBy = !reader.IsDBNull(7) ? reader.GetString(7) : "",
-                    CheckedBy = !reader.IsDBNull(8) ? reader.GetString(8) : ""
-                };
+                DocStampModel doc = new DocStampModel();
+
+                doc.BankCode = !reader.IsDBNull(0) ? reader.GetString(0) : "";
+                doc.DocStampNumber = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0;
+                doc.SalesInvoiceNumber = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                doc.TotalQuantity = !reader.IsDBNull(3) ? reader.GetInt32(3) : 0;
+                doc.ChkType = !reader.IsDBNull(4) ? reader.GetString(4) : "";
+                doc.DocDesc = !reader.IsDBNull(5) ? reader.GetString(5) : "";
+                //  TotalAmount = !reader.IsDBNull(5) ? reader.GetDouble(5) : 0,
+                doc.DocStampPrice = !reader.IsDBNull(6) ? reader.GetInt32(6) : 0;
+                doc.PreparedBy = !reader.IsDBNull(7) ? reader.GetString(7) : "";
+                doc.CheckedBy = !reader.IsDBNull(8) ? reader.GetString(8) : "";
+                doc.POorder = !reader.IsDBNull(9) ? reader.GetInt32(9) : 0;
+                doc.QuantityOnHand = !reader.IsDBNull(10) ? reader.GetInt32(10) : 0;
+                doc.batches = !reader.IsDBNull(11) ? reader.GetString(11) : "";
+                doc.TotalAmount = !reader.IsDBNull(12) ? reader.GetDouble(12) : 0;
+                
                 _temp.Add(doc);
             }
             reader.Close();
             DBClosed();
-
+            DBConnect();
+            string Sql1 = "Delete from " + gClient.DocStampTempTable;
+            cmd = new MySqlCommand(Sql1, myConnect);
+            cmd.ExecuteNonQuery();
+            DBClosed();
             DBConnect();
             _temp.ForEach(d =>
             {
                 string Sql2 = "Insert into " + gClient.DocStampTempTable + "(Bank, DocStampNumber,SalesInvoice,Quantity,ChkType, ChequeDesc, DocStampPrice, " +
-                            "PreparedBy, CheckedBy, PONumber,BalanceOrder,Batch)Values('" + d.BankCode + "'," + d.DocStampNumber +
+                            "PreparedBy, CheckedBy, PONumber,BalanceOrder,Batch,TotalAmount)Values('" + d.BankCode + "'," + d.DocStampNumber +
                             ", " + d.SalesInvoiceNumber + "," + d.TotalQuantity + ",'" + d.ChkType + "','" + d.DocDesc +
-                            "," + d.DocStampPrice + ",'" + d.PreparedBy + "','" + d.CheckedBy + "'";
+                            "'," + d.DocStampPrice + ",'" + d.PreparedBy + "','" + d.CheckedBy + "',"+d.POorder+","+d.QuantityOnHand+
+                            ",'" + d.batches + "',"+d.TotalAmount+")";
                 MySqlCommand cmd2 = new MySqlCommand(Sql2, myConnect);
                 cmd2.ExecuteNonQuery();
             });
