@@ -237,6 +237,13 @@ namespace ProducersBank
                     {
                         PurchaseOrderModel line = new PurchaseOrderModel();
 
+                        //Validation for zero quantity
+                        if (int.Parse(row.Cells["Quantity"].Value.ToString()) <= 0)
+                        {
+                            MessageBox.Show("Zero quantity is not accepted.");
+                            return;
+                        }
+
                         line.PurchaseOrderNumber = int.Parse(txtPONumber.Text.ToString());
                         line.PurchaseOrderDateTime = DateTime.Parse(dtpPODate.Value.ToString());
                         line.ClientCode = gClient.ClientCode;

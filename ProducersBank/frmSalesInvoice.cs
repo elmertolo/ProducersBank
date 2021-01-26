@@ -173,8 +173,7 @@ namespace ProducersBank
 
             if (dgvDRList.SelectedRows != null && dgvDRList.SelectedRows.Count > 0)
             {
-                
-               
+
                 foreach (DataGridViewRow row in dgvDRList.SelectedRows)
                 {
                     SalesInvoiceModel line = new SalesInvoiceModel();
@@ -189,7 +188,7 @@ namespace ProducersBank
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
                     line.lineTotalAmount = Math.Round(line.Quantity * line.unitPrice, 2);
 
-                    //Validation of Cheque quantity for PNB
+                    //(Validation) Checing of Onhand quantity for PNB
                     if (gClient.ShortName == "PNB")
                     {
                         frmMessageInput xfrm = new frmMessageInput();
@@ -214,8 +213,15 @@ namespace ProducersBank
                         }
                     }
 
+                    //Check if record is already inserted
+                    if (p.BatchRecordHasDuplicate(line, salesInvoiceList))
+                    {
+                        MessageBox.Show("Selected Batch already added");
+                        return;
+                    }
+
                     salesInvoiceList.Add(line);
-                    
+
                 }
 
 

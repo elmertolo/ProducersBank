@@ -84,11 +84,10 @@ namespace ProducersBank
 
         }
 
-        private void salesInvoiceToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void purchaseOrderToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             frmPurchaseOrder poFrm = new frmPurchaseOrder(this);
             poFrm.Show();
         }
-
     }
 }
