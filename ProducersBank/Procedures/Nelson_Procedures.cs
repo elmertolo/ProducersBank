@@ -126,8 +126,6 @@ namespace ProducersBank.Procedures
             
             }
 
-           
-
         }
 
         public static bool LoadReportPath(string reportType, ref ReportDocument crystalDocument) 
@@ -157,12 +155,16 @@ namespace ProducersBank.Procedures
 
         }
 
-
         public static bool BatchRecordHasDuplicate(SalesInvoiceModel line, List<SalesInvoiceModel> salesInvoiceList)
         {
             foreach (var item in salesInvoiceList)
             {
-                if (line.Batch == item.Batch && line.checkName == item.checkName && line.deliveryDate == item.deliveryDate && line.drList == item.drList && line.checkType == item.checkType)
+                if (line.Quantity == item.Quantity && 
+                    line.Batch == item.Batch && 
+                    line.checkName == item.checkName && 
+                    line.deliveryDate == item.deliveryDate && 
+                    line.drList == item.drList && 
+                    line.checkType == item.checkType)
                 {
                     return true;
                 }

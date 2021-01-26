@@ -81,6 +81,16 @@ namespace ProducersBank.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap background_red_header {
+            get {
+                object obj = ResourceManager.GetObject("background-red-header", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Captive {
@@ -116,6 +126,16 @@ namespace ProducersBank.Properties {
         internal static System.Drawing.Bitmap FormBackground {
             get {
                 object obj = ResourceManager.GetObject("FormBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FormBackground1 {
+            get {
+                object obj = ResourceManager.GetObject("FormBackground1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +213,59 @@ namespace ProducersBank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Header_Login {
+            get {
+                object obj = ResourceManager.GetObject("Header_Login", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Header_SalesInvoice {
+            get {
+                object obj = ResourceManager.GetObject("Header_SalesInvoice", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Header_SalesInvoice1 {
+            get {
+                object obj = ResourceManager.GetObject("Header_SalesInvoice1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Header1 {
             get {
                 object obj = ResourceManager.GetObject("Header1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Header11 {
+            get {
+                object obj = ResourceManager.GetObject("Header11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Header12 {
+            get {
+                object obj = ResourceManager.GetObject("Header12", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -293,6 +363,16 @@ namespace ProducersBank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SalesInvoiceHeader {
+            get {
+                object obj = ResourceManager.GetObject("SalesInvoiceHeader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
@@ -336,6 +416,26 @@ namespace ProducersBank.Properties {
         internal static System.Drawing.Bitmap YellowButton1 {
             get {
                 object obj = ResourceManager.GetObject("YellowButton1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap YellowButton2 {
+            get {
+                object obj = ResourceManager.GetObject("YellowButton2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap YellowButton3 {
+            get {
+                object obj = ResourceManager.GetObject("YellowButton3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

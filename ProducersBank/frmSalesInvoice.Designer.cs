@@ -63,6 +63,7 @@ namespace ProducersBank
             this.Label5 = new System.Windows.Forms.Label();
             this.btnReloadDrList = new System.Windows.Forms.Button();
             this.btnReprint = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).BeginInit();
             this.gbSearch.SuspendLayout();
@@ -70,6 +71,7 @@ namespace ProducersBank
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvDRList
@@ -107,7 +109,7 @@ namespace ProducersBank
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvDRList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvDRList.Size = new System.Drawing.Size(542, 435);
+            this.dgvDRList.Size = new System.Drawing.Size(542, 356);
             this.dgvDRList.TabIndex = 0;
             this.dgvDRList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDRList_CellContentClick);
             this.dgvDRList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDRList_CellDoubleClick);
@@ -198,7 +200,7 @@ namespace ProducersBank
             // btnViewSelected
             // 
             this.btnViewSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnViewSelected.Location = new System.Drawing.Point(826, 75);
+            this.btnViewSelected.Location = new System.Drawing.Point(826, 149);
             this.btnViewSelected.Name = "btnViewSelected";
             this.btnViewSelected.Size = new System.Drawing.Size(170, 52);
             this.btnViewSelected.TabIndex = 9;
@@ -264,7 +266,7 @@ namespace ProducersBank
             this.gbSearch.BackColor = System.Drawing.Color.WhiteSmoke;
             this.gbSearch.Controls.Add(this.btnSearch);
             this.gbSearch.Controls.Add(this.txtSearch);
-            this.gbSearch.Location = new System.Drawing.Point(12, 12);
+            this.gbSearch.Location = new System.Drawing.Point(6, 85);
             this.gbSearch.Name = "gbSearch";
             this.gbSearch.Size = new System.Drawing.Size(248, 68);
             this.gbSearch.TabIndex = 17;
@@ -292,9 +294,9 @@ namespace ProducersBank
             this.gbDetails.Controls.Add(this.label4);
             this.gbDetails.Controls.Add(this.label3);
             this.gbDetails.Controls.Add(this.cbCheckedBy);
-            this.gbDetails.Location = new System.Drawing.Point(12, 86);
+            this.gbDetails.Location = new System.Drawing.Point(6, 159);
             this.gbDetails.Name = "gbDetails";
-            this.gbDetails.Size = new System.Drawing.Size(248, 386);
+            this.gbDetails.Size = new System.Drawing.Size(248, 307);
             this.gbDetails.TabIndex = 18;
             this.gbDetails.TabStop = false;
             this.gbDetails.Text = "DETAILS";
@@ -316,9 +318,9 @@ namespace ProducersBank
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.dgvDRList);
-            this.groupBox2.Location = new System.Drawing.Point(266, 12);
+            this.groupBox2.Location = new System.Drawing.Point(260, 85);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(554, 460);
+            this.groupBox2.Size = new System.Drawing.Size(554, 381);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "BATCH LIST";
@@ -386,7 +388,7 @@ namespace ProducersBank
             // btnReloadDrList
             // 
             this.btnReloadDrList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReloadDrList.Location = new System.Drawing.Point(826, 17);
+            this.btnReloadDrList.Location = new System.Drawing.Point(826, 91);
             this.btnReloadDrList.Name = "btnReloadDrList";
             this.btnReloadDrList.Size = new System.Drawing.Size(170, 52);
             this.btnReloadDrList.TabIndex = 22;
@@ -405,12 +407,25 @@ namespace ProducersBank
             this.btnReprint.UseVisualStyleBackColor = true;
             this.btnReprint.Click += new System.EventHandler(this.btnReprint_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackgroundImage = global::ProducersBank.Properties.Resources.Header_SalesInvoice1;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1008, 80);
+            this.pictureBox1.TabIndex = 34;
+            this.pictureBox1.TabStop = false;
+            // 
             // frmSalesInvoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnReprint);
             this.Controls.Add(this.btnReloadDrList);
             this.Controls.Add(this.panel1);
@@ -439,6 +454,7 @@ namespace ProducersBank
             this.groupBox2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -472,5 +488,6 @@ namespace ProducersBank
         private System.Windows.Forms.Label lblBankName;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnReprint;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
