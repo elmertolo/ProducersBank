@@ -161,16 +161,16 @@ namespace ProducersBank
             // student.Stud_ID = int.Parse(dtgList.Rows[rowindex].Cells[columnindex].Value.ToString());
             
             txtRecentBatch.Text = dgvDRList.Rows[rowindex].Cells[columnindex].Value.ToString();
-            if(columnindex == 0)
-            {
-                lblNote.Text = "This is Batch Number!";
-            }
-            else if (columnindex == 1)
-            {
-                lblNote.Text = "This is Sales Invoice Number!";
-            }
-            else if( columnindex == 2)
-            lblNote.Text = "This is Document Stamp Number!";
+            //if(columnindex == 0)
+            //{
+            //    lblNote.Text = "This is Batch Number!";
+            //}
+            //else if (columnindex == 1)
+            //{
+            //    lblNote.Text = "This is Sales Invoice Number!";
+            //}
+            //else if( columnindex == 2)
+            //lblNote.Text = "This is Document Stamp Number!";
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
