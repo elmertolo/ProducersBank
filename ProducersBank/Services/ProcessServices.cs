@@ -740,33 +740,41 @@ namespace ProducersBank.Services
 
         public string DisplayAllBatches(string _batch, List<TempModel> _temp)
         {
-            DBConnect();
-
-            Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity,SalesInvoice,DocStampNumber from  " + gClient.DataBaseName +
-                    " where DrNumber is not null  and (Batch Like '%" + _batch + "%' OR SalesInvoice Like '%" + _batch + "%' OR DocStampNumber Like '%" + _batch + "%' )" +
-                    " group by batch, chequename, ChkType";
-
-            cmd = new MySqlCommand(Sql, myConnect);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                TempModel t = new TempModel
-                {
-                    Batch = !reader.IsDBNull(0) ? reader.GetString(0) : "",
-                    ChequeName = !reader.IsDBNull(1) ? reader.GetString(1) : "",
-                    ChkType = !reader.IsDBNull(2) ? reader.GetString(2) : "",
-                    DeliveryDate = !reader.IsDBNull(3) ? reader.GetDateTime(3) : DateTime.Now,
-                    Qty = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
-                    SalesInvoice = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0,
-                    DocStampNumber = !reader.IsDBNull(6) ? reader.GetInt32(6):0
-                   
-                };
-                _temp.Add(t);
-            }
-            reader.Close();
-            DBClosed();
+                DBConnect();
 
-            return _batch;
+                Sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity,SalesInvoice,DocStampNumber from  " + gClient.DataBaseName +
+                        " where DrNumber is not null  and (Batch Like '%" + _batch + "%' OR SalesInvoice Like '%" + _batch + "%' OR DocStampNumber Like '%" + _batch + "%' )" +
+                        " group by batch, chequename, ChkType";
+
+                cmd = new MySqlCommand(Sql, myConnect);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    TempModel t = new TempModel
+                    {
+                        Batch = !reader.IsDBNull(0) ? reader.GetString(0) : "",
+                        ChequeName = !reader.IsDBNull(1) ? reader.GetString(1) : "",
+                        ChkType = !reader.IsDBNull(2) ? reader.GetString(2) : "",
+                        DeliveryDate = !reader.IsDBNull(3) ? reader.GetDateTime(3) : DateTime.Now,
+                        Qty = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0,
+                        SalesInvoice = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0,
+                        DocStampNumber = !reader.IsDBNull(6) ? reader.GetInt32(6) : 0
+
+                    };
+                    _temp.Add(t);
+                }
+                reader.Close();
+                DBClosed();
+                return _batch;
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, error.Source);
+                return _batch;
+            }
+            
         }
         public bool CheckBatchifExisted(string _batch)
         {
@@ -960,40 +968,55 @@ namespace ProducersBank.Services
         //}
         public PriceListModel GetPriceList(PriceListModel price, string chkType)
         {
-            Sql = "Select BankCode, Description, Docstamp from " + gClient.PriceListTable + " where FinalChkType ='" + chkType + "'; ";
-            DBConnect();
-            cmd = new MySqlCommand(Sql, myConnect);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            try
             {
+                Sql = "Select BankCode, Description, Docstamp from " + gClient.PriceListTable + " where FinalChkType ='" + chkType + "'; ";
+                DBConnect();
+                cmd = new MySqlCommand(Sql, myConnect);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
 
-                price.Bank = !reader.IsDBNull(0) ? reader.GetString(0) : "";
-                price.ChequeDescription = !reader.IsDBNull(1) ? reader.GetString(1) : "";
-                price.DocStampPrice = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0;
-                // price.unitprice = !reader.IsDBNull(3) ? reader.GetDouble(3) : 0;
+                    price.Bank = !reader.IsDBNull(0) ? reader.GetString(0) : "";
+                    price.ChequeDescription = !reader.IsDBNull(1) ? reader.GetString(1) : "";
+                    price.DocStampPrice = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0;
+                    // price.unitprice = !reader.IsDBNull(3) ? reader.GetDouble(3) : 0;
 
 
+                }
+                reader.Close();
+                DBClosed();
+                return price;
             }
-            reader.Close();
-            DBClosed();
-            return price;
+            catch(Exception error)
+            {
+                MessageBox.Show(error.Message, error.Source);
+                return price;
+            }
         }
         public void UpdateDocstamp(List<DocStampModel> _docStamp)
         {
-            DBConnect();
-            _docStamp.ForEach(r =>
+            try
             {
-                Sql = "Update " + gClient.DataBaseName + " set DocStamp = " + r.DocStampPrice + ", DocStampNumber = " + r.DocStampNumber +
-                    ", Date_DocStamp = '" + r.DocStampDate.ToString("yyyy-MM-dd") + "',Username_DocStamp ='" + r.PreparedBy +
-                    "', CheckedByDS = '" + r.CheckedBy + "'  where SalesInvoice = " + r.SalesInvoiceNumber + " and ChkType = '" + r.ChkType + "';";
-                cmd = new MySqlCommand(Sql, myConnect);
-                cmd.ExecuteNonQuery();
+                DBConnect();
+                _docStamp.ForEach(r =>
+                {
+                    Sql = "Update " + gClient.DataBaseName + " set DocStamp = " + r.DocStampPrice + ", DocStampNumber = " + r.DocStampNumber +
+                        ", Date_DocStamp = '" + r.DocStampDate.ToString("yyyy-MM-dd") + "',Username_DocStamp ='" + r.PreparedBy +
+                        "', CheckedByDS = '" + r.CheckedBy + "'  where SalesInvoice = " + r.SalesInvoiceNumber + " and ChkType = '" + r.ChkType + "';";
+                    cmd = new MySqlCommand(Sql, myConnect);
+                    cmd.ExecuteNonQuery();
 
-            });
-            DBClosed();
+                });
+                DBClosed();
 
 
-            return;
+                return;
+            }
+            catch(Exception error)
+            {
+                MessageBox.Show(error.Message, error.Source);
+            }
         }
 
         public string DisplayAllSalesInvoice(string _batch, List<TempModel> _temp)
@@ -1027,7 +1050,7 @@ namespace ProducersBank.Services
         }
         public void GetDocStampDetails(List<DocStampModel> _temp, int _docStampNumber)
         {
-            Sql = "Select P.BankCode, DocStampNumber,SalesInvoice,Count(ChkType) as Quantity,ChkType, H.ChequeName, H.DocStamp, " +
+            Sql = "Select P.BankCode, DocStampNumber,SalesInvoice,Count(ChkType) as Quantity,ChkType, P.Description, H.DocStamp, " +
                   "Username_DocStamp, CheckedByDS,PurchaseOrderNumber,P.QuantityOnHand,Batch," +
                   "(Count(ChkType) * H.DocStamp) as TotalAmount from " + gClient.DataBaseName +
                   " H left join " + gClient.PriceListTable +"  P on H.Bank = P.BankCode and H.ChkType = P.FinalChkType" +
@@ -1068,7 +1091,7 @@ namespace ProducersBank.Services
             {
                 string Sql2 = "Insert into " + gClient.DocStampTempTable + "(Bank, DocStampNumber,SalesInvoice,Quantity,ChkType, ChequeDesc, DocStampPrice, " +
                             "PreparedBy, CheckedBy, PONumber,BalanceOrder,Batch,TotalAmount)Values('" + d.BankCode + "'," + d.DocStampNumber +
-                            ", " + d.SalesInvoiceNumber + "," + d.TotalQuantity + ",'" + d.ChkType + "','" + d.DocDesc +
+                            ", " + d.SalesInvoiceNumber + "," + d.TotalQuantity + ",'" + d.ChkType + "','" + d.DocDesc.Replace("'","''") +
                             "'," + d.DocStampPrice + ",'" + d.PreparedBy + "','" + d.CheckedBy + "',"+d.POorder+","+d.QuantityOnHand+
                             ",'" + d.batches + "',"+d.TotalAmount+")";
                 MySqlCommand cmd2 = new MySqlCommand(Sql2, myConnect);

@@ -32,44 +32,36 @@ namespace ProducersBank
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             bool flag = true;
-            tempRecent.Clear();
-            proc.GetDRDetails(txtRecentBatch.Text, tempRecent);
-            tempRecent.Clear();
-            proc.GetStickerDetails(tempRecent, txtRecentBatch.Text);
-
-            var dBatchtemp = batchTemp.Select(d => d.Batch).Distinct().ToList();
-            
-            foreach (string batch in dBatchtemp)
+            if (txtRecentBatch.Text != "")
             {
-                var _dbatch = batchTemp.Where(r => r.Batch == batch).ToList();
-                _dbatch.ForEach(f =>
-                {
-                    if (flag == true)
-                    { 
-                        proc.GetDocStampDetails(docTemp, f.DocStampNumber);
-                        flag = false;
-                    }
-                    
-                });
+                tempRecent.Clear();
+                proc.GetDRDetails(txtRecentBatch.Text, tempRecent);
+                tempRecent.Clear();
+                proc.GetStickerDetails(tempRecent, txtRecentBatch.Text);
 
+                var dBatchtemp = batchTemp.Select(d => d.Batch).Distinct().ToList();
+
+                foreach (string batch in dBatchtemp)
+                {
+                    var _dbatch = batchTemp.Where(r => r.Batch == batch).ToList();
+                    _dbatch.ForEach(f =>
+                    {
+                        if (flag == true)
+                        {
+                            proc.GetDocStampDetails(docTemp, f.DocStampNumber);
+                            flag = false;
+                        }
+
+                    });
+
+                }
+                printDRToolStripMenuItem.Enabled = true;
+                MessageBox.Show("Batch :" + txtRecentBatch.Text + " has been generated!!!");
             }
-            //dBatchtemp.ForEach(r =>
-            //{
-            //    var dBatch= batchTemp.Where(f => f.Batch == dBatchTemp).ToList();
-            //    dBatch.ForEach(t =>
-            //    {
-            //        proc.GetDocStampDetails(docTemp, t.DocStampNumber);
-            //    });
-                    
-                
-            //});
-            
-            //BindingSource checkBind = new BindingSource();
-            //checkBind.DataSource = tempRecent;
-            //dgvDRList.DataSource = checkBind;
-            printDRToolStripMenuItem.Enabled = true;
-            MessageBox.Show("Batch :" + txtRecentBatch.Text + " has been generated!!!");
+            else
+                MessageBox.Show("Please enter Batch Number!");
         }
 
         private void deliveryReceiptToolStripMenuItem_Click(object sender, EventArgs e)
@@ -200,6 +192,24 @@ namespace ProducersBank
             report = "DOC";
             ViewReports vp = new ViewReports();
             vp.Show();
+        }
+
+        private void txtDrNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
         }
     }
 }

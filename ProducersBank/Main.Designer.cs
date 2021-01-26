@@ -37,17 +37,19 @@
             this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.purchaseOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.maintenanceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.purchaseOrderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.transactionsToolStripMenuItem,
+
             this.recentBatchToolStripMenuItem,
-            this.maintenanceToolStripMenuItem1});
+            this.maintenanceToolStripMenuItem});
+
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1304, 28);
@@ -111,21 +113,22 @@
             this.purchaseOrderToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.purchaseOrderToolStripMenuItem.Text = "Purchase Order";
             // 
-            // maintenanceToolStripMenuItem1
-            // 
-            this.maintenanceToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.purchaseOrderToolStripMenuItem1});
-            this.maintenanceToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.maintenanceToolStripMenuItem1.Name = "maintenanceToolStripMenuItem1";
-            this.maintenanceToolStripMenuItem1.Size = new System.Drawing.Size(110, 24);
-            this.maintenanceToolStripMenuItem1.Text = "Maintenance";
-            // 
-            // purchaseOrderToolStripMenuItem1
-            // 
-            this.purchaseOrderToolStripMenuItem1.Name = "purchaseOrderToolStripMenuItem1";
-            this.purchaseOrderToolStripMenuItem1.Size = new System.Drawing.Size(184, 24);
-            this.purchaseOrderToolStripMenuItem1.Text = "Purchase Order";
-            this.purchaseOrderToolStripMenuItem1.Click += new System.EventHandler(this.purchaseOrderToolStripMenuItem1_Click);
+            //// maintenanceToolStripMenuItem1
+            //// 
+            //this.maintenanceToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            //this.purchaseOrderToolStripMenuItem1});
+            //this.maintenanceToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            //this.maintenanceToolStripMenuItem1.Name = "maintenanceToolStripMenuItem1";
+            //this.maintenanceToolStripMenuItem1.Size = new System.Drawing.Size(110, 24);
+            //this.maintenanceToolStripMenuItem1.Text = "Maintenance";
+            //// 
+            //// purchaseOrderToolStripMenuItem1
+            //// 
+            //this.purchaseOrderToolStripMenuItem1.Name = "purchaseOrderToolStripMenuItem1";
+            //this.purchaseOrderToolStripMenuItem1.Size = new System.Drawing.Size(184, 24);
+            //this.purchaseOrderToolStripMenuItem1.Text = "Purchase Order";
+            //this.purchaseOrderToolStripMenuItem1.Click += new System.EventHandler(this.purchaseOrderToolStripMenuItem1_Click);
+
             // 
             // Main
             // 
@@ -156,8 +159,10 @@
         private System.Windows.Forms.ToolStripMenuItem documentStampToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem purchaseOrderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem purchaseOrderToolStripMenuItem1;
+
+        //private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
+        //private System.Windows.Forms.ToolStripMenuItem purchaseOrderToolStripMenuItem;
+
     }
 }
 
