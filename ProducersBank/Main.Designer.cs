@@ -37,7 +37,6 @@
             this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.purchaseOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,7 +44,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.transactionsToolStripMenuItem,
-            this.recentBatchToolStripMenuItem });
+            this.recentBatchToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1304, 28);
@@ -108,13 +107,6 @@
             this.purchaseOrderToolStripMenuItem.Name = "purchaseOrderToolStripMenuItem";
             this.purchaseOrderToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.purchaseOrderToolStripMenuItem.Text = "Purchase Order";
-            // documentStampToolStripMenuItem
-            // 
-            this.documentStampToolStripMenuItem.Name = "documentStampToolStripMenuItem";
-            this.documentStampToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.documentStampToolStripMenuItem.Text = "Document Stamp";
-            this.documentStampToolStripMenuItem.Click += new System.EventHandler(this.documentStampToolStripMenuItem_Click);
-
             // 
             // Main
             // 
@@ -145,6 +137,7 @@
         private System.Windows.Forms.ToolStripMenuItem documentStampToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem purchaseOrderToolStripMenuItem;
+
     }
 }
 
