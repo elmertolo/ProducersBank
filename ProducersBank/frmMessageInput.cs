@@ -20,7 +20,7 @@ namespace ProducersBank
         public frmMessageInput()
         {
             InitializeComponent();
-            txtInput.Focus();
+          
         }
 
 
@@ -48,6 +48,34 @@ namespace ProducersBank
             if (p.IsKeyPressedNumeric(ref sender, ref e))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void frmMessageInput_Load(object sender, EventArgs e)
+        {
+            lblMessage.Text = labelMessage;
+            txtInput.SelectAll();
+            txtInput.Focus();
+            
+        }
+
+        private void txtInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (string.IsNullOrWhiteSpace(txtInput.Text))
+                {
+                    MessageBox.Show("Please input Sales Invoice Number.");
+                    return;
+                }
+                userInput = txtInput.Text.ToString();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
             }
         }
     }

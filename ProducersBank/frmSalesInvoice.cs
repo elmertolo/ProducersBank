@@ -175,8 +175,6 @@ namespace ProducersBank
             {
                 
                
-
-
                 foreach (DataGridViewRow row in dgvDRList.SelectedRows)
                 {
                     SalesInvoiceModel line = new SalesInvoiceModel();
@@ -191,18 +189,30 @@ namespace ProducersBank
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
                     line.lineTotalAmount = Math.Round(line.Quantity * line.unitPrice, 2);
 
-
                     //Validation of Cheque quantity for PNB
                     if (gClient.ShortName == "PNB")
                     {
-                        if (!proc.isQuantityOnHandSufficient(line.Quantity, line.checkName))
+                        frmMessageInput xfrm = new frmMessageInput();
+                        xfrm.labelMessage = "Input Purchase Order Number:";
+                        DialogResult result = xfrm.ShowDialog();
+                        if (result == DialogResult.OK)
                         {
-                            MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n" + proc.errorMessage);
+                            line.PurchaseOrderNumber = int.Parse(xfrm.userInput);
+                            double remainingQuantity = 0;
+                            //Check if quantity is sufficient
+                            if (!proc.IsQuantityOnHandSufficient(line.Quantity, line.checkName, line.PurchaseOrderNumber, ref remainingQuantity))
+                            {
+                                MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n" + proc.errorMessage);
+                                return;
+                            }
+                            line.RemainingQuantity = remainingQuantity;
+
+                        }
+                        else if(result == DialogResult.Cancel)
+                        {
                             return;
                         }
                     }
-
-
 
                     salesInvoiceList.Add(line);
                     
@@ -289,15 +299,15 @@ namespace ProducersBank
                         {
                             int quantity = item.Quantity;
                             string checkname = item.checkName;
+                            int purchaseOrderNumber = item.PurchaseOrderNumber;
 
-                            if (!proc.UpdateItemQuantityOnhand(quantity, checkname))
+                            if (!proc.UpdateItemQuantityOnhand(quantity, checkname, purchaseOrderNumber))
                             {
                                 MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n" + proc.errorMessage);
                                 return;
                             }
                         }
 
-                        
                     }
 
 
@@ -538,9 +548,10 @@ namespace ProducersBank
 
         }
 
-
-
-
+        private void dgvDRList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            AddSelectedDRRow();
+        }
     }
 
 

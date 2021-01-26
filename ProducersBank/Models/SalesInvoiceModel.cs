@@ -21,5 +21,10 @@ namespace ProducersBank.Models
         public string preparedBy { get; set; }
         public string checkedBy { get; set; }
         public string approvedBy { get; set; }
+        /// <summary>
+        /// NA_01252021 update. added PO Number Tracking
+        /// </summary>
+        public int PurchaseOrderNumber { get; set; }
+        public double RemainingQuantity { get; set; }
     }
 }
