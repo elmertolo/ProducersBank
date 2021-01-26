@@ -202,20 +202,42 @@ namespace ProducersBank.Services
                 MySqlCommand cmd;
                 foreach (var item in siListToProcess)
                 {
+                    string sql;
+                    //PNB Update. Added Purchase Order Field upon updating
+                    if (gClient.ShortName == "PNB")
+                    {
+                        //Update History Table
+                         sql = "update " + gClient.DataBaseName + " set " +
+                        "unitprice = " + item.unitPrice + ", " +
+                        "purchaseordernumber = " + item.PurchaseOrderNumber + ", " +
+                        "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
+                        "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
+                        "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
+                        " where drnumber in(" + item.drList.ToString() +
+                        ") and batch = '" + item.Batch + "'" +
+                        " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
+                        " and chktype = '" + item.checkType.ToString() + "'" +
+                        " and chequename = '" + item.checkName + "';";
+                    }
+                    else
+                    {
 
-                    //Update History Table
-                    string sql = "update " + gClient.DataBaseName + " set " +
-                    "unitprice = " + item.unitPrice + ", " +
+                        //Update History Table
+                        sql = "update " + gClient.DataBaseName + " set " +
+                        "unitprice = " + item.unitPrice + ", " +
 
-                    "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
-                    "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
-                    "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
+                        "SalesInvoice = " + gSalesInvoiceFinished.SalesInvoiceNumber + ", " +
+                        "Salesinvoicedate = '" + item.salesInvoiceDate.ToString("yyyy-MM-dd") + "', " +
+                        "SalesInvoiceGeneratedBy = '" + gSalesInvoiceFinished.GeneratedBy + "' " +
 
-                    " where drnumber in(" + item.drList.ToString() +
-                    ") and batch = '" + item.Batch + "'" +
-                    " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
-                    " and chktype = '" + item.checkType.ToString() + "'" +
-                    " and chequename = '" + item.checkName + "';";
+                        " where drnumber in(" + item.drList.ToString() +
+                        ") and batch = '" + item.Batch + "'" +
+                        " and deliverydate = '" + item.deliveryDate.ToString("yyyy-MM-dd") + "'" +
+                        " and chktype = '" + item.checkType.ToString() + "'" +
+                        " and chequename = '" + item.checkName + "';";
+                    }
+
+
 
                     cmd = new MySqlCommand(sql, con);
                     rowNumbersAffected = cmd.ExecuteNonQuery();
@@ -260,23 +282,6 @@ namespace ProducersBank.Services
                 foreach (var item in poListToProcess)
                 {
 
-                    ////Insert Purchase Order Finished
-                    //string sql = "insert into " + gClient.PurchaseOrderFinishedTable + " " +
-                    //"(purchaseorderno, purchaseorderdatetime, clientcode, productcode, quantity, chequename, description, unitprice, docstamp, generatedby, checkedby, approvedby) " +
-                    //"Values ('" +
-                    //item.PurchaseOrderNumber + "', '" +
-                    //item.PurchaseOrderDateTime.ToString("yyyy-MM-dd HH:mm") + "', '" +
-                    //item.ClientCode + "', '" +
-                    //item.ProductCode + "', " +
-                    //item.Quantity + ", '" +
-                    //item.ChequeName + "', " +
-                    //item.Description + ", " +
-                    //item.UnitPrice + ", " +
-                    //item.Docstamp + ", '" +
-                    //item.GeneratedBy + "', '" +
-                    //item.CheckedBy + "', '" +
-                    //item.ApprovedBy + "');";
-
                     //Insert Purchase Order Finished
                     string sql = "insert into " + gClient.PurchaseOrderFinishedTable + " " +
                     "(purchaseorderno, purchaseorderdatetime, clientcode, productcode, quantity, chequename, description, unitprice, docstamp, generatedby, checkedby, approvedby) " +
@@ -296,8 +301,6 @@ namespace ProducersBank.Services
                     cmd.Parameters.Add("@GeneratedBy", MySqlDbType.String).Value = item.GeneratedBy;
                     cmd.Parameters.Add("@CheckedBy", MySqlDbType.String).Value = item.CheckedBy;
                     cmd.Parameters.Add("@ApprovedBy", MySqlDbType.String).Value = item.ApprovedBy;
-
-
 
                     rowNumbersAffected = cmd.ExecuteNonQuery();
 
@@ -451,14 +454,44 @@ namespace ProducersBank.Services
             }
         }
 
-        public object SeekReturn(string query)
+        public object SeekReturn(string query, string type)
 
         {
            
             MySqlCommand cmd = new MySqlCommand(query, con);
             var result = cmd.ExecuteScalar();
- 
-            return result;
+
+
+            //Catch Null Values
+            if (type.ToLower() == "string")
+            {
+                string i;
+                i = (string)Convert.ChangeType(result ?? "", typeof(string));
+                return i;
+
+            }
+            if (type.ToLower() == "double")
+            {
+                double i;
+                i = (double)Convert.ChangeType(result ?? 0, typeof(double));
+                return i;
+
+            }
+            if (type.ToLower() == "int")
+            {
+                int i = (int)Convert.ChangeType(result, typeof(int));
+                return i;
+
+            }
+            if (type.ToLower() == "decimal")
+            {
+                decimal i = (decimal)Convert.ChangeType(result, typeof(decimal));
+                return i;
+
+            }
+
+            return null;
+
 
 
         }
@@ -483,15 +516,22 @@ namespace ProducersBank.Services
             }
         }
 
-        public bool isQuantityOnHandSufficient(double quantity, string chequeName)
+
+        //PNB
+        public bool IsQuantityOnHandSufficient(double toProcessQuantity, string chequeName, int purchaseOrderNumber, ref double remainingQuantity)
         {
+            
             try
             {
-                //Check Onhand quantity first. cancel update if onhand quantity is insufficient
-                double onhandQuantity = double.Parse(SeekReturn("select quantityonhand from " + gClient.PriceListTable + " where chequename = '" + chequeName + "'").ToString() ?? "");
-                double newItemQuantity = onhandQuantity - quantity;
 
-                if (newItemQuantity < 0)
+                //Check Onhand quantity first. cancel update if onhand quantity is insufficient
+                //double onhandQuantity = double.Parse(SeekReturn("select (quantityonhand) from " + gClient.PriceListTable + " where chequename = '" + chequeName + "'").ToString() ?? "");
+                //NA_01252021 Revision from above statement. changed target field when checking onhand quantity of chequename
+                double onhandQuantity = double.Parse(SeekReturn("select quantity from " + gClient.PurchaseOrderFinishedTable + " where chequename = '" + chequeName + "' and purchaseorderno = " + purchaseOrderNumber + "", "double").ToString());
+                double processedQuantity = double.Parse(SeekReturn("select count(chequename) as quantity from " + gClient.DataBaseName + " where chequename = '" + chequeName + "' and purchaseordernumber = " + purchaseOrderNumber + "", "double").ToString());
+                remainingQuantity = onhandQuantity - processedQuantity - toProcessQuantity;
+
+                if (remainingQuantity < 0)
                 {
                     _errorMessage = "Insufficient " + chequeName + " Quantity.";
                     return false;
@@ -506,13 +546,18 @@ namespace ProducersBank.Services
             }
         }
 
-        public bool UpdateItemQuantityOnhand(double quantity, string chequeName)
+        //PNB
+        public bool UpdateItemQuantityOnhand(double toProcessQuantity, string chequeName, int purchaseOrderNumber)
         {
             try
             {
                 //Check Onhand quantity first. cancel update if onhand quantity is insufficient
-                double onhandQuantity = double.Parse(SeekReturn("select quantityonhand from " + gClient.PriceListTable + " where chequename = '" + chequeName + "'").ToString() ?? "");
-                double newItemQuantity = onhandQuantity - quantity;
+                //double onhandQuantity = double.Parse(SeekReturn("select quantityonhand from " + gClient.PriceListTable + " where chequename = '" + chequeName + "'").ToString() ?? "");
+                //double newItemQuantity = onhandQuantity - quantity;
+
+                double onhandQuantity = double.Parse(SeekReturn("select quantity from " + gClient.PurchaseOrderFinishedTable + " where chequename = '" + chequeName + "' and purchaseorderno = " + purchaseOrderNumber + "", "double").ToString());
+                double processedQuantity = double.Parse(SeekReturn("select count(chequename) as quantity from " + gClient.DataBaseName + " where chequename = '" + chequeName + "' and purchaseordernumber = " + purchaseOrderNumber + "", "double").ToString());
+                double newItemQuantity = onhandQuantity - processedQuantity;
 
                 MySqlCommand cmd = new MySqlCommand("Update " + gClient.PriceListTable + " set quantityonhand = " + newItemQuantity + " where chequeName = '" + chequeName + "'", con);
                 rowNumbersAffected = cmd.ExecuteNonQuery();

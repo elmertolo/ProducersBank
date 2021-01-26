@@ -110,6 +110,7 @@ namespace ProducersBank
             this.dgvDRList.Size = new System.Drawing.Size(542, 435);
             this.dgvDRList.TabIndex = 0;
             this.dgvDRList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDRList_CellContentClick);
+            this.dgvDRList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDRList_CellDoubleClick);
             // 
             // dtpInvoiceDate
             // 

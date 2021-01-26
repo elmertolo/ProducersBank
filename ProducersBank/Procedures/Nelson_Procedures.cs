@@ -88,7 +88,6 @@ namespace ProducersBank.Procedures
             }
         }
 
-
         public static void FillCRReportParameters(string reportType, ref ReportDocument crystalDoucument)
         {
 
