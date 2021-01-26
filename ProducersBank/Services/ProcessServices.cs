@@ -668,74 +668,86 @@ namespace ProducersBank.Services
         public string FillCRReportParameters()
         {
             string reportPath = "";
-            if (Debugger.IsAttached)
+            try
             {
-                if (gClient.DataBaseName == "")
-                    MessageBox.Show("There is no table selected!");
+                
+                if (Debugger.IsAttached)
+                {
+                    if (gClient.DataBaseName == "")
+                        MessageBox.Show("There is no table selected!");
+                    else
+                    {
+
+                        if (gClient.DataBaseName == "producers_history")
+                        {
+                            if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Reports\Stickers.rpt";
+                            else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Reports\PackingReport.rpt";
+                            else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Reports\DeliveryReceipt.rpt";
+                        }
+                        else if (gClient.DataBaseName == "pnb_history")
+                        {
+                            if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Reports\Stickers.rpt";
+
+                            else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Reports\PackingReport.rpt";
+                            else if (RecentBatch.report == "DOC" || DeliveryReport.report == "DOC")
+                                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Reports\DocStamp.rpt";
+                            else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                                reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Reports\PNBDeliveryReceipt.rpt";
+
+                        }
+                        //if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                        //    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
+                        //else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                        //    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
+                    }
+
+
+                }
                 else
                 {
-
-                    if (gClient.DataBaseName == "producers_history")
+                    if (gClient.DataBaseName == "")
+                        MessageBox.Show("There is no table selected!");
+                    else
                     {
-                        if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
-                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
-                        else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
-                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
-                        else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
-                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\DeliveryReceipt.rpt";
-                    }
-                    else if (gClient.DataBaseName == "pnb_history")
-                    {
-                        if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
-                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
 
-                        else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
-                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
-                        else if (RecentBatch.report == "DOC" || DeliveryReport.report == "DOC")
-                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\DocStamp.rpt";
-                        else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
-                            reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PNBDeliveryReceipt.rpt";
+                        if (gClient.DataBaseName == "producers_history")
+                        {
 
+                            if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                                reportPath = Directory.GetCurrentDirectory().ToString() + @"\Reports\Stickers.rpt";
+                            else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                                reportPath = Directory.GetCurrentDirectory().ToString() + @"\Reports\PackingReport.rpt";
+                            else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                                reportPath = Directory.GetCurrentDirectory().ToString() + @"\Reports\DeliveryReceipt.rpt";
+                        }
+                        else if (gClient.DataBaseName == "pnb_history")
+                        {
+                            if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
+                                reportPath = Directory.GetCurrentDirectory().ToString() + @"\Reports\Stickers.rpt";
+                            else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
+                                reportPath = Directory.GetCurrentDirectory().ToString() + @"\Reports\PackingReport.rpt";
+                            else if (RecentBatch.report == "DOC" || DeliveryReport.report == "DOC")
+                                reportPath = Directory.GetCurrentDirectory().ToString() + @"\Reports\DocStamp.rpt";
+                            else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
+                                reportPath = Directory.GetCurrentDirectory().ToString() + @"\Reports\PNBDeliveryReceipt.rpt";
+
+                        }
                     }
-                    //if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
-                    //    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\Stickers.rpt";
-                    //else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
-                    //    reportPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\PackingReport.rpt";
+
                 }
 
-
+                return reportPath;
             }
-            else
+            catch (Exception error)
             {
-                if (gClient.DataBaseName == "")
-                    MessageBox.Show("There is no table selected!");
-                else
-                {
-
-                    if (gClient.DataBaseName == "producers_history")
-                    {
-
-                        if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
-                            reportPath = Directory.GetCurrentDirectory().ToString() + @"\Stickers.rpt";
-                        else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
-                            reportPath = Directory.GetCurrentDirectory().ToString() + @"\PackingReport.rpt";
-                        else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
-                            reportPath = Directory.GetCurrentDirectory().ToString() + @"\DeliveryReceipt.rpt";
-                    }
-                    else if (gClient.DataBaseName == "producers_history")
-                    {
-                        if (RecentBatch.report == "STICKER" || DeliveryReport.report == "STICKER")
-                            reportPath = Directory.GetCurrentDirectory().ToString() + @"\Stickers.rpt";
-                        else if (RecentBatch.report == "Packing" || DeliveryReport.report == "Packing")
-                            reportPath = Directory.GetCurrentDirectory().ToString() + @"\PackingReport.rpt";
-                        else if (RecentBatch.report == "DR" || DeliveryReport.report == "DR")
-                            reportPath = Directory.GetCurrentDirectory().ToString() + @"\PNBDeliveryReceipt.rpt";
-                    }
-                }
-
+                MessageBox.Show(error.Message, error.InnerException.Message);
+                return reportPath;
             }
-
-            return reportPath;
         }
 
         public string DisplayAllBatches(string _batch, List<TempModel> _temp)
@@ -1064,7 +1076,7 @@ namespace ProducersBank.Services
 
                 doc.BankCode = !reader.IsDBNull(0) ? reader.GetString(0) : "";
                 doc.DocStampNumber = !reader.IsDBNull(1) ? reader.GetInt32(1) : 0;
-                doc.SalesInvoiceNumber = !reader.IsDBNull(2) ? reader.GetString(2) : "";
+                doc.SalesInvoiceNumber = !reader.IsDBNull(2) ? reader.GetString(2) : "0";
                 doc.TotalQuantity = !reader.IsDBNull(3) ? reader.GetInt32(3) : 0;
                 doc.ChkType = !reader.IsDBNull(4) ? reader.GetString(4) : "";
                 doc.DocDesc = !reader.IsDBNull(5) ? reader.GetString(5) : "";

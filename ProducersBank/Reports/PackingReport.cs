@@ -16,14 +16,14 @@ namespace ProducersBank.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PNBDeliveryReceipt : ReportClass {
+    public class PackingReport : ReportClass {
         
-        public PNBDeliveryReceipt() {
+        public PackingReport() {
         }
         
         public override string ResourceName {
             get {
-                return "PNBDeliveryReceipt.rpt";
+                return "PackingReport.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace ProducersBank.Reports {
         
         public override string FullResourceName {
             get {
-                return "ProducersBank.Reports.PNBDeliveryReceipt.rpt";
+                return "ProducersBank.Reports.PackingReport.rpt";
             }
             set {
                 // Do nothing
@@ -50,7 +50,7 @@ namespace ProducersBank.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[0];
             }
@@ -58,7 +58,7 @@ namespace ProducersBank.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section2 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section1 {
             get {
                 return this.ReportDefinition.Sections[1];
             }
@@ -74,7 +74,7 @@ namespace ProducersBank.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -98,7 +98,7 @@ namespace ProducersBank.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section2 {
             get {
                 return this.ReportDefinition.Sections[6];
             }
@@ -106,9 +106,9 @@ namespace ProducersBank.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPNBDeliveryReceipt : Component, ICachedReport {
+    public class CachedPackingReport : Component, ICachedReport {
         
-        public CachedPNBDeliveryReceipt() {
+        public CachedPackingReport() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace ProducersBank.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PNBDeliveryReceipt rpt = new PNBDeliveryReceipt();
+            PackingReport rpt = new PackingReport();
             rpt.Site = this.Site;
             return rpt;
         }

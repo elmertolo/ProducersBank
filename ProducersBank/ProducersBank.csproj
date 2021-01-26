@@ -179,12 +179,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="1DocStamp.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>1DocStamp.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DataSet1.cs">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
@@ -193,23 +187,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DeliveryReceipt.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DeliveryReceipt.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DeliveryReport.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DeliveryReport.Designer.cs">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DocStamp.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DocStamp.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\frmDocStamp.cs">
       <SubType>Form</SubType>
@@ -259,18 +241,6 @@
     <Compile Include="Models\TempModel.cs" />
     <Compile Include="Models\TypeofCheckModel.cs" />
     <Compile Include="Models\UserListModel.cs" />
-    <Compile Include="PackingReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PackingReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PNBDeliveryReceipt.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PNBDeliveryReceipt.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Procedures\Nelson_Procedures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -286,6 +256,30 @@
     <Compile Include="frmSalesInvoice.Designer.cs">
       <DependentUpon>frmSalesInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\DeliveryReceipt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeliveryReceipt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DocStamp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocStamp.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PackingReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackingReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PNBDeliveryReceipt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PNBDeliveryReceipt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\PNB_SalesInvoice.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -300,32 +294,14 @@
     </Compile>
     <Compile Include="Services\ProcessServices.cs" />
     <Compile Include="Services\ProcessServices_Nelson.cs" />
-    <Compile Include="Stickers.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Stickers.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ViewReports.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ViewReports.Designer.cs">
       <DependentUpon>ViewReports.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="1DocStamp.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>1DocStamp.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DeliveryReceipt.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>DeliveryReceipt.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="DeliveryReport.resx">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DocStamp.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>DocStamp.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDocStamp.resx">
       <DependentUpon>frmDocStamp.cs</DependentUpon>
@@ -345,14 +321,6 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PackingReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PackingReport.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PNBDeliveryReceipt.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PNBDeliveryReceipt.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -369,6 +337,22 @@
     <EmbeddedResource Include="frmSalesInvoice.resx">
       <DependentUpon>frmSalesInvoice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DeliveryReceipt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DeliveryReceipt.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DocStamp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DocStamp.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PackingReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackingReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PNBDeliveryReceipt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PNBDeliveryReceipt.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\PNB_SalesInvoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PNB_SalesInvoice.cs</LastGenOutput>
@@ -376,10 +360,6 @@
     <EmbeddedResource Include="Reports\Producers_SalesInvoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Producers_SalesInvoice.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Stickers.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Stickers.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewReports.resx">
       <DependentUpon>ViewReports.cs</DependentUpon>

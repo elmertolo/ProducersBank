@@ -59,7 +59,13 @@ namespace ProducersBank
         {
             
                 WindowState = FormWindowState.Maximized;
-            
+            if (gClient.DataBaseName != "producers_history")
+            {
+                documentStampToolStripMenuItem.Enabled = true;
+
+            }
+            else
+                documentStampToolStripMenuItem.Enabled = false;
         }
 
         private void recentBatchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -79,12 +85,14 @@ namespace ProducersBank
             Form frm = new frmDocStamp(this);
             frm.ShowDialog();
         }
-        private void doToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        
 
+        private void purchaseOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+          
         }
 
-        private void purchaseOrderToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void purchaseOrderToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             frmPurchaseOrder poFrm = new frmPurchaseOrder(this);
             poFrm.Show();
