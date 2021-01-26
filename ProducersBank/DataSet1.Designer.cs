@@ -1625,7 +1625,7 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DocStampRow AddDocStampRow(string Bank, int DocstampNumber, int SalesInvoice, int Quantity, string ChkType, string ChequeDesc, string DocStampDate, double TotalAmount, string DocStampPrice, string PreparedBy, string CheckedBy, string PONumber, string BalanceOrder, string Batch) {
+            public DocStampRow AddDocStampRow(string Bank, int DocstampNumber, int SalesInvoice, int Quantity, string ChkType, string ChequeDesc, string DocStampDate, double TotalAmount, string DocStampPrice, string PreparedBy, string CheckedBy, string PONumber, double BalanceOrder, string Batch) {
                 DocStampRow rowDocStampRow = ((DocStampRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Bank,
@@ -1707,7 +1707,7 @@ namespace ProducersBank {
                 base.Columns.Add(this.columnCheckedBy);
                 this.columnPONumber = new global::System.Data.DataColumn("PONumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPONumber);
-                this.columnBalanceOrder = new global::System.Data.DataColumn("BalanceOrder", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnBalanceOrder = new global::System.Data.DataColumn("BalanceOrder", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBalanceOrder);
                 this.columnBatch = new global::System.Data.DataColumn("Batch", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBatch);
@@ -3195,10 +3195,10 @@ namespace ProducersBank {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string BalanceOrder {
+            public double BalanceOrder {
                 get {
                     try {
-                        return ((string)(this[this.tableDocStamp.BalanceOrderColumn]));
+                        return ((double)(this[this.tableDocStamp.BalanceOrderColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'BalanceOrder\' in table \'DocStamp\' is DBNull.", e);
