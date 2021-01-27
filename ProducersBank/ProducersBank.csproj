@@ -193,6 +193,12 @@
     <Compile Include="DeliveryReport.Designer.cs">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmCorrection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCorrection.Designer.cs">
+      <DependentUpon>frmCorrection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmDocStamp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +308,9 @@
     </Compile>
     <EmbeddedResource Include="DeliveryReport.resx">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCorrection.resx">
+      <DependentUpon>frmCorrection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDocStamp.resx">
       <DependentUpon>frmDocStamp.cs</DependentUpon>

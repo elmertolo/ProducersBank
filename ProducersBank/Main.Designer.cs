@@ -37,6 +37,7 @@
             this.recentBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.purchaseOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeDRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +99,8 @@
             // maintenanceToolStripMenuItem
             // 
             this.maintenanceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.purchaseOrderToolStripMenuItem});
+            this.purchaseOrderToolStripMenuItem,
+            this.changeDRToolStripMenuItem});
             this.maintenanceToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
             this.maintenanceToolStripMenuItem.Size = new System.Drawing.Size(110, 24);
@@ -110,6 +112,12 @@
             this.purchaseOrderToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.purchaseOrderToolStripMenuItem.Text = "Purchase Order";
             this.purchaseOrderToolStripMenuItem.Click += new System.EventHandler(this.purchaseOrderToolStripMenuItem_Click_1);
+            // 
+            // changeDRToolStripMenuItem
+            // 
+            this.changeDRToolStripMenuItem.Name = "changeDRToolStripMenuItem";
+            this.changeDRToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
+            this.changeDRToolStripMenuItem.Text = "Change DR";
             // 
             // Main
             // 
@@ -140,6 +148,7 @@
         private System.Windows.Forms.ToolStripMenuItem documentStampToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem purchaseOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeDRToolStripMenuItem;
 
         //private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
         //private System.Windows.Forms.ToolStripMenuItem purchaseOrderToolStripMenuItem;

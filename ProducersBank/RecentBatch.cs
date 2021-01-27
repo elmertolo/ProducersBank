@@ -174,24 +174,24 @@ namespace ProducersBank
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            string _batch = txtRecentBatch.Text;    
-            DialogResult result1 = MessageBox.Show("Are you sure Deleting Batch :" + _batch+"?", "", MessageBoxButtons.YesNo);
+        //    string _batch = txtRecentBatch.Text;    
+        //    DialogResult result1 = MessageBox.Show("Are you sure Deleting Batch :" + _batch+"?", "", MessageBoxButtons.YesNo);
 
-            if (result1.ToString() == "Yes")
-            {
-        //    isExist:
-                ProcessServices.InputBox("", "Batch Number :", ref _batch);
+        //    if (result1.ToString() == "Yes")
+        //    {
+        ////    isExist:
+        //        ProcessServices.InputBox("", "Batch Number :", ref _batch);
                 
 
-                proc.DeleteBatch(txtRecentBatch.Text);
+        //        proc.DeleteBatch(txtRecentBatch.Text);
 
-                MessageBox.Show("Batch has been deleted!");
-                txtRecentBatch.Text = "";
-                dgvDRList.Refresh();
-                batchTemp.Clear();
-            }
-            else
-                MessageBox.Show("Deletion Cancelled!!");
+        //        MessageBox.Show("Batch has been deleted!");
+        //        txtRecentBatch.Text = "";
+        //        dgvDRList.Refresh();
+        //        batchTemp.Clear();
+        //    }
+        //    else
+        //        MessageBox.Show("Deletion Cancelled!!");
         }
 
         private void documentStampToolStripMenuItem_Click(object sender, EventArgs e)
