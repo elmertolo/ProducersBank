@@ -118,11 +118,10 @@ namespace ProducersBank
             // 
             // btnLogin
             // 
-            this.btnLogin.BackgroundImage = global::ProducersBank.Properties.Resources.YellowButton2;
-            this.btnLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnLogin.Font = new System.Drawing.Font("Cooper Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Image = global::ProducersBank.Properties.Resources.YellowButton3;
+            this.btnLogin.Image = global::ProducersBank.Properties.Resources.YellowButton4;
             this.btnLogin.Location = new System.Drawing.Point(68, 181);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.btnLogin.Name = "btnLogin";

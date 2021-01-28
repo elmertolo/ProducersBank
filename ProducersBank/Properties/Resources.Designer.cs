@@ -91,6 +91,26 @@ namespace ProducersBank.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Button_Yellow {
+            get {
+                object obj = ResourceManager.GetObject("Button_Yellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Button_Yellow1 {
+            get {
+                object obj = ResourceManager.GetObject("Button_Yellow1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Captive {
@@ -436,6 +456,16 @@ namespace ProducersBank.Properties {
         internal static System.Drawing.Bitmap YellowButton3 {
             get {
                 object obj = ResourceManager.GetObject("YellowButton3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap YellowButton4 {
+            get {
+                object obj = ResourceManager.GetObject("YellowButton4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
