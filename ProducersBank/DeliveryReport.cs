@@ -28,6 +28,7 @@ namespace ProducersBank
         List<TempModel> tempSticker = new List<TempModel>();
         public DateTime deliveryDate;
         DateTime dateTime;
+        BranchesModel branch = new BranchesModel();
         List<Int64> DrNumbers = new List<long>();
         List<Int32> PNumbers = new List<Int32>();
         Int32 pNumber = 0;
@@ -54,9 +55,10 @@ namespace ProducersBank
             {
 
 
-
-                proc.Process(orderList, this, int.Parse(txtDrNumber.Text), int.Parse(txtPackNumber.Text));
-
+                if(gClient.DataBaseName != "producers_history")
+                    proc.Process2(orderList, this, int.Parse(txtDrNumber.Text), int.Parse(txtPackNumber.Text));
+                else
+                    proc.Process(orderList, this, int.Parse(txtDrNumber.Text), int.Parse(txtPackNumber.Text));
 
                 proc.GetDRDetails(orderList[0].Batch, tempDr);
                 proc.GetStickerDetails(tempSticker, orderList[0].Batch);
@@ -95,140 +97,131 @@ namespace ProducersBank
 
 
             OpenFileDialog op = new OpenFileDialog();
+
             //op.InitialDirectory = Application.StartupPath;
             op.InitialDirectory = @"\\192.168.10.254\Accounting_Files\Packing";
             op.Filter = "dbf files (*.dbf)|*.dbf|All files (*.*)|*.*";
             op.FilterIndex = 2;
             op.RestoreDirectory = true;
-            if (op.ShowDialog() == DialogResult.OK)
+            try
             {
-                string ConString = "Provider = VFPOLEDB.1; Data Source = " + op.FileName + ";";
-                OleDbConnection con = new OleDbConnection(ConString);
 
-
-
-                //Get the path of specified file
-                filePath = Path.GetFileNameWithoutExtension(op.FileName);
-
-                //Read the contents of the file into a stream
-                var fileStream = op.OpenFile();
-                string sql = "";
-                //  DataTable dt = con.GetSchema(OleDbMetaDataCollectionNames.Tables);
-                if (gClient.DataBaseName == "producers_history")
+                if (op.ShowDialog().Equals(DialogResult.OK))
                 {
-                    sql = "Select BATCHNO,RT_NO,BRANCH,ACCT_NO,CHKTYPE,ACCT_NAME1,ACCT_NAME2," +
-                             "CK_NO_B,CK_NO_E FROM " + filePath;
-                }
-                else if (gClient.DataBaseName == "pnb_history")
-                {
-                    sql = "Select BATCHNO,RT_NO,BRANCH,ACCT_NO,CHKTYPE,ACCT_NAME1,ACCT_NAME2," +
-                             "CK_NO_B,CK_NO_E,BRANCHCODE,OLDBCODE FROM " + filePath;
-                }
-                OleDbCommand cmd = new OleDbCommand(sql, con);
-                con.Open();
-                OleDbDataReader myReader = cmd.ExecuteReader();
+                    string ConString = "Provider = VFPOLEDB.1; Data Source = " + op.FileName + ";";
+                    OleDbConnection con = new OleDbConnection(ConString);
 
-                while (myReader.Read())
-                {
-                    OrderModel order = new OrderModel();
-                    order.Batch = !myReader.IsDBNull(0) ? myReader.GetString(0) : "";
-                    order.BRSTN = !myReader.IsDBNull(1) ? myReader.GetString(1) : "";
-                    order.BranchName = !myReader.IsDBNull(2) ? myReader.GetString(2) : "";
-                    order.AccountNo = !myReader.IsDBNull(3) ? myReader.GetString(3) : "";
-                    order.ChkType = !myReader.IsDBNull(4) ? myReader.GetString(4) : "";
-                    order.Name1 = !myReader.IsDBNull(5) ? myReader.GetString(5) : "";
-                    order.Name2 = !myReader.IsDBNull(6) ? myReader.GetString(6) : "";
-                    //order.AccountNoWithHypen = myReader.GetString(6);
-                    order.StartingSerial = !myReader.IsDBNull(7) ? myReader.GetString(7) : "";
-                    order.EndingSerial = !myReader.IsDBNull(8) ? myReader.GetString(8) : "";
-                    //PNB Required fields
-                    if (gClient.DataBaseName == "pnb_history")
+
+
+                    //Get the path of specified file
+                    filePath = Path.GetFileNameWithoutExtension(op.FileName);
+
+                    //Read the contents of the file into a stream
+                    var fileStream = op.OpenFile();
+                    string sql = "";
+
+                    if (gClient.DataBaseName == "producers_history")// Checking what table was selected to read the packing file
                     {
-                        order.BranchCode = !myReader.IsDBNull(9) ? myReader.GetString(9) : "";
-                        order.OldBranchCode = !myReader.IsDBNull(10) ? myReader.GetString(10) : "";
+                        sql = "Select BATCHNO,RT_NO,BRANCH,ACCT_NO,CHKTYPE,ACCT_NAME1,ACCT_NAME2," +
+                                 "CK_NO_B,CK_NO_E FROM " + filePath;
                     }
-                    //if (order.AccountNo == "" || order.AccountNo == null)
-                    //    errorMessage += "The Account Number field does not have data!!\r\n";
-                    //if (order.BRSTN.Length == 9)
-                    //    errorMessage += "BRSTN length is not valid";
-                    //if (order.BRSTN == "" || order.BRSTN == null)
-                    //    errorMessage += "BRSTN is empty!";
-                    if (order.ChkType == "A" && comboBox1.Text == "Regular Checks")
-                        order.ChequeName = "Regular Personal Checks";
-                    else if (order.ChkType == "B" && comboBox1.Text == "Regular Checks")
-                        order.ChequeName = "Regular Commercial Checks";
-                    else
+                    else if (gClient.DataBaseName == "pnb_history")
                     {
-                        errorMessage += "\r\nCheque Type " + order.ChkType + " on batch : " + order.BRSTN.Trim() + ": " + order.BranchName.Trim() + " does not match\r\n";
+                        sql = "Select BATCHNO,RT_NO,BRANCH,ACCT_NO,CHKTYPE,ACCT_NAME1,ACCT_NAME2," +
+                                 "CK_NO_B,CK_NO_E,BRANCHCODE,OLDBCODE FROM " + filePath;
+
                     }
-                    if (order.ChkType == "A" && comboBox1.Text == "Manager's Checks")
-                        order.ChequeName = "Manager's Checks";
+                    OleDbCommand cmd = new OleDbCommand(sql, con);
+                    con.Open();
+                    OleDbDataReader myReader = cmd.ExecuteReader();
+
+                    while (myReader.Read())
+                    {
+                        OrderModel order = new OrderModel();
+                        order.Batch = !myReader.IsDBNull(0) ? myReader.GetString(0) : "";
+                        order.BRSTN = !myReader.IsDBNull(1) ? myReader.GetString(1) : "";
+                        order.BranchName = !myReader.IsDBNull(2) ? myReader.GetString(2) : "";
+                        order.AccountNo = !myReader.IsDBNull(3) ? myReader.GetString(3) : "";
+                        order.ChkType = !myReader.IsDBNull(4) ? myReader.GetString(4) : "";
+                        order.Name1 = !myReader.IsDBNull(5) ? myReader.GetString(5) : "";
+                        order.Name2 = !myReader.IsDBNull(6) ? myReader.GetString(6) : "";
+
+                        order.StartingSerial = !myReader.IsDBNull(7) ? myReader.GetString(7) : "";
+                        order.EndingSerial = !myReader.IsDBNull(8) ? myReader.GetString(8) : "";
+                        //PNB Required fields
+                        if (gClient.DataBaseName == "pnb_history") // Additional  field if the  Bank is PNB
+                        {
+                            order.BranchCode = !myReader.IsDBNull(9) ? myReader.GetString(9) : "";
+                            order.OldBranchCode = !myReader.IsDBNull(10) ? myReader.GetString(10) : "";
+                            proc.GetBranchLocation(branch, order.BranchCode); // Getting the Flag from bRanch Table
+                            if (branch.Flag == 0)
+                                order.Location = "Direct";
+                            else
+                                order.Location = "Provincial";
+
+                        }
+
+                        if (order.ChkType == "A" && comboBox1.Text == "Regular Checks")
+                            order.ChequeName = "Regular Personal Checks";
+                        else if (order.ChkType == "B" && comboBox1.Text == "Regular Checks")
+                            order.ChequeName = "Regular Commercial Checks";
+                        else
+                        {
+                            errorMessage += "\r\nCheque Type " + order.ChkType + " on batch : " + order.BRSTN.Trim() + ": " + order.BranchName.Trim() + " does not match\r\n";
+                        }
+                        if (order.ChkType == "A" && comboBox1.Text == "Manager's Checks")
+                            order.ChequeName = "Manager's Checks";
 
 
-                    orderList.Add(order);
+                        orderList.Add(order);
+                    }
+
+
+                }
+                else
+                {
+                    errorMessage += "The file :" + op.FileName + " is not a dbf file!\r\n";
+                Application.Exit();
+                }
+                var totalB = orderList.Where(a => a.ChkType == "B").ToList();
+                var totalA = orderList.Where(a => a.ChkType == "A").ToList();
+                // BindingSource checkBind = new BindingSource();
+                // checkBind.DataSource = orderList;
+                //     proc.CheckBatchifExisted(orderList[0].Batch.Trim());
+
+
+                if (proc.CheckBatchifExisted(orderList[0].Batch.Trim()) == true)
+                {
+                    errorMessage += "\r\nBatch : " + orderList[0].Batch + " Is Already Existed!!";
+                    MessageBox.Show(errorMessage);
+
+
+
                 }
 
 
+                //                }
+                if (errorMessage != "")
+                {
+                    ProcessServices.ErrorMessage(errorMessage);
+                    MessageBox.Show("Checking files done! with errors found! Check ErrorMessage.txt for references", "Error!");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Checking files done! No Errors found");
+                    dataGridView1.DataSource = orderList;
+                    lblTotalA.Text = totalA.Count.ToString();
+                    lblTotalB.Text = totalB.Count.ToString();
+                    lblTotalChecks.Text = orderList.Count.ToString();
+
+                }
+
             }
-            else
+            catch (Exception error)
             {
-                errorMessage += "The file :" + op.FileName + " is not a dbf file!\r\n";
+                MessageBox.Show(error.Message, error.StackTrace);
             }
-            var totalB = orderList.Where(a => a.ChkType == "B").ToList();
-            var totalA = orderList.Where(a => a.ChkType == "A").ToList();
-            // BindingSource checkBind = new BindingSource();
-            // checkBind.DataSource = orderList;
-            //     proc.CheckBatchifExisted(orderList[0].Batch.Trim());
-
-
-            if (proc.CheckBatchifExisted(orderList[0].Batch.Trim()) == true)
-            {
-                errorMessage += "\r\nBatch : " + orderList[0].Batch + " Is Already Existed!!";
-                MessageBox.Show(errorMessage);
-
-
-
-            }
-
-
-            //                }
-            if (errorMessage != "")
-            {
-                ProcessServices.ErrorMessage(errorMessage);
-                MessageBox.Show("Checking files done! with errors found! Check ErrorMessage.txt for references", "Error!");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Checking files done! No Errors found");
-                dataGridView1.DataSource = orderList;
-                lblTotalA.Text = totalA.Count.ToString();
-                lblTotalB.Text = totalB.Count.ToString();
-                lblTotalChecks.Text = orderList.Count.ToString();
-
-            }
-
-
-
-
-
-            //                }
-            if (errorMessage != "")
-            {
-                ProcessServices.ErrorMessage(errorMessage);
-                MessageBox.Show("Checking files done! with errors found! Check ErrorMessage.txt for references", "Error!");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Checking files done! No Errors found");
-                dataGridView1.DataSource = orderList;
-                lblTotalA.Text = totalA.Count.ToString();
-                lblTotalB.Text = totalB.Count.ToString();
-                lblTotalChecks.Text = orderList.Count.ToString();
-
-            }
-
         }
 
         private void DeliveryReport_Load(object sender, EventArgs e)
@@ -236,9 +229,7 @@ namespace ProducersBank
             
             ChequeName();
             //  BankName();
-        
-       
-           // MessageBox.Show(proc.myConnect.ConnectionString);
+            // MessageBox.Show(proc.myConnect.ConnectionString);
         }
         private void GetPack()
         {

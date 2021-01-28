@@ -126,6 +126,7 @@ namespace ProducersBank
                     gClient.DRTempTable = row.Field<string>("ShortName").ToLower() + "_dr_temp" ?? "";
                     gClient.PurchaseOrderFinishedTable = row.Field<string>("ShortName").ToLower() + "_purchaseorder_finished" ?? "";
                     gClient.DocStampTempTable =  "docstamp_temp" ?? "";
+                    gClient.BranchesTable = row.Field<string>("ShortName").ToLower() + "_branches" ?? "";
                 }
             }
            

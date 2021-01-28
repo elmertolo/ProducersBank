@@ -33,8 +33,8 @@ namespace ProducersBank.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDocStamp));
             System.Windows.Forms.Button btnProcess;
             System.Windows.Forms.Button btnClear;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtBatch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvOutput = new System.Windows.Forms.DataGridView();
@@ -44,15 +44,16 @@ namespace ProducersBank.Forms
             this.txtTotalQty = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboCheckBy = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cboPreparedBy = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtDocStampNo = new System.Windows.Forms.TextBox();
             this.DgvDSalesInvoice = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cboPreparedBy = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cboCheckBy = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             btnGenerateDocStampNo = new System.Windows.Forms.Button();
             btnProcess = new System.Windows.Forms.Button();
             btnClear = new System.Windows.Forms.Button();
@@ -61,12 +62,13 @@ namespace ProducersBank.Forms
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvDSalesInvoice)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGenerateDocStampNo
             // 
             btnGenerateDocStampNo.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerateDocStampNo.Image")));
-            btnGenerateDocStampNo.Location = new System.Drawing.Point(428, 30);
+            btnGenerateDocStampNo.Location = new System.Drawing.Point(170, 63);
             btnGenerateDocStampNo.Name = "btnGenerateDocStampNo";
             btnGenerateDocStampNo.Size = new System.Drawing.Size(29, 26);
             btnGenerateDocStampNo.TabIndex = 8;
@@ -78,7 +80,7 @@ namespace ProducersBank.Forms
             // btnProcess
             // 
             btnProcess.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnProcess.Location = new System.Drawing.Point(31, 30);
+            btnProcess.Location = new System.Drawing.Point(205, 59);
             btnProcess.Name = "btnProcess";
             btnProcess.Size = new System.Drawing.Size(73, 29);
             btnProcess.TabIndex = 12;
@@ -90,7 +92,7 @@ namespace ProducersBank.Forms
             // btnClear
             // 
             btnClear.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnClear.Location = new System.Drawing.Point(32, 65);
+            btnClear.Location = new System.Drawing.Point(205, 94);
             btnClear.Name = "btnClear";
             btnClear.Size = new System.Drawing.Size(73, 29);
             btnClear.TabIndex = 13;
@@ -120,18 +122,18 @@ namespace ProducersBank.Forms
             // 
             // dgvOutput
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOutput.Location = new System.Drawing.Point(19, 116);
+            this.dgvOutput.Location = new System.Drawing.Point(327, 30);
             this.dgvOutput.Name = "dgvOutput";
-            this.dgvOutput.Size = new System.Drawing.Size(771, 200);
+            this.dgvOutput.Size = new System.Drawing.Size(754, 250);
             this.dgvOutput.TabIndex = 5;
             // 
             // menuStrip1
@@ -141,7 +143,7 @@ namespace ProducersBank.Forms
             this.generateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(827, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1127, 28);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -158,7 +160,7 @@ namespace ProducersBank.Forms
             // 
             this.dtpDocDate.CalendarFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDocDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDocDate.Location = new System.Drawing.Point(289, 67);
+            this.dtpDocDate.Location = new System.Drawing.Point(11, 130);
             this.dtpDocDate.Name = "dtpDocDate";
             this.dtpDocDate.Size = new System.Drawing.Size(241, 22);
             this.dtpDocDate.TabIndex = 7;
@@ -167,7 +169,7 @@ namespace ProducersBank.Forms
             // 
             this.txtTotalQty.AutoSize = true;
             this.txtTotalQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalQty.Location = new System.Drawing.Point(140, 622);
+            this.txtTotalQty.Location = new System.Drawing.Point(163, 577);
             this.txtTotalQty.Name = "txtTotalQty";
             this.txtTotalQty.Size = new System.Drawing.Size(16, 16);
             this.txtTotalQty.TabIndex = 9;
@@ -177,7 +179,7 @@ namespace ProducersBank.Forms
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 620);
+            this.label2.Location = new System.Drawing.Point(49, 575);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 16);
             this.label2.TabIndex = 8;
@@ -198,18 +200,55 @@ namespace ProducersBank.Forms
             this.groupBox1.Controls.Add(this.dgvOutput);
             this.groupBox1.Controls.Add(this.dtpDocDate);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 289);
+            this.groupBox1.Location = new System.Drawing.Point(19, 347);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(802, 357);
+            this.groupBox1.Size = new System.Drawing.Size(1097, 299);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Document Stamp Result";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // cboCheckBy
+            // 
+            this.cboCheckBy.FormattingEnabled = true;
+            this.cboCheckBy.Location = new System.Drawing.Point(131, 206);
+            this.cboCheckBy.Name = "cboCheckBy";
+            this.cboCheckBy.Size = new System.Drawing.Size(128, 28);
+            this.cboCheckBy.TabIndex = 17;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(15, 208);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(103, 21);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Checked By :";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(14, 171);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(111, 21);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Prepared By : ";
+            // 
+            // cboPreparedBy
+            // 
+            this.cboPreparedBy.FormattingEnabled = true;
+            this.cboPreparedBy.Location = new System.Drawing.Point(131, 169);
+            this.cboPreparedBy.Name = "cboPreparedBy";
+            this.cboPreparedBy.Size = new System.Drawing.Size(128, 28);
+            this.cboPreparedBy.TabIndex = 14;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(158, 68);
+            this.label3.Location = new System.Drawing.Point(10, 101);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(132, 21);
             this.label3.TabIndex = 3;
@@ -219,7 +258,7 @@ namespace ProducersBank.Forms
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(118, 31);
+            this.label4.Location = new System.Drawing.Point(7, 37);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(175, 21);
             this.label4.TabIndex = 7;
@@ -228,7 +267,7 @@ namespace ProducersBank.Forms
             // txtDocStampNo
             // 
             this.txtDocStampNo.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDocStampNo.Location = new System.Drawing.Point(291, 31);
+            this.txtDocStampNo.Location = new System.Drawing.Point(32, 63);
             this.txtDocStampNo.Name = "txtDocStampNo";
             this.txtDocStampNo.Size = new System.Drawing.Size(128, 25);
             this.txtDocStampNo.TabIndex = 6;
@@ -237,16 +276,16 @@ namespace ProducersBank.Forms
             // 
             this.DgvDSalesInvoice.AllowUserToAddRows = false;
             this.DgvDSalesInvoice.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DgvDSalesInvoice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DgvDSalesInvoice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.DgvDSalesInvoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvDSalesInvoice.Location = new System.Drawing.Point(17, 56);
+            this.DgvDSalesInvoice.Location = new System.Drawing.Point(17, 53);
             this.DgvDSalesInvoice.Name = "DgvDSalesInvoice";
             this.DgvDSalesInvoice.ReadOnly = true;
             this.DgvDSalesInvoice.Size = new System.Drawing.Size(773, 177);
@@ -258,54 +297,29 @@ namespace ProducersBank.Forms
             this.groupBox2.Controls.Add(this.txtBatch);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 34);
+            this.groupBox2.Location = new System.Drawing.Point(20, 102);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(802, 249);
+            this.groupBox2.Size = new System.Drawing.Size(800, 237);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Processed Sales Invoice";
             // 
-            // cboPreparedBy
+            // pictureBox1
             // 
-            this.cboPreparedBy.FormattingEnabled = true;
-            this.cboPreparedBy.Location = new System.Drawing.Point(662, 26);
-            this.cboPreparedBy.Name = "cboPreparedBy";
-            this.cboPreparedBy.Size = new System.Drawing.Size(128, 28);
-            this.cboPreparedBy.TabIndex = 14;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(545, 28);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(111, 21);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Prepared By : ";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(546, 65);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(103, 21);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Checked By :";
-            // 
-            // cboCheckBy
-            // 
-            this.cboCheckBy.FormattingEnabled = true;
-            this.cboCheckBy.Location = new System.Drawing.Point(662, 63);
-            this.cboCheckBy.Name = "cboCheckBy";
-            this.cboCheckBy.Size = new System.Drawing.Size(128, 28);
-            this.cboCheckBy.TabIndex = 17;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 28);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1126, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
             // 
             // frmDocStamp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 660);
+            this.ClientSize = new System.Drawing.Size(1127, 660);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtTotalQty);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.menuStrip1);
@@ -324,6 +338,7 @@ namespace ProducersBank.Forms
             ((System.ComponentModel.ISupportInitialize)(this.DgvDSalesInvoice)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,5 +364,6 @@ namespace ProducersBank.Forms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cboPreparedBy;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

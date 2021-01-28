@@ -236,6 +236,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\BranchesModel.cs" />
     <Compile Include="Models\ClientList.cs" />
     <Compile Include="Models\DocStampModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
@@ -401,9 +402,7 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Image\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <COMReference Include="CrystalAnalysisCommLayerLib">
       <Guid>{AAA3345B-2177-4D19-8D75-21688FE36251}</Guid>
@@ -463,6 +462,18 @@
   <ItemGroup>
     <Content Include="Captive.ico" />
     <Content Include="DLL\MySql.Data.dll" />
+    <Content Include="Image\background-red-header.png" />
+    <Content Include="Image\Button_Yellow.png" />
+    <Content Include="Image\Captive.ico" />
+    <Content Include="Image\FormBackground.jpg" />
+    <Content Include="Image\Header_Login.png" />
+    <Content Include="Image\Header_Main.png" />
+    <Content Include="Image\Header_DR.png" />
+    <Content Include="Image\Header_DocStamp.png" />
+    <Content Include="Image\Header_SalesInvoice.png" />
+    <Content Include="Image\LoginBackground.jpg" />
+    <Content Include="Image\Print.png" />
+    <Content Include="Image\YellowButton.png" />
     <None Include="Resources\YellowButton3.png" />
     <None Include="Resources\YellowButton2.png" />
     <None Include="Resources\Header_Login.png" />
