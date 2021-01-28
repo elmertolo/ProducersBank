@@ -227,5 +227,10 @@ namespace ProducersBank.Forms
             TotalQty = 0;
             txtTotalQty.Text = "0";
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

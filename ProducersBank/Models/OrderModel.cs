@@ -22,5 +22,6 @@ namespace ProducersBank.Models
 
         public string BranchCode { get; set; }
         public string OldBranchCode { get; set; }
+        public string Location { get; set; }
     }
 }

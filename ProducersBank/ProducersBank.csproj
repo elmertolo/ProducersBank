@@ -199,6 +199,12 @@
     <Compile Include="DeliveryReport.Designer.cs">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmCorrection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCorrection.Designer.cs">
+      <DependentUpon>frmCorrection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmDocStamp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +248,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\BranchesModel.cs" />
     <Compile Include="Models\ClientList.cs" />
     <Compile Include="Models\DocStampModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
@@ -317,6 +324,9 @@
     </Compile>
     <EmbeddedResource Include="DeliveryReport.resx">
       <DependentUpon>DeliveryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCorrection.resx">
+      <DependentUpon>frmCorrection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDocStamp.resx">
       <DependentUpon>frmDocStamp.cs</DependentUpon>
@@ -475,8 +485,6 @@
   <ItemGroup>
     <Content Include="Captive.ico" />
     <Content Include="DLL\MySql.Data.dll" />
-    <Content Include="FormBackground.jpg" />
-    <Content Include="Header_Main.png" />
     <Content Include="Image\background-red-header.png" />
     <Content Include="Image\Button_Yellow.png" />
     <Content Include="Image\Captive.ico" />
@@ -484,16 +492,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Image\Header_Login.png" />
+
     <Resource Include="Image\Header_Main.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Image\Header_Main.png" />
+    <Content Include="Image\Header_DR.png" />
+    <Content Include="Image\Header_DocStamp.png" />
     <Content Include="Image\Header_SalesInvoice.png" />
     <Content Include="Image\LoginBackground.jpg" />
     <Content Include="Image\Print.png" />
     <Content Include="Image\YellowButton.png" />
-    <None Include="Resources\YellowButton4.png" />
-    <None Include="Resources\Button_Yellow1.png" />
-    <None Include="Resources\Button_Yellow.png" />
     <None Include="Resources\YellowButton3.png" />
     <None Include="Resources\YellowButton2.png" />
     <None Include="Resources\Header_Login.png" />

@@ -29,6 +29,7 @@ namespace ProducersBank.Models
         public DateTime SI_Date { get; set; }
         public int SalesInvoice { get; set; }
         public int DocStampNumber { get; set; }
+        public string Location { get; set; }
 
     }
 }
