@@ -11,6 +11,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using ProducersBank.Models;
 using ProducersBank.Services;
+using static ProducersBank.GlobalVariables;
 
 namespace ProducersBank
 {
@@ -43,20 +44,26 @@ namespace ProducersBank
 
                 var dBatchtemp = batchTemp.Select(d => d.Batch).Distinct().ToList();
 
-                foreach (string batch in dBatchtemp)
+                if (gClient.DataBaseName != "producers_history")
                 {
-                    var _dbatch = batchTemp.Where(r => r.Batch == batch).ToList();
-                    _dbatch.ForEach(f =>
+                    foreach (string batch in dBatchtemp)
                     {
-                        if (flag == true)
+                        var _dbatch = batchTemp.Where(r => r.Batch == batch).ToList();
+                        _dbatch.ForEach(f =>
                         {
-                            proc.GetDocStampDetails(docTemp, f.DocStampNumber);
-                            flag = false;
-                        }
+                            if (flag == true)
+                            {
+                                proc.GetDocStampDetails(docTemp, f.DocStampNumber);
+                                flag = false;
+                            }
 
-                    });
+                        });
 
+                    }
+                    documentStampToolStripMenuItem.Enabled = true;
                 }
+                else
+                    documentStampToolStripMenuItem.Enabled = false;
                 printDRToolStripMenuItem.Enabled = true;
                 MessageBox.Show("Batch :" + txtRecentBatch.Text + " has been generated!!!");
             }

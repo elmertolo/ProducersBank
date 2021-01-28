@@ -16,14 +16,14 @@ namespace ProducersBank.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PNBDeliveryReceipt : ReportClass {
+    public class DeliveryReceipt : ReportClass {
         
-        public PNBDeliveryReceipt() {
+        public DeliveryReceipt() {
         }
         
         public override string ResourceName {
             get {
-                return "PNBDeliveryReceipt.rpt";
+                return "DeliveryReceipt.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace ProducersBank.Reports {
         
         public override string FullResourceName {
             get {
-                return "ProducersBank.Reports.PNBDeliveryReceipt.rpt";
+                return "ProducersBank.Reports.DeliveryReceipt.rpt";
             }
             set {
                 // Do nothing
@@ -106,9 +106,9 @@ namespace ProducersBank.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPNBDeliveryReceipt : Component, ICachedReport {
+    public class CachedDeliveryReceipt : Component, ICachedReport {
         
-        public CachedPNBDeliveryReceipt() {
+        public CachedDeliveryReceipt() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace ProducersBank.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PNBDeliveryReceipt rpt = new PNBDeliveryReceipt();
+            DeliveryReceipt rpt = new DeliveryReceipt();
             rpt.Site = this.Site;
             return rpt;
         }
