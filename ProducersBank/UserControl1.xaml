@@ -6,11 +6,25 @@
              xmlns:local="clr-namespace:ProducersBank"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Background="White">
-        <Grid >
-            <Image x:Name="image" HorizontalAlignment="Left" Height="85" Margin="10,10,0,0" VerticalAlignment="Top" Width="780" Source="/Image/Header_Main.png" />
-        </Grid>
-        <Grid/>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="image" HorizontalAlignment="left" Height="88" VerticalAlignment="top" RenderTransformOrigin="-1.817,-0.427" Source="/Image/Header_Main.png" Stretch="Fill" Grid.ColumnSpan="2" Margin="-1,-5,0,0" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.151"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="23" Margin="0,0,0,6" VerticalAlignment="Bottom"  Source="/Image/FormBackground.jpg" Stretch="Fill" Grid.ColumnSpan="2"/>
+        <Image x:Name="image2" Margin="0,88,0,33" Source="/Image/FormBackground.jpg" Stretch="Fill" Grid.ColumnSpan="2"/>
+        <DataGrid x:Name="dataGrid" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10,98,10,252" VerticalAlignment="Stretch"  />
 
+    </Grid>
 </UserControl>

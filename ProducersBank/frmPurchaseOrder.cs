@@ -170,7 +170,6 @@ namespace ProducersBank
                     row.Cells["Description"].Value.ToString()
                     );
 
-
                 }
                 //Disable editing on other columns
                 foreach (DataGridViewColumn col in dgvListToProcess.Columns)
@@ -197,15 +196,11 @@ namespace ProducersBank
                 //dgvListToProcess.DataSource = sortedList;
                 //dgvListToProcess.ClearSelection();
 
-
-
             }
             else
             {
                 MessageBox.Show("Please select at least one record");
             }
-
-
         }
 
         private void btnAddSelectedItem_Click(object sender, EventArgs e)
@@ -273,11 +268,10 @@ namespace ProducersBank
                     }
 
 
-                    ///DONT REMOVE THIS COMMENT BLOCK.. THIS CODE SERVES AS A REPORT PRINTING WHEN CLIENT NEEDED IT JUST IN CASE.
-                    
+                    ///DONT REMOVE THIS COMMENT BLOCK.. THIS CODE SERVES AS A REPORT PRINTING JUST IN CASE CLIENT NEED IT.
+
                     ////Create new instance of the document/ Prepare report using Crystal Reports
                     //ReportDocument crystalDocument = new ReportDocument();
-
 
                     ////Check RPT File
                     //if (!p.LoadReportPath("PurchaseOrder", ref crystalDocument))
@@ -292,7 +286,6 @@ namespace ProducersBank
                     ////Supply details on report parameters
                     //p.FillCRReportParameters("SalesInvoice", ref crystalDocument);
 
-
                     ////Supply these details into Global ReportDocument to be able for the report viewer to initialize the rerport
                     //gCrystalDocument = crystalDocument;
 
@@ -304,7 +297,6 @@ namespace ProducersBank
                     MessageBox.Show("Record has been saved successfully.");
 
                 }
-
             }
         }
 
@@ -418,6 +410,40 @@ namespace ProducersBank
         private void btnCancelClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SearchItem();
+           
+        }
+
+        private void SearchItem()
+        {
+            if (!string.IsNullOrWhiteSpace(txtSearch.Text.ToString()))
+            {
+                DataTable dt = new DataTable();
+                if (!proc.LoadSearchedItem(txtSearch.Text, ref dt))
+                {
+                    MessageBox.Show("Error searching Item (proc.LoadSearchedItem)\r\n \r\n" + proc.errorMessage);
+                    return;
+                }
+                if (dt.Rows.Count <= 0)
+                {
+                    MessageBox.Show("No record(s) found");
+                    txtSearch.SelectAll();
+                    return;
+                }
+                dgvItemList.DataSource = dt;
+            }
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SearchItem();
+            }
         }
     }
 }

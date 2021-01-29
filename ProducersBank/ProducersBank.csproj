@@ -313,6 +313,9 @@
     </Compile>
     <Compile Include="Services\ProcessServices.cs" />
     <Compile Include="Services\ProcessServices_Nelson.cs" />
+    <Compile Include="UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewReports.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -417,7 +420,12 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <ItemGroup>
     <COMReference Include="CrystalAnalysisCommLayerLib">
       <Guid>{AAA3345B-2177-4D19-8D75-21688FE36251}</Guid>
@@ -477,12 +485,24 @@
   <ItemGroup>
     <Content Include="Captive.ico" />
     <Content Include="DLL\MySql.Data.dll" />
+<<<<<<< HEAD
     <Content Include="Header_Main.png" />
+=======
+>>>>>>> d359ac134398364caabe0e77aa67bc38bedf7226
     <Content Include="Image\background-red-header.png" />
     <Content Include="Image\Button_Yellow.png" />
     <Content Include="Image\Captive.ico" />
-    <Content Include="Image\FormBackground.jpg" />
+    <Resource Include="Image\FormBackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Image\Header_Login.png" />
+<<<<<<< HEAD
+=======
+
+    <Resource Include="Image\Header_Main.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+>>>>>>> d359ac134398364caabe0e77aa67bc38bedf7226
     <Content Include="Image\Header_Main.png" />
     <Content Include="Image\Header_DR.png" />
     <Content Include="Image\Header_DocStamp.png" />
@@ -490,9 +510,12 @@
     <Content Include="Image\LoginBackground.jpg" />
     <Content Include="Image\Print.png" />
     <Content Include="Image\YellowButton.png" />
+<<<<<<< HEAD
     <None Include="Resources\YellowButton4.png" />
     <None Include="Resources\Button_Yellow1.png" />
     <None Include="Resources\Button_Yellow.png" />
+=======
+>>>>>>> d359ac134398364caabe0e77aa67bc38bedf7226
     <None Include="Resources\YellowButton3.png" />
     <None Include="Resources\YellowButton2.png" />
     <None Include="Resources\Header_Login.png" />
@@ -542,12 +565,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="UserControl1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -415,7 +415,7 @@ namespace ProducersBank
         private void SearchText()
         {
             DataTable dt = new DataTable();
-            if (txtSearch.Text is null || txtSearch.Text == "")
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
             {
                 MessageBox.Show("Please input batch number to search");
             }
