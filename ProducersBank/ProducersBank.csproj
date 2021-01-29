@@ -131,7 +131,7 @@
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
@@ -477,32 +477,22 @@
   <ItemGroup>
     <Content Include="Captive.ico" />
     <Content Include="DLL\MySql.Data.dll" />
-<<<<<<< HEAD
-=======
     <Content Include="Header_Main.png" />
->>>>>>> 15f70bfff38024c67d0510922de7ab79532d8b66
     <Content Include="Image\background-red-header.png" />
     <Content Include="Image\Button_Yellow.png" />
     <Content Include="Image\Captive.ico" />
     <Content Include="Image\FormBackground.jpg" />
     <Content Include="Image\Header_Login.png" />
-<<<<<<< HEAD
     <Content Include="Image\Header_Main.png" />
     <Content Include="Image\Header_DR.png" />
     <Content Include="Image\Header_DocStamp.png" />
-=======
-    <Resource Include="Image\Header_Main.png" />
->>>>>>> 15f70bfff38024c67d0510922de7ab79532d8b66
     <Content Include="Image\Header_SalesInvoice.png" />
     <Content Include="Image\LoginBackground.jpg" />
     <Content Include="Image\Print.png" />
     <Content Include="Image\YellowButton.png" />
-<<<<<<< HEAD
-=======
     <None Include="Resources\YellowButton4.png" />
     <None Include="Resources\Button_Yellow1.png" />
     <None Include="Resources\Button_Yellow.png" />
->>>>>>> 15f70bfff38024c67d0510922de7ab79532d8b66
     <None Include="Resources\YellowButton3.png" />
     <None Include="Resources\YellowButton2.png" />
     <None Include="Resources\Header_Login.png" />
