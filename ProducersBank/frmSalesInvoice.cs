@@ -43,18 +43,20 @@ namespace ProducersBank
 
         private void frmSalesInvoice_Load(object sender, EventArgs e)
         {
-           
-            DataTable dt = new DataTable();
-            if (!proc.LoadUnprocessedSalesInvoiceData(ref dt))
-            {
-                MessageBox.Show("Server Connection Error (LoadInitialData) \r\n" + proc.errorMessage);
-                return;
-            }
-            
-            dgvDRList.DataSource = dt;
-            dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
 
-            txtSalesInvoiceNumber.Focus();
+            //DataTable dt = new DataTable();
+            //if (!proc.LoadUnprocessedSalesInvoiceData(ref dt))
+            //{
+            //    MessageBox.Show("Server Connection Error (LoadInitialData) \r\n" + proc.errorMessage);
+            //    return;
+            //}
+
+            //dgvDRList.DataSource = dt;
+            //dgvDRList.ClearSelection(); // remove first highlighted row in datagrid
+
+            //txtSalesInvoiceNumber.Focus();
+
+            RefreshView();
         }
 
         private void frmSalesInvoice_FormClosing(object sender, FormClosingEventArgs e)
@@ -188,6 +190,14 @@ namespace ProducersBank
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
                     line.lineTotalAmount = Math.Round(line.Quantity * line.unitPrice, 2);
 
+                    //Check if record is already inserted
+                    if (p.BatchRecordHasDuplicate(line, salesInvoiceList))
+                    {
+                        MessageBox.Show("Selected Batch already added");
+                        return;
+                    }
+
+
                     //(Validation) Checing of Onhand quantity for PNB
                     if (gClient.ShortName == "PNB")
                     {
@@ -213,12 +223,7 @@ namespace ProducersBank
                         }
                     }
 
-                    //Check if record is already inserted
-                    if (p.BatchRecordHasDuplicate(line, salesInvoiceList))
-                    {
-                        MessageBox.Show("Selected Batch already added");
-                        return;
-                    }
+                   
 
                     salesInvoiceList.Add(line);
 
@@ -267,13 +272,11 @@ namespace ProducersBank
 
                     ProcessServices_Nelson proc = new ProcessServices_Nelson();
 
-
                     if (!proc.UpdateTempTableSI(salesInvoiceList))
                     {
                         MessageBox.Show("Sales Invoice Temp Table Update Error (UpdateTempTable). \r\n" + proc.errorMessage);
                         return;
                     }
-
 
                     //Fill gSalesInvoiceFinished Model Class
                     //gSalesInvoiceList = salesInvoiceList;
@@ -290,7 +293,6 @@ namespace ProducersBank
                     ///Sort Sales Invoice By Batch before saving and Printing
                     var sortedList = salesInvoiceList.OrderBy(x => x.Batch).ToList();
 
-
                     ///Update Database
                     if (!proc.UpdateSalesInvoiceHistory(sortedList))
                     {
@@ -303,23 +305,17 @@ namespace ProducersBank
                     {
                         foreach(var item in sortedList)
                         {
-                            int quantity = item.Quantity;
-                            string checkname = item.checkName;
-                            int purchaseOrderNumber = item.PurchaseOrderNumber;
 
-                            if (!proc.UpdateItemQuantityOnhand(quantity, checkname, purchaseOrderNumber))
+                            if (!proc.UpdateItemQuantityOnhand(item.Quantity, item.checkName, item.PurchaseOrderNumber))
                             {
-                                MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n" + proc.errorMessage);
+                                MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n \r\n" + proc.errorMessage);
                                 return;
                             }
                         }
-
                     }
-
 
                     //Create new instance of the document/ Prepare report using Crystal Reports
                     ReportDocument crystalDocument = new ReportDocument();
-                    
                     
                     //Check RPT File
                     if (!p.LoadReportPath("SalesInvoice", ref crystalDocument))
@@ -395,19 +391,12 @@ namespace ProducersBank
             txtSalesInvoiceNumber.Focus();
             cbCheckedBy.Text = "";
             cbApprovedBy.Text = "";
-            
-            DataTable dt = new DataTable();
-            proc.LoadUnprocessedSalesInvoiceData(ref dt);
-            dgvDRList.DataSource = dt;
-            dgvDRList.ClearSelection();
 
-            var sortedList = salesInvoiceList
-                     .Select
-                     (i => new { i.Quantity, i.Batch, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
-                     .ToList();
+            salesInvoiceList.Clear();
 
-            dgvListToProcess.DataSource = sortedList;
-            dgvListToProcess.ClearSelection();
+            DisableControls();
+
+           
 
 
         }
@@ -508,6 +497,11 @@ namespace ProducersBank
                 gSalesInvoiceFinished.VatAmount = row.Field<double>("VatAmount");
                 gSalesInvoiceFinished.NetOfVatAmount = row.Field<double>("NetOfVatAmount");
 
+                //PNB
+                if (gClient.ShortName == "PNB")
+                {
+                }
+
             }
 
             //Get Sales Invoice List Details to be supplied to Global Report Datatable
@@ -521,6 +515,7 @@ namespace ProducersBank
 
             //Create new instance of the document.
             ReportDocument crystalDocument = new ReportDocument();
+
 
             //Load path of the report
             if (!p.LoadReportPath("SalesInvoice", ref crystalDocument))
@@ -557,6 +552,78 @@ namespace ProducersBank
         private void dgvDRList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             AddSelectedDRRow();
+        }
+
+        public void DisableControls()
+        {
+            gbSearch.Enabled = false;
+            gbBatchList.Enabled = false;
+            gbDetails.Enabled = false;
+            gbBatchToProcess.Enabled = false;
+            pnlActionButtons.Enabled = false;
+            gbSINo.Enabled = true;
+
+            dgvDRList.ClearSelection();
+
+            var sortedList = salesInvoiceList
+                    .Select
+                    (i => new { i.Quantity, i.Batch, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                    .ToList();
+
+            dgvListToProcess.DataSource = sortedList;
+            dgvListToProcess.ClearSelection();
+
+            txtSalesInvoiceNumber.Focus();
+          
+        }
+
+        public void EnableControls()
+        {
+            gbSearch.Enabled = true;
+            gbBatchList.Enabled = true;
+            gbDetails.Enabled = true;
+            gbBatchToProcess.Enabled = true;
+            pnlActionButtons.Enabled = true;
+            gbSINo.Enabled = false;
+
+            DataTable dt = new DataTable();
+            proc.LoadUnprocessedSalesInvoiceData(ref dt);
+            dgvDRList.DataSource = dt;
+            dgvDRList.ClearSelection();
+
+            var sortedList = salesInvoiceList
+                    .Select
+                    (i => new { i.Quantity, i.Batch, i.checkName, i.drList, i.checkType, i.salesInvoiceDate, i.unitPrice, i.lineTotalAmount })
+                    .ToList();
+
+            dgvListToProcess.DataSource = sortedList;
+            dgvListToProcess.ClearSelection();
+
+            txtSalesInvoiceNumber.Focus();
+
+        }
+
+        private void btnAddRecord_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtSalesInvoiceNumber.Text.ToString()))
+            {
+                EnableControls();
+            }
+        }
+
+        private void txtSalesInvoiceNumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (string.IsNullOrWhiteSpace(txtSalesInvoiceNumber.Text.ToLower()))
+                {
+                    MessageBox.Show("Please enter valid sales invoice number");
+                    return;
+                }
+                EnableControls();
+
+            }
+           
         }
     }
 

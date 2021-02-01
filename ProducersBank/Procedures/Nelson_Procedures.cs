@@ -112,11 +112,6 @@ namespace ProducersBank.Procedures
                     crystalDoucument.SetParameterValue("prNetOfVatAmount", gSalesInvoiceFinished.NetOfVatAmount.ToString() ?? "");
                     crystalDoucument.SetParameterValue("prClientCode", gClient.ClientCode.ToString() ?? "");
 
-                    if (gClient.ShortName == "PNB")
-                    {
-
-                    }
-
                     break;
 
                 default:
