@@ -66,6 +66,7 @@ namespace ProducersBank
             this.gbSINo = new System.Windows.Forms.GroupBox();
             this.btnAddRecord = new System.Windows.Forms.Button();
             this.pnlActionButtons = new System.Windows.Forms.GroupBox();
+            this.btnDeleteSiRecord = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListToProcess)).BeginInit();
             this.gbSearch.SuspendLayout();
@@ -395,7 +396,7 @@ namespace ProducersBank
             this.btnReprint.Name = "btnReprint";
             this.btnReprint.Size = new System.Drawing.Size(158, 62);
             this.btnReprint.TabIndex = 23;
-            this.btnReprint.Text = "REPRINT PREVIOUS SALES INVOICE";
+            this.btnReprint.Text = "REPRINT SALES INVOICE";
             this.btnReprint.UseVisualStyleBackColor = true;
             this.btnReprint.Click += new System.EventHandler(this.btnReprint_Click);
             // 
@@ -437,6 +438,7 @@ namespace ProducersBank
             // 
             this.pnlActionButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlActionButtons.Controls.Add(this.btnDeleteSiRecord);
             this.pnlActionButtons.Controls.Add(this.btnViewSelected);
             this.pnlActionButtons.Controls.Add(this.btnReloadDrList);
             this.pnlActionButtons.Controls.Add(this.btnReprint);
@@ -446,6 +448,16 @@ namespace ProducersBank
             this.pnlActionButtons.Size = new System.Drawing.Size(170, 593);
             this.pnlActionButtons.TabIndex = 36;
             this.pnlActionButtons.TabStop = false;
+            // 
+            // btnDeleteSiRecord
+            // 
+            this.btnDeleteSiRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteSiRecord.Location = new System.Drawing.Point(6, 389);
+            this.btnDeleteSiRecord.Name = "btnDeleteSiRecord";
+            this.btnDeleteSiRecord.Size = new System.Drawing.Size(158, 62);
+            this.btnDeleteSiRecord.TabIndex = 24;
+            this.btnDeleteSiRecord.Text = "DELETE SALES INVOICE";
+            this.btnDeleteSiRecord.UseVisualStyleBackColor = true;
             // 
             // frmSalesInvoice
             // 
@@ -520,5 +532,6 @@ namespace ProducersBank
         private System.Windows.Forms.GroupBox gbSINo;
         private System.Windows.Forms.Button btnAddRecord;
         private System.Windows.Forms.GroupBox pnlActionButtons;
+        private System.Windows.Forms.Button btnDeleteSiRecord;
     }
 }
