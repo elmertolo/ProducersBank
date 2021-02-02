@@ -456,7 +456,7 @@ namespace ProducersBank
                     return;
                 }
 
-                var check = dt.Rows.Count != 0 ? dgvDRList.DataSource = dt : MessageBox.Show("No results found");
+                _ = dt.Rows.Count != 0 ? dgvDRList.DataSource = dt : MessageBox.Show("No results found");
                 txtSearch.Focus();
                 txtSearch.SelectAll();
                 dgvDRList.ClearSelection();

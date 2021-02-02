@@ -368,8 +368,18 @@ namespace ProducersBank.Services
             try
             {
                 MySqlDataAdapter da;
-                string sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from " + gClient.DataBaseName +
+                string sql;
+                if (gClient.ShortName == "PNB")
+                {
+                    sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity, Location from " + gClient.DataBaseName +
                     " where salesinvoice is null and batch = '" + batchToSearch + "' group by batch, chequename, ChkType;";
+                }
+                else
+                {
+                    sql = "select batch, chequename, ChkType, deliverydate, count(ChkType) as Quantity from " + gClient.DataBaseName +
+                    " where salesinvoice is null and batch = '" + batchToSearch + "' group by batch, chequename, ChkType;";
+                }
+                
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 da = new MySqlDataAdapter(cmd);
                 cmd.ExecuteNonQuery();
