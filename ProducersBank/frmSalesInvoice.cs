@@ -228,10 +228,7 @@ namespace ProducersBank
                     {
                         line.Location = row.Cells["location"].Value.ToString();
                     }
-                    
-                    
-                    
-                    
+
                     line.drList = proc.GetDRList(line.Batch, line.checkType, line.deliveryDate, line.Location);
                     line.unitPrice = double.Parse(proc.GetUnitPrice(line.checkName).ToString("#.##"));
                     line.lineTotalAmount = Math.Round(line.Quantity * line.unitPrice, 2);
@@ -257,12 +254,12 @@ namespace ProducersBank
                             //Check if quantity is sufficient
                             if (!proc.IsQuantityOnHandSufficient(line.Quantity, line.checkName, line.PurchaseOrderNumber, ref remainingQuantity, ref salesInvoiceList))
                             {
-                                MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n" + proc.errorMessage);
+                                MessageBox.Show("Error on (Procedure ChequeQuantityIsSufficient) \r\n \r\n" + proc.errorMessage);
                                 return;
                             }
+
                             line.RemainingQuantity = remainingQuantity;
                             
-
                         }
                         else if(result == DialogResult.Cancel)
                         {
@@ -270,14 +267,9 @@ namespace ProducersBank
                         }
                     }
 
-                   
-
                     salesInvoiceList.Add(line);
 
                 }
-
-
-                
 
                 //created 'list' variable column sorting by line for datagrid view 
                 var sortedList = salesInvoiceList
@@ -511,12 +503,11 @@ namespace ProducersBank
 
         private void btnReprint_Click(object sender, EventArgs e)
         {
-            frmMessageInput xfrm = new frmMessageInput();
-            xfrm.labelMessage = "Input Sales Invoice Number:";
-            DialogResult result = xfrm.ShowDialog();
-            if (result == DialogResult.OK)
+            int salesInvoiceNumber = int.Parse(txtSalesInvoiceNumber.Text);
+            DialogResult result = MessageBox.Show("Reprint Invoice Number " + salesInvoiceNumber.ToString() + "?","Confirmation", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                ReprintSalesInvoice(int.Parse(xfrm.userInput));
+                ReprintSalesInvoice(salesInvoiceNumber);
             }
         }
 
@@ -637,7 +628,7 @@ namespace ProducersBank
             gbSINo.Enabled = false;
 
             //Enable all Action Buttons
-            btnDeleteSiRecord.Enabled = false;
+            btnCancelSiRecord.Enabled = false;
             btnReprint.Enabled = false;
             btnReloadDrList.Enabled = true;
             btnPrintSalesInvoice.Enabled = true;
@@ -664,40 +655,16 @@ namespace ProducersBank
 
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtSalesInvoiceNumber.Text.ToString()))
-            {
-                DataTable dt = new DataTable();
-                if (proc.SalesInvoiceExist(int.Parse(txtSalesInvoiceNumber.Text.ToString()), ref dt))
-                {
-                    DisplayOldSalesInvoiceList(int.Parse(txtSalesInvoiceNumber.Text.ToString()), ref dt);
 
-                }
-                else
-                {
-                    EnableControls();
-                }
-                
-            }
+            AddRecord();
+
         }
 
         private void txtSalesInvoiceNumber_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (!string.IsNullOrWhiteSpace(txtSalesInvoiceNumber.Text.ToString()))
-                {
-                    DataTable dt = new DataTable();
-                    if (proc.SalesInvoiceExist(int.Parse(txtSalesInvoiceNumber.Text.ToString()), ref dt))
-                    {
-                        DisplayOldSalesInvoiceList(int.Parse(txtSalesInvoiceNumber.Text.ToString()), ref dt);
-
-                    }
-                    else
-                    {
-                        EnableControls();
-                    }
-
-                }
+                AddRecord();
 
             }
            
@@ -776,7 +743,7 @@ namespace ProducersBank
 
             gbSINo.Enabled = false;
             pnlActionButtons.Enabled = true;
-            btnDeleteSiRecord.Enabled = true;
+            btnCancelSiRecord.Enabled = true;
             btnReprint.Enabled = true;
             btnReloadDrList.Enabled = true;
             btnPrintSalesInvoice.Enabled = false;
@@ -784,6 +751,65 @@ namespace ProducersBank
 
         }
 
+    
+        private void AddRecord()
+        {
+            if (!string.IsNullOrWhiteSpace(txtSalesInvoiceNumber.Text.ToString()))
+            {
+                DataTable dt = new DataTable();
+                int salesInvoiceNumber = int.Parse(txtSalesInvoiceNumber.Text.ToString());
+                bool isSalesInvoiceCancelled = bool.Parse(proc.SeekReturn("select iscancelled from "+ gClient.SalesInvoiceFinishedTable +" where salesinvoicenumber = "+ salesInvoiceNumber +"","boolean").ToString());
+
+                if (proc.SalesInvoiceExist(salesInvoiceNumber, ref dt) && isSalesInvoiceCancelled == true)
+                {
+                    MessageBox.Show("Sales Invoice Number Entered is already cancelled");
+                    RefreshView();
+                }
+                else if (proc.SalesInvoiceExist(int.Parse(txtSalesInvoiceNumber.Text.ToString()), ref dt))
+                {
+                    DisplayOldSalesInvoiceList(int.Parse(txtSalesInvoiceNumber.Text.ToString()), ref dt);
+                }
+                else
+                {
+                    EnableControls();
+                }
+
+            }
+        }
+
+        private void btnCancelSiRecord_Click(object sender, EventArgs e)
+        {
+            CancelSalesInvoiceRecord();
+        }
+
+
+        private void CancelSalesInvoiceRecord()
+        {
+
+            int salesInvoiceNumber = int.Parse(txtSalesInvoiceNumber.Text.ToString());
+
+            DialogResult result = MessageBox.Show("Cancel Invoice Number " + salesInvoiceNumber.ToString() + "?", "Confirmation", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                if (!proc.RemoveSalesInvoiceTagOnHistory(salesInvoiceNumber))
+                {
+                    MessageBox.Show("Error on (proc.RemoveSalesInvoiceTag)\r\n \r\n" + proc.errorMessage);
+                    return;
+                }
+                lblRowsAffected.Text = "Total Rows Updated: " + proc.RowNumbersAffected.ToString();
+
+                if (!proc.UpdateSalesInvoiceStatusOnfinished(salesInvoiceNumber, 1))
+                {
+                    MessageBox.Show("Error on (proc.UpdateSalesInvoiceStatusOnfinished()\r\n \r\n" + proc.errorMessage);
+                    return;
+                }
+                lblRowsAffected.Text = "Total Rows Updated: " + proc.RowNumbersAffected.ToString();
+                MessageBox.Show("Record Updated!");
+                RefreshView();
+            }
+
+        }
 
 
 
